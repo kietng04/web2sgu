@@ -1,0 +1,303 @@
+var categoryz = [];
+var currentPage = 1;
+var listProduct = null;
+var perPage = 4;
+function login(e, a = document.getElementById("username").value, b = document.getElementById("passlogin").value) {
+  e.preventDefault();
+  if (a == null || b == null) {
+    var a = document.getElementById("username").value;
+    var b = document.getElementById("passlogin").value;
+  }
+  $.ajax({
+    url: "./controller/ProductsController.php",
+    type: "post",
+    dataType: "json",
+    timeout: 1500,
+    data: {
+      request: "dangnhap",
+      data_username: a,
+      data_pass: b,
+    },
+    success: function (result) {
+      console.log(result);
+      if (result != null) {
+        createToast("success");
+        document.querySelector(".container").style.display = "none";
+        document.querySelector(".black-bg").style.display = "none";
+        updateUI();
+
+        return 1;
+      } else {
+        createToast("error");
+        return 0;
+      }
+    },
+  });
+}
+
+function updateUI() {
+  getCurrentUser((data) => {
+    if (data) {
+      document.querySelector(".xinchao").innerHTML =
+        "Xin chào" + data[0]["Ten"];
+      createToastWithMes(
+        "fa-face-smile",
+        "Chào mừng quay trở lại, " + data[0]["Ho"] + " " + data[0]["Ten"] + "!",
+        "info"
+      );
+      document.querySelector(".fa.fa-user").style.display = "none";
+      document.querySelector(".fa.fa-sign-out").style.display = "block";
+      initlize();
+    } else {
+      document.querySelector(".fa.fa-user").style.display = "block";
+      document.querySelector(".fa.fa-sign-out").style.display = "none";
+      document.querySelector(".xinchao").innerHTML = "";
+    }
+  });
+}
+function getCurrentUser(callbackFunc) {
+  $.ajax({
+    type: "POST",
+    url: "controller/ProductsController.php",
+    dataType: "json",
+    timeout: 1500, // sau 1.5 giây mà không phản hồi thì dừng => hiện lỗi
+    data: {
+      request: "getCurrentUser",
+    },
+    success: function (data) {
+      if (callbackFunc) callbackFunc(data);
+    },
+  });
+}
+
+function initlize() {
+  document.querySelector(".fa.fa-sign-out").addEventListener("click", function () {
+      $.ajax({
+        type: "POST",
+        url: "controller/ProductsController.php",
+        dataType: "json",
+        timeout: 1500, // sau 1.5 giây mà không phản hồi thì dừng => hiện lỗi
+        data: {
+          request: "logout",
+        },
+        success: function (data) {
+          if (data) {
+            createToastWithMes("fa-face-sad-cry", "Hẹn gặp lại bạn!", "error");
+            updateUI();
+          }
+        },
+      });
+    });
+}
+
+function signup(e) {
+  e.preventDefault();
+  $.ajax({
+    url: "controller/ProductsController.php",
+    type: "post",
+    dataType: "json",
+    timeout: 1500,
+    data: {
+      request: "dangky",
+      data_ho: document.getElementById("lastName").value,
+      data_ten: document.getElementById("firstName").value,
+      data_sdt: document.getElementById("phone").value,
+      data_email: document.getElementById("email").value,
+      data_diachi: document.getElementById("address").value,
+      data_newUser: document.getElementById("name").value,
+      data_newPass: document.getElementById("pass").value,
+      data_gioitinh: document.getElementById("sexial").value
+    },
+    success: function (kq) {
+      if (kq != null) {
+        login(e, document.getElementById("name").value, document.getElementById("pass").value);
+      }
+    },
+  });
+}
+
+function FormValidate(e){
+    var name = document.getElementById('name').value;
+    console.log('name', name)
+    var errorName = document.getElementById('errorName');
+    var regexName = /^KH(\d{3})$/;
+
+    var phone = document.getElementById('phone').value;
+    var errorPhone = document.getElementById('errorPhone');
+    var regexPhone = /^0(\d{9}|9\d{8})$/;
+
+    var email = document.getElementById('email').value;
+    var errorEmail = document.getElementById('errorEmail');
+    var reGexEmail = /\S+@\S+\.\S+/;;
+
+    var passW = document.getElementById('pass').value;
+    var errorPass = document.getElementById('errorPass');
+    var reGexPass = /.{8,}/;
+    
+
+    var ConPass = document.getElementById('passw').value;
+    var errorConPass = document.getElementById('errorConPass');
+    
+
+    var lastName = document.getElementById('lastName').value;
+    var errorLastName = document.getElementById('errorLastName');
+
+    var firstName = document.getElementById('firstName').value;
+    var errorFirstName = document.getElementById('errorFirstName');
+
+    var address = document.getElementById('address').value;
+    var errorAddress = document.getElementById('errorAddress');
+
+    var sexial = document.getElementById('sexial').value;
+    var errorSexial = document.getElementById('errorSexial');
+
+    //xét thành rỗng lúc đầu    errorLastName.innerHTML = '';
+    errorFirstName.innerHTML = '';
+    errorAddress.innerHTML = '';
+    errorName.innerHTML = '';
+    errorPhone.innerHTML = '';
+    errorEmail.innerHTML = '';
+    errorPass.innerHTML = '';
+    errorConPass.innerHTML = '';
+    errorSexial.innerHTML = '';
+
+    if (lastName == '' || lastName == null) {
+        errorLastName.innerHTML = "Họ không được để trống!";
+        document.getElementById('lastName').focus();
+    } else {
+        errorLastName.innerHTML = '';
+    }
+
+    if (firstName == '' || firstName == null) {
+        errorFirstName.innerHTML = "Tên không được để trống!";
+        document.getElementById('firstName').focus();
+    } else {
+        errorFirstName.innerHTML = '';
+    }
+
+    if (address == '' || address == null) {
+        errorAddress.innerHTML = "Địa chỉ không được để trống!";
+        document.getElementById('address').focus();
+    } else {
+        errorAddress.innerHTML = '';
+    }
+
+    if (name == '' || name == null) {
+        errorName.innerHTML = "Tên tài khoản không được để trống!";
+        document.getElementById('name').focus();
+    }else if(!regexName.test(name)){
+        errorName.innerHTML = "Tên tài khoản bắt đầu bằng kí tư KH và 3 chữ số (Vd: KH001)!";
+        // return false;
+    }else{
+        errorName.innerHTML = '';
+    }
+
+    if (phone == '' || phone == null) {
+        errorPhone.innerHTML = "Số điện thoại không được để trống!";
+    }else if(!regexPhone.test(phone)){
+        errorPhone.innerHTML = "Số điện thoại không hợp lệ!";
+        // return false;
+    }else{
+        errorPhone.innerHTML = '';
+    }
+
+    if (email == '' || email == null) {
+        errorEmail.innerHTML = "Email không được để trống!";
+    }else if(!reGexEmail.test(email)){
+        errorEmail.innerHTML = "Email không hợp lệ!";
+        email = '';
+    }else{
+        errorEmail.innerHTML = '';
+    }
+
+    if (passW == '' || passW == null) {
+        errorPass.innerHTML = "Mật khẩu vui lòng không để trống!";
+    }
+    else if(!reGexPass.test(passW)){
+        errorPass.innerHTML = "Pass tối thiểu 8 kí tự!";
+        // return false;
+    }
+    else{
+        errorPass.innerHTML = "";
+    }
+
+    if (ConPass == '' || ConPass == null) {
+        errorConPass.innerHTML = "Xác nhận mật khẩu vui lòng không để trống!";
+    } else if (ConPass != passW) {
+        errorConPass.innerHTML = "Xác nhận mật khẩu không trùng khớp!";
+    }else{
+        errorConPass.innerHTML = "";
+    }
+
+    if (sexial == '' || sexial == null) {
+        errorSexial.innerHTML = "Giới tính không được để trống!";
+        document.getElementById('sexial').focus();
+    } else if (!(sexial.toLowerCase() === 'nam' || sexial.toLowerCase() === 'nu')) {
+        errorSexial.innerHTML = 'Giới tính vui lòng nhập "Nam" hoặc "Nu"';
+        document.getElementById('sexial').focus();
+        return false;
+    }
+
+    if (name && phone && email && ConPass && passW && passW == ConPass && firstName && lastName && sexial && address) {
+        // Người dùng đã nhập đúng thông tin
+        //xét thành rỗng lúc đầu   
+        errorLastName.innerHTML = '';
+        errorFirstName.innerHTML = '';
+        errorAddress.innerHTML = '';
+        errorName.innerHTML = '';
+        errorPhone.innerHTML = '';
+        errorEmail.innerHTML = '';
+        errorPass.innerHTML = '';
+        errorConPass.innerHTML = '';
+        errorSexial.innerHTML = '';
+        signup(e);
+        return true; 
+    }else{
+    }
+    
+    return false;
+}
+
+function filterCategory(category) {
+  categoryz.push(category);
+  $.ajax({
+    url: "./controller/ProductsController.php",
+    type: "post",
+    dataType: "json",
+    timeout: 1500,
+    data: {
+      request: "getProductByFilters",
+      category: category,
+    },
+    success: function (result) {
+      listProduct = result;
+      currentPage = 1;
+      console.log(result);
+      showProducts();
+    },
+
+  });
+}
+
+
+function showProducts() {
+  var html = "";
+  listProduct.forEach(function (item) {
+     html += `<div class="scproducts__list-item">
+     <div class="top">
+         <div class="img">
+             <img src="${item.Img}">
+         </div>
+         <p class="title">${item.NamePizza}</p>
+     </div>
+     <div class="content">
+         <p class="desc">${item.Desc}</p>
+         <button class="btn__buy">
+             <p class="chon">CHỌN</p>
+             <p class="price">${toVND(item.Price)}</p>
+         </button>
+     </div>
+ </div>`
+  })
+  document.querySelector(".scproducts__list").innerHTML = html;
+}

@@ -3,7 +3,9 @@ SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-CREATE TABLE `nguoidung` (
+
+-- USER DATABASE
+CREATE TABLE `NguoiDung` (
   `MaND` int(11) NOT NULL,
   `Ho` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `Ten` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
@@ -14,130 +16,296 @@ CREATE TABLE `nguoidung` (
   `TaiKhoan` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `MatKhau` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `MaQuyen` int(11) NOT NULL,
-  `TrangThai` int(11) NOT NULL
+  `TrangThai` int(11) NOT NULL,
+  PRIMARY KEY (MaND)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `nguoidung` (`MaND`, `Ho`, `Ten`, `GioiTinh`, `SDT`, `Email`, `DiaChi`, `TaiKhoan`, `MatKhau`, `MaQuyen`, `TrangThai`) VALUES
+INSERT INTO `NguoiDung` (`MaND`, `Ho`, `Ten`, `GioiTinh`, `SDT`, `Email`, `DiaChi`, `TaiKhoan`, `MatKhau`, `MaQuyen`, `TrangThai`) VALUES
 (1, 'Nguyen The', 'Kiet', '', '0123456789', 'trungky@gmail.com', 'Dak Lag', 'namky', 'backy', 1, 1);
 
 
-
-CREATE TABLE `Crust` (
-  `TenCrust` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`TenCrust`)
+CREATE TABLE `NhanVien` ( 
+  `MaNV` int(11) NOT NULL,
+  `Ho` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `Ten` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `GioiTinh` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `SDT` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `Email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `DiaChi` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `TaiKhoan` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `MatKhau` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `MaQuyen` int(11) NOT NULL,
+  primary key (MaNV)
 );
-INSERT INTO `Crust` (`TenCrust`) VALUES
-('Vừa'),
-('Dày'),
-('Mỏng'),
-('Viền xúc xích'),
-('Viền phô mai'),
-('Viền phô mai xúc xích');
 
-CREATE TABLE `PizzaSize` (
-  `TenSize` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`TenSize`)
-);
-INSERT INTO `PizzaSize` (`TenSize`) VALUES
-('Nhỏ'),
-('Vừa'),
-('Lớn');
+INSERT INTO `NhanVien` (`MaNV`, `Ho`, `Ten`, `GioiTinh`, `SDT`, `Email`, `DiaChi`, `TaiKhoan`, `MatKhau`, `MaQuyen`) VALUES
+(1, 'Nguyen The', 'Kiet', 'Nam', '0123456789', 'trungki@gmail.com', 'Dak Lak', 'namky', 'backy', 1);
 
-CREATE TABLE `pizza` (
-  `MaPizza` varchar(100) NOT NULL,
-  `TenPizza` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `Gia` DECIMAL(10, 2) NOT NULL,
-  `MoTa` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `HinhAnh` varchar(200),
-  `Crust` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `PizzaSize` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `Loai` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (MaPizza, Crust, PizzaSize, Gia),
-  FOREIGN KEY (Crust) REFERENCES Crust(TenCrust),
-  FOREIGN KEY (PizzaSize) REFERENCES PizzaSize(TenSize)
+
+CREATE TABLE `HoaDon` (
+  `MaHD` int(11) NOT NULL,
+  `MaND` int(11) NOT NULL,
+  `NgayLap` date NOT NULL,
+  `TongTien` decimal(10,2) NOT NULL,
+  `TrangThai` int(11) NOT NULL,
+  primary key (MaHD)
 );
-INSERT INTO `pizza` (`MaPizza`, `TenPizza`, `Gia`, `MoTa`, `HinhAnh`, `Crust`, `PizzaSize`, `Loai`) VALUES
-('PBBQ', 'PIZZA GÀ BBQ', '119000', 'Xốt cà chua, gà, mozzarella, hành tây tím, ba rọi xông khói, xốt BBQ.', './images/pizzaimg/bbq.jpg', 'Vừa', 'Nhỏ', 'GÀ'),
-('PBBQ', 'PIZZA GÀ BBQ', '219000', 'Xốt cà chua, gà, mozzarella, hành tây tím, ba rọi xông khói, xốt BBQ.', './images/pizzaimg/bbq.jpg', 'Vừa', 'Vừa', 'GÀ'),
-('PBBQ', 'PIZZA GÀ BBQ', '289000', 'Xốt cà chua, gà, mozzarella, hành tây tím, ba rọi xông khói, xốt BBQ.', './images/pizzaimg/bbq.jpg', 'Vừa', 'Lớn', 'GÀ'),
-('PBBQ', 'PIZZA GÀ BBQ', '119000', 'Xốt cà chua, gà, mozzarella, hành tây tím, ba rọi xông khói, xốt BBQ.', './images/pizzaimg/bbq.jpg', 'Dày', 'Nhỏ', 'GÀ'),
-('PBBQ', 'PIZZA GÀ BBQ', '219000', 'Xốt cà chua, gà, mozzarella, hành tây tím, ba rọi xông khói, xốt BBQ.', './images/pizzaimg/bbq.jpg', 'Dày', 'Vừa', 'GÀ'),
-('PBBQ', 'PIZZA GÀ BBQ', '289000', 'Xốt cà chua, gà, mozzarella, hành tây tím, ba rọi xông khói, xốt BBQ.', './images/pizzaimg/bbq.jpg', 'Dày', 'Lớn', 'GÀ'),
-('PBBQ', 'PIZZA GÀ BBQ', '119000', 'Xốt cà chua, gà, mozzarella, hành tây tím, ba rọi xông khói, xốt BBQ.', './images/pizzaimg/bbq.jpg', 'Mỏng', 'Nhỏ', 'GÀ'),
-('PBBQ', 'PIZZA GÀ BBQ', '219000', 'Xốt cà chua, gà, mozzarella, hành tây tím, ba rọi xông khói, xốt BBQ.', './images/pizzaimg/bbq.jpg', 'Mỏng', 'Vừa', 'GÀ'),
-('PBBQ', 'PIZZA GÀ BBQ', '289000', 'Xốt cà chua, gà, mozzarella, hành tây tím, ba rọi xông khói, xốt BBQ.', './images/pizzaimg/bbq.jpg', 'Mỏng', 'Lớn', 'GÀ'),
-('PBD', 'PIZZA BÒ XỐT DEMI', '129000', 'Bò bằm, hành tây tím, ớt chuông, cà chua, mozzarella, xốt demi glace.', './images/pizzaimg/bodemi.jpg', 'Vừa', 'Nhỏ', 'BÒ'),
-('PBD', 'PIZZA BÒ XỐT DEMI', '229000', 'Bò bằm, hành tây tím, ớt chuông, cà chua, mozzarella, xốt demi glace.', './images/pizzaimg/bodemi.jpg', 'Vừa', 'Vừa', 'BÒ'),
-('PBD', 'PIZZA BÒ XỐT DEMI', '299000', 'Bò bằm, hành tây tím, ớt chuông, cà chua, mozzarella, xốt demi glace.', './images/pizzaimg/bodemi.jpg', 'Vừa', 'Lớn', 'BÒ'),
-('PBD', 'PIZZA BÒ XỐT DEMI', '129000', 'Bò bằm, hành tây tím, ớt chuông, cà chua, mozzarella, xốt demi glace.', './images/pizzaimg/bodemi.jpg', 'Dày', 'Nhỏ', 'BÒ'),
-('PBD', 'PIZZA BÒ XỐT DEMI', '229000', 'Bò bằm, hành tây tím, ớt chuông, cà chua, mozzarella, xốt demi glace.', './images/pizzaimg/bodemi.jpg', 'Dày', 'Vừa', 'BÒ'),
-('PBD', 'PIZZA BÒ XỐT DEMI', '299000', 'Bò bằm, hành tây tím, ớt chuông, cà chua, mozzarella, xốt demi glace.', './images/pizzaimg/bodemi.jpg', 'Dày', 'Lớn', 'BÒ'),
-('PBD', 'PIZZA BÒ XỐT DEMI', '129000', 'Bò bằm, hành tây tím, ớt chuông, cà chua, mozzarella, xốt demi glace.', './images/pizzaimg/bodemi.jpg', 'Mỏng', 'Nhỏ', 'BÒ'),
-('PBD', 'PIZZA BÒ XỐT DEMI', '229000', 'Bò bằm, hành tây tím, ớt chuông, cà chua, mozzarella, xốt demi glace.', './images/pizzaimg/bodemi.jpg', 'Mỏng', 'Vừa', 'BÒ'),
-('PBD', 'PIZZA BÒ XỐT DEMI', '299000', 'Bò bằm, hành tây tím, ớt chuông, cà chua, mozzarella, xốt demi glace.', './images/pizzaimg/bodemi.jpg', 'Mỏng', 'Lớn', 'BÒ'),
-('PCH', 'PIZZA HẢI SẢN PESTO', '129000', 'Xốt ranch, mozzarella, hành tây tím, xốt pesto, tôm, mực, thanh cua.', './images/pizzaimg/cahoi.jpg', 'Vừa', 'Nhỏ', 'HẢI SẢN'),
-('PCH', 'PIZZA HẢI SẢN PESTO', '229000', 'Xốt ranch, mozzarella, hành tây tím, xốt pesto, tôm, mực, thanh cua.', './images/pizzaimg/cahoi.jpg', 'Vừa', 'Vừa', 'HẢI SẢN'),
-('PCH', 'PIZZA HẢI SẢN PESTO', '299000', 'Xốt ranch, mozzarella, hành tây tím, xốt pesto, tôm, mực, thanh cua.', './images/pizzaimg/cahoi.jpg', 'Vừa', 'Lớn', 'HẢI SẢN'),
-('PCH', 'PIZZA HẢI SẢN PESTO', '129000', 'Xốt ranch, mozzarella, hành tây tím, xốt pesto, tôm, mực, thanh cua.', './images/pizzaimg/cahoi.jpg', 'Dày', 'Nhỏ', 'HẢI SẢN'),
-('PCH', 'PIZZA HẢI SẢN PESTO', '229000', 'Xốt ranch, mozzarella, hành tây tím, xốt pesto, tôm, mực, thanh cua.', './images/pizzaimg/cahoi.jpg', 'Dày', 'Vừa', 'HẢI SẢN'),
-('PCH', 'PIZZA HẢI SẢN PESTO', '299000', 'Xốt ranch, mozzarella, hành tây tím, xốt pesto, tôm, mực, thanh cua.', './images/pizzaimg/cahoi.jpg', 'Dày', 'Lớn', 'HẢI SẢN'),
-('PCH', 'PIZZA HẢI SẢN PESTO', '129000', 'Xốt ranch, mozzarella, hành tây tím, xốt pesto, tôm, mực, thanh cua.', './images/pizzaimg/cahoi.jpg', 'Mỏng', 'Nhỏ', 'HẢI SẢN'),
-('PCH', 'PIZZA HẢI SẢN PESTO', '229000', 'Xốt ranch, mozzarella, hành tây tím, xốt pesto, tôm, mực, thanh cua.', './images/pizzaimg/cahoi.jpg', 'Mỏng', 'Vừa', 'HẢI SẢN'),
-('PCH', 'PIZZA HẢI SẢN PESTO', '299000', 'Xốt ranch, mozzarella, hành tây tím, xốt pesto, tôm, mực, thanh cua.', './images/pizzaimg/cahoi.jpg', 'Mỏng', 'Lớn', 'HẢI SẢN'),
-('PPR', 'PIZZA DOUBLE PEPPERONI', '129000', 'Xốt cà chua, mozzarella, xúc xích Ý (pepperoni).', './images/pizzaimg/peppe.jpg', 'Vừa', 'Nhỏ', 'HEO'),
-('PPR', 'PIZZA DOUBLE PEPPERONI', '229000', 'Xốt cà chua, mozzarella, xúc xích Ý (pepperoni).', './images/pizzaimg/peppe.jpg', 'Vừa', 'Vừa', 'HEO'),
-('PPR', 'PIZZA DOUBLE PEPPERONI', '299000', 'Xốt cà chua, mozzarella, xúc xích Ý (pepperoni).', './images/pizzaimg/peppe.jpg', 'Vừa', 'Lớn', 'HEO'),
-('PPR', 'PIZZA DOUBLE PEPPERONI', '129000', 'Xốt cà chua, mozzarella, xúc xích Ý (pepperoni).', './images/pizzaimg/peppe.jpg', 'Dày', 'Nhỏ', 'HEO'),
-('PPR', 'PIZZA DOUBLE PEPPERONI', '229000', 'Xốt cà chua, mozzarella, xúc xích Ý (pepperoni).', './images/pizzaimg/peppe.jpg', 'Dày', 'Vừa', 'HEO'),
-('PPR', 'PIZZA DOUBLE PEPPERONI', '299000', 'Xốt cà chua, mozzarella, xúc xích Ý (pepperoni).', './images/pizzaimg/peppe.jpg', 'Dày', 'Lớn', 'HEO'),
-('PPR', 'PIZZA DOUBLE PEPPERONI', '129000', 'Xốt cà chua, mozzarella, xúc xích Ý (pepperoni).', './images/pizzaimg/peppe.jpg', 'Mỏng', 'Nhỏ', 'HEO'),
-('PPR', 'PIZZA DOUBLE PEPPERONI', '229000', 'Xốt cà chua, mozzarella, xúc xích Ý (pepperoni).', './images/pizzaimg/peppe.jpg', 'Mỏng', 'Vừa', 'HEO'),
-('PPR', 'PIZZA DOUBLE PEPPERONI', '299000', 'Xốt cà chua, mozzarella, xúc xích Ý (pepperoni).', './images/pizzaimg/peppe.jpg', 'Mỏng', 'Lớn', 'HEO');
-('PPR', 'PIZZA DOUBLE PEPPERONI', '299000', 'Xốt cà chua, mozzarella, xúc xích Ý (pepperoni).', './images/pizzaimg/peppe.jpg', 'Mỏng', 'Lớn', 'HEO'),
-('PHS', 'PIZZA HẢI SẢN DODO', '99000', 'Xốt ranch, mozzarella, hành tây tím, tôm, mực, thanh cua, mè, nori', './images/pizzaimg/haisandodo.jpg', 'Vừa', 'Nhỏ', 'HẢI SẢN'),
-('PHS', 'PIZZA HẢI SẢN DODO', '159000', 'Xốt ranch, mozzarella, hành tây tím, tôm, mực, thanh cua, mè, nori', './images/pizzaimg/haisandodo.jpg', 'Vừa', 'Vừa', 'HẢI SẢN'),
-('PHS', 'PIZZA HẢI SẢN DODO', '229000', 'Xốt ranch, mozzarella, hành tây tím, tôm, mực, thanh cua, mè, nori', './images/pizzaimg/haisandodo.jpg', 'Vừa', 'Lớn', 'HẢI SẢN'),
-('PHS', 'PIZZA HẢI SẢN DODO', '99000', 'Xốt ranch, mozzarella, hành tây tím, tôm, mực, thanh cua, mè, nori', './images/pizzaimg/haisandodo.jpg', 'Dày', 'Nhỏ', 'HẢI SẢN'),
-('PHS', 'PIZZA HẢI SẢN DODO', '189000', 'Xốt ranch, mozzarella, hành tây tím, tôm, mực, thanh cua, mè, nori', './images/pizzaimg/haisandodo.jpg', 'Dày', 'Vừa', 'HẢI SẢN'),
-('PHS', 'PIZZA HẢI SẢN DODO', '239000', 'Xốt ranch, mozzarella, hành tây tím, tôm, mực, thanh cua, mè, nori', './images/pizzaimg/haisandodo.jpg', 'Dày', 'Lớn', 'HẢI SẢN'),
-('PHS', 'PIZZA HẢI SẢN DODO', '99000', 'Xốt ranch, mozzarella, hành tây tím, tôm, mực, thanh cua, mè, nori', './images/pizzaimg/haisandodo.jpg', 'Mỏng', 'Nhỏ', 'HẢI SẢN'),
-('PHS', 'PIZZA HẢI SẢN DODO', '159000', 'Xốt ranch, mozzarella, hành tây tím, tôm, mực, thanh cua, mè, nori', './images/pizzaimg/haisandodo.jpg', 'Mỏng', 'Vừa', 'HẢI SẢN'),
-('PHS', 'PIZZA HẢI SẢN DODO', '239000', 'Xốt ranch, mozzarella, hành tây tím, tôm, mực, thanh cua, mè, nori', './images/pizzaimg/haisandodo.jpg', 'Mỏng', 'Lớn', 'HẢI SẢN'),
-('PGM', 'PIZZA GÀ PHÔ MAI XANH', '119000', 'Xốt kem, gà bơ tỏi, mozzarella, hành tây tím, cà chua Đà Lạt, phô mai xanh.', './images/pizzaimg/gaphomaixanh.jpg', 'Vừa', 'Nhỏ', 'GÀ'),
-('PGM', 'PIZZA GÀ PHÔ MAI XANH', '199000', 'Xốt kem, gà bơ tỏi, mozzarella, hành tây tím, cà chua Đà Lạt, phô mai xanh.', './images/pizzaimg/gaphomaixanh.jpg', 'Vừa', 'Vừa', 'GÀ'),
-('PGM', 'PIZZA GÀ PHÔ MAI XANH', '289000', 'Xốt kem, gà bơ tỏi, mozzarella, hành tây tím, cà chua Đà Lạt, phô mai xanh.', './images/pizzaimg/gaphomaixanh.jpg', 'Vừa', 'Lớn', 'GÀ'),
-('PGM', 'PIZZA GÀ PHÔ MAI XANH', '119000', 'Xốt kem, gà bơ tỏi, mozzarella, hành tây tím, cà chua Đà Lạt, phô mai xanh.', './images/pizzaimg/gaphomaixanh.jpg', 'Dày', 'Nhỏ', 'GÀ'),
-('PGM', 'PIZZA GÀ PHÔ MAI XANH', '199000', 'Xốt kem, gà bơ tỏi, mozzarella, hành tây tím, cà chua Đà Lạt, phô mai xanh.', './images/pizzaimg/gaphomaixanh.jpg', 'Dày', 'Vừa', 'GÀ'),
-('PGM', 'PIZZA GÀ PHÔ MAI XANH', '289000', 'Xốt kem, gà bơ tỏi, mozzarella, hành tây tím, cà chua Đà Lạt, phô mai xanh.', './images/pizzaimg/gaphomaixanh.jpg', 'Dày', 'Lớn', 'GÀ'),
-('PGM', 'PIZZA GÀ PHÔ MAI XANH', '119000', 'Xốt kem, gà bơ tỏi, mozzarella, hành tây tím, cà chua Đà Lạt, phô mai xanh.', './images/pizzaimg/gaphomaixanh.jpg', 'Mỏng', 'Nhỏ', 'GÀ'),
-('PGM', 'PIZZA GÀ PHÔ MAI XANH', '199000', 'Xốt kem, gà bơ tỏi, mozzarella, hành tây tím, cà chua Đà Lạt, phô mai xanh.', './images/pizzaimg/gaphomaixanh.jpg', 'Mỏng', 'Vừa', 'GÀ'),
-('PGM', 'PIZZA GÀ PHÔ MAI XANH', '289000', 'Xốt kem, gà bơ tỏi, mozzarella, hành tây tím, cà chua Đà Lạt, phô mai xanh.', './images/pizzaimg/gaphomaixanh.jpg', 'Mỏng', 'Lớn', 'GÀ'),
-('PTC', 'PIZZA TÔM CAY', '119000', 'Xốt kem, mozzarella, tôm, dứa, ớt chuông Đà lạt, xốt sriracha.', './images/pizzaimg/pizzatomcay.jpg', 'Vừa', 'Nhỏ', 'TÔM'),
-('PTC', 'PIZZA TÔM CAY', '189000', 'Xốt kem, mozzarella, tôm, dứa, ớt chuông Đà lạt, xốt sriracha.', './images/pizzaimg/pizzatomcay.jpg', 'Vừa', 'Vừa', 'TÔM'),
-('PTC', 'PIZZA TÔM CAY', '229000', 'Xốt kem, mozzarella, tôm, dứa, ớt chuông Đà lạt, xốt sriracha.', './images/pizzaimg/pizzatomcay.jpg', 'Vừa', 'Lớn', 'TÔM'),
-('PTC', 'PIZZA TÔM CAY', '119000', 'Xốt kem, mozzarella, tôm, dứa, ớt chuông Đà lạt, xốt sriracha.', './images/pizzaimg/pizzatomcay.jpg', 'Dày', 'Nhỏ', 'TÔM'),
-('PTC', 'PIZZA TÔM CAY', '189000', 'Xốt kem, mozzarella, tôm, dứa, ớt chuông Đà lạt, xốt sriracha.', './images/pizzaimg/pizzatomcay.jpg', 'Dày', 'Vừa', 'TÔM'),
-('PTC', 'PIZZA TÔM CAY', '229000', 'Xốt kem, mozzarella, tôm, dứa, ớt chuông Đà lạt, xốt sriracha.', './images/pizzaimg/pizzatomcay.jpg', 'Dày', 'Lớn', 'TÔM'),
-('PTC', 'PIZZA TÔM CAY', '119000', 'Xốt kem, mozzarella, tôm, dứa, ớt chuông Đà lạt, xốt sriracha.', './images/pizzaimg/pizzatomcay.jpg', 'Mỏng', 'Nhỏ', 'TÔM'),
-('PTC', 'PIZZA TÔM CAY', '189000', 'Xốt kem, mozzarella, tôm, dứa, ớt chuông Đà lạt, xốt sriracha.', './images/pizzaimg/pizzatomcay.jpg', 'Mỏng', 'Vừa', 'TÔM'),
-('PTC', 'PIZZA TÔM CAY', '289000', 'Xốt kem, mozzarella, tôm, dứa, ớt chuông Đà lạt, xốt sriracha.', './images/pizzaimg/pizzatomcay.jpg', 'Mỏng', 'Lớn', 'TÔM');
-('PCHP', 'PIZZA CÁ HỒI PESTO', '129000', 'Xốt kem, mozzarella, xốt pesto, cà chua, cá hồi', './images/pizzaimg/cahoi.jpg', 'Vừa', 'Nhỏ', 'CÁ HỒI'),
-('PCHP', 'PIZZA CÁ HỒI PESTO', '229000', 'Xốt kem, mozzarella, xốt pesto, cà chua, cá hồi', './images/pizzaimg/cahoi.jpg', 'Vừa', 'Vừa', 'CÁ HỒI'),
-('PCHP', 'PIZZA CÁ HỒI PESTO', '299000', 'Xốt kem, mozzarella, xốt pesto, cà chua, cá hồi', './images/pizzaimg/cahoi.jpg', 'Vừa', 'Lớn', 'CÁ HỒI'),
-('PCHP', 'PIZZA CÁ HỒI PESTO', '129000', 'Xốt kem, mozzarella, xốt pesto, cà chua, cá hồi', './images/pizzaimg/cahoi.jpg', 'Dày', 'Nhỏ', 'CÁ HỒI'),
-('PCHP', 'PIZZA CÁ HỒI PESTO', '229000', 'Xốt kem, mozzarella, xốt pesto, cà chua, cá hồi', './images/pizzaimg/cahoi.jpg', 'Dày', 'Vừa', 'CÁ HỒI'),
-('PCHP', 'PIZZA CÁ HỒI PESTO', '299000', 'Xốt kem, mozzarella, xốt pesto, cà chua, cá hồi', './images/pizzaimg/cahoi.jpg', 'Dày', 'Lớn', 'CÁ HỒI'),
-('PCHP', 'PIZZA CÁ HỒI PESTO', '129000', 'Xốt kem, mozzarella, xốt pesto, cà chua, cá hồi', './images/pizzaimg/cahoi.jpg', 'Mỏng', 'Nhỏ', 'CÁ HỒI'),
-('PCHP', 'PIZZA CÁ HỒI PESTO', '229000', 'Xốt kem, mozzarella, xốt pesto, cà chua, cá hồi', './images/pizzaimg/cahoi.jpg', 'Mỏng', 'Vừa', 'CÁ HỒI'),
-('PCHP', 'PIZZA CÁ HỒI PESTO', '299000', 'Xốt kem, mozzarella, xốt pesto, cà chua, cá hồi', './images/pizzaimg/cahoi.jpg', 'Mỏng', 'Lớn', 'CÁ HỒI'),
-('PCB', 'PIZZA CHEESEBURGER', '129000', 'Xốt phô mai, bò bằm, hành tây tím, cà chua, dưa leo muối, mozzarella emborg', '/images/pizzaimg/cheeseburger.webp', 'Vừa', 'Nhỏ', 'BÒ'),
-('PCB', 'PIZZA CHEESEBURGER', '229000', 'Xốt phô mai, bò bằm, hành tây tím, cà chua, dưa leo muối, mozzarella emborg', '/images/pizzaimg/cheeseburger.webp', 'Vừa', 'Vừa', 'BÒ'),
-('PCB', 'PIZZA CHEESEBURGER', '299000', 'Xốt phô mai, bò bằm, hành tây tím, cà chua, dưa leo muối, mozzarella emborg', '/images/pizzaimg/cheeseburger.webp', 'Vừa', 'Lớn', 'BÒ'),
-('PCB', 'PIZZA CHEESEBURGER', '129000', 'Xốt phô mai, bò bằm, hành tây tím, cà chua, dưa leo muối, mozzarella emborg', '/images/pizzaimg/cheeseburger.webp', 'Dày', 'Nhỏ', 'BÒ'),
-('PCB', 'PIZZA CHEESEBURGER', '229000', 'Xốt phô mai, bò bằm, hành tây tím, cà chua, dưa leo muối, mozzarella emborg', '/images/pizzaimg/cheeseburger.webp', 'Dày', 'Vừa', 'BÒ'),
-('PCB', 'PIZZA CHEESEBURGER', '299000', 'Xốt phô mai, bò bằm, hành tây tím, cà chua, dưa leo muối, mozzarella emborg', '/images/pizzaimg/cheeseburger.webp', 'Dày', 'Lớn', 'BÒ'),
-('PCB', 'PIZZA CHEESEBURGER', '129000', 'Xốt phô mai, bò bằm, hành tây tím, cà chua, dưa leo muối, mozzarella emborg', '/images/pizzaimg/cheeseburger.webp', 'Mỏng', 'Nhỏ', 'BÒ'),
-('PCB', 'PIZZA CHEESEBURGER', '229000', 'Xốt phô mai, bò bằm, hành tây tím, cà chua, dưa leo muối, mozzarella emborg', '/images/pizzaimg/cheeseburger.webp', 'Mỏng', 'Vừa', 'BÒ'),
-('PCB', 'PIZZA CHEESEBURGER', '299000', 'Xốt phô mai, bò bằm, hành tây tím, cà chua, dưa leo muối, mozzarella emborg', '/images/pizzaimg/cheeseburger.webp', 'Mỏng', 'Lớn', 'BÒ').
+
+INSERT INTO `HoaDon` (`MaHD`, `MaND`, `NgayLap`, `TongTien`, `TrangThai`) VALUES
+(1, 1, '2020-12-12', '100000', 1);
+
+
+CREATE TABLE `ChiTietHoaDon` (
+  `MaHD` int(11) NOT NULL,
+  `MaSP` int(11) NOT NULL,
+  `SoLuong` int(11) NOT NULL,
+  `GiaTien` decimal(10,2) NOT NULL,
+  primary key (MaHD, MaSP)
+);
+
+INSERT INTO `ChiTietHoaDon` (`MaHD`, `MaSP`, `SoLuong`, `GiaTien`) VALUES
+(1, 1, 1, '100000');
+
+
+CREATE TABLE `DanhGia` (
+  `MaSP` int(11) NOT NULL,
+  `MaND` int(11) NOT NULL,
+  `SoSao` int(11) NOT NULL,
+  `BinhLuan` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `NgayDG` date NOT NULL,
+  primary key (MaSP, MaND)
+);
+
+INSERT INTO `DanhGia` (`MaSP`, `MaND`, `SoSao`, `BinhLuan`, `NgayDG`) VALUES
+(1, 1, 5, 'Rất ngon', '2020-12-12');
+
+
+CREATE TABLE `PhanQuyen` (
+  `MaQuyen` int(11) NOT NULL,
+  `ChiTietQuyen` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  primary key (MaQuyen)
+);
+
+INSERT INTO `PhanQuyen` (`MaQuyen`, `ChiTietQuyen`) VALUES
+(1, 'Admin'),
+(2, 'Nhân viên'),
+(3, 'Khách hàng');
+
+
+
+
+-- SIDEDISH DATABASE
+
+CREATE TABLE `MonTrangMieng` (
+  `MaMTM` int(11) NOT NULL,
+  `TenMTM` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `GiaTien` decimal(10,2) NOT NULL,
+  primary key (MaMTM)
+);
+
+INSERT INTO `MonTrangMieng` (`MaMTM`, `TenMTM`, `GiaTien`) VALUES
+(1, 'Bánh flan', '10000');
+
+
+CREATE TABLE `NuocGiaiKhat` (
+  `MaNuoc` int(11) NOT NULL,
+  `TenNuoc` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `GiaTien` decimal(10,2) NOT NULL,
+  primary key (MaNuoc)
+);
+
+INSERT INTO `NuocGiaiKhat` (`MaNuoc`, `TenNuoc`, `GiaTien`) VALUES
+(1, 'Coca', '10000');
+
+
+
+
+
+-- COUPON AND MEMBERSHIP DATABASE
+
+CREATE TABLE `KhuyenMai` (
+  `MaKM` int(11) NOT NULL,
+  `TenKM` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `SoTienGiam` decimal(10,2) NOT NULL,
+  `DieuKien` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  primary key (MaKM)
+);
+
+INSERT INTO `KhuyenMai` (`MaKM`, `TenKM`, `SoTienGiam`, `DieuKien`) VALUES
+(1, 'Giảm 10%', '10000', 'Kien Dep Trai');
+
+
+CREATE TABLE `Membership` (
+  `MaND` int(11) NOT NULL,
+  `SoDiemTichLuy` decimal(10,2) NOT NULL,
+  primary key (MaND)
+);
+
+INSERT INTO `Membership` (`MaND`, `SoDiemTichLuy`) VALUES
+(1, 1000);
+
+
+
+
+
+
+
+-- PIZZA DATABASE
+
+CREATE TABLE `Pizza` (
+  `IDPizza` varchar(100) NOT NULL,
+  `NamePizza` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `Desc` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `Img` varchar(200),
+  `Type` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (IDPizza)
+
+);
+INSERT INTO `Pizza` (`IDPizza`,`NamePizza`, `Desc`, `Img`, `Type`) VALUES
+('PBBQ', 'PIZZA GÀ BBQ', 'Xốt cà chua, gà, mozzarella, hành tây tím, ba rọi xông khói, xốt BBQ.', './images/pizzaimg/bbq.jpg', 'GÀ'),
+('PBD', 'PIZZA BÒ XỐT DEMI', 'Bò bằm, hành tây tím, ớt chuông, cà chua, mozzarella, xốt demi glace.', './images/pizzaimg/bodemi.jpg', 'BÒ'),
+('PCH', 'PIZZA HẢI SẢN PESTO', 'Xốt ranch, mozzarella, hành tây tím, xốt pesto, tôm, mực, thanh cua.', './images/pizzaimg/cahoi.jpg', 'HẢI SẢN'),
+('PPR', 'PIZZA DOUBLE PEPPERONI', 'Xốt cà chua, mozzarella, xúc xích Ý (pepperoni).', './images/pizzaimg/peppe.jpg', 'HEO'),
+('PHS', 'PIZZA HẢI SẢN DODO', 'Xốt ranch, mozzarella, hành tây tím, tôm, mực, thanh cua, mè, nori', './images/pizzaimg/haisandodo.jpg', 'HẢI SẢN'),
+('PGM', 'PIZZA GÀ PHÔ MAI XANH', 'Xốt kem, gà bơ tỏi, mozzarella, hành tây tím, cà chua Đà Lạt, phô mai xanh.', './images/pizzaimg/gaphomaixanh.jpg', 'GÀ'),
+('PTC', 'PIZZA TÔM CAY', 'Xốt kem, mozzarella, tôm, dứa, ớt chuông Đà lạt, xốt sriracha.', './images/pizzaimg/pizzatomcay.jpg', 'HẢI SẢN'),
+('PCHP', 'PIZZA CÁ HỒI PESTO', 'Xốt kem, mozzarella, Xốt pesto, cà chua, cá hồi', './images/pizzaimg/cahoi.jpg', 'HẢI SẢN'),
+('PCB', 'PIZZA CHEESEBURGER', 'Xốt phô mai, bò bằm, hành tây tím, cà chua, dưa leo muối, mozzarella emborg', '/images/pizzaimg/cbg.webp', 'BÒ');
+
+
+CREATE TABLE `SizePizza`(
+  `IDSize` varchar(100) NOT NULL,
+  `NameSize` varchar(100) NOT NULL,
+  primary key (IDSize)
+);
+
+INSERT INTO `SizePizza` (`IDSize`, `NameSize`) VALUES
+('S', 'Nhỏ'),
+('M', 'Vừa'),
+('L', 'Lớn');
+
+CREATE TABLE `CrustPizza`(
+  `IDCrust` varchar(100) NOT NULL,
+  `NameCrust` varchar(100) NOT NULL,
+  primary key (IDCrust)
+);
+
+INSERT INTO `CrustPizza` (`IDCrust`, `NameCrust`) VALUES
+('M', 'Mỏng'),
+('D', 'Dày'),
+('V', 'Vừa');
+
+
+CREATE TABLE `PizzaType`(
+  `IDPizza` varchar(100) NOT NULL,
+  `IDType` int(11) NOT NULL,
+  `NameType` varchar(100) not null,
+  primary key (IDPizza)
+);
+
+INSERT INTO `PizzaType` (`IDPizza`, `IDType`, `NameType`) VALUES
+('PBBQ', '01', 'GÀ'),
+('PBD', '02', 'BÒ'),
+('PCH', '03', 'HẢI SẢN'),
+('PPR', '04', 'HEO'),
+('PHS', '03', 'HẢI SẢN'),
+('PGM', '01', 'GÀ'),
+('PTC', '03', 'HẢI SẢN'),
+('PCHP', '03', 'HẢI SẢN'),
+('PCB', '02', 'BÒ');
+
+
+
+CREATE TABLE `PizzaDetail`(
+  `IDPizza` varchar(100) NOT NULL,
+  `IDSize` varchar(100) NOT NULL,
+  `IDCrust` varchar(100) NOT NULL,
+  `Price` DECIMAL(10, 2) NOT NULL,
+  primary key (IDPizza, IDSize, IDCrust)
+);
+
+INSERT INTO `PizzaDetail` (`IDPizza`, `IDSize`, `IDCrust`, `Price`) VALUES
+('PBBQ', 'S', 'M', '119000'),
+('PBBQ', 'M', 'M', '129000'),
+('PBBQ', 'L', 'M', '139000'),
+('PBBQ', 'S', 'D', '119000'),
+('PBBQ', 'M', 'D', '129000'),
+('PBBQ', 'L', 'D', '139000'),
+('PBBQ', 'S', 'V', '119000'),
+('PBBQ', 'M', 'V', '129000'),
+('PBBQ', 'L', 'V', '139000'),
+('PBD', 'S', 'M', '119000'),
+('PBD', 'M', 'M', '129000'),
+('PBD', 'L', 'M', '139000'),
+('PBD', 'S', 'D', '119000'),
+('PBD', 'M', 'D', '129000'),
+('PBD', 'L', 'D', '139000'),
+('PBD', 'S', 'V', '119000'),
+('PBD', 'M', 'V', '129000'),
+('PBD', 'L', 'V', '139000'),
+('PCH', 'S', 'M', '119000'),
+('PCH', 'M', 'M', '129000'),
+('PCH', 'L', 'M', '139000'),
+('PCH', 'S', 'D', '119000'),
+('PCH', 'M', 'D', '129000'),
+('PCH', 'L', 'D', '139000'),
+('PCH', 'S', 'V', '119000'),
+('PCH', 'M', 'V', '129000'),
+('PCH', 'L', 'V', '139000'),
+('PPR', 'S', 'M', '119000'),
+('PPR', 'M', 'M', '129000'),
+('PPR', 'L', 'M', '139000'),
+('PPR', 'S', 'D', '119000'),
+('PPR', 'M', 'D', '129000'),
+('PPR', 'L', 'D', '139000'),
+('PPR', 'S', 'V', '119000'),
+('PPR', 'M', 'V', '129000'),
+('PPR', 'L', 'V', '139000'),
+('PHS', 'S', 'M', '119000'),
+('PHS', 'M', 'M', '129000'),
+('PHS', 'L', 'M', '139000'),
+('PHS', 'S', 'D', '119000'),
+('PHS', 'M', 'D', '129000'),
+('PHS', 'L', 'D', '139000'),
+('PHS', 'S', 'V', '119000'),
+('PHS', 'M', 'V', '129000'),
+('PHS', 'L', 'V', '139000'),
+('PGM', 'S', 'M', '119000'),
+('PGM', 'M', 'M', '129000'),
+('PGM', 'L', 'M', '139000'),
+('PGM', 'S', 'D', '119000'),
+('PGM', 'M', 'D', '129000'),
+('PGM', 'L', 'D', '139000'),
+('PGM', 'S', 'V', '119000'),
+('PGM', 'M', 'V', '129000'),
+('PGM', 'L', 'V', '139000'),
+('PTC', 'S', 'M', '119000'),
+('PTC', 'M', 'M', '129000'),
+('PTC', 'L', 'M', '139000'),
+('PTC', 'S', 'D', '119000'),
+('PTC', 'M', 'D', '129000'),
+('PTC', 'L', 'D', '139000'),
+('PTC', 'S', 'V', '119000'),
+('PTC', 'M', 'V', '129000'),
+('PTC', 'L', 'V', '139000'),
+('PCHP', 'S', 'M', '119000'),
+('PCHP', 'M', 'M', '129000'),
+('PCHP', 'L', 'M', '139000'),
+('PCHP', 'S', 'D', '119000'),
+('PCHP', 'M', 'D', '129000'),
+('PCHP', 'L', 'D', '139000'),
+('PCHP', 'S', 'V', '119000'),
+('PCHP', 'M', 'V', '129000'),
+('PCHP', 'L', 'V', '139000'),
+('PCB', 'S', 'M', '119000'),
+('PCB', 'M', 'M', '129000'),
+('PCB', 'L', 'M', '139000'),
+('PCB', 'S', 'D', '119000'),
+('PCB', 'M', 'D', '129000'),
+('PCB', 'L', 'D', '139000'),
+('PCB', 'S', 'V', '119000'),
+('PCB', 'M', 'V', '129000'),
+('PCB', 'L', 'V', '139000');
+
 
 COMMIT;

@@ -11,4 +11,9 @@ class SanPhamBUS extends DB_business {
         $result = $this->get_list($sql);
         return $result;
     }
+    function getProductbyID($id) {
+        $sql = "SELECT * FROM pizza, pizzadetail where pizza.IDPizza = pizzadetail.IDPizza and pizzadetail.IDSize = 'S' and pizzadetail.IDCrust = 'V' and pizza.IDPizza = '$id'";
+        $result = $this->get_list($sql);
+        return $result;
+    }
 }

@@ -44,14 +44,21 @@ switch($_POST['request']) {
         }
             die (json_encode(null));
         break;
-	case 'getDefaultProducts':
-        getDefaultProducts();
-        break;
-    case 'getProductByFilters':
-        getProductByFilters();
-        break;
     case 'getProducts':
         getProducts();
+        break;
+    case 'changePage':
+        if(isset($_POST['currentpage']) && isset($_POST['currentquery'])){
+            getProductPagAjax();
+        }
+        break;
+    case 'ajaxcategory':
+        getProducts();
+        break;
+    case 'getProductByID':
+        if(isset($_POST['id'])){
+            getProductByID();
+        }
         break;
 }
 }
@@ -141,4 +148,25 @@ function getProducts() {
     if ($result != null) {
         die (json_encode(array('countrow' => $rownum['total'], 'result' => $result)));
     }
+    die (json_encode(null));
+}
+
+function getProductPagAjax() {
+    $query = $_POST['currentquery'];
+    $from = ($_POST['currentpage'] - 1) * 4;
+    $to = 4;    
+    $query = $query . " LIMIT $from, $to";
+    $result = (new SanPhamBUS())->get_list($query);
+    if ($result != null) {
+        die (json_encode($result));
+    }
+}
+
+function getProductByID() {
+    $id = $_POST['id'];
+    $result = (new SanPhamBUS())->getProductByID($id);
+    if ($result != null) {
+        die (json_encode($result));
+    }
+    die (json_encode(null));
 }

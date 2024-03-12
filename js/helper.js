@@ -283,7 +283,7 @@ function filterCategory(category) {
 function showProducts() {
   var html = "";
   listProduct.forEach(function (item) {
-     html += `<div class="scproducts__list-item">
+     html += `<div class="scproducts__list-item" value="${item.IDPizza}">
      <div class="top">
          <div class="img">
              <img src="${item.Img}">
@@ -300,4 +300,5 @@ function showProducts() {
  </div>`
   })
   document.querySelector(".scproducts__list").innerHTML = html;
+  addEventProducts();
 }

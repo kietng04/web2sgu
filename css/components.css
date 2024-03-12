@@ -80,7 +80,7 @@
   white-space: normal;
   text-transform: uppercase;
   height: 48px;
-  width: 130px;
+  width: 180px;
   transition: 0.1s;
   cursor: pointer;
 }
@@ -164,7 +164,7 @@
   height: 90vh;
   display: flex;
   max-width: 960px;
-  max-height: 668px;
+  height: 670px;
   flex-direction: row;
   z-index: 101;
   background-color: #ffffff;
@@ -345,7 +345,6 @@
 }
 
 
-//notice//////////////////////////////
 /* Import Google font - Poppins */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
@@ -489,4 +488,4 @@
     margin-top: 50px;
   }
 }
-//end
+

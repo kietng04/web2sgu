@@ -3,8 +3,6 @@
 require_once('./Backend/DB_driver.php');
 
 if (isset($_GET['page'])) {
-	$page = $_GET['page'];
-
 	if (isset($_GET['controller'])) {
 
 		$controller = $_GET['controller'];
@@ -19,7 +17,6 @@ if (isset($_GET['page'])) {
 		$action = 'index';
 	}
 } else {
-	$page = 'main';
 	$controller = 'ProductsController';
 	$action = 'index';
 }

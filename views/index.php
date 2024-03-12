@@ -59,20 +59,17 @@
             </header>
 
             <div class="topic">
-                <div class="btn__topic --active" onclick="toggleActive(this)">
-                    <span>SIEU DEAL</span>
-                </div>
-                <div class="btn__topic" onclick="toggleActive(this)">
-                    <span>MY BOX</span>
-                </div>
-                <div class="btn__topic" onclick="toggleActive(this)">
-                    <span>GHIỀN BO</span>
-                </div>
-                <div class="btn__topic" onclick="toggleActive(this)">
-                    <span>GHIỀN GÀ</span>
-                </div>
-                <div class="btn__topic" onclick="toggleActive(this)">
+                <div class="btn__topic --active" onclick="toggleActive(this, 'all')">
                     <span>PIZZA</span>
+                </div>
+                <div class="btn__topic" onclick="toggleActive(this, 'BÒ')">
+                    <span>PIZZA BÒ</span>
+                </div>
+                <div class="btn__topic" onclick="toggleActive(this, 'GÀ')">
+                    <span>PIZZA GÀ</span>
+                </div>
+                <div class="btn__topic" onclick="toggleActive(this, 'HẢI SẢN')">
+                    <span>PIZZA HẢI SẢN</span>
                 </div>
                 <div class="btn__topic" onclick="toggleActive(this)">
                     <span>MÓN KHAI VỊ</span>
@@ -103,6 +100,7 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="pagnition">a</div>
                     </div>
                 </div>
             </main>
@@ -180,97 +178,7 @@
         </div>
 
         <div class="popup --none">
-            <div class="popup__item">
-                <div class="popup__item-img">
-                    <img src="img/pizza-1.png" alt="">
-                </div>
-                <div class="popup__iten-content">
-                    <h3 class="heading --lv2">
-                        Pizza Cá Ngừ
-                    </h3>
-                    <p class="desc">
-                        Mang Hương Vị Biển Cả Nhẹ Nhàng Với Cá Ngừ, Thanh Cua, HàNh Tây, Thơm
-                    </p>
-                    <div class="box">
-                        <div class="box__item --none">
-                            <p class="title">Kích thước </p>
-                        </div>
-                        <div class="box__item --kt">
-                            <div class="icon ">
-                                <img src="./img/checkbox.jpeg" alt="">
-                                <div class="line1"></div>
-                                <div class="line2"></div>
-                                <div class="circle"></div>
-                            </div>
-                            <p>Nhỏ</p>
-                            <p class="price">129.000 ₫</p>
-                        </div>
-                        <div class="box__item --kt">
-                            <div class="icon ">
-                                <img src="./img/checkbox.jpeg" alt="">
-                                <div class="line1"></div>
-                                <div class="line2"></div>
-                                <div class="circle"></div>
-                            </div>
-                            <p>Vừa</p>
-                            <p class="price">229.000 ₫</p>
-                        </div>
-                        <div class="box__item --kt">
-                            <div class="icon ">
-                                <img src="./img/checkbox.jpeg" alt="">
-                                <div class="line1"></div>
-                                <div class="line2"></div>
-                                <div class="circle"></div>
-                            </div>
-                            <p>Lớn</p>
-                            <p class="price">329.000 ₫</p>
-                        </div>
-
-                    </div>
-                    <div class="box">
-                        <div class="box__item --none">
-                            <p class="title">Loại đế</p>
-                        </div>
-                        <div class="box__item --de ">
-                            <div class="icon ">
-                                <img src="./img/checkbox.jpeg" alt="">
-                                <div class="line1"></div>
-                                <div class="line2"></div>
-                                <div class="circle"></div>
-                            </div>
-                            <p>Mỏng</p>
-                            <p class="price">+0 ₫</p>
-                        </div>
-                        <div class="box__item --de">
-                            <div class="icon ">
-                                <img src="./img/checkbox.jpeg" alt="">
-                                <div class="line1"></div>
-                                <div class="line2"></div>
-                                <div class="circle"></div>
-                            </div>
-                            <p>Vừa</p>
-                            <p class="price">+29.000 ₫</p>
-                        </div>
-                        <div class="box__item --de">
-                            <div class="icon ">
-                                <img src="./img/checkbox.jpeg" alt="">
-                                <div class="line1"></div>
-                                <div class="line2"></div>
-                                <div class="circle"></div>
-                            </div>
-                            <p>Dày</p>
-                            <p class="price">+59.000 ₫</p>
-                        </div>
-                    </div>
-                    <div class="btn --add">
-                        <p>Thêm vào giỏ hàng </p>
-                        <p>129.000 ₫</p>
-                    </div>
-                </div>
-                <div class="btnClose">
-                    <img src="img/close-icon.png" alt="">
-                </div>
-            </div>
+            p
 
 
         </div>
@@ -286,82 +194,72 @@
     <script src="js/helper.js"></script>
     <script src="js/indexJS.js"></script>
     <script>
-    function toggleActive(clickedBtn) {
-        // Xóa tất cả các lớp --active từ các nút
-        var allButtons = document.querySelectorAll('.btn__topic');
-        allButtons.forEach(function(btn) {
-            btn.classList.remove('--active');
-        });
 
-        // Thêm lớp --active vào nút được nhấn
-        clickedBtn.classList.add('--active');
-    }
+    // document.addEventListener("DOMContentLoaded", function() {
 
-    document.addEventListener("DOMContentLoaded", function() {
+    //     var popup = document.querySelector(".popup");
+    //     var btnBuy = document.querySelectorAll(".scproducts__list-item .top");
+    //     var btnBuy = document.querySelectorAll(".scproducts__list-item .top");
+    //     var btnClose = document.querySelector(".btnClose");
 
-        var popup = document.querySelector(".popup");
-        var btnBuy = document.querySelectorAll(".scproducts__list-item .top");
-        var btnBuy = document.querySelectorAll(".scproducts__list-item .top");
-        var btnClose = document.querySelector(".btnClose");
-
-        btnClose.addEventListener("click", function() {
-            popup.classList.add("--none");
-        });
+    //     btnClose.addEventListener("click", function() {
+    //         popup.classList.add("--none");
+    //     });
 
 
-        btnBuy.forEach(function(btn) {
-            btn.addEventListener("click", function() {
-                popup.classList.remove("--none");
-            });
-        });
+    //     btnBuy.forEach(function(btn) {
+    //         btn.addEventListener("click", function() {
+    //             popup.classList.remove("--none");
+    //         });
+    //     });
 
 
-        popup.addEventListener("click", function(event) {
-            if (event.target === popup) {
-                if (popup.classList.contains("--none")) {
-                    popup.classList.remove("--none");
-                } else {
-                    popup.classList.add("--none");
-                }
-            }
-        });
+    //     popup.addEventListener("click", function(event) {
+    //         if (event.target === popup) {
+    //             if (popup.classList.contains("--none")) {
+    //                 popup.classList.remove("--none");
+    //             } else {
+    //                 popup.classList.add("--none");
+    //             }
+    //         }
+    //     });
 
-        //ĐẾ KÍCH THƯỚC
-        var boxItemsKT = document.querySelectorAll(".box__item.--kt");
-        var boxItemsDE = document.querySelectorAll(".box__item.--de");
-        boxItemsKT.forEach(function(item) {
-            item.addEventListener("click", function() {
-                removeActiveBoxKT();
-                item.classList.add("--active");
-            });
-        });
+    //     //ĐẾ KÍCH THƯỚC
+    //     var boxItemsKT = document.querySelectorAll(".box__item.--kt");
+    //     var boxItemsDE = document.querySelectorAll(".box__item.--de");
+    //     boxItemsKT.forEach(function(item) {
+    //         item.addEventListener("click", function() {
+    //             removeActiveBoxKT();
+    //             item.classList.add("--active");
+    //         });
+    //     });
 
-        function removeActiveBoxKT() {
-            boxItemsKT.forEach(function(item) {
-                item.classList.remove("--active");
-            });
-        }
+    //     function removeActiveBoxKT() {
+    //         boxItemsKT.forEach(function(item) {
+    //             item.classList.remove("--active");
+    //         });
+    //     }
 
-        boxItemsDE.forEach(function(item) {
-            item.addEventListener("click", function() {
-                removeActiveBoxDE();
-                item.classList.add("--active");
-            });
-        });
+    //     boxItemsDE.forEach(function(item) {
+    //         item.addEventListener("click", function() {
+    //             removeActiveBoxDE();
+    //             item.classList.add("--active");
+    //         });
+    //     });
 
-        function removeActiveBoxDE() {
-            boxItemsDE.forEach(function(item) {
-                item.classList.remove("--active");
-            });
-        }
+    //     function removeActiveBoxDE() {
+    //         boxItemsDE.forEach(function(item) {
+    //             item.classList.remove("--active");
+    //         });
+    //     }
 
-        var btnAdd = document.querySelector(".popup .btn.--add");
+    //     var btnAdd = document.querySelector(".popup .btn.--add");
 
-        btnAdd.addEventListener("click", function() {
-            popup.classList.add("--none");
-        });
+    //     btnAdd.addEventListener("click", function() {
+    //         popup.classList.add("--none");
+    //     });
 
-    });
+    // });
     </script>
 
 </body>

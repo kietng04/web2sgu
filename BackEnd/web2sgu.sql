@@ -4,6 +4,46 @@ START TRANSACTION;
 SET time_zone = "+00:00";
 
 
+
+CREATE TABLE `PhanQuyen` (
+  `MaQuyen` int(11) NOT NULL,
+  `ChiTietQuyen` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  primary key (MaQuyen)
+);
+
+INSERT INTO `PhanQuyen` (`MaQuyen`, `ChiTietQuyen`) VALUES
+(1, 'Admin'),
+(2, 'Nhân viên'),
+(3, 'Khách hàng');
+
+CREATE TABLE `TrangThai` (
+  `MaTT` int(11) NOT NULL,
+  `ChiTietTT` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  primary key (MaTT)
+);
+INSERT INTO `TrangThai` (`MaTT`, `ChiTietTT`) VALUES
+(1, 'Đã xác nhận'),
+(2, 'Đang giao hàng'),
+(3, 'Đã giao hàng'),
+(4, 'Đã hủy');
+
+CREATE TABLE `TaiKhoan` (
+  `MaTK` int(11) NOT NULL,
+  `TaiKhoan` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `MatKhau` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `MaQuyen` int(11) NOT NULL,
+  `MaTT` int(11) NOT NULL,
+  primary key (MaTK)
+);
+
+INSERT INTO `TaiKhoan` (`MaTK`, `TaiKhoan`, `MatKhau`, `MaQuyen`, `MaTT`) VALUES
+(1, 'admin', 'admin', 1, 1),
+(2, 'nhanvien', 'nhanvien', 2, 1),
+(3, 'khachhang', 'khachhang', 3, 1);
+
+
+
+
 -- USER DATABASE
 CREATE TABLE `NguoiDung` (
   `MaND` int(11) NOT NULL,
@@ -13,15 +53,11 @@ CREATE TABLE `NguoiDung` (
   `SDT` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `Email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `DiaChi` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `TaiKhoan` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `MatKhau` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `MaQuyen` int(11) NOT NULL,
-  `TrangThai` int(11) NOT NULL,
   PRIMARY KEY (MaND)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `NguoiDung` (`MaND`, `Ho`, `Ten`, `GioiTinh`, `SDT`, `Email`, `DiaChi`, `TaiKhoan`, `MatKhau`, `MaQuyen`, `TrangThai`) VALUES
-(1, 'Nguyen The', 'Kiet', '', '0123456789', 'trungky@gmail.com', 'Dak Lag', 'namky', 'backy', 1, 1);
+INSERT INTO `NguoiDung` (`MaND`, `Ho`, `Ten`, `GioiTinh`, `SDT`, `Email`, `DiaChi`) VALUES
+(1, 'Nguyen The', 'Kiet', 'Nam', '0123456789', 'trungky@gmail.com', 'Dak Lag');
 
 
 CREATE TABLE `NhanVien` ( 
@@ -32,39 +68,41 @@ CREATE TABLE `NhanVien` (
   `SDT` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `Email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `DiaChi` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `TaiKhoan` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `MatKhau` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `MaQuyen` int(11) NOT NULL,
   primary key (MaNV)
 );
 
-INSERT INTO `NhanVien` (`MaNV`, `Ho`, `Ten`, `GioiTinh`, `SDT`, `Email`, `DiaChi`, `TaiKhoan`, `MatKhau`, `MaQuyen`) VALUES
-(1, 'Nguyen The', 'Kiet', 'Nam', '0123456789', 'trungki@gmail.com', 'Dak Lak', 'namky', 'backy', 1);
+INSERT INTO `NhanVien` (`MaNV`, `Ho`, `Ten`, `GioiTinh`, `SDT`, `Email`, `DiaChi`) VALUES
+(1, 'Nguyen The', 'Kiet', 'Nam', '0123456789', 'trungki@gmail.com', 'Dak Lak');
 
 
 CREATE TABLE `HoaDon` (
   `MaHD` int(11) NOT NULL,
   `MaND` int(11) NOT NULL,
+  `MaNV` int(11) NOT NULL,
   `NgayLap` date NOT NULL,
   `TongTien` decimal(10,2) NOT NULL,
   `TrangThai` int(11) NOT NULL,
   primary key (MaHD)
 );
 
-INSERT INTO `HoaDon` (`MaHD`, `MaND`, `NgayLap`, `TongTien`, `TrangThai`) VALUES
-(1, 1, '2020-12-12', '100000', 1);
-
+INSERT INTO `HoaDon` (`MaHD`, `MaND`, `MaNv`, `NgayLap`, `TongTien`, `TrangThai`) VALUES
+(1, 1, 2, '2020-12-12', '100000', 1);
 
 CREATE TABLE `ChiTietHoaDon` (
   `MaHD` int(11) NOT NULL,
   `MaSP` int(11) NOT NULL,
+  `MaSize` int(11) NOT NULL,
+  `MaVien` int(11) NOT NULL,
+  `Img` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `SoLuong` int(11) NOT NULL,
   `GiaTien` decimal(10,2) NOT NULL,
-  primary key (MaHD, MaSP)
+  primary key (MaHD, MaSP, MaSize, MaVien)
 );
 
-INSERT INTO `ChiTietHoaDon` (`MaHD`, `MaSP`, `SoLuong`, `GiaTien`) VALUES
-(1, 1, 1, '100000');
+INSERT INTO `ChiTietHoaDon` (`MaHD`, `MaSP`, `MaSize`, `MaVien`, `Img`, `SoLuong`, `GiaTien`) VALUES
+(1, 1, 1, 1, '100000', 1, '100000');
+
+
 
 
 CREATE TABLE `DanhGia` (
@@ -78,46 +116,6 @@ CREATE TABLE `DanhGia` (
 
 INSERT INTO `DanhGia` (`MaSP`, `MaND`, `SoSao`, `BinhLuan`, `NgayDG`) VALUES
 (1, 1, 5, 'Rất ngon', '2020-12-12');
-
-
-CREATE TABLE `PhanQuyen` (
-  `MaQuyen` int(11) NOT NULL,
-  `ChiTietQuyen` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  primary key (MaQuyen)
-);
-
-INSERT INTO `PhanQuyen` (`MaQuyen`, `ChiTietQuyen`) VALUES
-(1, 'Admin'),
-(2, 'Nhân viên'),
-(3, 'Khách hàng');
-
-
-
-
--- SIDEDISH DATABASE
-
-CREATE TABLE `MonTrangMieng` (
-  `MaMTM` int(11) NOT NULL,
-  `TenMTM` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `GiaTien` decimal(10,2) NOT NULL,
-  primary key (MaMTM)
-);
-
-INSERT INTO `MonTrangMieng` (`MaMTM`, `TenMTM`, `GiaTien`) VALUES
-(1, 'Bánh flan', '10000');
-
-
-CREATE TABLE `NuocGiaiKhat` (
-  `MaNuoc` int(11) NOT NULL,
-  `TenNuoc` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `GiaTien` decimal(10,2) NOT NULL,
-  primary key (MaNuoc)
-);
-
-INSERT INTO `NuocGiaiKhat` (`MaNuoc`, `TenNuoc`, `GiaTien`) VALUES
-(1, 'Coca', '10000');
-
-
 
 
 
@@ -152,16 +150,16 @@ INSERT INTO `Membership` (`MaND`, `SoDiemTichLuy`) VALUES
 
 -- PIZZA DATABASE
 
-CREATE TABLE `Pizza` (
-  `IDPizza` varchar(100) NOT NULL,
-  `NamePizza` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `Desc` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `Img` varchar(200),
-  `Type` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (IDPizza)
-
+CREATE TABLE `SanPham` (
+  `MaSP` varchar(100) NOT NULL,
+  `TenSP` varchar(100) NOT NULL,
+  `Mota` varchar(100) NOT NULL,
+  `Img` varchar(100) NOT NULL,
+  `Loai` varchar(100) NOT NULL,
+  primary key (MaSP)
 );
-INSERT INTO `Pizza` (`IDPizza`,`NamePizza`, `Desc`, `Img`, `Type`) VALUES
+
+INSERT INTO `SanPham` (`MaSP`, `TenSP`, `Mota`, `Img`, `Loai`) VALUES
 ('PBBQ', 'PIZZA GÀ BBQ', 'Xốt cà chua, gà, mozzarella, hành tây tím, ba rọi xông khói, xốt BBQ.', './images/pizzaimg/bbq.jpg', 'GÀ'),
 ('PBD', 'PIZZA BÒ XỐT DEMI', 'Bò bằm, hành tây tím, ớt chuông, cà chua, mozzarella, xốt demi glace.', './images/pizzaimg/bodemi.jpg', 'BÒ'),
 ('PCH', 'PIZZA HẢI SẢN PESTO', 'Xốt ranch, mozzarella, hành tây tím, xốt pesto, tôm, mực, thanh cua.', './images/pizzaimg/cahoi.jpg', 'HẢI SẢN'),
@@ -173,37 +171,37 @@ INSERT INTO `Pizza` (`IDPizza`,`NamePizza`, `Desc`, `Img`, `Type`) VALUES
 ('PCB', 'PIZZA CHEESEBURGER', 'Xốt phô mai, bò bằm, hành tây tím, cà chua, dưa leo muối, mozzarella emborg', '/images/pizzaimg/cbg.webp', 'BÒ');
 
 
-CREATE TABLE `SizePizza`(
-  `IDSize` varchar(100) NOT NULL,
-  `NameSize` varchar(100) NOT NULL,
-  primary key (IDSize)
+CREATE TABLE `SizeSanPham`(
+  `MaSize` varchar(100) NOT NULL,
+  `TenSize` varchar(100) NOT NULL,
+  primary key (MaSize)
 );
 
-INSERT INTO `SizePizza` (`IDSize`, `NameSize`) VALUES
+INSERT INTO `SizeSanPham` (`MaSize`, `TenSize`) VALUES
 ('S', 'Nhỏ'),
 ('M', 'Vừa'),
 ('L', 'Lớn');
 
-CREATE TABLE `CrustPizza`(
-  `IDCrust` varchar(100) NOT NULL,
-  `NameCrust` varchar(100) NOT NULL,
-  primary key (IDCrust)
+CREATE TABLE `VienSanPham`(
+  `MaVien` varchar(100) NOT NULL,
+  `TenVien` varchar(100) NOT NULL,
+  primary key (MaVien)
 );
 
-INSERT INTO `CrustPizza` (`IDCrust`, `NameCrust`) VALUES
+INSERT INTO `VienSanPham` (`MaVien`, `TenVien`) VALUES
 ('M', 'Mỏng'),
 ('D', 'Dày'),
 ('V', 'Vừa');
 
 
-CREATE TABLE `PizzaType`(
-  `IDPizza` varchar(100) NOT NULL,
-  `IDType` int(11) NOT NULL,
-  `NameType` varchar(100) not null,
-  primary key (IDPizza)
+CREATE TABLE `LoaiSanPham`(
+  `MaSP` varchar(100) NOT NULL,
+  `MaLoai` int(11) NOT NULL,
+  `TenLoai` varchar(100) not null,
+  primary key (MaSP)
 );
 
-INSERT INTO `PizzaType` (`IDPizza`, `IDType`, `NameType`) VALUES
+INSERT INTO `LoaiSanPham` (`MaSP`, `MaLoai`, `TenLoai`) VALUES
 ('PBBQ', '01', 'GÀ'),
 ('PBD', '02', 'BÒ'),
 ('PCH', '03', 'HẢI SẢN'),
@@ -216,15 +214,16 @@ INSERT INTO `PizzaType` (`IDPizza`, `IDType`, `NameType`) VALUES
 
 
 
-CREATE TABLE `PizzaDetail`(
-  `IDPizza` varchar(100) NOT NULL,
-  `IDSize` varchar(100) NOT NULL,
-  `IDCrust` varchar(100) NOT NULL,
-  `Price` DECIMAL(10, 2) NOT NULL,
-  primary key (IDPizza, IDSize, IDCrust)
+CREATE TABLE `ChiTietSanPham`(
+  `MaSP` varchar(100) NOT NULL,
+  `MaSize` varchar(100) NOT NULL,
+  `MaVien` varchar(100) NOT NULL,
+  `GiaTien` DECIMAL(10, 2) NOT NULL,
+  `SoLuong` int(11) NOT NULL,
+  primary key (MaSP, MaSize, MaVien)
 );
 
-INSERT INTO `PizzaDetail` (`IDPizza`, `IDSize`, `IDCrust`, `Price`) VALUES
+INSERT INTO `ChiTietSanPham` (`MaSP`, `MaSize`, `MaVien`, `GiaTien`) VALUES
 ('PBBQ', 'S', 'M', '119000'),
 ('PBBQ', 'M', 'M', '129000'),
 ('PBBQ', 'L', 'M', '139000'),
@@ -307,5 +306,75 @@ INSERT INTO `PizzaDetail` (`IDPizza`, `IDSize`, `IDCrust`, `Price`) VALUES
 ('PCB', 'M', 'V', '129000'),
 ('PCB', 'L', 'V', '139000');
 
+
+CREATE TABLE `NhapSanPham` (
+  `MaPN` int(11) NOT NULL,
+  `MaNV` int(11) NOT NULL,
+  `NgayNhap` date NOT NULL,
+  primary key (MaPN)
+);
+
+INSERT INTO `NhapSanPham` (`MaPN`, `MaNV`, `NgayNhap`) VALUES
+(1, 1, '2020-12-12');
+
+CREATE TABLE `ChiTietNhap` (
+  `MaPN` int(11) NOT NULL,
+  `MaSP` varchar(100) NOT NULL,
+  `MaSize` varchar(100) NOT NULL,
+  `MaVien` varchar(100) NOT NULL,
+  `SoLuong` int(11) NOT NULL,
+  primary key (MaPN, MaSP, MaSize, MaVien)
+);
+
+INSERT INTO `ChiTietNhap` (`MaPN`, `MaSP`, `MaSize`, `MaVien`, `SoLuong`) VALUES
+(1, 'PBBQ', 'S', 'M', 10),
+(1, 'PBBQ', 'M', 'M', 10),
+(1, 'PBBQ', 'L', 'M', 10),
+(1, 'PBBQ', 'S', 'D', 10),
+(1, 'PBBQ', 'M', 'D', 10),
+(1, 'PBBQ', 'L', 'D', 10),
+(1, 'PBBQ', 'S', 'V', 10),
+(1, 'PBBQ', 'M', 'V', 10),
+(1, 'PBBQ', 'L', 'V', 10),
+(1, 'PBD', 'S', 'M', 10),
+(1, 'PBD', 'M', 'M', 10),
+(1, 'PBD', 'L', 'M', 10),
+(1, 'PBD', 'S', 'D', 10),
+(1, 'PBD', 'M', 'D', 10);
+
+CREATE TABLE `XuatSanPham` (
+  `MaPX` int(11) NOT NULL,
+  `MaNV` int(11) NOT NULL,
+  `NgayXuat` date NOT NULL,
+  primary key (MaPX)
+);
+
+INSERT INTO `XuatSanPham` (`MaPX`, `MaNV`, `NgayXuat`) VALUES
+(1, 1, '2020-12-12');
+
+CREATE TABLE `ChiTietXuat` (
+  `MaPX` int(11) NOT NULL,
+  `MaSP` varchar(100) NOT NULL,
+  `MaSize` varchar(100) NOT NULL,
+  `MaVien` varchar(100) NOT NULL,
+  `SoLuong` int(11) NOT NULL,
+  primary key (MaPX, MaSP, MaSize, MaVien)
+);
+
+INSERT INTO `ChiTietXuat` (`MaPX`, `MaSP`, `MaSize`, `MaVien`, `SoLuong`) VALUES
+(1, 'PBBQ', 'S', 'M', 10),
+(1, 'PBBQ', 'M', 'M', 10),
+(1, 'PBBQ', 'L', 'M', 10),
+(1, 'PBBQ', 'S', 'D', 10),
+(1, 'PBBQ', 'M', 'D', 10),
+(1, 'PBBQ', 'L', 'D', 10),
+(1, 'PBBQ', 'S', 'V', 10),
+(1, 'PBBQ', 'M', 'V', 10),
+(1, 'PBBQ', 'L', 'V', 10),
+(1, 'PBD', 'S', 'M', 10),
+(1, 'PBD', 'M', 'M', 10),
+(1, 'PBD', 'L', 'M', 10),
+(1, 'PBD', 'S', 'D', 10),
+(1, 'PBD', 'M', 'D', 10);
 
 COMMIT;

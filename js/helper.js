@@ -2,8 +2,33 @@ var categoryz = [];
 var currentPage = 1;
 var listProduct = null;
 var perPage = 4;
+
+function loginz(a, b) {
+  $.ajax({
+    url: "./controller/ProductsController.php",
+    type: "post",
+    dataType: "json",
+    timeout: 1500,
+    data: {
+      request: "dangnhap",
+      data_username: a,
+      data_pass: b,
+    },
+    success: function (result) {
+      if (result != null) {
+        alert("Đăng nhập thành công!");
+        return 1;
+      } else {
+        alert("Tên đăng nhập hoặc mật khẩu không đúng!");
+        return 0;
+      }
+    },
+  });
+
+}
+loginz("admin", "admin");
 function login(e, a = document.getElementById("username").value, b = document.getElementById("passlogin").value) {
-  e.preventDefault();
+  // e.preventDefault();
   if (a == null || b == null) {
     var a = document.getElementById("username").value;
     var b = document.getElementById("passlogin").value;
@@ -19,7 +44,6 @@ function login(e, a = document.getElementById("username").value, b = document.ge
       data_pass: b,
     },
     success: function (result) {
-      console.log(result);
       if (result != null) {
         createToast("success");
         document.querySelector(".container").style.display = "none";
@@ -118,7 +142,7 @@ function signup(e) {
 
 function FormValidate(e){
     var name = document.getElementById('name').value;
-    console.log('name', name)
+
     var errorName = document.getElementById('errorName');
     var regexName = /^KH(\d{3})$/;
 
@@ -272,8 +296,7 @@ function filterCategory(category) {
     success: function (result) {
       listProduct = result;
       currentPage = 1;
-      console.log(result);
-      showProducts();
+      showProducts(); 
     },
 
   });
@@ -283,22 +306,104 @@ function filterCategory(category) {
 function showProducts() {
   var html = "";
   listProduct.forEach(function (item) {
-     html += `<div class="scproducts__list-item" value="${item.IDPizza}">
+     html += `<div class="scproducts__list-item" value="${item.MaSP}">
      <div class="top">
          <div class="img">
              <img src="${item.Img}">
          </div>
-         <p class="title">${item.NamePizza}</p>
+         <p class="title">${item.TenSP}</p>
      </div>
      <div class="content">
-         <p class="desc">${item.Desc}</p>
+         <p class="desc">${item.Mota}</p>
          <button class="btn__buy">
              <p class="chon">CHỌN</p>
-             <p class="price">${toVND(item.Price)}</p>
+             <p class="price">${toVND(item.GiaTien)}</p>
          </button>
      </div>
  </div>`
   })
   document.querySelector(".scproducts__list").innerHTML = html;
   addEventProducts();
+}
+
+function addeventbutbtn() {
+  var btn = document.querySelector(".btn.--add");
+  var curProduct = null;
+  btn.addEventListener("click", function () {
+    // ajax get current product
+    $.ajax({
+      type: "POST",
+      url: "controller/ProductsController.php",
+      dataType: "json",
+      timeout: 1500, 
+      data: {
+        request: "getProductDetailID",
+        id: document.querySelector(".btn.--add").getAttribute("value"),
+        idsize: document.querySelector(".box__item.--kt.--active p").getAttribute("value"),
+        idcrust: document.querySelector(".box__item.--de.--active p").getAttribute("value"),  
+      },
+
+      success: function (data) {
+        curProduct = data;
+      }
+    })
+
+    $.ajax({
+      type: "POST",
+      url: "controller/ProductsController.php",
+      dataType: "json",
+      timeout: 1500, // sau 1.5 giây mà không phản hồi thì dừng => hiện lỗi
+      data: {
+        request: "getCurrentUser",
+      },
+      // data se bao gom user hientai va gio hang hientai
+      success: function (data) {
+        // parse data
+        if (data) {
+          // truy cap phan tu 0 trong data['cart']
+          
+          data['cart'] == null ? data['cart'] = [] : data['cart'];
+          data['cart'].push(curProduct);
+          var cartdiv = document.querySelector(".list");
+          var html = '';
+          data['cart'].forEach(function (item) {
+            html += `<div class="list__item">
+            <div class="img">
+                <img src="${item.Img}" alt="">
+            </div>
+            <div class="content">
+                <p class="title">${item.TenSP}</p>
+                <p class="desc">Size Nho, De Mong</p>
+                <p class="price">79,000₫</p>
+            </div>
+            <div class="quantity">
+                <p>SL: 1</p>
+            </div>
+        </div>`
+          })
+          cartdiv.innerHTML = html;
+          saveSessionCart(data['cart']);
+        }
+        else {
+          alert("Vui lòng đăng nhập để thêm vào giỏ hàng!");
+        }
+      },
+    });
+  });
+}
+
+function saveSessionCart(value) {
+  $.ajax({
+    type: "POST",
+    url: "controller/ProductsController.php",
+    dataType: "json",
+    timeout: 1500, // sau 1.5 giây mà không phản hồi thì dừng => hiện lỗi
+    data: {
+      request: "saveSessionCart",
+      cart: value,
+    },
+    success: function (data) {
+      
+    },
+  });
 }

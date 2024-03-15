@@ -126,32 +126,6 @@
                         <p>SL: 1</p>
                     </div>
                 </div>
-                <div class="list__item">
-                    <div class="img">
-                        <img src="img/Pizga_Pho_Mai_400x275.jpg" alt="">
-                    </div>
-                    <div class="content">
-                        <p class="title">CÁNH GÀ NƯỚNG BBQ (4 MIẾNG)</p>
-                        <p class="desc">Size Nho, De Mong</p>
-                        <p class="price">79,000₫</p>
-                    </div>
-                    <div class="quantity">
-                        <p>SL: 1</p>
-                    </div>
-                </div>
-                <div class="list__item">
-                    <div class="img">
-                        <img src="img/Pizga_Pho_Mai_400x275.jpg" alt="">
-                    </div>
-                    <div class="content">
-                        <p class="title">CÁNH GÀ NƯỚNG BBQ (4 MIẾNG)</p>
-                        <p class="desc">Size Nho, De Mong</p>
-                        <p class="price">79,000₫</p>
-                    </div>
-                    <div class="quantity">
-                        <p>SL: 1</p>
-                    </div>
-                </div>
             </div>
 
 

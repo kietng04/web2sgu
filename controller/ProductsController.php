@@ -60,16 +60,24 @@ switch($_POST['request']) {
             getProductByID();
         }
         break;
+    case 'getProductDetailID':
+        if(isset($_POST['id'])){
+            getProductDetailID();
+        }
+        break;
+    case 'saveSessionCart':
+        saveSessionCart();
 }
 }
 function login() {
     $username=$_POST['data_username'];
 	$password=$_POST['data_pass'];
-    $sql = "SELECT * FROM nguoidung WHERE TaiKhoan='$username' AND MatKhau='$password' AND MaQuyen=1 AND TrangThai=1";
+    $sql = "SELECT * FROM taikhoan WHERE TaiKhoan='$username' AND MatKhau='$password' AND MaQuyen=1 AND MaTT=1";
     $result = (new NguoiDungBus())->get_list($sql);
-    
+    // create array include $result and null
+    $returnz = array('result' => $result, 'cart' => null);
     if($result != false){
-        $_SESSION['currentUser']=$result;
+        $_SESSION['currentUser']=$returnz;
         die (json_encode($result)); 
         return 1;
     }  
@@ -122,16 +130,16 @@ function getDefaultProducts() {
 	die (json_encode(null));
 }
 
-function getProductByFilters() {
-    $category = $_POST['category'];
-    $sql = "SELECT * FROM pizza WHERE Loai ='$category' AND PizzaSize='Nhỏ' AND Crust='Vừa'";
-    $result = (new DB_driver())->get_list($sql);
+// function getProductByFilters() {
+//     $category = $_POST['category'];
+//     $sql = `SELECT * FROM sanpham, chitietsanpham WHERE Loai ='$category' AND sanpham.MaSP = chitietsanpham.MaSP AND MaSize='S' AND MaVien='M'`;
+//     $result = (new DB_driver())->get_list($sql);
 
-    if ($result != null) {
-        die (json_encode($result));
-    }
-    die (json_encode(null));
-}
+//     if ($result != null) {
+//         die (json_encode($result));
+//     }
+//     die (json_encode(null));
+// }
 
 function getProducts() {
     $query = $_POST['currentquery'];
@@ -169,4 +177,20 @@ function getProductByID() {
         die (json_encode($result));
     }
     die (json_encode(null));
+}
+
+function getProductDetailID() {
+    $result = (new SanPhamBUS())->getProductDetailID($_POST['id'], $_POST['idsize'], $_POST['idcrust']);
+    if ($result != null) {
+        die (json_encode($result));
+    }
+    die (json_encode(null));
+}
+
+function saveSessionCart() {
+    // access to cart in $_SESSION['currentUser']
+    if(isset($_SESSION['currentUser'])) {
+        $_SESSION['currentUser']['cart'] = $_POST['cart'];
+        die (json_encode($_SESSION['currentUser']));
+    }
 }

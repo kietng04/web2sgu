@@ -9,8 +9,8 @@
 //     document.querySelector('.container').style.display = 'none';
 //     document.querySelector('.black-bg').style.display = 'none'; 
 // })
-var currentqueryz = 'SELECT pizza.IDPizza, NamePizza, pizza.Desc, Img, Type, IDSize, IDCrust, Price FROM `pizza`, `pizzadetail` WHERE pizza.IDPizza = pizzadetail.IDPizza AND pizzadetail.IDSize = "S" AND pizzadetail.IDCrust ="V" ';
-var currentRowqueryz = 'SELECT COUNT(*) FROM `pizza`, `pizzadetail` WHERE pizza.IDPizza = pizzadetail.IDPizza AND pizzadetail.IDSize = "S" AND pizzadetail.IDCrust ="V" ';
+var currentqueryz = 'SELECT sanpham.MaSP, TenSP, Mota, Img, Loai, MaSize, MaVien, GiaTien FROM `sanpham`, `chitietsanpham` WHERE sanpham.MaSP = chitietsanpham.MaSP AND chitietsanpham.MaSize = "S" AND chitietsanpham.MaVien ="V" ';
+var currentRowqueryz = 'SELECT COUNT(*) FROM `sanpham`, `chitietsanpham` WHERE sanpham.MaSP = chitietsanpham.MaSP AND pizzadetail.MaSize = "S" AND pizzadetail.MaCrust ="V" ';
 var currentPagez = 1;
 const productSection = document.querySelector('.pro-collection');
 var html = '';
@@ -108,20 +108,20 @@ function toggleActive(clickedBtn, category) {
     clickedBtn.classList.add('--active');
 
     if (category == 'all') {
-        currentqueryz = `SELECT pizza.IDPizza, NamePizza, pizza.Desc, Img, Type, IDSize, IDCrust, Price
-        FROM pizza, pizzadetail
-        WHERE pizza.IDPizza = pizzadetail.IDPizza 
-        AND pizzadetail.IDSize = 'S' 
-        AND pizzadetail.IDCrust = 'V' 
+        currentqueryz = `SELECT sanpham.MaSP, TenSP, sanpham.Mota, Img, Loai, MaSize, MaVien, GiaTien
+        FROM sanpham, chitietsanpham
+        WHERE sanpham.MaSP = chitietsanpham.MaSP 
+        AND chitietsanpham.MaSize = 'S' 
+        AND chitietsanpham.MaVien = 'M' 
         `;
     }
     else {
-        currentqueryz = `SELECT pizza.IDPizza, NamePizza, pizza.Desc, Img, Type, IDSize, IDCrust, Price
-    FROM pizza, pizzadetail
-    WHERE pizza.IDPizza = pizzadetail.IDPizza 
-    AND pizzadetail.IDSize = 'S' 
-    AND pizzadetail.IDCrust = 'V' 
-    AND pizza.Type = '${category}'
+        currentqueryz = `SELECT sanpham.MaSP, TenSP, sanpham.Mota, Img, Loai, MaSize, MaVien, GiaTien
+        FROM sanpham, chitietsanpham
+        WHERE sanpham.MaSP = chitietsanpham.MaSP 
+        AND chitietsanpham.MaSize = 'S' 
+        AND chitietsanpham.MaVien = 'M' 
+    AND sanpham.Loai = '${category}'
     `;
     }
     currentPagez = 1;
@@ -175,24 +175,23 @@ function addEventProducts() {
                 </div>
                 <div class="popup__iten-content">
                     <h3 class="heading --lv2">
-                        ${data[0].NamePizza}
+                        ${data[0].TenSP}
                     </h3>
                     <p class="desc">
-                        ${data[0].Desc}q
+                        ${data[0].Mota}q
                     </p>
                     <div class="box">
                         <div class="box__item --none">
                             <p class="title">Kích thước </p>
                         </div>
-                        <div class="box__item --kt">
+                        <div class="box__item --kt --active">
                             <div class="icon ">
                                 <img src="./img/checkbox.jpeg" alt="">
                                 <div class="line1"></div>
                                 <div class="line2"></div>
                                 <div class="circle"></div>
                             </div>
-                            <p>Nhỏ</p>
-                            <p class="price">129.000 ₫</p>
+                            <p value="S">Nhỏ</p>
                         </div>
                         <div class="box__item --kt">
                             <div class="icon ">
@@ -201,8 +200,7 @@ function addEventProducts() {
                                 <div class="line2"></div>
                                 <div class="circle"></div>
                             </div>
-                            <p>Vừa</p>
-                            <p class="price">229.000 ₫</p>
+                            <p value="M">Vừa</p>
                         </div>
                         <div class="box__item --kt">
                             <div class="icon ">
@@ -211,8 +209,7 @@ function addEventProducts() {
                                 <div class="line2"></div>
                                 <div class="circle"></div>
                             </div>
-                            <p>Lớn</p>
-                            <p class="price">329.000 ₫</p>
+                            <p value="L">Lớn</p>
                         </div>
 
                     </div>
@@ -227,8 +224,16 @@ function addEventProducts() {
                                 <div class="line2"></div>
                                 <div class="circle"></div>
                             </div>
-                            <p>Mỏng</p>
-                            <p class="price">+0 ₫</p>
+                            <p value="M">Mỏng</p>
+                        </div>
+                        <div class="box__item --de --active">
+                            <div class="icon ">
+                                <img src="./img/checkbox.jpeg" alt="">
+                                <div class="line1"></div>
+                                <div class="line2"></div>
+                                <div class="circle"></div>
+                            </div>
+                            <p value="V">Vừa</p>
                         </div>
                         <div class="box__item --de">
                             <div class="icon ">
@@ -237,23 +242,12 @@ function addEventProducts() {
                                 <div class="line2"></div>
                                 <div class="circle"></div>
                             </div>
-                            <p>Vừa</p>
-                            <p class="price">+29.000 ₫</p>
-                        </div>
-                        <div class="box__item --de">
-                            <div class="icon ">
-                                <img src="./img/checkbox.jpeg" alt="">
-                                <div class="line1"></div>
-                                <div class="line2"></div>
-                                <div class="circle"></div>
-                            </div>
-                            <p>Dày</p>
-                            <p class="price">+59.000 ₫</p>
+                            <p value="D">Dày</p>
                         </div>
                     </div>
-                    <div class="btn --add">
+                    <div class="btn --add" value='${data[0].MaSP}'>
                         <p>Thêm vào giỏ hàng </p>
-                        <p>129.000 ₫</p>
+                        <p> </p>
                     </div>
                 </div>
                 <div class="btnClose">
@@ -263,6 +257,8 @@ function addEventProducts() {
                     `;
                     popup.innerHTML = html;
                     addeventPOPUP();
+                    addeventchuyensizevade(data);
+                    addeventbutbtn();
                 }
             })
         })
@@ -331,4 +327,40 @@ function addeventPOPUP() {
             popup.classList.add("--none");
         });
     
+}
+
+
+function addeventchuyensizevade(listDetail) {
+    var map = new Map();
+    var size = document.querySelectorAll('.box__item.--kt');
+    var de = document.querySelectorAll('.box__item.--de');
+    // traverse listDetail and add to hashmap with key is listDetail.MaSize + listDetail.MaVien and value is listDetail.Price
+    
+    for (i = 0; i < listDetail.length; i++) {
+        map.set(listDetail[i].TenSize + " " + listDetail[i].TenVien, listDetail[i].GiaTien);
+    }
+    map.set("default", map.get("Nhỏ Mỏng"));
+
+    size.forEach(function(item) {
+        item.addEventListener('click', function() {
+            var size = item.querySelector('p').innerText;
+            var de = document.querySelector('.box__item.--de.--active p').innerText;
+            var price = map.get(size + " " + de);
+            
+            document.querySelector('.popup .btn.--add p:nth-child(2)').innerText = toVND(price);
+        })
+    })
+
+    de.forEach(function(item) {
+        item.addEventListener('click', function() {
+            var de = item.querySelector('p').innerText;
+            var size = document.querySelector('.box__item.--kt.--active p').innerText;
+            var price = map.get(size + " " + de);
+            document.querySelector('.popup .btn.--add p:nth-child(2)').innerText = toVND(price);
+        })
+    })
+
+    document.querySelectorAll('.--add p')[1].innerHTML = toVND(map.get("Nhỏ Mỏng"));
+    
+
 }

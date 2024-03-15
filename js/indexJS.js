@@ -325,6 +325,7 @@ function addeventPOPUP() {
     
         btnAdd.addEventListener("click", function() {
             popup.classList.add("--none");
+            //f
         });
     
 }

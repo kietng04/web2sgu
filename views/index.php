@@ -33,6 +33,7 @@
 </head>
 
 <body>
+    <div class="loading" style="display: none"> đang load oke ? </div>
     <div class="wrapper">
         <ul class="notifications"></ul>
 
@@ -109,23 +110,14 @@
         <div class="wrapper__right">
             <div class="top">
                 <p class="heading">-- Giỏ Hàng --</p>
+                <div class="btnCloseAllCart">
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
             </div>
 
-
+            
             <div class="list">
-                <div class="list__item">
-                    <div class="img">
-                        <img src="img/pizza-1.png" alt="">
-                    </div>
-                    <div class="content">
-                        <p class="title">CÁNH GÀ NƯỚNG BBQ (4 MIẾNG)</p>
-                        <p class="desc">Size Nho, De Mong</p>
-                        <p class="price">79,000₫</p>
-                    </div>
-                    <div class="quantity">
-                        <p>SL: 1</p>
-                    </div>
-                </div>
+                
             </div>
 
 

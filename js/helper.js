@@ -2,7 +2,7 @@ var categoryz = [];
 var currentPage = 1;
 var listProduct = null;
 var perPage = 4;
-
+loginz("admin", "admin");
 function loginz(a, b) {
   $.ajax({
     url: "./controller/ProductsController.php",
@@ -26,7 +26,7 @@ function loginz(a, b) {
   });
 
 }
-loginz("admin", "admin");
+
 function login(e, a = document.getElementById("username").value, b = document.getElementById("passlogin").value) {
   // e.preventDefault();
   if (a == null || b == null) {
@@ -329,25 +329,26 @@ function showProducts() {
 function addeventbutbtn() {
   var btn = document.querySelector(".btn.--add");
   var curProduct = null;
+  $.ajax({
+    type: "POST",
+    url: "controller/ProductsController.php",
+    dataType: "json",
+    timeout: 1500, 
+    data: {
+      request: "getProductDetailID",
+      id: document.querySelector(".btn.--add").getAttribute("value"),
+      idsize: document.querySelector(".box__item.--kt.--active p").getAttribute("value"),
+      idcrust: document.querySelector(".box__item.--de.--active p").getAttribute("value"),  
+    },
+
+    success: function (data) {
+      curProduct = data;
+    }
+  });
+
   btn.addEventListener("click", function () {
+    // show load icon
     // ajax get current product
-    $.ajax({
-      type: "POST",
-      url: "controller/ProductsController.php",
-      dataType: "json",
-      timeout: 1500, 
-      data: {
-        request: "getProductDetailID",
-        id: document.querySelector(".btn.--add").getAttribute("value"),
-        idsize: document.querySelector(".box__item.--kt.--active p").getAttribute("value"),
-        idcrust: document.querySelector(".box__item.--de.--active p").getAttribute("value"),  
-      },
-
-      success: function (data) {
-        curProduct = data;
-      }
-    })
-
     $.ajax({
       type: "POST",
       url: "controller/ProductsController.php",
@@ -358,28 +359,39 @@ function addeventbutbtn() {
       },
       // data se bao gom user hientai va gio hang hientai
       success: function (data) {
-        // parse data
+        // hide load icon
+        document.querySelector(".loading").style.display = "none";
+        var html = '';
+        var cartdiv = document.querySelector(".list");
         if (data) {
-          // truy cap phan tu 0 trong data['cart']
-          
           data['cart'] == null ? data['cart'] = [] : data['cart'];
-          data['cart'].push(curProduct);
-          var cartdiv = document.querySelector(".list");
-          var html = '';
+          // check current product in cart
+          if (findProductInCart(data['cart'], curProduct)) { 
+            // increase quantity
+            data['cart'].forEach(function (item) {
+              if (item['Product'].MaSP == curProduct.MaSP) {
+                item['Quantity'] = parseInt(item['Quantity']) + 1;
+              }
+            });
+          } else {
+            // create arrray with 1 product and quantity
+            var cart = { 'Product': curProduct, 'Quantity': 1 };
+            data['cart'].push(cart);
+          }
           data['cart'].forEach(function (item) {
             html += `<div class="list__item">
             <div class="img">
-                <img src="${item.Img}" alt="">
+                <img src="${item['Product'].Img}" alt="">
             </div>
             <div class="content">
-                <p class="title">${item.TenSP}</p>
+                <p class="title">${item['Product'].TenSP}</p>
                 <p class="desc">Size Nho, De Mong</p>
                 <p class="price">79,000₫</p>
             </div>
             <div class="quantity">
-                <p>SL: 1</p>
+                <p>SL: ${item['Quantity']}</p>
             </div>
-        </div>`
+          </div>`
           })
           cartdiv.innerHTML = html;
           saveSessionCart(data['cart']);
@@ -406,4 +418,59 @@ function saveSessionCart(value) {
       
     },
   });
+}
+
+function loadSessionCart() {
+  $.ajax({
+    type: "POST",
+    url: "controller/ProductsController.php",
+    dataType: "json",
+    timeout: 1500, // sau 1.5 giây mà không phản hồi thì dừng => hiện lỗi
+    data: {
+      request: "getCurrentUser",
+    },
+    // data se bao gom user hientai va gio hang hientai
+    success: function (data) {
+      // hide load icon
+      document.querySelector(".loading").style.display = "none";
+        
+        data['cart'] == null ? data['cart'] = [] : data['cart'];
+        
+        var cartdiv = document.querySelector(".list");
+        var html = '';
+        data['cart'].forEach(function (item) {
+          html += `<div class="list__item">
+          <div class="img">
+              <img src="${item.Img}" alt="">
+          </div>
+          <div class="content">
+              <p class="title">${item.TenSP}</p>
+              <p class="desc">Size Nho, De Mong</p>
+              <p class="price">79,000₫</p>
+          </div>
+          <div class="quantity">
+              <p>SL: 1</p>
+          </div>
+      </div>`
+        })
+        cartdiv.innerHTML = html;
+        // add event delete all cart
+        document.querySelector('.btnCloseAllCart').addEventListener('click', function () {
+          data['cart'] = [];
+          saveSessionCart(data['cart']);
+          cartdiv.innerHTML = '';
+        });
+        document.querySelector('.loading').style.display = 'none';
+    },
+  });
+}
+
+function findProductInCart(listCart, curProduct) {
+  var result = false;
+  listCart.forEach(function (item) {
+    if (item['Product'].MaSP == curProduct.MaSP) {
+      result = true;
+    }
+  });
+  return result;
 }

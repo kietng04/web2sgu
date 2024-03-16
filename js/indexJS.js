@@ -15,55 +15,36 @@ var currentPagez = 1;
 const productSection = document.querySelector('.pro-collection');
 var html = '';
 var listProduct = [];
-    // ajax lay toan bo sp
-        $.ajax({
-            url: './controller/ProductsController.php',
-            type: 'post',
-            dataType: 'json',
-            timeout: 1500,
-            data: {
-                request: 'getProducts',
-                currentquery: currentqueryz,
-                currentpage: currentPagez,
-            },
-            success: function(data) {
-                listProduct = data.result;
-                var totalPage = data.countrow / perPage;
-                showProducts();
-                renderPag(totalPage);
-            },
-            //fail
-            error: function() {
-                alert("2sad");
-            }
-        })
 
-    
-    // else { 
-    //     var currentProduct = getProductFromCurrentPage(currentPage, listProduct);
-    //     currentProduct.forEach(function(item) {
-    //         html += `
-    //                 <div class="product-cart">
-    //                     <img src="${item['Img']}" alt="product image" />
-    //                     <span>${item['Type']}</span>
-    //                     <h4>${item['NamePizza']}</h4>
-    //                     <div class="stars">
-    //                         <i class="fa-solid fa-star"></i>
-    //                         <i class="fa-solid fa-star"></i>
-    //                         <i class="fa-solid fa-star"></i>
-    //                         <i class="fa-solid fa-star"></i>
-    //                         <i class="fa-solid fa-star"></i>
-    //                     </div>
-    //                     <h4 class="price">${toVND(item['Price'])}</h4>
-    //                     <a href="#"><i class="fa-solid fa-cart-shopping buy-icon"></i></a>
-    //                 </div>
-                    
-    //         `
-    //     })
-    //     productSection.innerHTML = html;
-    //     renderPag();
-    // }
+document.querySelector('.loading').style.display = 'block';
 
+loadDefaultProducts();
+loadSessionCart();
+
+
+function loadDefaultProducts() {
+    $.ajax({
+        url: './controller/ProductsController.php',
+        type: 'post',
+        dataType: 'json',
+        timeout: 1500,
+        data: {
+            request: 'getProducts',
+            currentquery: currentqueryz,
+            currentpage: currentPagez,
+        },
+        success: function(data) {
+            listProduct = data.result;
+            var totalPage = data.countrow / perPage;
+            showProducts();
+            renderPag(totalPage);
+        },
+        //fail
+        error: function() {
+            alert("2sad");
+        }
+    })
+}
 function renderPag(totalPage) {
     if (totalPage <= 1) totalPage = 0;
     var html = '';

@@ -230,10 +230,17 @@ function addEventProducts() {
                             <p value="D">Dày</p>
                         </div>
                     </div>
-                    <div class="btn --add" value='${data[0].MaSP}'>
-                        <p>Thêm vào giỏ hàng </p>
-                        <p> </p>
-                    </div>
+                  <div class="box__bottom">
+                  <div class="buttons_added">
+                  <input class="minus is-form" type="button" value="-" onclick="decreasingNumber(this)">
+                  <input class="input-qty" max="100" min="1" name="" type="number" value="1">
+                  <input class="plus is-form" type="button" value="+" onclick="increasingNumber(this)">
+                  </div>
+                  <div class="btn --add" value='${data[0].MaSP}'>
+                      <p>Thêm vào giỏ hàng </p>
+                      <p> </p>
+                  </div>
+                  </div>
                 </div>
                 <div class="btnClose">
                     <img src="img/close-icon.png" alt="">

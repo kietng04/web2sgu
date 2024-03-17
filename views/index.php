@@ -39,73 +39,141 @@
 
         <div class="wrapper__left">
 
-            <header class="header">
+            <header class="header --noshadown">
                 <div class="header__logo">
                     <a href="index.php">
                         <img src="./img/logo-pizza.png" alt="logo">
                     </a>
                 </div>
-                <div class="header__action">
-                    <div class="header__action-location">
-                        <i class="fa-solid fa-location-dot"></i>
-                    </div>
-                    <div class="header__action-bell">
-                        <i class="fa-regular fa-bell"></i>
-                    </div>
-                    <div class="header__action-member">
-                        <div class="icon"><i class="fa-solid fa-circle-user"></i></div>
-                        <p>Thanh Vien</p>
-                    </div>
-                </div>
-            </header>
 
-            <div class="topic">
-                <div class="btn__topic --active" onclick="toggleActive(this, 'all')">
-                    <span>PIZZA</span>
-                </div>
-                <div class="btn__topic" onclick="toggleActive(this, 'BÒ')">
-                    <span>PIZZA BÒ</span>
-                </div>
-                <div class="btn__topic" onclick="toggleActive(this, 'GÀ')">
-                    <span>PIZZA GÀ</span>
-                </div>
-                <div class="btn__topic" onclick="toggleActive(this, 'HẢI SẢN')">
-                    <span>PIZZA HẢI SẢN</span>
-                </div>
-                <div class="btn__topic" onclick="toggleActive(this)">
-                    <span>MÓN KHAI VỊ</span>
-                </div>
-                <div class="btn__topic" onclick="toggleActive(this)">
-                    <span>THỨC UỐNG</span>
-                </div>
-            </div>
+                     <div class="header-middle-center">
+                        <form action="" class="form-search">
+                        <span class="search-btn" ><i class="fa-solid fa-magnifying-glass"></i></span>
+                        <input
+                            type="text"
+                            class="form-search-input"
+                            placeholder="Tìm kiếm món ăn..."
 
-            <main class="main">
-                <div class="scproducts">
-                    <div class="a">
-                        <div class="scproducts__list">
-                            <div class="scproducts__list-item">
-                                <div class="top">
-                                    <div class="img">
-                                        <img src="img/Pizga_Pho_Mai_400x275.jpg" alt="">
+                        />
+                        <div class="filter-btn">
+                            <i class="fa-solid fa-filter"></i><span>Lọc</span>
+                        </div>
+                        </form>
+                    </div>
+                    <div class="header__action">
+                        <div class="header__action-location">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <div class="header__action-bell">
+                            <i class="fa-regular fa-bell"></i>
+                        </div>
+                        <div class="header__action-member">
+                            <div class="icon"><i class="fa-solid fa-circle-user"></i></div>
+                            <p>Thanh Vien</p>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="advanced-search">
+      <div class="advanced__container">
+        <div class="advanced-search-category">
+          <span>Phân loại </span>
+          <select
+            name=""
+            id="advanced-search-category-select"
+            onchange="searchProducts()"
+          >
+            <option>Tất cả</option>
+            <option>Pizza Bo </option>
+            <option>Pizza Ga</option>
+            <option>Pizza Hai San</option>
+            <option>Món ăn vặt</option>
+            <option>Nước uống</option>
+          </select>
+        </div>
+        <div class="advanced-search-price">
+          <span>Giá từ</span>
+          <input
+            type="number"
+            placeholder="tối thiểu"
+            id="min-price"
+            onchange="searchProducts()"
+          />
+          <span>đến</span>
+          <input
+            type="number"
+            placeholder="tối đa"
+            id="max-price"
+            onchange="searchProducts()"
+          />
+          <button id="advanced-search-price-btn">
+            <i class="fa-light fa-magnifying-glass-dollar"></i>
+          </button>
+        </div>
+        <div class="advanced-search-control">
+          <button id="sort-ascending" onclick="searchProducts(1)">
+            <i class="fa-regular fa-arrow-up-short-wide"></i>
+          </button>
+          <button id="sort-descending" onclick="searchProducts(2)">
+            <i class="fa-regular fa-arrow-down-wide-short"></i>
+          </button>
+          <button id="reset-search" onclick="searchProducts(0)">
+            <i class="fa-light fa-arrow-rotate-right"></i>
+          </button>
+          <button onclick="closeSearchAdvanced()">
+            <i class="fa-light fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+                <div class="topic">
+                    <div class="btn__topic --active" onclick="toggleActive(this, 'all')">
+                        <span>PIZZA</span>
+                    </div>
+                    <div class="btn__topic" onclick="toggleActive(this, 'BÒ')">
+                        <span>PIZZA BÒ</span>
+                    </div>
+                    <div class="btn__topic" onclick="toggleActive(this, 'GÀ')">
+                        <span>PIZZA GÀ</span>
+                    </div>
+                    <div class="btn__topic" onclick="toggleActive(this, 'HẢI SẢN')">
+                        <span>PIZZA HẢI SẢN</span>
+                    </div>
+                    <div class="btn__topic" onclick="toggleActive(this)">
+                        <span>MÓN KHAI VỊ</span>
+                    </div>
+                    <div class="btn__topic" onclick="toggleActive(this)">
+                        <span>THỨC UỐNG</span>
+                    </div>
+                </div>
+
+                <main class="main">
+                    <div class="scproducts">
+                        <div class="a">
+                            <div class="scproducts__list">
+                                <div class="scproducts__list-item">
+                                    <div class="top">
+                                        <div class="img">
+                                            <img src="img/Pizga_Pho_Mai_400x275.jpg" alt="">
+                                        </div>
+                                        <p class="title">Pizza Phô Mai</p>
                                     </div>
-                                    <p class="title">Pizza Phô Mai</p>
-                                </div>
-                                <div class="content">
-                                    <p class="desc">Thưởng thức vị gà Karaage chiên giòn cắt lát trên nền pizza đậm vị,
-                                        cùng nấm tươi, hành tây hoà quyện xốt phô mai</p>
-                                    <button class="btn__buy">
-                                        <p class="chon">CHỌN</p>
-                                        <p class="price">119,000 ₫</p>
-                                    </button>
+                                    <div class="content">
+                                        <p class="desc">Thưởng thức vị gà Karaage chiên giòn cắt lát trên nền pizza đậm vị,
+                                            cùng nấm tươi, hành tây hoà quyện xốt phô mai</p>
+                                        <button class="btn__buy">
+                                            <p class="chon">CHỌN</p>
+                                            <p class="price">119,000 ₫</p>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="pagnition">1 2</div>
                         </div>
-                        <div class="pagnition">1 2</div>
                     </div>
-                </div>
-            </main>
-        </div>
+                </main>
+            </div>
 
         <div class="wrapper__right">
             <div class="top">
@@ -298,6 +366,49 @@ document.addEventListener("DOMContentLoaded", function() {
     //     });
 
     // });
+
+    function increasingNumber(e) {
+    let qty = e.parentNode.querySelector('.input-qty');
+    if (parseInt(qty.value) < qty.max) {
+        qty.value = parseInt(qty.value) + 1;
+    } else {
+        qty.value = qty.max;
+    }
+}
+
+function decreasingNumber(e) {
+    let qty = e.parentNode.querySelector('.input-qty');
+    if (qty.value > qty.min) {
+        qty.value = parseInt(qty.value) - 1;
+    } else {
+        qty.value = qty.min;
+    }
+}
+
+
+// Xuong
+document.addEventListener("DOMContentLoaded", function() {
+  // Lấy phần tử .filter-btn
+  var filterButton = document.querySelector(".filter-btn");
+
+  // Lấy phần tử .advanced-search
+  var advancedSearch = document.querySelector(".advanced-search");
+
+  // Thêm sự kiện click cho .filter-btn
+  filterButton.addEventListener("click", function() {
+    // Kiểm tra xem phần tử .advanced-search đã có class --down chưa
+    var isDown = advancedSearch.classList.contains("--down");
+
+    // Nếu đã có class --down, loại bỏ nó; nếu chưa, thêm vào
+    if (isDown) {
+      advancedSearch.classList.remove("--down");
+    } else {
+      advancedSearch.classList.add("--down");
+    }
+  });
+});
+
+
     </script>
 
 </body>

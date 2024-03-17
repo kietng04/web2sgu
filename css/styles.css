@@ -177,6 +177,7 @@ a {
   height: 100vh;
   display: grid;
   grid-template-rows: 48px 5fr 1fr;
+  z-index: 102;
 }
 .wrapper__right .top {
   display: flex;
@@ -198,32 +199,31 @@ a {
   gap: 12px;
 }
 .list__item {
+  position: relative;
   padding: 5px;
   border-radius: 6px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
-  gap: 6px;
+  gap: 10px;
 }
 
 .list__item .title {
   color: #000000;
-
   font-size: 11px;
   font-weight: 700;
   grid-area: auto;
   letter-spacing: 0.14994px;
   line-height: 15.73px;
-  text-align: lef;
+  text-align: left;
 }
 
 .list__item .img {
   display: flex;
   overflow: hidden;
-  max-width: 90px;
-  height: 100px;
+  aspect-ratio: 1/1;
+  width: 100px;
   border-radius: 4px;
 }
 
@@ -468,4 +468,98 @@ a {
 .scbox__form.--bottom {
   margin-top: 24px;
   margin-bottom: 24px;
+}
+
+.form-search i {
+  font-size: 20px;
+}
+
+/* nav advande */
+
+.advanced-search {
+  background-color: var(--color-white);
+  z-index: 100;
+  width: 100%;
+  transform: translateY(-65px);
+  transition: transform 0.6s ease;
+  display: flex;
+  position: fixed;
+  width: 100%;
+  top: 65px;
+  left: 0;
+  z-index: 99;
+  box-shadow: 0 3px 5px 0 rgb(0 0 0 / 10%);
+}
+
+.advanced-search.--down {
+  transform: translateY(0px);
+  box-shadow: 0 3px 5px 0 rgb(0 0 0 / 10%);
+}
+
+.advanced-search .container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.advanced-search-price {
+  display: flex;
+  height: 49px;
+  align-items: center;
+}
+
+#advanced-search-category-select {
+  height: 35px;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  padding: 0 10px;
+  background-color: #f0f0f0;
+  border-right: 10px solid #f0f0f0;
+  cursor: pointer;
+}
+
+.advanced-search-price input {
+  border: none;
+  outline: none;
+  height: 35px;
+  width: 140px;
+  padding: 0 10px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+}
+
+.advanced-search span {
+  margin: 0 10px;
+  font-size: 15px;
+  color: #000000;
+}
+
+#advanced-search-price-btn,
+.advanced-search-control button {
+  height: 35px;
+  width: 35px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#advanced-search-price-btn {
+  margin-left: 10px;
+  background-color: var(--color-red);
+  color: var(--white);
+  font-size: 20px;
+}
+
+.advanced-search-control button:hover {
+  background-color: var(--color-red);
+  color: var(--white);
+}
+
+.advanced__container {
+  padding: 1px 33px;
+  display: flex;
+  align-items: center;
+  gap: 56px;
 }

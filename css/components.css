@@ -61,7 +61,7 @@
   width: 100%;
   top: 64.8px;
   left: 0;
-  z-index: 100;
+  z-index: 98;
   display: flex;
   align-items: center;
   position: sticky;
@@ -152,7 +152,7 @@
   right: 0;
   bottom: 0;
   display: flex;
-  z-index: 100;
+  z-index: 300;
   position: fixed;
   align-items: center;
   justify-content: center;
@@ -336,6 +336,17 @@
   font-size: 16px;
 }
 
+.list__item .btnClose {
+  background-color: var(--color-red);
+  top: 0px;
+  right: 4px;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+}
+.list__item .btnClose:hover {
+  background-color: #ed4765;
+}
 .btnClose {
   cursor: pointer;
   width: 30px;
@@ -640,4 +651,107 @@
   background-color: var(--color-red);
   color: var(--color-white);
   border: 2px solid var(--color-red);
+}
+
+.is-form {
+  background-color: #f9f9f9;
+  height: 30px;
+  width: 30px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  line-height: 20px;
+  border-radius: 50%;
+}
+.is-form:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+.input-qty {
+  background-color: #fff;
+  height: 30px;
+  width: 35px;
+  text-align: center;
+  font-size: 14px;
+  display: inline-block;
+  margin: 0 5px;
+  border: 1px solid #ddd;
+  padding: 0;
+  border-radius: 5px;
+  outline: none;
+}
+.box__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.buttons_added {
+  display: flex;
+}
+
+.form-search {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.form-search-input {
+  height: 40px;
+  outline: none;
+  border: none;
+  background-color: #f0f0f0;
+  padding: 10px 20px;
+  padding-left: 0;
+  border-top-right-radius: 99px;
+  border-bottom-right-radius: 99px;
+  width: 343px;
+  /* border: 1px solid #e6ecf0;
+  background-color: #f5f8fa; */
+}
+
+.filter-btn,
+.search-btn {
+  border: none;
+  outline: none;
+  font-size: 20px;
+  height: 40px;
+  padding: 0 15px;
+  color: #000000;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.search-btn {
+  background-color: #f0f0f0;
+  border-top-left-radius: 99px;
+  border-bottom-left-radius: 99px;
+}
+
+.filter-btn {
+  background-color: var(--color-red);
+  height: 30px;
+  color: var(--color-white);
+  width: 75px;
+  border-radius: 99px;
+  position: relative;
+  right: 80px;
+  top: 5px;
+}
+
+.filter-btn span {
+  font-size: 14px;
+  margin-left: 5px;
+}
+.search-btn i {
+  font-size: 14px;
+  font-weight: 300px;
+  border: none;
+  outline: none;
+  font-size: 20px;
+  align-items: center;
+}
+
+.header.--noshadown{
+  box-shadow: none;
 }

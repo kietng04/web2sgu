@@ -388,8 +388,14 @@ function addeventbutbtn() {
                 <p class="desc">Size Nho, De Mong</p>
                 <p class="price">79,000₫</p>
             </div>
-            <div class="quantity">
-                <p>SL: ${item['Quantity']}</p>
+            
+            <div class="buttons_added">
+            <input class="minus is-form" type="button" value="-" onclick="decreasingNumber(this)">
+            <input class="input-qty" max="100" min="1" name="" type="number" value="${item['Quantity']}">
+            <input class="plus is-form" type="button" value="+" onclick="increasingNumber(this)">
+            </div>
+            <div class="btnClose">
+            <img src="img/close-icon.png" alt="">
             </div>
           </div>`
           })

@@ -23,3 +23,6 @@ if (isset($_GET['page'])) {
 require_once('routes.php');
 
 
+// hahahahhahahaahhahahahahahahhaha
+//hello my name is kiet dep trai 
+// kiet hoc git 

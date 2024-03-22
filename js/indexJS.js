@@ -60,10 +60,6 @@ function renderPag(totalPage) {
   document.querySelector(".pagnition").innerHTML = html;
 }
 
-function toVND(money) {
-  let nf = new Intl.NumberFormat("en-US");
-  return nf.format(money) + "₫";
-}
 
 function ajaxproduct(page) {
   currentPagez = page;

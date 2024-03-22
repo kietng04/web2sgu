@@ -5,6 +5,7 @@ document.querySelector('.dangkybtn').addEventListener('click', function() {
     var password = document.querySelector('.matkhau').value;
     var gioitinh = document.querySelector('#cbgioitinh').value;
     var sdt = document.querySelector('.sdt').value;
+    var diachi = document.querySelector('.diachi').value;
     // ajax register
     $.ajax({
         url: './controller/SignUpController.php',
@@ -15,7 +16,8 @@ document.querySelector('.dangkybtn').addEventListener('click', function() {
             email: email,
             password: password,
             gioitinh: gioitinh,
-            sdt: sdt
+            sdt: sdt,
+            diachi: diachi
         },
         success: function(data) {
             if(data) {

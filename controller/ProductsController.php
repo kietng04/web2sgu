@@ -67,7 +67,7 @@ switch($_POST['request']) {
 function login() {
     $username=$_POST['data_username'];
 	$password=$_POST['data_pass'];
-    $sql = "SELECT * FROM taikhoan WHERE TaiKhoan='$username' AND MatKhau='$password' AND MaQuyen=1 AND MaTT=1";
+    $sql = "SELECT * FROM nguoidung WHERE Email='$username' AND MatKhau='$password'";
     $result = (new NguoiDungBus())->get_list($sql);
     // create array include $result and null
     $returnz = array('result' => $result, 'cart' => null);

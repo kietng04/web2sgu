@@ -27,7 +27,7 @@ function signup() {
     $password = $_POST['password'];
     $gioitinh = $_POST['gioitinh'];
     // $diachi = $_POST['data_diachi'];
-    $diachi = "1";
+    $diachi = $_POST['diachi'];
     $sodienthoai = $_POST['sdt'];
 
     // create array key value
@@ -38,7 +38,8 @@ function signup() {
         'SDT' => $sodienthoai,
         'Email' => $email,
         'DiaChi' => 1,
-        'MatKhau' => $password
+        'MatKhau' => $password,
+        'DiaChi' => $diachi
     );
     $result = (new NguoiDungBUS())->add_new($data);
     die (json_encode($result));

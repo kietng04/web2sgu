@@ -441,6 +441,7 @@ function loadSessionCart() {
     },
     // data se bao gom user hientai va gio hang hientai
     success: function (data) {
+      console.log(data);
       // hide load icon
       if (data === null || data['result'] === null) return;
       document.querySelector(".loading").style.display = "none";
@@ -512,3 +513,7 @@ function decreasingNumber(e) {
   }
 }
 
+function toVND(money) {
+  let nf = new Intl.NumberFormat("en-US");
+  return nf.format(money) + "₫";
+}

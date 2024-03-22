@@ -95,7 +95,7 @@
                     </div>
                     <div class="form-item --register">
                         <label for="">Dia chi*</label>
-                        <input type="text" name="" value="" class="sdt">
+                        <input type="text" name="" value="" class="diachi">
                     </div>
                    
                 </div>

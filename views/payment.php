@@ -68,22 +68,22 @@
             </h2>
             <div class="form-item">
                 <label for="Ho va ten*">Họ và tên*</label>
-                <input type="text" placeholder="Nhap ten">
+                <input type="text" placeholder="Nhap ten" class="name">
             </div>
             <div class="form-item">
                 <label for="Ho va ten*">Số điện thoại*</label>
-                <input type="text" placeholder="Nhap so dien thoai">
+                <input type="text" placeholder="Nhap so dien thoai" class="sdt">
             </div>
             <div class="form-item">
                 <label for="Ho va ten*">Email*</label>
-                <input type="text" placeholder="Nhap email">
+                <input type="text" placeholder="Nhap email" class="email">
             </div>
             <div class="form-item">
                 <label for="Ho va ten*">Dia chi*</label>
-                <input type="text" placeholder="Nhap dia chi">
+                <input type="text" placeholder="Nhap dia chi" class="diachi">
             </div>
             <button class="btn">
-                <p class="text">Đặt hàng</p>
+                <p class="dathangbtn">Đặt hàng</p>
                 <span class="price">219,000 ₫</span>
             </button>
         </div>
@@ -116,8 +116,8 @@
                             <th>Thành tiền</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
+                    <tbody class="ordertable">
+                        <tr class="orderitem">
                             <td class="product-description">
                                 <img src="./images/pizzaimg/gaphomaixanh.jpg" alt=""> Pizza Phô Mai
                             </td>
@@ -126,7 +126,7 @@
                             <td>149.000 VNĐ</td>
                             <td>298.000 VNĐ</td>
                         </tr>
-                        <tr>
+                        <tr class="orderitem">
                             <td class="product-description">
                                 <img src="./images/pizzaimg/haisandodo.jpg" alt=""> Pizza Hải Sản
                             </td>
@@ -187,8 +187,9 @@
             </div>
     </section>
 
-
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="js/helper.js"></script>
+    <script src="js/payment.js"></script>
     <script>
     document.addEventListener("DOMContentLoaded", function() {
         // Lấy phần tử .popupLogin

@@ -77,7 +77,7 @@ INSERT INTO `NhanVien` (`MaNV`, `Ho`, `Ten`, `GioiTinh`, `SDT`, `Email`, `DiaChi
 
 
 CREATE TABLE `HoaDon` (
-  `MaHD` int(11) NOT NULL,
+  `MaHD` int(11) NOT NULL AUTO_INCREMENT,
   `MaND` int(11) NOT NULL,
   `MaNV` int(11) NOT NULL,
   `NgayLap` date NOT NULL,

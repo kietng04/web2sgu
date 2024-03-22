@@ -42,7 +42,7 @@
             <header class="header --noshadown">
                 <div class="header__logo">
                     <a href="index.php">
-                        <img src="./img/logo-pizza.png" alt="logo">
+                        <img src="img/logo-pizza.png" alt="logo">
                     </a>
                 </div>
 
@@ -240,7 +240,7 @@
                 <p>Email hoặc mật khẩu đăng nhập không hợp lệ. Vui lòng thử lại.</p>
                 </div>
 
-                <p class="register">Bạn chưa có tài khoản? <a href="">Đăng ký ngay</a> hoặc tìm hiểu thêm về <a href="">Điều khoản và Quyền lợi Thành viên</a></p>
+                <p class="register">Bạn chưa có tài khoản? <a href="index.php?controller=SignUpController&action=index">Đăng ký ngay</a> hoặc tìm hiểu thêm về <a href="">Điều khoản và Quyền lợi Thành viên</a></p>
         </div>
 
         <button class="btnX">
@@ -267,7 +267,6 @@ document.addEventListener("DOMContentLoaded", function() {
   headerActionMember.addEventListener("click", function() {
     // Loại bỏ class --none từ phần tử .popupLogin
     popupLogin.classList.remove("--none");
-    addeventlogin();
   });
 
   // Thêm sự kiện click cho nút đóng

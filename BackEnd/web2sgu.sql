@@ -46,18 +46,19 @@ INSERT INTO `TaiKhoan` (`MaTK`, `TaiKhoan`, `MatKhau`, `MaQuyen`, `MaTT`) VALUES
 
 -- USER DATABASE
 CREATE TABLE `NguoiDung` (
-  `MaND` int(11) NOT NULL,
+  `MaND` int(11) NOT NULL AUTO_INCREMENT,
   `Ho` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `Ten` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `GioiTinh` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `SDT` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `Email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `DiaChi` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `MatKhau` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (MaND)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `NguoiDung` (`MaND`, `Ho`, `Ten`, `GioiTinh`, `SDT`, `Email`, `DiaChi`) VALUES
-(1, 'Nguyen The', 'Kiet', 'Nam', '0123456789', 'trungky@gmail.com', 'Dak Lag');
+INSERT INTO `NguoiDung` (`MaND`, `Ho`, `Ten`, `GioiTinh`, `SDT`, `Email`, `DiaChi`, `MatKhau`) VALUES
+(1, 'Nguyen The', 'Kiet', 'Nam', '0123456789', 'trungky@gmail.com', 'Dak Lag', '123456');
 
 
 CREATE TABLE `NhanVien` ( 

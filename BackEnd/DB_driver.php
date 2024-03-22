@@ -41,7 +41,12 @@ class DB_driver {
         }
 
         $sql = 'INSERT INTO ' . $table . '(' . trim($field_list, ',') . ') VALUES (' . trim($value_list, ',') . ')';
-        return mysqli_query($this->__conn, $sql);
+        $result = mysqli_query($this->__conn, $sql);
+        if ($result) {
+            return mysqli_insert_id($this->__conn);
+        } else {
+            return false;
+        }
     }
 
     function get_list($sql) {

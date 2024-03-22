@@ -24,10 +24,10 @@
         rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/variables.css">
-    <link rel="stylesheet" href="../css/components.css">
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/styles.css">
 
 
 </head>
@@ -38,7 +38,7 @@
     <header class="header --shadown">
         <div class="header__logo">
             <a href="index.php">
-                <img src="../img/logo-pizza.png" alt="logo">
+                <img src="img/logo-pizza.png" alt="logo">
             </a>
         </div>
         <div class="header__action">
@@ -69,36 +69,44 @@
                 <div class="scregister__form-left --error">
                     <div class="form-item --register --error">
                         <label for="">Ten*</label>
-                        <input type="text" name="" value="">
+                        <input type="text" name="" value="" class="name">
                         <p class="error">Yêu cầu nhập Tên</p>
                     </div>
                     <div class="group">
                     <div class="form-item --register">
-                        <label for="">Ngay sinh*</label>
-                        <input class="--register" type="date" name="" value="">
-                    </div>
-                    <div class="form-item --register">
                         <label for="">Gioi tinh*</label>
-                        <input type="text" name="" value="">
-                    </div>
+                     
+                            <select name="" id="cbgioitinh">
+                                <option value="Nam">Nam</option>
+                                <option vaslue="Nu">Nữ</option>
+                            </select>
+                     
                     </div>
                     <div class="form-item --register">
                         <label for="">So dien thoai*</label>
-                        <input type="text" name="" value="">
+                        <input type="text" name="" value="" class="sdt">
                     </div>
+
+                    </div>
+               
                     <div class="form-item --register">
                         <label for="">Email*</label>
-                        <input type="text" name="" value="">
+                        <input type="text" name="" value="" class="email">
                     </div>
+                    <div class="form-item --register">
+                        <label for="">Dia chi*</label>
+                        <input type="text" name="" value="" class="sdt">
+                    </div>
+                   
                 </div>
                 <div class="scregister__form-right">
                     <div class="form-item --register">
                         <label for="">Mat khau*</label>
-                        <input type="password" name="" value="">
+                        <input type="password" name="" value="" class="matkhau">
                     </div>
                     <div class="form-item --register">
                         <label for="">Xac nhan mat khau*</label>
-                        <input type="password" name="" value="">
+                        <input type="password" name="" value="" class="xacnhanmatkhau">
                     </div>
                     <div class="form-item">
                         <label class="title">Mật khẩu ít nhất 3 ký tự và đáp ứng cac điều kiện sau:</label>
@@ -113,7 +121,7 @@
                 </div>
             </div>
             <div class="scregister__bottom">
-                    <button class="btn" type="submit">ĐĂNG KÝ</button>
+                    <button class="btn dangkybtn" type="submit">ĐĂNG KÝ</button>
             </div>
         </div>
         
@@ -196,11 +204,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="js/script.js"></script>
-    <script src="js/helper.js"></script>
-    <script src="js/indexJS.js"></script>
-    <script>
-    </script>
+    <script src="js/register.js"></script>
 
 </body>
 

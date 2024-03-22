@@ -60,11 +60,11 @@
     </section>
 
     <section class="scbox">
-      
+
 
         <div class="scbox__form">
             <h2>
-            Thông tin đặt hàng
+                Thông tin đặt hàng
             </h2>
             <div class="form-item">
                 <label for="Ho va ten*">Họ và tên*</label>
@@ -93,94 +93,154 @@
                 <div class="bagde">
                     <p class="num">1</p>
                 </div>
-                <div class="left">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <p>Xem chi tiết giỏ hàng của bạn</p>
-                </div>
+                <button class="left">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <p>Xem chi tiết giỏ hàng của bạn</p>
+                </button>
                 <div class="right">
-                <i class="fa-solid fa-chevron-right"></i>
+                    <i class="fa-solid fa-chevron-right"></i>
                 </div>
-
             </div>
         </div>
 
+        <div class="dark-overlay hide">
+            <section class="product-list">
+                <h2>Sản phẩm</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tên sản phẩm</th>
+                            <th>Loại</th>
+                            <th>Số lượng</th>
+                            <th>Đơn giá</th>
+                            <th>Thành tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="product-description">
+                                <img src="./images/pizzaimg/gaphomaixanh.jpg" alt=""> Pizza Phô Mai
+                            </td>
+                            <td>Đế: mỏng, size: vừa</td>
+                            <td>2</td>
+                            <td>149.000 VNĐ</td>
+                            <td>298.000 VNĐ</td>
+                        </tr>
+                        <tr>
+                            <td class="product-description">
+                                <img src="./images/pizzaimg/haisandodo.jpg" alt=""> Pizza Hải Sản
+                            </td>
+                            <td>Đế: dày, size: lớn</td>
+                            <td>1</td>
+                            <td>249.000 VNĐ</td>
+                            <td>249.000 VNĐ</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" id="total">Tổng tiền:</td>
+                            <td id="total-price">400.000 VNĐ</td>
+                            <td>
+                                <div class="close-bg">
+                                    <button class="close">
+                                        Đóng
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+
         <div class="popupLogin --none">
-    <div class="popupLogin__container">
-        <div class="popupLogin__img">
-            <img src="../images/loginbackground.jpg" alt="">
-        </div>
-        <div class="popupLogin__form">
-            <h2 class="headingLogin">🍕🍕 WELCOME BACK!</h2>
-            <p class="heading__desc">NEU BẠN ĐÃ LÀ THÀNH VIÊN PIZZA HUT<br>HAY ĐĂNG NHẬP
-                TRƯỚC KHI THANH TOÁN PIZZA NHÉ!</p>
-                <div class="form-item --login --error">
-                    <label for="email">Email *</label>
-                    <input type="text" name="" id="">
-                    <p class="error">Sai dinh dang email</p>
+            <div class="popupLogin__container">
+                <div class="popupLogin__img">
+                    <img src="./images/loginbackground.jpg" alt="">
                 </div>
-                <div class="form-item --login">
-                    <label for="email">Mật Khẩu *</label>
-                    <input type="Password" name="" id="">
+                <div class="popupLogin__form">
+                    <h2 class="headingLogin">🍕🍕 WELCOME BACK!</h2>
+                    <p class="heading__desc">NEU BẠN ĐÃ LÀ THÀNH VIÊN PIZZA HUT<br>HAY ĐĂNG NHẬP
+                        TRƯỚC KHI THANH TOÁN PIZZA NHÉ!</p>
+                    <div class="form-item --login --error">
+                        <label for="email">Email *</label>
+                        <input type="text" name="" id="">
+                        <p class="error">Sai dinh dang email</p>
+                    </div>
+                    <div class="form-item --login">
+                        <label for="email">Mật Khẩu *</label>
+                        <input type="Password" name="" id="">
+                    </div>
+
+                    <button class="btn">ĐĂNG NHẬP</button>
+
+                    <div class="form-error">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        <p>Email hoặc mật khẩu đăng nhập không hợp lệ. Vui lòng thử lại.</p>
+                    </div>
+
+                    <p class="register">Bạn chưa có tài khoản? <a href="">Đăng ký ngay</a> hoặc tìm hiểu thêm về <a
+                            href="">Điều khoản và Quyền lợi Thành viên</a></p>
                 </div>
-               
-                <button class="btn">ĐĂNG NHẬP</button>
 
-                <div class="form-error">
-                <i class="fa-solid fa-circle-exclamation"></i>
-                <p>Email hoặc mật khẩu đăng nhập không hợp lệ. Vui lòng thử lại.</p>
-                </div>
-
-                <p class="register">Bạn chưa có tài khoản? <a href="">Đăng ký ngay</a> hoặc tìm hiểu thêm về <a href="">Điều khoản và Quyền lợi Thành viên</a></p>
-        </div>
-
-        <button class="btnX">
-                <img src="../images/iconClose.png" alt="">
-        </button>
-
-    </div>  
+                <button class="btnX">
+                    <img src=" ./images/iconClose.png" alt="">
+                </button>
+            </div>
     </section>
 
 
 
     <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Lấy phần tử .popupLogin
+        var popupLogin = document.querySelector(".popupLogin");
+        var button = document.querySelector(".btn");
+        // Lấy phần tử .btnX
+        var closeButton = document.querySelector(".btnX");
 
-document.addEventListener("DOMContentLoaded", function() {
-  // Lấy phần tử .popupLogin
-  var popupLogin = document.querySelector(".popupLogin");
-  var button = document.querySelector(".btn");
-  // Lấy phần tử .btnX
-  var closeButton = document.querySelector(".btnX");
+        // Thêm sự kiện click cho .header__action-member
+        var headerActionMember = document.querySelector(".header__action-member");
+        headerActionMember.addEventListener("click", function() {
+            // Loại bỏ class --none từ phần tử .popupLogin
+            popupLogin.classList.remove("--none");
+        });
 
-  // Thêm sự kiện click cho .header__action-member
-  var headerActionMember = document.querySelector(".header__action-member");
-  headerActionMember.addEventListener("click", function() {
-    // Loại bỏ class --none từ phần tử .popupLogin
-    popupLogin.classList.remove("--none");
-  });
+        // Thêm sự kiện click cho nút đóng
+        closeButton.addEventListener("click", function() {
+            // Thêm lại class --none cho .popupLogin
+            popupLogin.classList.add("--none");
+        });
 
-  // Thêm sự kiện click cho nút đóng
-  closeButton.addEventListener("click", function() {
-    // Thêm lại class --none cho .popupLogin
-    popupLogin.classList.add("--none");
-  });
+        // Thêm sự kiện click cho phần tử cha .popupLogin
+        popupLogin.addEventListener("click", function(event) {
+            // Kiểm tra xem phần tử được nhấp vào có phải là phần tử cha popupLogin không
+            if (event.target === popupLogin) {
+                // Thêm lại class --none cho .popupLogin
+                popupLogin.classList.add("--none");
+            }
+        });
 
-  // Thêm sự kiện click cho phần tử cha .popupLogin
-  popupLogin.addEventListener("click", function(event) {
-    // Kiểm tra xem phần tử được nhấp vào có phải là phần tử cha popupLogin không
-    if (event.target === popupLogin) {
-      // Thêm lại class --none cho .popupLogin
-      popupLogin.classList.add("--none");
-    }
-  });
+        button.addEventListener("click", function() {
+            // Thêm lại class --none cho .popupLogin
+            popupLogin.classList.add("--none");
+        });
+    });
 
-  button.addEventListener("click", function() {
-    // Thêm lại class --none cho .popupLogin
-    popupLogin.classList.add("--none");
-  });
-});
+    //show product-list
 
-</script>
+    const productList = document.querySelector('.dark-overlay');
+    const closeDetail = document.querySelectorAll('.close');
+    const showproductList = document.querySelector('button.left');
 
+    showproductList.addEventListener('click', function() {
+        productList.classList.remove("hide");
+    })
+
+    closeDetail.forEach(button => {
+        button.addEventListener('click', function() {
+            productList.classList.add("hide");
+        })
+    })
+    </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>

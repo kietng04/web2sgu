@@ -232,7 +232,6 @@
     const showproductList = document.querySelector('button.left');
 
     showproductList.addEventListener('click', function() {
-        console.log("Kietlac")
         productList.classList.remove("hide");
     })
 

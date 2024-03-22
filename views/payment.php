@@ -24,10 +24,10 @@
         rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/variables.css">
-    <link rel="stylesheet" href="../css/components.css">
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/styles.css">
 
 
 </head>
@@ -38,7 +38,7 @@
     <header class="header --shadown">
         <div class="header__logo">
             <a href="index.php">
-                <img src="../img/logo-pizza.png" alt="logo">
+                <img src="img/logo-pizza.png" alt="logo">
             </a>
         </div>
         <div class="header__action">
@@ -81,10 +81,6 @@
             <div class="form-item">
                 <label for="Ho va ten*">Dia chi*</label>
                 <input type="text" placeholder="Nhap dia chi">
-            </div>
-            <div class="form-item">
-                <label for="Ho va ten*">Giao vào lúc:</label>
-                <input type="time" placeholder="Nhap thoi gian giao hang">
             </div>
             <button class="btn">
                 <p class="text">Đặt hàng</p>
@@ -187,9 +183,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="js/script.js"></script>
-    <script src="js/helper.js"></script>
-    <script src="js/indexJS.js"></script>
     <script>
     </script>
 

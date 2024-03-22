@@ -523,7 +523,7 @@
   right: 0;
   bottom: 0;
   display: flex;
-  z-index: 100;
+  z-index: 300;
   position: fixed;
   align-items: center;
   justify-content: center;
@@ -678,7 +678,9 @@
   padding: 0;
   border-radius: 5px;
   outline: none;
+  
 }
+
 .box__bottom {
   display: flex;
   align-items: center;

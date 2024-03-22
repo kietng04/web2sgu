@@ -6,11 +6,6 @@ require_once(__DIR__ . '/../model/SanPhamBUS.php');
 session_start();
 class ProductsController extends BaseController
 {
-	function __construct()
-	{
-		$this->folder = 'products';
-	}
-
 	public function index()
 	{
 		// $products = (new SanPhamBUS())->getProduct();
@@ -193,4 +188,5 @@ function saveSessionCart() {
         $_SESSION['currentUser']['cart'] = $_POST['cart'];
         die (json_encode($_SESSION['currentUser']));
     }
+    die (json_encode(null));
 }

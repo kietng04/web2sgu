@@ -18,12 +18,12 @@ const productSection = document.querySelector(".pro-collection");
 var html = "";
 var listProduct = [];
 
-document.querySelector(".loader").style.display = "block";
 
 loadDefaultProducts();
 loadSessionCart();
 
 function loadDefaultProducts() {
+  activeloader();
   $.ajax({
     url: "./controller/ProductsController.php",
     type: "post",

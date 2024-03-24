@@ -55,6 +55,8 @@ function loadTableOrdered() {
        </tr>`;
            document.querySelector('.ordertable').innerHTML = html;
            document.querySelector('.price').innerHTML = toVND(total);
+           addeventclose();
+           console.log(data['cart']);
            addeventdathang(data['cart']);
         }
         
@@ -115,8 +117,17 @@ function addeventdathang(listProduct) {
                 console.log(data);
                 if(data) {
                     alert("Đặt hàng thành công");
+                    window.location.href = 'index.php?controller=HistoryBillController&action=index';
                 }
             }
         })
     })
+}
+    
+function addeventclose() {
+    var closeButton = document.querySelector(".close-bg");
+    // Thêm sự kiện click cho nút đóng
+    closeButton.addEventListener("click", function() {
+        document.querySelector('.dark-overlay').classList.add('hide');
+    });
 }

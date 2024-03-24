@@ -28,6 +28,7 @@ function dathang() {
     $total = $_POST['total'];
     $cart = $_POST['listProduct'];
     $date = $_POST['date'];
+    $listProduct = $_POST['listProduct'];
 
     $data = [
         'MaND' => $_SESSION['currentUser']['result'][0]['MaND'],
@@ -35,5 +36,5 @@ function dathang() {
         'TongTien' => $total,
         'TrangThai' => 0
     ];
-    (new HoaDonBUS())->add1hoadon($data);
+    return (new HoaDonBUS())->add1hoadon($data, $listProduct);
 }

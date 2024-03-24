@@ -91,9 +91,9 @@ INSERT INTO `HoaDon` (`MaHD`, `MaND`, `MaNv`, `NgayLap`, `TongTien`, `TrangThai`
 
 CREATE TABLE `ChiTietHoaDon` (
   `MaHD` int(11) NOT NULL,
-  `MaSP` int(11) NOT NULL,
-  `MaSize` int(11) NOT NULL,
-  `MaVien` int(11) NOT NULL,
+  `MaSP` varchar(100) NOT NULL,
+  `MaSize` varchar(100) NOT NULL,
+  `MaVien` varchar(100) NOT NULL,
   `Img` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `SoLuong` int(11) NOT NULL,
   `GiaTien` decimal(10,2) NOT NULL,

@@ -196,7 +196,7 @@
         var popupLogin = document.querySelector(".popupLogin");
         var button = document.querySelector(".btn");
         // Lấy phần tử .btnX
-        var closeButton = document.querySelector(".btnX");
+        // var closeButton = document.querySelector(".btnX");
 
         // Thêm sự kiện click cho .header__action-member
         var headerActionMember = document.querySelector(".header__action-member");
@@ -206,10 +206,10 @@
         });
 
         // Thêm sự kiện click cho nút đóng
-        closeButton.addEventListener("click", function() {
-            // Thêm lại class --none cho .popupLogin
-            popupLogin.classList.add("--none");
-        });
+        // closeButton.addEventListener("click", function() {
+        //     // Thêm lại class --none cho .popupLogin
+        //     popupLogin.classList.add("--none");
+        // });
 
         // Thêm sự kiện click cho phần tử cha .popupLogin
         popupLogin.addEventListener("click", function(event) {

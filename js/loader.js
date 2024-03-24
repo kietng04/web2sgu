@@ -1,4 +1,5 @@
-window.addEventListener ("load", () => {
+
+function loader() {
     const loader = document.querySelector(".loader");
     
     loader.classList.add("loader-hidden");
@@ -6,4 +7,4 @@ window.addEventListener ("load", () => {
     loader.addEventListener("transitionend", () => {
     document.body.removeChild("loader");
     })
-})
+}

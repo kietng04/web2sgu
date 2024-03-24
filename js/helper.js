@@ -364,7 +364,6 @@ function addeventbutbtn() {
       // data se bao gom user hientai va gio hang hientai
       success: function (data) {
         // hide load icon
-        document.querySelector(".loading").style.display = "none";
         var html = '';
         var cartdiv = document.querySelector(".list");
         if (data) {
@@ -444,7 +443,6 @@ function loadSessionCart() {
       console.log(data);
       // hide load icon
       if (data === null || data['result'] === null) return;
-      document.querySelector(".loading").style.display = "none";
         
         data['cart'] == null ? data['cart'] = [] : data['cart'];
         
@@ -478,7 +476,7 @@ function loadSessionCart() {
           saveSessionCart(data['cart']);
           cartdiv.innerHTML = '';
         });
-        document.querySelector('.loading').style.display = 'none';
+        removeloader();
     },
   });
 }
@@ -516,4 +514,15 @@ function decreasingNumber(e) {
 function toVND(money) {
   let nf = new Intl.NumberFormat("en-US");
   return nf.format(money) + "₫";
+}
+
+
+function activeloader() {
+  const loader = document.querySelector(".loader"); 
+  loader.classList.add("loader-hidden");
+}
+
+function removeloader(toast) {
+  const loader = document.querySelector(".loader"); 
+  loader.classList.remove("loader-hidden");
 }

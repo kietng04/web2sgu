@@ -164,7 +164,7 @@ a {
 }
 .wrapper__left {
   position: relative;
-  width: 100%
+  width: 75%;
 }
 .wrapper__right {
   position: sticky;

@@ -28,12 +28,13 @@
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/styles.css">
-
+    <link rel="stylesheet" href="css/loader.css">
 
 </head>
 
 <body>
-    <div class="loading" style="display: none"> đang load oke ? </div>
+    <div class="loader"></div>
+    <script src="js/loader.js"></script>
     <div class="wrapper">
         <ul class="notifications"></ul>
 

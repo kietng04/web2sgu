@@ -164,7 +164,7 @@ a {
 }
 .wrapper__left {
   position: relative;
-  width: 100%;
+  width: 100%
 }
 .wrapper__right {
   position: sticky;
@@ -172,8 +172,8 @@ a {
   left: 0;
   border-left: 1px solid var(--color-line);
   background: #fff;
-  max-width: 370.5px;
   width: 100%;
+  max-width: 340px;
   height: 100vh;
   display: grid;
   grid-template-rows: 48px 5fr 1fr;

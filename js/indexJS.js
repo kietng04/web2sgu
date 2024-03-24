@@ -18,7 +18,7 @@ const productSection = document.querySelector(".pro-collection");
 var html = "";
 var listProduct = [];
 
-document.querySelector(".loading").style.display = "block";
+document.querySelector(".loader").style.display = "block";
 
 loadDefaultProducts();
 loadSessionCart();
@@ -39,7 +39,7 @@ function loadDefaultProducts() {
       var totalPage = data.countrow / perPage;
       showProducts();
       renderPag(totalPage);
-      document.querySelector('.loading').style.display = 'none';
+      document.querySelector('.loader').style.display = 'none';
     },
     //fail
     error: function () {

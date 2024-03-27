@@ -117,7 +117,7 @@
                         </tr>
                     </thead>
                     <tbody class="ordertable">
-                        <tr class="orderitem">
+                        <!-- <tr class="orderitem">
                             <td class="product-description">
                                 <img src="./images/pizzaimg/gaphomaixanh.jpg" alt=""> Pizza Phô Mai
                             </td>
@@ -145,7 +145,7 @@
                                     </button>
                                 </div>
                             </td>
-                        </tr>
+                        </tr> -->
                     </tbody>
                 </table>
             </section>

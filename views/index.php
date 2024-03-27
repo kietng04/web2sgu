@@ -193,12 +193,10 @@
             <div class="payment">
                 <div class="payment__info">
                     <div class="payment__info-left">
-                        <p>Tổng: </p>
                         <p>Giảm K.mại: </p>
                         <p>Phí Giao Hàng.: </p>
                     </div>
                     <div class="payment__info-rigt">
-                        <p>0 ₫</p>
                         <p>0 ₫</p>
                         <p>0 ₫</p>
                     </div>
@@ -206,7 +204,7 @@
                 <a class="payment__btn" href="index.php?controller=PaymentController&action=index">
                     <button class="btn">
                         <p class="text">THANH TOÁN</p>
-                        <p class="price">269,000 ₫</p>
+                        <div class="totalPrice"></div>
                     </button>
                 </a>
             </div>

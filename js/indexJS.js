@@ -52,17 +52,24 @@ function renderPag(totalPage) {
   var html = "";
   for (var i = 1; i <= totalPage; i++) {
     if (i == 1) {
-      html += `<li class="page-item --active" onclick="ajaxproduct(${i})" ><a  class="page-link">${i}</a></li>`;
+      html += `<li class="page-item --active" onclick="ajaxproduct(${i},this)" ><a  class="page-link">${i}</a></li>`;
     } else {
-      html += `<li class="page-item" onclick="ajaxproduct(${i})" ><a  class="page-link">${i}</a></li>`;
+      html += `<li class="page-item" onclick="ajaxproduct(${i},this)" ><a  class="page-link">${i}</a></li>`;
     }
   }
   document.querySelector(".pagnition").innerHTML = html;
 }
 
 
-function ajaxproduct(page) {
+function ajaxproduct(page,currentpage) {
   currentPagez = page;
+  if(currentpage.previousElementSibling){
+    currentpage.previousElementSibling.classList.remove('--active');
+  }
+  if(currentpage.nextElementSibling){
+    currentpage.nextElementSibling.classList.remove('--active');
+  }
+  currentpage.classList.add('--active');
   $.ajax({
     url: "./controller/ProductsController.php",
     type: "post",

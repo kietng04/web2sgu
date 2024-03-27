@@ -110,7 +110,6 @@
     left: 0;
     right: 0;
     bottom: 0;
-    display: flex;
     z-index: 300;
     position: fixed;
     align-items: center;
@@ -119,6 +118,7 @@
     transition: 0.2s;
     opacity: 1;
     visibility: visible;
+    display: none;
   }
   
   .container-bill header {

@@ -33,6 +33,7 @@
 </head>
 
 <body>
+    <div class="loader"></div>
     <div class="wrapper">
         <header class="header">
             <div class="header__logo">
@@ -69,7 +70,6 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>STT</th>
                             <th>Mã đơn hàng</th>
                             <th>Ngày đặt</th>
                             <th>Trạng thái</th>
@@ -77,7 +77,7 @@
                             <th>Chi tiết</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="rowtable">
                         <tr>
                             <td>1</td>
                             <td>DH123456</td>
@@ -139,7 +139,7 @@
             </div>
         </div>
         <div class="dark-overlay hide">
-            <div class="container-bill">
+            <div class="container-bill hide">
                 <header>
                     <img src="logo1.png" alt="">
                     <i class="fa-solid fa-xmark"></i>
@@ -171,11 +171,10 @@
                                     <th>STT</th>
                                     <th>Tên sản phẩm</th>
                                     <th>Số lượng</th>
-                                    <th>Giá</th>
                                     <th>Thành tiền</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="detailorderedrows">
                                 <tr>
                                     <td>1</td>
                                     <td>
@@ -184,7 +183,6 @@
                                         Pizza Phô Mai
                                     </td>
                                     <td>2</td>
-                                    <td>100.000 VNĐ</td>
                                     <td>200.000 VNĐ</td>
                                 </tr>
                                 <tr>
@@ -209,6 +207,8 @@
             </div>
         </div>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="js/helper.js"></script>
     <script src="js/list-bill.js"></script>
 </body>
 

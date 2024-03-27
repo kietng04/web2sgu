@@ -34,7 +34,7 @@ class HoaDonBUS extends DB_business
 
     function getBill($id)
     {
-        $sql = "SELECT * FROM hoadon WHERE MaND = '$id'";
+        $sql = "SELECT * FROM hoadon WHERE MaND = '$id' ORDER BY MaHD DESC";
         $result = mysqli_query($this->__conn, $sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($result)) {
@@ -43,4 +43,14 @@ class HoaDonBUS extends DB_business
         return $data;
     }
 
+    function getDetailBill($mahd)
+    {
+        $sql = "SELECT * FROM chitiethoadon, sanpham WHERE MaHD = '$mahd' AND chitiethoadon.MaSP = sanpham.MaSP";
+        $result = mysqli_query($this->__conn, $sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            $data[] = $row;
+        }
+        return $data;
+    }
 }

@@ -377,6 +377,7 @@ function addeventbutbtn() {
                 item['Quantity'] = parseInt(item['Quantity']) + 1;
               }
             });
+            
           } else {
             // create arrray with 1 product and quantity
             var cart = { 'Product': curProduct, 'Quantity': 1 };
@@ -503,6 +504,7 @@ function findProductInCart(listCart, curProduct) {
   listCart.forEach(function (item) {
     if (item['Product'].MaSP == curProduct.MaSP && item['Product'].MaSize == curProduct.MaSize && item['Product'].MaVien == curProduct.MaVien) {
       result = true;
+      alert("ừ");
     }
   });
   return result;

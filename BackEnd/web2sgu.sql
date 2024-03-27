@@ -378,4 +378,23 @@ INSERT INTO `ChiTietXuat` (`MaPX`, `MaSP`, `MaSize`, `MaVien`, `SoLuong`) VALUES
 (1, 'PBD', 'S', 'D', 10),
 (1, 'PBD', 'M', 'D', 10);
 
+CREATE TABLE `PhongOrder` (
+  `MaPhong` int(11) NOT NULL,
+  `MaND` int(11) NOT NULL,
+  `TrangThai` int(11) NOT NULL,
+  primary key (MaPhong)
+);
+
+CREATE TABLE `ChiTietPhongOrder` (
+  `MaPhong` int(11) NOT NULL,
+  `MaSP` varchar(100) NOT NULL,
+  `MaSize` varchar(100) NOT NULL,
+  `MaVien` varchar(100) NOT NULL,
+  `SoLuong` int(11) NOT NULL,
+  `GiaTien` decimal(10,2) NOT NULL,
+  primary key (MaPhong, MaSP, MaSize, MaVien)
+);
+
+
+
 COMMIT;

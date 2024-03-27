@@ -62,6 +62,10 @@ switch($_POST['request']) {
         break;
     case 'saveSessionCart':
         saveSessionCart();
+        break;
+    // case `CreateRoom`
+    //     createRoom();
+    //     break;
 }
 }
 function login() {
@@ -189,4 +193,9 @@ function saveSessionCart() {
         die (json_encode($_SESSION['currentUser']));
     }
     die (json_encode(null));
+}
+
+function createRoom() {
+    // get all id room
+    $sql = "SELECT maphong FROM PhongOrder";
 }

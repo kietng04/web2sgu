@@ -376,6 +376,7 @@ function addeventbutbtn() {
                 item['Quantity'] = parseInt(item['Quantity']) + 1;
               }
             });
+            
           } else {
             // create arrray with 1 product and quantity
             var cart = { 'Product': curProduct, 'Quantity': 1 };
@@ -484,8 +485,9 @@ function loadSessionCart() {
 function findProductInCart(listCart, curProduct) {
   var result = false;
   listCart.forEach(function (item) {
-    if (item['Product'].MaSP == curProduct.MaSP) {
+    if (item['Product'].MaSP == curProduct.MaSP && item['Product'].MaSize == curProduct.MaSize && item['Product'].MaVien == curProduct.MaVien) {
       result = true;
+      alert("ừ");
     }
   });
   return result;

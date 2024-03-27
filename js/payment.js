@@ -91,6 +91,11 @@ function addeventdathang(listProduct) {
         var sdt = document.querySelector('.sdt').value;
         var diachi = document.querySelector('.diachi').value;
         var total = document.querySelector('.price').innerHTML;
+        // delete last character
+        total = total.slice(0, -1);
+        // transform "," to ""
+        total = total.replace(/,/g, '');
+
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
         var mm = String(today.getMonth() + 1).padStart(2, '0');

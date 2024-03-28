@@ -2,8 +2,11 @@ var categoryz = [];
 var currentPage = 1;
 var listProduct = null;
 var perPage = 4;
-loginz("admin", "admin");
-function loginz(a, b) {
+
+function loginz() {
+  var a = document.querySelector('#taikhoan').value;
+  var b = document.querySelector('#matkhau').value;
+
   $.ajax({
     url: "./controller/ProductsController.php",
     type: "post",
@@ -17,6 +20,7 @@ function loginz(a, b) {
     success: function (result) {
       if (result != null) {
         alert("Đăng nhập thành công!");
+        document.querySelector('.popupLogin').classList.add('--none');
         return 1;
       } else {
         alert("Tên đăng nhập hoặc mật khẩu không đúng!");
@@ -360,7 +364,6 @@ function addeventbutbtn() {
       // data se bao gom user hientai va gio hang hientai
       success: function (data) {
         // hide load icon
-        document.querySelector(".loading").style.display = "none";
         var html = '';
         var cartdiv = document.querySelector(".list");
         if (data) {
@@ -373,6 +376,7 @@ function addeventbutbtn() {
                 item['Quantity'] = parseInt(item['Quantity']) + 1;
               }
             });
+            
           } else {
             // create arrray with 1 product and quantity
             var cart = { 'Product': curProduct, 'Quantity': 1 };
@@ -421,7 +425,7 @@ function saveSessionCart(value) {
       cart: value,
     },
     success: function (data) {
-      
+      console.log(data);
     },
   });
 }
@@ -437,26 +441,33 @@ function loadSessionCart() {
     },
     // data se bao gom user hientai va gio hang hientai
     success: function (data) {
+      console.log(data);
       // hide load icon
-      document.querySelector(".loading").style.display = "none";
+      if (data === null || data['result'] === null) return;
         
         data['cart'] == null ? data['cart'] = [] : data['cart'];
         
         var cartdiv = document.querySelector(".list");
         var html = '';
+        console.log(data['cart']);
         data['cart'].forEach(function (item) {
           html += `<div class="list__item">
           <div class="img">
-              <img src="${item.Img}" alt="">
+              <img src="${item['Product'].Img}" alt="">
           </div>
           <div class="content">
-              <p class="title">${item.TenSP}</p>
+              <p class="title">${item['Product'].TenSP}</p>
               <p class="desc">Size Nho, De Mong</p>
-              <p class="price">79,000₫</p>
+              <p class="price">${toVND(item['Product'].GiaTien)}</p>
           </div>
-          <div class="quantity">
-              <p>SL: 1</p>
-          </div>
+          <div class="buttons_added">
+            <input class="minus is-form" type="button" value="-" onclick="decreasingNumber(this)">
+            <input class="input-qty" readonly max="100" min="1" name="" type="text" value="${item['Quantity']}">
+            <input class="plus is-form" type="button" value="+" onclick="increasingNumber(this, ${data}})">
+            </div>
+            <div class="btnClose">
+            <img src="img/close-icon.png" alt="">
+            </div>
       </div>`
         })
         cartdiv.innerHTML = html;
@@ -466,7 +477,7 @@ function loadSessionCart() {
           saveSessionCart(data['cart']);
           cartdiv.innerHTML = '';
         });
-        document.querySelector('.loading').style.display = 'none';
+        removeloader();
     },
   });
 }
@@ -474,9 +485,46 @@ function loadSessionCart() {
 function findProductInCart(listCart, curProduct) {
   var result = false;
   listCart.forEach(function (item) {
-    if (item['Product'].MaSP == curProduct.MaSP) {
+    if (item['Product'].MaSP == curProduct.MaSP && item['Product'].MaSize == curProduct.MaSize && item['Product'].MaVien == curProduct.MaVien) {
       result = true;
+      alert("ừ");
     }
   });
   return result;
+}
+
+function increasingNumber(e, data) {
+  data['Quantity']++;
+  let qty = e.parentNode.querySelector('.input-qty');
+  if (parseInt(qty.value) < qty.max) {
+      qty.value = parseInt(qty.value) + 1;
+  } else {
+      qty.value = qty.max;
+  }
+  saveSessionCart(data);
+  }
+
+function decreasingNumber(e) {
+  let qty = e.parentNode.querySelector('.input-qty');
+  if (qty.value > qty.min) {
+      qty.value = parseInt(qty.value) - 1;
+  } else {
+      qty.value = qty.min;
+  }
+}
+
+function toVND(money) {
+  let nf = new Intl.NumberFormat("en-US");
+  return nf.format(money) + "₫";
+}
+
+
+function activeloader() {
+  const loader = document.querySelector(".loader"); 
+  loader.classList.add("loader-hidden");
+}
+
+function removeloader(toast) {
+  const loader = document.querySelector(".loader"); 
+  loader.classList.remove("loader-hidden");
 }

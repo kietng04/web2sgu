@@ -18,12 +18,12 @@ const productSection = document.querySelector(".pro-collection");
 var html = "";
 var listProduct = [];
 
-document.querySelector(".loading").style.display = "block";
 
 loadDefaultProducts();
 loadSessionCart();
 
 function loadDefaultProducts() {
+  activeloader();
   $.ajax({
     url: "./controller/ProductsController.php",
     type: "post",
@@ -39,6 +39,7 @@ function loadDefaultProducts() {
       var totalPage = data.countrow / perPage;
       showProducts();
       renderPag(totalPage);
+      document.querySelector('.loader').style.display = 'none';
     },
     //fail
     error: function () {
@@ -51,21 +52,24 @@ function renderPag(totalPage) {
   var html = "";
   for (var i = 1; i <= totalPage; i++) {
     if (i == 1) {
-      html += `<li class="page-item --active" onclick="ajaxproduct(${i})" ><a  class="page-link">${i}</a></li>`;
+      html += `<li class="page-item --active" onclick="ajaxproduct(${i},this)" ><a  class="page-link">${i}</a></li>`;
     } else {
-      html += `<li class="page-item" onclick="ajaxproduct(${i})" ><a  class="page-link">${i}</a></li>`;
+      html += `<li class="page-item" onclick="ajaxproduct(${i},this)" ><a  class="page-link">${i}</a></li>`;
     }
   }
   document.querySelector(".pagnition").innerHTML = html;
 }
 
-function toVND(money) {
-  let nf = new Intl.NumberFormat("en-US");
-  return nf.format(money) + "₫";
-}
 
-function ajaxproduct(page) {
+function ajaxproduct(page,currentpage) {
   currentPagez = page;
+  if(currentpage.previousElementSibling){
+    currentpage.previousElementSibling.classList.remove('--active');
+  }
+  if(currentpage.nextElementSibling){
+    currentpage.nextElementSibling.classList.remove('--active');
+  }
+  currentpage.classList.add('--active');
   $.ajax({
     url: "./controller/ProductsController.php",
     type: "post",
@@ -232,9 +236,9 @@ function addEventProducts() {
                     </div>
                   <div class="box__bottom">
                   <div class="buttons_added">
-                  <input class="minus is-form" type="button" value="-" onclick="decreasingNumber(this)">
+                  <input class="minus is-form" type="button" value="-" onclick="decreasingNumber(this, ${data})">
                   <input class="input-qty" max="100" min="1" name="" type="number" value="1">
-                  <input class="plus is-form" type="button" value="+" onclick="increasingNumber(this)">
+                  <input class="plus is-form" type="button" value="+" onclick="increasingNumber(this, ${data})">
                   </div>
                   <div class="btn --add" value='${data[0].MaSP}'>
                       <p>Thêm vào giỏ hàng </p>

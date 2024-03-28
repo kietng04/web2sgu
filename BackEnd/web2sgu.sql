@@ -46,18 +46,19 @@ INSERT INTO `TaiKhoan` (`MaTK`, `TaiKhoan`, `MatKhau`, `MaQuyen`, `MaTT`) VALUES
 
 -- USER DATABASE
 CREATE TABLE `NguoiDung` (
-  `MaND` int(11) NOT NULL,
+  `MaND` int(11) NOT NULL AUTO_INCREMENT,
   `Ho` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `Ten` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `GioiTinh` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `SDT` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `Email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `DiaChi` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `MatKhau` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (MaND)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `NguoiDung` (`MaND`, `Ho`, `Ten`, `GioiTinh`, `SDT`, `Email`, `DiaChi`) VALUES
-(1, 'Nguyen The', 'Kiet', 'Nam', '0123456789', 'trungky@gmail.com', 'Dak Lag');
+INSERT INTO `NguoiDung` (`MaND`, `Ho`, `Ten`, `GioiTinh`, `SDT`, `Email`, `DiaChi`, `MatKhau`) VALUES
+(1, 'Nguyen The', 'Kiet', 'Nam', '0123456789', 'trungky@gmail.com', 'Dak Lag', '123456');
 
 
 CREATE TABLE `NhanVien` ( 
@@ -76,7 +77,7 @@ INSERT INTO `NhanVien` (`MaNV`, `Ho`, `Ten`, `GioiTinh`, `SDT`, `Email`, `DiaChi
 
 
 CREATE TABLE `HoaDon` (
-  `MaHD` int(11) NOT NULL,
+  `MaHD` int(11) NOT NULL AUTO_INCREMENT,
   `MaND` int(11) NOT NULL,
   `MaNV` int(11) NOT NULL,
   `NgayLap` date NOT NULL,
@@ -90,9 +91,9 @@ INSERT INTO `HoaDon` (`MaHD`, `MaND`, `MaNv`, `NgayLap`, `TongTien`, `TrangThai`
 
 CREATE TABLE `ChiTietHoaDon` (
   `MaHD` int(11) NOT NULL,
-  `MaSP` int(11) NOT NULL,
-  `MaSize` int(11) NOT NULL,
-  `MaVien` int(11) NOT NULL,
+  `MaSP` varchar(100) NOT NULL,
+  `MaSize` varchar(100) NOT NULL,
+  `MaVien` varchar(100) NOT NULL,
   `Img` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `SoLuong` int(11) NOT NULL,
   `GiaTien` decimal(10,2) NOT NULL,
@@ -168,7 +169,7 @@ INSERT INTO `SanPham` (`MaSP`, `TenSP`, `Mota`, `Img`, `Loai`) VALUES
 ('PGM', 'PIZZA GÀ PHÔ MAI XANH', 'Xốt kem, gà bơ tỏi, mozzarella, hành tây tím, cà chua Đà Lạt, phô mai xanh.', './images/pizzaimg/gaphomaixanh.jpg', 'GÀ'),
 ('PTC', 'PIZZA TÔM CAY', 'Xốt kem, mozzarella, tôm, dứa, ớt chuông Đà lạt, xốt sriracha.', './images/pizzaimg/pizzatomcay.jpg', 'HẢI SẢN'),
 ('PCHP', 'PIZZA CÁ HỒI PESTO', 'Xốt kem, mozzarella, Xốt pesto, cà chua, cá hồi', './images/pizzaimg/cahoi.jpg', 'HẢI SẢN'),
-('PCB', 'PIZZA CHEESEBURGER', 'Xốt phô mai, bò bằm, hành tây tím, cà chua, dưa leo muối, mozzarella emborg', '/images/pizzaimg/cbg.webp', 'BÒ');
+('PCB', 'PIZZA CHEESEBURGER', 'Xốt phô mai, bò bằm, hành tây tím, cà chua, dưa leo muối, mozzarella emborg', './images/pizzaimg/cbg.webp', 'BÒ');
 
 
 CREATE TABLE `SizeSanPham`(
@@ -376,5 +377,24 @@ INSERT INTO `ChiTietXuat` (`MaPX`, `MaSP`, `MaSize`, `MaVien`, `SoLuong`) VALUES
 (1, 'PBD', 'L', 'M', 10),
 (1, 'PBD', 'S', 'D', 10),
 (1, 'PBD', 'M', 'D', 10);
+
+CREATE TABLE `PhongOrder` (
+  `MaPhong` int(11) NOT NULL,
+  `MaND` int(11) NOT NULL,
+  `TrangThai` int(11) NOT NULL,
+  primary key (MaPhong)
+);
+
+CREATE TABLE `ChiTietPhongOrder` (
+  `MaPhong` int(11) NOT NULL,
+  `MaSP` varchar(100) NOT NULL,
+  `MaSize` varchar(100) NOT NULL,
+  `MaVien` varchar(100) NOT NULL,
+  `SoLuong` int(11) NOT NULL,
+  `GiaTien` decimal(10,2) NOT NULL,
+  primary key (MaPhong, MaSP, MaSize, MaVien)
+);
+
+
 
 COMMIT;

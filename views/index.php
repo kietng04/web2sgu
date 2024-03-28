@@ -28,12 +28,13 @@
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/styles.css">
-
+    <link rel="stylesheet" href="css/loader.css">
 
 </head>
 
 <body>
-    <div class="loading" style="display: none"> đang load oke ? </div>
+    <div class="loader"></div>
+    <script src="js/loader.js"></script>
     <div class="wrapper">
         <ul class="notifications"></ul>
 
@@ -42,7 +43,7 @@
             <header class="header --noshadown">
                 <div class="header__logo">
                     <a href="index.php">
-                        <img src="./img/logo-pizza.png" alt="logo">
+                        <img src="img/logo-pizza.png" alt="logo">
                     </a>
                 </div>
 
@@ -202,12 +203,12 @@
                         <p>0 ₫</p>
                     </div>
                 </div>
-                <div class="payment__btn">
+                <a class="payment__btn" href="index.php?controller=PaymentController&action=index">
                     <button class="btn">
                         <p class="text">THANH TOÁN</p>
                         <p class="price">269,000 ₫</p>
                     </button>
-                </div>
+                </a>
             </div>
         </div>
 
@@ -217,7 +218,7 @@
         <div class="popupLogin --none">
     <div class="popupLogin__container">
         <div class="popupLogin__img">
-            <img src="../images/loginbackground.jpg" alt="">
+            <img src="./images/loginbackground.jpg" alt="">
         </div>
         <div class="popupLogin__form">
             <h2 class="headingLogin">🍕🍕 WELCOME BACK!</h2>
@@ -225,26 +226,26 @@
                 TRƯỚC KHI THANH TOÁN PIZZA NHÉ!</p>
                 <div class="form-item --login --error">
                     <label for="email">Email *</label>
-                    <input type="text" name="" id="">
+                    <input type="text" name="" id="taikhoan">
                     <p class="error">Sai dinh dang email</p>
                 </div>
                 <div class="form-item --login">
                     <label for="email">Mật Khẩu *</label>
-                    <input type="Password" name="" id="">
+                    <input type="Password" name="" id="matkhau">
                 </div>
                
-                <button class="btn">ĐĂNG NHẬP</button>
+                <button class="btn dangnhapz" onclick="loginz()">ĐĂNG NHẬP</button>
 
                 <div class="form-error">
                 <i class="fa-solid fa-circle-exclamation"></i>
                 <p>Email hoặc mật khẩu đăng nhập không hợp lệ. Vui lòng thử lại.</p>
                 </div>
 
-                <p class="register">Bạn chưa có tài khoản? <a href="">Đăng ký ngay</a> hoặc tìm hiểu thêm về <a href="">Điều khoản và Quyền lợi Thành viên</a></p>
+                <p class="register">Bạn chưa có tài khoản? <a href="index.php?controller=SignUpController&action=index">Đăng ký ngay</a> hoặc tìm hiểu thêm về <a href="">Điều khoản và Quyền lợi Thành viên</a></p>
         </div>
 
         <button class="btnX">
-                <img src="../images/iconClose.png alt="">
+                <img src="./images/iconClose.png">
         </button>
 
     </div>  
@@ -366,24 +367,6 @@ document.addEventListener("DOMContentLoaded", function() {
     //     });
 
     // });
-
-    function increasingNumber(e) {
-    let qty = e.parentNode.querySelector('.input-qty');
-    if (parseInt(qty.value) < qty.max) {
-        qty.value = parseInt(qty.value) + 1;
-    } else {
-        qty.value = qty.max;
-    }
-}
-
-function decreasingNumber(e) {
-    let qty = e.parentNode.querySelector('.input-qty');
-    if (qty.value > qty.min) {
-        qty.value = parseInt(qty.value) - 1;
-    } else {
-        qty.value = qty.min;
-    }
-}
 
 
 // Xuong

@@ -333,7 +333,7 @@ function showProducts() {
 function addeventbutbtn() {
   var btn = document.querySelector(".btn.--add");
   var curProduct = null;
-  
+
 
   btn.addEventListener("click", function () {
     $.ajax({
@@ -478,7 +478,9 @@ function loadSessionCart() {
           </div>
           <div class="buttons_added">
             <input class="minus is-form" type="button" value="-" onclick="decreasingNumber(this, ${index})">
+
             <input class="input-qty" max="100" min="1" name="" type="text" value="${item['Quantity']}">
+
             <input class="plus is-form" type="button" value="+" onclick="increasingNumber(this,  ${index})">
             </div>
             <div class="btnClose">

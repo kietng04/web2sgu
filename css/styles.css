@@ -184,7 +184,15 @@ a {
   align-items: center;
   justify-content: center;
   height: 48px;
+  position: relative;
 }
+
+.wrapper__right .top .btnCloseAllCart{
+  right: 20px;
+  position: absolute;
+  cursor: pointer;
+}
+
 .wrapper__right .heading {
   text-align: center;
   font-size: 1.25rem;

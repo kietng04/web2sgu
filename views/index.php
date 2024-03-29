@@ -164,7 +164,7 @@
                                             cùng nấm tươi, hành tây hoà quyện xốt phô mai</p>
                                         <button class="btn__buy">
                                             <p class="chon">CHỌN</p>
-                                            <p class="price">119,000 ₫</p>
+                                            <p class="price">119,000₫</p>
                                         </button>
                                     </div>
                                 </div>
@@ -192,12 +192,10 @@
             <div class="payment">
                 <div class="payment__info">
                     <div class="payment__info-left">
-                        <p>Tổng: </p>
                         <p>Giảm K.mại: </p>
                         <p>Phí Giao Hàng.: </p>
                     </div>
                     <div class="payment__info-rigt">
-                        <p>0 ₫</p>
                         <p>0 ₫</p>
                         <p>0 ₫</p>
                     </div>
@@ -205,7 +203,9 @@
                 <a class="payment__btn" href="index.php?controller=PaymentController&action=index">
                     <button class="btn">
                         <p class="text">THANH TOÁN</p>
-                        <p class="price">269,000 ₫</p>
+
+                        <p class="totalPrice">269,000 ₫</p>
+
                     </button>
                 </a>
             </div>

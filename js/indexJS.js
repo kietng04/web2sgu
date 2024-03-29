@@ -48,7 +48,7 @@ function loadDefaultProducts() {
 }
 
 function renderPag(totalPage) {
-  if (totalPage <= 1) totalPage = 0;
+  if (totalPage < 2) totalPage = 0;
   var html = "";
   for (var i = 1; i <= totalPage; i++) {
     if (i == 1) {
@@ -292,6 +292,8 @@ function addeventPOPUP() {
   });
 
   //ĐẾ KÍCH THƯỚC
+  
+
   var boxItemsKT = document.querySelectorAll(".box__item.--kt");
   var boxItemsDE = document.querySelectorAll(".box__item.--de");
   boxItemsKT.forEach(function (item) {
@@ -301,11 +303,6 @@ function addeventPOPUP() {
     });
   });
 
-  function removeActiveBoxKT() {
-    boxItemsKT.forEach(function (item) {
-      item.classList.remove("--active");
-    });
-  }
 
   boxItemsDE.forEach(function (item) {
     item.addEventListener("click", function () {
@@ -313,6 +310,12 @@ function addeventPOPUP() {
       item.classList.add("--active");
     });
   });
+
+  function removeActiveBoxKT() {
+    boxItemsKT.forEach(function (item) {
+      item.classList.remove("--active");
+    });
+  }
 
   function removeActiveBoxDE() {
     boxItemsDE.forEach(function (item) {

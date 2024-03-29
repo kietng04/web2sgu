@@ -31,7 +31,7 @@ a {
   display: flex;
   align-items: center;
   gap: 12px;
-  /* flex-wrap: wrap; */
+  flex-wrap: wrap;
 }
 
 .scproducts .scproducts__list .scproducts__list-item {
@@ -184,7 +184,15 @@ a {
   align-items: center;
   justify-content: center;
   height: 48px;
+  position: relative;
 }
+
+.wrapper__right .top .btnCloseAllCart{
+  right: 20px;
+  position: absolute;
+  cursor: pointer;
+}
+
 .wrapper__right .heading {
   text-align: center;
   font-size: 1.25rem;
@@ -775,7 +783,7 @@ input{
 .container-bill main section table #tong-tien {
   font-weight: bold;
   text-align: right;
-=======
+}
 /*===== product-list =====*/
 .scbox .product-list{
   width: auto;

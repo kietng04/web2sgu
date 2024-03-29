@@ -1,7 +1,7 @@
 var categoryz = [];
 var currentPage = 1;
 var listProduct = null;
-var perPage = 4;
+var perPage = 8;
 
 function loginz() {
   var a = document.querySelector('#taikhoan').value;
@@ -333,25 +333,27 @@ function showProducts() {
 function addeventbutbtn() {
   var btn = document.querySelector(".btn.--add");
   var curProduct = null;
-  $.ajax({
-    type: "POST",
-    url: "controller/ProductsController.php",
-    dataType: "json",
-    timeout: 1500, 
-    data: {
-      request: "getProductDetailID",
-      id: document.querySelector(".btn.--add").getAttribute("value"),
-      idsize: document.querySelector(".box__item.--kt.--active p").getAttribute("value"),
-      idcrust: document.querySelector(".box__item.--de.--active p").getAttribute("value"),  
-    },
 
-    success: function (data) {
-      curProduct = data;
-      console.log(data);
-    }
-  });
 
   btn.addEventListener("click", function () {
+    $.ajax({
+      type: "POST",
+      url: "controller/ProductsController.php",
+      dataType: "json",
+      timeout: 1500, 
+      data: {
+        request: "getProductDetailID",
+        id: document.querySelector(".btn.--add").getAttribute("value"),
+        idsize: document.querySelector(".box__item.--kt.--active p").getAttribute("value"),
+        idcrust: document.querySelector(".box__item.--de.--active p").getAttribute("value"),  
+      },
+  
+      success: function (data) {
+        alert(document.querySelector(".box__item.--kt.--active p").getAttribute("value"));
+        curProduct = data;
+        console.log(data);
+      }
+    });
     // show load icon
     // ajax get current product
     $.ajax({

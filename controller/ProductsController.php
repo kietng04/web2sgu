@@ -147,8 +147,8 @@ function getProducts() {
     $rownum = (new DB_driver())->get1row($countrow);
     $currentpage = $_POST['currentpage'];
     // call get_list method from sanphamBUS
-    $from = ($currentpage - 1) * 4;
-    $to = 4;
+    $from = ($currentpage - 1) * 8;
+    $to = 8;
     $query = $query . " LIMIT $from, $to";
     $result = (new SanPhamBUS())->get_list($query);
     // return countrow and result

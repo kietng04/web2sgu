@@ -22,7 +22,6 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/variables.css">
@@ -165,7 +164,7 @@
                                             cùng nấm tươi, hành tây hoà quyện xốt phô mai</p>
                                         <button class="btn__buy">
                                             <p class="chon">CHỌN</p>
-                                            <p class="price">119,000 ₫</p>
+                                            <p class="price">119,000₫</p>
                                         </button>
                                     </div>
                                 </div>
@@ -204,7 +203,9 @@
                 <a class="payment__btn" href="index.php?controller=PaymentController&action=index">
                     <button class="btn">
                         <p class="text">THANH TOÁN</p>
-                        <div class="totalPrice"></div>
+
+                        <p class="totalPrice">269,000 ₫</p>
+
                     </button>
                 </a>
             </div>

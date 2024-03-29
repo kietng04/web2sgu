@@ -18,7 +18,6 @@ const productSection = document.querySelector(".pro-collection");
 var html = "";
 var listProduct = [];
 
-document.querySelector(".loading").style.display = "block";
 
 
 
@@ -307,6 +306,8 @@ function addeventPOPUP() {
   });
 
   //ĐẾ KÍCH THƯỚC
+  
+
   var boxItemsKT = document.querySelectorAll(".box__item.--kt");
   var boxItemsDE = document.querySelectorAll(".box__item.--de");
   boxItemsKT.forEach(function (item) {
@@ -316,11 +317,6 @@ function addeventPOPUP() {
     });
   });
 
-  function removeActiveBoxKT() {
-    boxItemsKT.forEach(function (item) {
-      item.classList.remove("--active");
-    });
-  }
 
   boxItemsDE.forEach(function (item) {
     item.addEventListener("click", function () {
@@ -328,6 +324,12 @@ function addeventPOPUP() {
       item.classList.add("--active");
     });
   });
+
+  function removeActiveBoxKT() {
+    boxItemsKT.forEach(function (item) {
+      item.classList.remove("--active");
+    });
+  }
 
   function removeActiveBoxDE() {
     boxItemsDE.forEach(function (item) {

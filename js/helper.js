@@ -399,9 +399,6 @@ function addeventbutbtn() {
             <input class="input-qty" max="100" min="1" name="" type="number" value="${item['Quantity']}">
             <input class="plus is-form" type="button" value="+" onclick="increasingNumber(this, ${index})">
             </div>
-            <div class="btnClose">
-            <img src="img/close-icon.png" alt="">
-            </div>
           </div>`
           })
           cartdiv.innerHTML = html;
@@ -476,11 +473,8 @@ function loadSessionCart() {
           </div>
           <div class="buttons_added">
             <input class="minus is-form" type="button" value="-" onclick="decreasingNumber(this, ${index})">
-            <input class="input-qty" readonly max="100" min="1" name="" type="text" value="${item['Quantity']}">
+            <input class="input-qty" max="100" min="1" name="" type="number" value="${item['Quantity']}">
             <input class="plus is-form" type="button" value="+" onclick="increasingNumber(this,  ${index})">
-            </div>
-            <div class="btnClose">
-            <img src="img/close-icon.png" alt="">
             </div>
       </div>`
         })
@@ -504,12 +498,40 @@ function findProductInCart(listCart, curProduct) {
   listCart.forEach(function (item) {
     if (item['Product'].MaSP == curProduct.MaSP && item['Product'].MaSize == curProduct.MaSize && item['Product'].MaVien == curProduct.MaVien) {
       result = true;
-      alert("ừ");
     }
   });
   return result;
 }
 
+// var inputFields = document.querySelectorAll('.input-qty');
+
+// inputFields.forEach(function(inputValue) {
+//     inputValue.addEventListener('input', function(event) {
+//         var inputValue = event.target.value;
+//         $.ajax({
+//           type: "POST",
+//           url: "controller/ProductsController.php",
+//           dataType: "json",
+//           timeout: 1500, // sau 1.5 giây mà không phản hồi thì dừng => hiện lỗi
+//           data: {
+//             request: "getCurrentUser",
+//           },
+//           // data se bao gom user hientai va gio hang hientai
+//           success: function (data) {
+
+//             if (inputValue > 100) {
+//                 alert("Số lượng vượt quá giới hạn!");
+//             } else {
+//                 data['cart'][index]['Quantity'] = inputValue;
+//                 saveSessionCart(data['cart']);
+//         }
+//         }
+//         });
+//     });
+// });
+
+
+//phuc
 function increasingNumber(e, index) {
   $.ajax({
     type: "POST",
@@ -551,12 +573,17 @@ function decreasingNumber(e, index) {
         let qty = e.parentNode.querySelector('.input-qty');
         if (parseInt(qty.value) < qty.max) {
           qty.value = data['cart'][index]['Quantity'];
-        } else {
-          qty.value = qty.max;
-        }
+        } 
+        // if (parseInt(qty.value) < 1){
+        //   data['cart'][index] = [];
+        //   saveSessionCart(data['cart']);
+        // else {
+        //   qty.value = qty.max;
+        // }
     },
   });
 }
+
 
 function totalPrice(){
   $.ajax({
@@ -585,6 +612,7 @@ function totalPrice(){
     }
   })
 }
+// end phuc
 
 function toVND(money) {
   let nf = new Intl.NumberFormat("en-US");

@@ -34,11 +34,11 @@
 
 <body>
     <div class="loader"></div>
-    <div class="wrapper">
+    <div class="wrapperMP">
         <header class="header">
             <div class="header__logo">
                 <a href="index.php">
-                    <img src="logo-pizza.png" alt="logo">
+                    <img src="./img/logo-pizza.png" alt="logo">
                 </a>
             </div>
             <div class="header__action">
@@ -62,7 +62,7 @@
                     <h1>LỊCH SỬ ĐƠN HÀNG</h1>
                 </div>
                 <div class="info">
-                    <input type="text" placeholder="Nhập số điện thoại">
+                    <input type="text" placeholder="Nhập mã đơn hàng">
                     <div>
                         <button id="Search">Tìm kiếm</button>
                     </div>
@@ -179,7 +179,7 @@
                                     <td>1</td>
                                     <td>
                                         <img src="Pizga_Pho_Mai_400x275.jpg" alt="">
-                                        <br>
+                                        
                                         Pizza Phô Mai
                                     </td>
                                     <td>2</td>
@@ -189,7 +189,7 @@
                                     <td>2</td>
                                     <td>
                                         <img src="Pizza_Hai_San_Nhiet_Doi_400x275.jpg" alt="">
-                                        <br>
+                                        
                                         Pizza Hải Sản
                                     </td>
                                     <td>1</td>

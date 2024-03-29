@@ -9,7 +9,7 @@
     <script src="https://kit.fontawesome.com/3dff50b2d8.js" crossorigin="anonymous"></script>
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="../css/reset.css">
-    <!-- <link rel="stylesheet" href="../css/variables.css"> -->
+    <!-- <link rcáel="stylesheet" href="../css/variables.css"> -->
     <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="../css/admin_styles.css">
     <!-- <link rel="stylesheet" href="../css/styles.css"> -->
@@ -25,7 +25,8 @@
             <span class="logo_name">Admin HP3K</span>
         </div>
 
-        <div class="menu-items">
+        <        <git hub copilot class="menu-items">
+ hub copilot class="menu-items">
             <ul class="nav-links">
                 <li><a href="admin.html">
                         <i class="fa-solid fa-house"></i>
@@ -63,7 +64,7 @@
                         <span class="link-name">Logout</span>
                     </a></li>
             </ul>
-        </div>
+        </git>
     </nav>
 
     <section class="dashboard">

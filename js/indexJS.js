@@ -17,8 +17,10 @@ var currentPagez = 1;
 const productSection = document.querySelector(".pro-collection");
 var html = "";
 var listProduct = [];
-
 document.querySelector(".loading").style.display = "block";
+
+
+
 
 loadDefaultProducts();
 loadSessionCart();
@@ -46,6 +48,10 @@ function loadDefaultProducts() {
     },
   });
 }
+
+
+
+
 function renderPag(totalPage) {
   if (totalPage <= 1) totalPage = 0;
   var html = "";
@@ -58,6 +64,8 @@ function renderPag(totalPage) {
   }
   document.querySelector(".pagnition").innerHTML = html;
 }
+
+
 
 function toVND(money) {
   let nf = new Intl.NumberFormat("en-US");
@@ -109,6 +117,9 @@ function toggleActive(clickedBtn, category) {
     AND sanpham.Loai = '${category}'
     `;
   }
+
+
+
   currentPagez = 1;
   $.ajax({
     url: "./controller/ProductsController.php",

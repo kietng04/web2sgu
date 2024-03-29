@@ -48,7 +48,7 @@ function loadDefaultProducts() {
   });
 }
 function renderPag(totalPage) {
-  if (totalPage <= 1) totalPage = 0;
+  if (totalPage < 2) totalPage = 0;
   var html = "";
   for (var i = 1; i <= totalPage; i++) {
     if (i == 1) {

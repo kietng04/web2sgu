@@ -164,7 +164,7 @@ a {
 }
 .wrapper__left {
   position: relative;
-  width: 100%;
+  width: 75%;
 }
 .wrapper__right {
   position: sticky;
@@ -172,8 +172,8 @@ a {
   left: 0;
   border-left: 1px solid var(--color-line);
   background: #fff;
-  max-width: 370.5px;
   width: 100%;
+  max-width: 340px;
   height: 100vh;
   display: grid;
   grid-template-rows: 48px 5fr 1fr;
@@ -275,6 +275,7 @@ a {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 .scbox__form {
   margin-top: 12px;
@@ -470,6 +471,11 @@ a {
   margin-bottom: 24px;
 }
 
+.scbox__form.--bottom button{
+  background-color: white;
+  cursor: pointer;
+}
+
 .form-search i {
   font-size: 20px;
 }
@@ -564,7 +570,7 @@ a {
   gap: 56px;
 }
 
-/*========= list bill =========*/
+
 .wrapper{
   background-image: url("background.jpg");
 }
@@ -769,4 +775,87 @@ input{
 .container-bill main section table #tong-tien {
   font-weight: bold;
   text-align: right;
+=======
+/*===== product-list =====*/
+.scbox .product-list{
+  width: auto;
+  height: auto;
+  border: solid 1px rgb(210, 210, 210);
+  border-radius: 15px;
+  padding: 10px 10px;
+  background: rgb(255, 255, 255);
+  position: absolute;
+  z-index: 201;
+}
+
+.scbox .hide{
+  display: none;
+}
+
+.scbox .product-list .close-bg{
+  display: flex;
+  justify-content: right;
+}
+
+.scbox .product-list .close{
+  background:#008000;
+  padding: 7px 7px;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.scbox .product-list h2{
+  font-size: 20px;
+  font-weight: bold;
+  padding: 20px 20px;
+}
+
+.scbox .product-list th{
+  font-weight: bold;
+  text-align: center;
+  align-content: center;
+  padding: 20px 20px;
+}
+
+.scbox .product-list td{
+  padding: 20px 20px;
+  text-align: center;
+  align-content: center;
+}
+
+.scbox .product-list .product-description{
+  display: flex;
+  align-items: center;
+}
+
+.scbox .product-list img{
+  width: 70px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.scbox .product-list #total-price{
+  text-align: left;
+}
+
+.scbox .product-list #total{
+  font-weight: bold;
+  text-align: right;
+}
+
+.dark-overlay {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  z-index: 300;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(51, 51, 51, 0.5);
+  transition: 0.2s;
+  opacity: 1;
+  visibility: visible;
 }

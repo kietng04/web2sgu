@@ -6,11 +6,6 @@ require_once(__DIR__ . '/../model/SanPhamBUS.php');
 session_start();
 class ProductsController extends BaseController
 {
-	function __construct()
-	{
-		$this->folder = 'products';
-	}
-
 	public function index()
 	{
 		// $products = (new SanPhamBUS())->getProduct();
@@ -67,12 +62,16 @@ switch($_POST['request']) {
         break;
     case 'saveSessionCart':
         saveSessionCart();
+        break;
+    // case `CreateRoom`
+    //     createRoom();
+    //     break;
 }
 }
 function login() {
     $username=$_POST['data_username'];
 	$password=$_POST['data_pass'];
-    $sql = "SELECT * FROM taikhoan WHERE TaiKhoan='$username' AND MatKhau='$password' AND MaQuyen=1 AND MaTT=1";
+    $sql = "SELECT * FROM nguoidung WHERE Email='$username' AND MatKhau='$password'";
     $result = (new NguoiDungBus())->get_list($sql);
     // create array include $result and null
     $returnz = array('result' => $result, 'cart' => null);
@@ -193,4 +192,10 @@ function saveSessionCart() {
         $_SESSION['currentUser']['cart'] = $_POST['cart'];
         die (json_encode($_SESSION['currentUser']));
     }
+    die (json_encode(null));
+}
+
+function createRoom() {
+    // get all id room
+    $sql = "SELECT maphong FROM PhongOrder";
 }

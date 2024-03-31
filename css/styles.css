@@ -129,6 +129,7 @@ a {
   height: 40px;
   font-weight: 400;
   display: block;
+  line-height: 1.4;
 }
 
 .content .btn__buy {
@@ -187,7 +188,7 @@ a {
   position: relative;
 }
 
-.wrapper__right .top .btnCloseAllCart{
+.wrapper__right .top .btnCloseAllCart {
   right: 20px;
   position: absolute;
   cursor: pointer;

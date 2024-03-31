@@ -37,7 +37,7 @@
                         </a>
                     </li>
                     <li class="sidebar-list-item tab-content">
-                        <a href="./admin_product.php" class="sidebar-link">
+                        <a href="index.php?admin_product.php" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-pizza-slice"></i></i></div>
                             <div class="hidden-sidebar">Sản phẩm</div>
                         </a>

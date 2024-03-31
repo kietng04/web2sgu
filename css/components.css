@@ -599,8 +599,8 @@
 }
 
 .form-error {
+  display: none;
   padding: 15px 18px;
-  display: flex;
   gap: 14px;
   background-color: rgb(253, 236, 234);
   color: #611a15;
@@ -678,7 +678,6 @@
   padding: 0;
   border-radius: 5px;
   outline: none;
-  
 }
 
 .box__bottom {
@@ -754,7 +753,6 @@
   align-items: center;
 }
 
-.header.--noshadown{
+.header.--noshadown {
   box-shadow: none;
 }
-

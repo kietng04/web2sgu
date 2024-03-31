@@ -31,13 +31,13 @@
             <div class="middle-sidebar">
                 <ul class="sidebar-list">
                     <li class="sidebar-list-item tab-content active">
-                        <a href="#" class="sidebar-link">
+                        <a href="./admin_index.php" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-house"></i></div>
                             <div class="hidden-sidebar">Trang tổng quan</div>
                         </a>
                     </li>
                     <li class="sidebar-list-item tab-content">
-                        <a href="#" class="sidebar-link">
+                        <a href="./admin_product.php" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-pizza-slice"></i></i></div>
                             <div class="hidden-sidebar">Sản phẩm</div>
                         </a>
@@ -486,7 +486,6 @@
 
         editButtons.forEach(function(button) {
             button.addEventListener('click', function() {
-
                 uploadImg.src = "../img/pizza-1.png";
                 modal.classList.add('open');
                 titleModal.innerHTML = "CHỈNH SỬA SẢN PHẨM";

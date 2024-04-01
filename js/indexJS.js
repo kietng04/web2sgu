@@ -160,6 +160,7 @@ function addEventProducts() {
   var products = document.querySelectorAll(".scproducts__list-item");
   products.forEach(function (product) {
     product.addEventListener("click", function () {
+      activeloader();
       var id = product.getAttribute("value");
       var popup = document.querySelector(".popup");
       // remove --none
@@ -384,3 +385,6 @@ function addeventchuyensizevade(listDetail) {
     map.get("Nhỏ Mỏng")
   );
 }
+
+
+

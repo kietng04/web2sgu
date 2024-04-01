@@ -349,7 +349,6 @@ function addeventbutbtn() {
       },
   
       success: function (data) {
-        alert(document.querySelector(".box__item.--kt.--active p").getAttribute("value"));
         curProduct = data;
         console.log(data);
       }
@@ -456,7 +455,10 @@ function loadSessionCart() {
       console.log(data);
       totalPrice();
       // hide load icon
-      if (data === null || data['result'] === null) return;
+      if (data === null || data['result'] === null) {
+        alert("nul");
+        return;
+      }
         
         data['cart'] == null ? data['cart'] = [] : data['cart'];
         
@@ -481,6 +483,7 @@ function loadSessionCart() {
       </div>`
         })
         cartdiv.innerHTML = html;
+        console.log(html);
         // add event delete all cart
         document.querySelector('.btnCloseAllCart').addEventListener('click', function () {
           data['cart'] = [];
@@ -488,9 +491,38 @@ function loadSessionCart() {
           cartdiv.innerHTML = '';
           totalPrice();
         });
+        addeventinput();
         removeloader();
     },
   });
+}
+
+function addeventinput() {
+  alert("a");
+var inputFields = document.querySelectorAll('.input-qty');
+inputFields.forEach(function(inputValue, index) {
+  inputValue.addEventListener('input', function(event) {
+      var inputValue = event.target.value;
+      $.ajax({
+        type: "POST",
+        url: "controller/ProductsController.php",
+        dataType: "json",
+        timeout: 1500, // sau 1.5 giây mà không phản hồi thì dừng => hiện lỗi
+        data: {
+          request: "getCurrentUser",
+        },
+        // data se bao gom user hientai va gio hang hientai
+        success: function (data) {
+          if (inputValue > 100) {
+              alert("Số lượng vượt quá giới hạn!");
+          } else {
+              data['cart'][index]['Quantity'] = inputValue;
+              saveSessionCart(data['cart']);
+      }
+      }
+      });
+  });
+});
 }
 
 function findProductInCart(listCart, curProduct) {
@@ -505,35 +537,7 @@ function findProductInCart(listCart, curProduct) {
   return result;
 }
 
-// var inputFields = document.querySelectorAll('.input-qty');
 
-// inputFields.forEach(function(inputValue) {
-//     inputValue.addEventListener('input', function(event) {
-//         var inputValue = event.target.value;
-//         $.ajax({
-//           type: "POST",
-//           url: "controller/ProductsController.php",
-//           dataType: "json",
-//           timeout: 1500, // sau 1.5 giây mà không phản hồi thì dừng => hiện lỗi
-//           data: {
-//             request: "getCurrentUser",
-//           },
-//           // data se bao gom user hientai va gio hang hientai
-//           success: function (data) {
-
-//             if (inputValue > 100) {
-//                 alert("Số lượng vượt quá giới hạn!");
-//             } else {
-//                 data['cart'][index]['Quantity'] = inputValue;
-//                 saveSessionCart(data['cart']);
-//         }
-//         }
-//         });
-//     });
-// });
-
-
-//phuc
 function increasingNumber(e, index) {
   $.ajax({
     type: "POST",
@@ -550,8 +554,10 @@ function increasingNumber(e, index) {
         let qty = e.parentNode.querySelector('.input-qty');
         if (parseInt(qty.value) < qty.max) {
           qty.value = parseInt(qty.value) + 1;
+          qty.innerHTML = qty.value;
         } else {
           qty.value = qty.max;
+          qty.innerHTML = qty.value;
         }
     },
   });
@@ -571,17 +577,16 @@ function decreasingNumber(e, index) {
     // data se bao gom user hientai va gio hang hientai
     success: function (data) {
       data['cart'][index]['Quantity'] > 1 ? data['cart'][index]['Quantity']-- : data['cart'][index]['Quantity'];
-        saveSessionCart(data['cart']);
         let qty = e.parentNode.querySelector('.input-qty');
-        if (parseInt(qty.value) < qty.max) {
-          qty.value = data['cart'][index]['Quantity'];
-        } 
-        // if (parseInt(qty.value) < 1){
-        //   data['cart'][index] = [];
-        //   saveSessionCart(data['cart']);
-        // else {
-        //   qty.value = qty.max;
-        // }
+        if (parseInt(qty.value) > 1) {
+          qty.value = parseInt(qty.value) - 1;
+          qty.innerHTML = qty.value;
+          saveSessionCart(data['cart']);
+        } else if (data['cart'][index]['Quantity'] == 1) {
+          data['cart'].splice(index, 1);
+          saveSessionCart(data['cart']);
+          loadSessionCart();
+        }
     },
   });
 }
@@ -601,7 +606,6 @@ function totalPrice(){
       console.log(data);
       // hide load icon
       if (data === null || data['result'] === null) return;
-        
         data['cart'] == null ? data['cart'] = [] : data['cart'];
     var html = '';
     var totalA = 0;

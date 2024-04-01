@@ -69,7 +69,7 @@
                         </div>
                         <div class="header__action-member">
                             <div class="icon"><i class="fa-solid fa-circle-user"></i></div>
-                            <p>Thanh Vien</p>
+                            <p>THÀNH VIÊN</p>
                         </div>
                     </div>
                 </header>
@@ -208,19 +208,22 @@
         </div>
         <div class="popupLogin__form">
             <h2 class="headingLogin">🍕🍕 WELCOME BACK!</h2>
-            <p class="heading__desc">NEU BẠN ĐÃ LÀ THÀNH VIÊN PIZZA HUT<br>HAY ĐĂNG NHẬP
-                TRƯỚC KHI THANH TOÁN PIZZA NHÉ!</p>
-                <div class="form-item --login --error">
+            <p class="heading__desc">NẾU BẠN CHƯA CÓ TÀI KHOẢN PIZZA HUT<br>HÃY ĐĂNG KÍ
+                TRƯỚC KHI ĐĂNG NHẬP BẠN NHÉ!</p>
+                <div class="form-item --login --email ">
                     <label for="email">Email *</label>
                     <input type="text" name="" id="taikhoan">
-                    <p class="error">Sai dinh dang email</p>
+                    <p class="error"></p>
                 </div>
-                <div class="form-item --login">
+                <div class="form-item --login --password">
                     <label for="email">Mật Khẩu *</label>
                     <input type="Password" name="" id="matkhau">
+                    <p class="error"></p>
+
                 </div>
-               
-                <button class="btn dangnhapz" onclick="loginz()">ĐĂNG NHẬP</button>
+                <!-- onclick="loginz()" -->
+             
+                <button class="btn dangnhapz"   >ĐĂNG NHẬP</button>
 
                 <div class="form-error">
                 <i class="fa-solid fa-circle-exclamation"></i>
@@ -241,7 +244,8 @@
 
 
     <script>
-
+    
+    
 document.addEventListener("DOMContentLoaded", function() {
   // Lấy phần tử .popupLogin
   var popupLogin = document.querySelector(".popupLogin");
@@ -278,6 +282,79 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
+var dangnhapBtn = document.querySelector('.dangnhapz');
+    dangnhapBtn.addEventListener('click', function(){
+        var checkForm = true;
+        var formError = document.querySelector(".form-error");
+        var email = document.getElementById("taikhoan");
+        var emailFormItem = document.querySelector(".form-item.--login.--email");
+        var emailError = document.querySelector(".form-item.--login.--email .error");
+        var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        var password = document.getElementById("matkhau");
+        var passwordError = document.querySelector(".form-item.--login.--password .error");
+        var passwordFormItem = document.querySelector(".form-item.--login.--password");
+        var passwordPattern = /^.{3,}$/;
+
+
+        if(email.value.trim() === "") {
+            emailFormItem.classList.add("--error");
+            emailError.innerHTML = "Vui lòng không để trống";
+            checkForm = false;
+        } else if(!emailPattern.test(email.value)) {
+            emailFormItem.classList.add("--error");
+            emailError.innerHTML = "Email không đúng định dạng";
+            checkForm = false;
+        } else {
+            emailFormItem.classList.remove("--error");
+            emailError.innerHTML = "";
+        }
+        email.addEventListener("input", function() {
+            if(!emailPattern.test(email.value)) {
+                emailFormItem.classList.add("--error");
+                emailError.innerHTML = "Email không đúng định dạng";
+                checkForm = false;
+            } else {
+                emailFormItem.classList.remove("--error");
+                emailError.innerHTML = "";
+            }
+        });
+
+        if(password.value.trim() === "") {
+            passwordFormItem.classList.add("--error");
+            passwordError.innerHTML = "Vui lòng không để trống";
+            checkForm = false;
+        }else if(!passwordPattern.test(password.value)) {
+            passwordFormItem.classList.add("--error");
+            passwordError.innerHTML = "Mật khẩu phải chứa ít nhất 3 ký tự";
+            checkForm = false;
+        } else {
+            passwordFormItem.classList.remove("--error");
+            passwordError.innerHTML = "";
+        }
+        password.addEventListener("input", function() {
+            if(!passwordPattern.test(password.value)) {
+                passwordFormItem.classList.add("--error");
+                passwordError.innerHTML = "Mật khẩu phải chứa ít nhất 3 ký tự";
+                checkForm = false;
+            } else {
+                passwordFormItem.classList.remove("--error");
+                passwordError.innerHTML = "";
+            }
+        });
+
+        if(checkForm) {
+            // alert("Đăng nhập thành công!" + email.value + " " + password.value);
+            loginz( email.value, password.value);
+            formError.style.display = "none";
+            // email.value = "";
+            // password.value = "";
+        } else {
+            formError.style.display = "flex";
+        }
+    
+    })
+
+
 
 </script>
 
@@ -287,6 +364,8 @@ document.addEventListener("DOMContentLoaded", function() {
     <script src="js/helper.js"></script>
     <script src="js/indexJS.js"></script>
     <script>
+
+        
 
     // document.addEventListener("DOMContentLoaded", function() {
 

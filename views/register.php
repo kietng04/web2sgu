@@ -62,51 +62,60 @@
                 <img src="../images//background2.jpg" alt="">
             </div>
             <div class="scregister__title">
-                <h2>🍕🍕 TÍCH ĐIỂM ĐỔI PIZZA NÀO!!</h2>
-                <p>THAM GIA HUT REWARDS <br> VÀ BẮT ĐẦU HÀNH TRÌNH TÍCH ĐIỂM CỦA BẠN!</p>
+                <h2>🍕🍕 ĐĂNG KÍ MUA PIZZA NÀO!!</h2>
+                <p>TRỞ THÀNH THÀNH VIÊN CỦA PIZZA HUT <br> VÀ BẮT ĐẦU HÀNH TRÌNH NHẬN ƯU ĐÃI BẠN NHÉ!</p>
             </div>
             <div class="scregister__form">
-                <div class="scregister__form-left --error">
-                    <div class="form-item --register --error">
-                        <label for="">Ten*</label>
+                <div class="scregister__form-left ">
+                    <div class="form-item --register --name ">
+                        <label for="">Họ Tên *</label>
                         <input type="text" name="" value="" class="name">
-                        <p class="error">Yêu cầu nhập Tên</p>
+                        <p class="error"></p>
                     </div>
                     <div class="group">
-                    <div class="form-item --register">
-                        <label for="">Gioi tinh*</label>
-                     
+                    <div class="form-item  --register --sexial">
+                        <label for="">Giới tính *</label>
                             <select name="" id="cbgioitinh">
                                 <option value="Nam">Nam</option>
                                 <option vaslue="Nu">Nữ</option>
                             </select>
-                     
-                    </div>
-                    <div class="form-item --register">
-                        <label for="">So dien thoai*</label>
+                    </div>  
+                    <div class="form-item  --register --phone">
+                        <label for="">Số điện thoại *</label>
                         <input type="text" name="" value="" class="sdt">
-                    </div>
+                        <p class="error"></p>
 
                     </div>
                
-                    <div class="form-item --register">
-                        <label for="">Email*</label>
-                        <input type="text" name="" value="" class="email">
+
                     </div>
-                    <div class="form-item --register">
-                        <label for="">Dia chi*</label>
+               
+                    <div class="form-item --register --email">
+                        <label for="">Email *</label>
+                        <input type="text" name="" value="" class="email">
+                        <p class="error"></p>
+
+                    </div>
+                    <div class="form-item  --register --address">
+                        <label for="">Địa chỉ *</label>
                         <input type="text" name="" value="" class="diachi">
+                        <p class="error"></p>
+
                     </div>
                    
                 </div>
                 <div class="scregister__form-right">
-                    <div class="form-item --register">
-                        <label for="">Mat khau*</label>
+                    <div class="form-item --register --password ">
+                        <label for="">Mật khẩu *</label>
                         <input type="password" name="" value="" class="matkhau">
+                        <p class="error"></p>
+
                     </div>
-                    <div class="form-item --register">
-                        <label for="">Xac nhan mat khau*</label>
+                    <div class="form-item  --register --cfpassword">
+                        <label for="">Xác nhận mật khẩu *</label>
                         <input type="password" name="" value="" class="xacnhanmatkhau">
+                        <p class="error"></p>
+                        
                     </div>
                     <div class="form-item">
                         <label class="title">Mật khẩu ít nhất 3 ký tự và đáp ứng cac điều kiện sau:</label>
@@ -115,7 +124,7 @@
                         <p class="warn"><i class="fa-solid fa-circle-exclamation"></i> <span>Không chứa dấu cách</span></p>
                     </div>
                     <div class="form-check">
-                        <input type="checkbox">
+                        <input type="checkbox" class="dongy">
                         <p>Tôi đồng ý nhận thông tin từ Pizza Hut theo thông tin đã đăng ký như trên.</p>
                     </div>
                 </div>

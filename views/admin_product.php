@@ -37,7 +37,7 @@
                         </a>
                     </li>
                     <li class="sidebar-list-item tab-content">
-                        <a href="index.php?admin_product.php" class="sidebar-link">
+                        <a href="./admin_product.php" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-pizza-slice"></i></i></div>
                             <div class="hidden-sidebar">Sản phẩm</div>
                         </a>
@@ -86,50 +86,8 @@
             </div>
         </aside>
         <main class="content">
-            <div class="section active">
-                <h1 class="page-title">Trang quản lý Pizza Hut</h1>
-                <div class="cards">
-                    <div class="card-single">
-                        <div class="box">
-                            <h2 id="amount-user">0</h2>
-                            <div class="on-box">
-                                <img src="../img/admin-pizza-1.png" alt="" style=" width: 200px;">
-                                <h3>Khách hàng</h3>
-                                <p>Sản phẩm là bất cứ cái gì có thể đưa vào thị trường để tạo sự chú ý, mua sắm, sử dụng
-                                    hay tiêu dùng nhằm thỏa mãn một nhu cầu hay ước muốn. Nó có thể là những vật thể,
-                                    dịch vụ, con người, địa điểm, tổ chức hoặc một ý tưởng.</p>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="card-single">
-                        <div class="box">
-                            <div class="on-box">
-                                <img src="../img/admin-pizza-1.png" alt="" style=" width: 200px;">
-
-                                <h2 id="amount-product">0</h2>
-                                <h3>Sản phẩm</h3>
-                                <p>Khách hàng mục tiêu là một nhóm đối tượng khách hàng trong phân khúc thị trường mục
-                                    tiêu mà doanh nghiệp bạn đang hướng tới. </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-single">
-                        <div class="box">
-                            <h2 id="doanh-thu">$5020</h2>
-                            <div class="on-box">
-                                <img src="../img/admin-pizza-1.png" alt="" style=" width: 200px;">
-
-                                <h3>Doanh thu</h3>
-                                <p>Doanh thu của doanh nghiệp là toàn bộ số tiền sẽ thu được do tiêu thụ sản phẩm, cung
-                                    cấp dịch vụ với sản lượng.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <!-- Product  -->
-            <div class="section product-all ">
+            <div class="section product-all active ">
                 <div class="admin-control">
                     <div class="admin-control-left">
                         <select name="the-loai" id="the-loai" onchange="showProduct()">
@@ -322,270 +280,7 @@
                     </ul>
                 </div>
             </div>
-            <!-- Account  -->
-            <div class="section">
-                <div class="admin-control">
-                    <div class="admin-control-left">
-                        <select name="tinh-trang-user" id="tinh-trang-user" onchange="showUser()">
-                            <option value="2">Tất cả</option>
-                            <option value="1">Hoạt động</option>
-                            <option value="0">Bị khóa</option>
-                        </select>
-                    </div>
-                    <div class="admin-control-center">
-                        <form action="" class="form-search">
-                            <span class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></span>
-                            <input id="form-search-user" type="text" class="form-search-input"
-                                placeholder="Tìm kiếm khách hàng..." oninput="showUser()">
-                        </form>
-                    </div>
-                    <div class="admin-control-right">
-                        <form action="" class="fillter-date">
-                            <div>
-                                <label for="time-start">Từ</label>
-                                <input type="date" class="form-control-date" id="time-start-user" onchange="showUser()">
-                            </div>
-                            <div>
-                                <label for="time-end">Đến</label>
-                                <input type="date" class="form-control-date" id="time-end-user" onchange="showUser()">
-                            </div>
-                        </form>
-                        <button class="btn-reset-order" onclick="cancelSearchUser()"><i
-                                class="fa-solid fa-rotate-right"></i></button>
-                        <button id="btn-add-user" class="btn-control-large" onclick="openCreateAccount()"><i
-                                class="fa-light fa-plus"></i> <span>Thêm khách hàng</span></button>
-                    </div>
-                </div>
-                <div class="table">
-                    <table width="100%">
-                        <thead>
-                            <tr>
-                                <td>STT</td>
-                                <td>Họ và tên</td>
-                                <td>Liên hệ</td>
-                                <td>Email</td>
-                                <td>Dia chi</td>
-                                <td>Ngày tham gia</td>
-                                <td>Tình trạng</td>
-                                <td></td>
-                            </tr>
-                        </thead>
-                        <tbody id="show-user">
-                            <tr>
-                                <td>1</td>
-                                <td>Pham Van Kiet</td>
-                                <td>0976204878</td>
-                                <td>kiet@gmail.com</td>
-                                <td>273 Đ. An Dương Vương, Phường 3, Quận 5</td>
-                                <td>27/03/2024</td>
-                                <td><span class="status-complete">Hoạt động</span></td>
-                                <td class="control control-table">
-                                    <button class="btn-edit" id="edit-account"><i
-                                            class="fa-regular fa-pen-to-square"></i></button>
-                                    <button class="btn-delete" id="delete-account"><i
-                                            class="fa-solid fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Pham Van Kiet</td>
-                                <td>0976204878</td>
-                                <td>kiet@gmail.com</td>
-                                <td>273 Đ. An Dương Vương, Phường 3, Quận 5</td>
-                                <td>27/03/2024</td>
-                                <td><span class="status-complete">Hoạt động</span></td>
-                                <td class="control control-table">
-                                    <button class="btn-edit" id="edit-account"><i
-                                            class="fa-regular fa-pen-to-square"></i></button>
-                                    <button class="btn-delete" id="delete-account"><i
-                                            class="fa-solid fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Pham Van Kiet</td>
-                                <td>0976204878</td>
-                                <td>kiet@gmail.com</td>
-                                <td>273 Đ. An Dương Vương, Phường 3, Quận 5</td>
-                                <td>27/03/2024</td>
-                                <td><span class="status-complete">Hoạt động</span></td>
-                                <td class="control control-table">
-                                    <button class="btn-edit" id="edit-account"><i
-                                            class="fa-regular fa-pen-to-square"></i></button>
-                                    <button class="btn-delete" id="delete-account"><i
-                                            class="fa-solid fa-trash"></i></button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <!-- </div> -->
-            </div>
-            <!-- Order  -->
-            <div class="section ">
-                <div class="admin-control">
-                    <div class="admin-control-left">
-                        <select name="tinh-trang" id="tinh-trang" onchange="findOrder()">
-                            <option value="2">Tất cả</option>
-                            <option value="1">Đã xử lý</option>
-                            <option value="0">Chưa xử lý</option>
-                        </select>
-                    </div>
-                    <div class="admin-control-center">
-                        <form action="" class="form-search">
-                            <span class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></span>
-                            <input id="form-search-order" type="text" class="form-search-input"
-                                placeholder="Tìm kiếm mã đơn, khách hàng..." oninput="findOrder()">
-                        </form>
-                    </div>
-                    <div class="admin-control-right">
-                        <form action="" class="fillter-date">
-                            <div>
-                                <label for="time-start">Từ</label>
-                                <input type="date" class="form-control-date" id="time-start" onchange="findOrder()">
-                            </div>
-                            <div>
-                                <label for="time-end">Đến</label>
-                                <input type="date" class="form-control-date" id="time-end" onchange="findOrder()">
-                            </div>
-                        </form>
-                        <button class="btn-reset-order" onclick="cancelSearchOrder()"><i
-                                class="fa-solid fa-rotate-right"></i></button>
-                    </div>
-                </div>
-                <div class="table">
-                    <table width="100%">
-                        <thead>
-                            <tr>
-                                <td>Mã đơn</td>
-                                <td>Khách hàng</td>
-                                <td>Ngày đặt</td>
-                                <td>Tổng tiền</td>
-                                <td>Trạng thái</td>
-                                <td>Thao tác</td>
-                            </tr>
-                        </thead>
-                        <tbody id="showOrder">
-                            <tr>
-                                <td>DH1</td>
-                                <td>Pham Van Kiet</td>
-                                <td>05/03/2024 </td>
-                                <td>4.720.000 ₫</td>
-                                <td><span class="status-complete">Đã xử lý</span></td>
-                                <td class="control">
-                                    <button class="btn-detail" id=""><i class="fa-regular fa-eye"></i> Chi tiết</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>DH2</td>
-                                <td>Pham Van Kiet</td>
-                                <td>05/03/2024 </td>
-                                <td>4.720.000 ₫</td>
-                                <td><span class="status-complete">Đã xử lý</span></td>
-                                <td class="control">
-                                    <button class="btn-detail" id=""><i class="fa-regular fa-eye"></i> Chi tiết</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>DH3</td>
-                                <td>Pham Van Kiet</td>
-                                <td>05/03/2024 </td>
-                                <td>4.720.000 ₫</td>
-                                <td><span class="status-complete">Đã xử lý</span></td>
-                                <td class="control">
-                                    <button class="btn-detail" id=""><i class="fa-regular fa-eye"></i> Chi tiết</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <!-- Thong ke  -->
-            <div class="section">
-                <div class="admin-control">
-                    <div class="admin-control-left">
-                        <select name="the-loai-tk" id="the-loai-tk" onchange="thongKe()">
-                            <option>Tất cả</option>
-                            <option>Món chay</option>
-                            <option>Pizza Bò</option>
-                            <option>Món lẩu</option>
-                            <option>Món ăn vặt</option>
-                            <option>Món tráng miệng</option>
-                            <option>Nước uống</option>
-                            <option>Món khác</option>
-                        </select>
-                    </div>
-                    <div class="admin-control-center">
-                        <form action="" class="form-search">
-                            <span class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></span>
-                            <input id="form-search-tk" type="text" class="form-search-input"
-                                placeholder="Tìm kiếm tên món..." oninput="thongKe()">
-                        </form>
-                    </div>
-                    <div class="admin-control-right">
-                        <form action="" class="fillter-date">
-                            <div>
-                                <label for="time-start">Từ</label>
-                                <input type="date" class="form-control-date" id="time-start-tk" onchange="thongKe()">
-                            </div>
-                            <div>
-                                <label for="time-end">Đến</label>
-                                <input type="date" class="form-control-date" id="time-end-tk" onchange="thongKe()">
-                            </div>
-                        </form>
-                        <button class="btn-reset-order" onclick="thongKe(1)"><i
-                                class="fa-solid fa-arrow-up-short-wide"></i></button>
-                        <button class="btn-reset-order" onclick="thongKe(2)"><i
-                                class="fa-solid fa-arrow-down-wide-short"></i></button>
-                        <button class="btn-reset-order" onclick="thongKe(0)"><i
-                                class="fa-solid fa-rotate-right"></i></button>
-                    </div>
-                </div>
-                <div class="order-statistical" id="order-statistical">
-                    <div class="order-statistical-item">
-                        <div class="order-statistical-item-content">
-                            <p class="order-statistical-item-content-desc">Sản phẩm được bán ra</p>
-                            <h4 class="order-statistical-item-content-h" id="quantity-product">5</h4>
-                        </div>
-                        <div class="order-statistical-item-icon">
-                            <i class="fa-solid fa-pizza-slice"></i>
-                        </div>
-                    </div>
-                    <div class="order-statistical-item">
-                        <div class="order-statistical-item-content">
-                            <p class="order-statistical-item-content-desc">Số lượng bán ra</p>
-                            <h4 class="order-statistical-item-content-h" id="quantity-order">18</h4>
-                        </div>
-                        <div class="order-statistical-item-icon">
-                            <i class="fa-regular fa-file-lines"></i>
-                        </div>
-                    </div>
-                    <div class="order-statistical-item">
-                        <div class="order-statistical-item-content">
-                            <p class="order-statistical-item-content-desc">Doanh thu</p>
-                            <h4 class="order-statistical-item-content-h" id="quantity-sale">46.000.000đ</h4>
-                        </div>
-                        <div class="order-statistical-item-icon">
-                            <i class="fa-solid fa-hand-holding-dollar"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="table">
-                    <table width="100%">
-                        <thead>
-                            <tr>
-                                <td>STT</td>
-                                <td>Tên món</td>
-                                <td>Số lượng bán</td>
-                                <td>Doanh thu</td>
-                                <td></td>
-                            </tr>
-                        </thead>
-                        <tbody id="showTk">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+
         </main>
     </div>
 
@@ -879,16 +574,16 @@
 
         var statusUser = document.querySelectorAll('.form-group edit-account-e');
         // tab for section
-        const sidebars = document.querySelectorAll(".sidebar-list-item.tab-content");
-        const sections = document.querySelectorAll(".section");
-        for (let i = 0; i < sidebars.length; i++) {
-            sidebars[i].onclick = function() {
-                document.querySelector(".sidebar-list-item.active").classList.remove("active");
-                document.querySelector(".section.active").classList.remove("active");
-                sidebars[i].classList.add("active");
-                sections[i].classList.add("active");
-            };
-        }
+        // const sidebars = document.querySelectorAll(".sidebar-list-item.tab-content");
+        // const sections = document.querySelectorAll(".section");
+        // for (let i = 0; i < sidebars.length; i++) {
+        //     sidebars[i].onclick = function() {
+        //         document.querySelector(".sidebar-list-item.active").classList.remove("active");
+        //         document.querySelector(".section.active").classList.remove("active");
+        //         sidebars[i].classList.add("active");
+        //         sections[i].classList.add("active");
+        //     };
+        // }
 
         const closeBtn = document.querySelectorAll('.section');
         console.log(closeBtn[0])

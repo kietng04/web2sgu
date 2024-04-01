@@ -18,11 +18,6 @@ const productSection = document.querySelector(".pro-collection");
 var html = "";
 var listProduct = [];
 
-
-
-
-
-
 loadDefaultProducts();
 loadSessionCart();
 
@@ -43,7 +38,7 @@ function loadDefaultProducts() {
       var totalPage = data.countrow / perPage;
       showProducts();
       renderPag(totalPage);
-      document.querySelector('.loader').style.display = 'none';
+      document.querySelector(".loader").style.display = "none";
     },
     //fail
     error: function () {
@@ -51,9 +46,6 @@ function loadDefaultProducts() {
     },
   });
 }
-
-
-
 
 function renderPag(totalPage) {
   if (totalPage < 2) totalPage = 0;
@@ -68,24 +60,20 @@ function renderPag(totalPage) {
   document.querySelector(".pagnition").innerHTML = html;
 }
 
-
-
-
 function toVND(money) {
   let nf = new Intl.NumberFormat("en-US");
   return nf.format(money) + "₫";
 }
 
-
-function ajaxproduct(page,currentpage) {
+function ajaxproduct(page, currentpage) {
   currentPagez = page;
-  if(currentpage.previousElementSibling){
-    currentpage.previousElementSibling.classList.remove('--active');
+  if (currentpage.previousElementSibling) {
+    currentpage.previousElementSibling.classList.remove("--active");
   }
-  if(currentpage.nextElementSibling){
-    currentpage.nextElementSibling.classList.remove('--active');
+  if (currentpage.nextElementSibling) {
+    currentpage.nextElementSibling.classList.remove("--active");
   }
-  currentpage.classList.add('--active');
+  currentpage.classList.add("--active");
   $.ajax({
     url: "./controller/ProductsController.php",
     type: "post",
@@ -129,8 +117,6 @@ function toggleActive(clickedBtn, category) {
     AND sanpham.Loai = '${category}'
     `;
   }
-
-
 
   currentPagez = 1;
   $.ajax({
@@ -286,6 +272,7 @@ function addeventPOPUP() {
   var btnBuy = document.querySelectorAll(".scproducts__list-item .top");
   var btnBuy = document.querySelectorAll(".scproducts__list-item .top");
   var btnClose = document.querySelector(".btnClose");
+  console.log("btnClose", btnClose);
   btnClose.addEventListener("click", function () {
     popup.classList.add("--none");
   });
@@ -307,7 +294,6 @@ function addeventPOPUP() {
   });
 
   //ĐẾ KÍCH THƯỚC
-  
 
   var boxItemsKT = document.querySelectorAll(".box__item.--kt");
   var boxItemsDE = document.querySelectorAll(".box__item.--de");
@@ -317,7 +303,6 @@ function addeventPOPUP() {
       item.classList.add("--active");
     });
   });
-
 
   boxItemsDE.forEach(function (item) {
     item.addEventListener("click", function () {

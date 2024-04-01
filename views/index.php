@@ -251,7 +251,7 @@
 
 
     </div>
-
+    <a href="index.php?controller=AdminIndexController&action=index">admin</a>
 
     <script>
 

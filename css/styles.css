@@ -11,8 +11,8 @@ body {
   /* letter-spacing: -0.4px; */
 }
 *,
-*::after,
-*::before {
+*.scbox .product-list::after,
+*.scbox .product-list::before {
   box-sizing: border-box;
 }
 a {
@@ -41,7 +41,7 @@ a {
   overflow: hidden;
   background: var(--color-white);
   border-radius: 8px;
-  max-width: 269px;
+  max-width: 24%;
 }
 
 .scproducts .top {
@@ -791,7 +791,8 @@ td {
 /*===== product-list =====*/
 .scbox .product-list {
   width: auto;
-  height: auto;
+  height: 400px;
+  overflow-y: auto;
   border: solid 1px rgb(210, 210, 210);
   border-radius: 15px;
   padding: 10px 10px;
@@ -799,6 +800,24 @@ td {
   position: absolute;
   z-index: 201;
 }
+
+/* width */
+.scbox .product-list::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+.scbox .product-list::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+/* Handle */
+.scbox .product-list::-webkit-scrollbar-thumb {
+  background: rgb(183, 183, 183);
+  border-radius: 10px;
+  height: 30px;
+}
+
 
 .scbox .hide {
   display: none;

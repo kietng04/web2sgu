@@ -81,7 +81,7 @@
           <select
             name=""
             id="advanced-search-category-select"
-            onchange="searchProducts()"
+           
           >
             <option>Tất cả</option>
             <option>Pizza Bo </option>
@@ -97,27 +97,27 @@
             type="number"
             placeholder="tối thiểu"
             id="min-price"
-            onchange="searchProducts()"
+ 
           />
           <span>đến</span>
           <input
             type="number"
             placeholder="tối đa"
             id="max-price"
-            onchange="searchProducts()"
+     
           />
           <button id="advanced-search-price-btn">
             <i class="fa-light fa-magnifying-glass-dollar"></i>
           </button>
         </div>
         <div class="advanced-search-control">
-          <button id="sort-ascending" onclick="searchProducts(1)">
+          <button id="sort-ascending" >
             <i class="fa-regular fa-arrow-up-short-wide"></i>
           </button>
-          <button id="sort-descending" onclick="searchProducts(2)">
+          <button id="sort-descending" >
             <i class="fa-regular fa-arrow-down-wide-short"></i>
           </button>
-          <button id="reset-search" onclick="searchProducts(0)">
+          <button id="reset-search">
             <i class="fa-light fa-arrow-rotate-right"></i>
           </button>
           <button onclick="closeSearchAdvanced()">
@@ -153,23 +153,10 @@
                         <div class="a">
                             <div class="scproducts__list">
                                 <div class="scproducts__list-item">
-                                    <div class="top">
-                                        <div class="img">
-                                            <img src="img/Pizga_Pho_Mai_400x275.jpg" alt="">
-                                        </div>
-                                        <p class="title">Pizza Phô Mai</p>
-                                    </div>
-                                    <div class="content">
-                                        <p class="desc">Thưởng thức vị gà Karaage chiên giòn cắt lát trên nền pizza đậm vị,
-                                            cùng nấm tươi, hành tây hoà quyện xốt phô mai</p>
-                                        <button class="btn__buy">
-                                            <p class="chon">CHỌN</p>
-                                            <p class="price">119,000₫</p>
-                                        </button>
-                                    </div>
+                                    
                                 </div>
                             </div>
-                            <div class="pagnition">1 2</div>
+                            <div class="pagnition"></div>
                         </div>
                     </div>
                 </main>
@@ -204,7 +191,7 @@
                     <button class="btn">
                         <p class="text">THANH TOÁN</p>
 
-                        <p class="totalPrice">269,000 ₫</p>
+                        <p class="totalPrice"></p>
 
                     </button>
                 </a>

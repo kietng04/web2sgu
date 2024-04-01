@@ -349,7 +349,6 @@ function addeventbutbtn() {
       },
   
       success: function (data) {
-        alert(document.querySelector(".box__item.--kt.--active p").getAttribute("value"));
         curProduct = data;
         console.log(data);
       }
@@ -400,9 +399,6 @@ function addeventbutbtn() {
             <input class="minus is-form" type="button" value="-" onclick="decreasingNumber(this, ${index})">
             <input class="input-qty" max="100" min="1" name="" type="number" value="${item['Quantity']}">
             <input class="plus is-form" type="button" value="+" onclick="increasingNumber(this, ${index})">
-            </div>
-            <div class="btnClose">
-            <img src="img/close-icon.png" alt="">
             </div>
           </div>`
           })
@@ -459,7 +455,10 @@ function loadSessionCart() {
       console.log(data);
       totalPrice();
       // hide load icon
-      if (data === null || data['result'] === null) return;
+      if (data === null || data['result'] === null) {
+        alert("null");
+        return;
+      }
         
         data['cart'] == null ? data['cart'] = [] : data['cart'];
         
@@ -478,27 +477,51 @@ function loadSessionCart() {
           </div>
           <div class="buttons_added">
             <input class="minus is-form" type="button" value="-" onclick="decreasingNumber(this, ${index})">
-
-            <input class="input-qty" max="100" min="1" name="" type="text" value="${item['Quantity']}">
-
+            <input class="input-qty" max="100" min="1" name="" type="number" value="${item['Quantity']}">
             <input class="plus is-form" type="button" value="+" onclick="increasingNumber(this,  ${index})">
-            </div>
-            <div class="btnClose">
-            <img src="img/close-icon.png" alt="">
             </div>
       </div>`
         })
         cartdiv.innerHTML = html;
+        console.log(html);
         // add event delete all cart
         document.querySelector('.btnCloseAllCart').addEventListener('click', function () {
           data['cart'] = [];
-          saveSessionCart(data['cart']);
           cartdiv.innerHTML = '';
-          totalPrice();
+          saveSessionCart(data['cart']);
+          loadSessionCart(data['cart']);
         });
+        addeventinput();
         removeloader();
     },
   });
+}
+
+function addeventinput() {
+var inputFields = document.querySelectorAll('.input-qty');
+inputFields.forEach(function(inputValue, index) {
+  inputValue.addEventListener('input', function(event) {
+      var inputValue = event.target.value;
+      $.ajax({
+        type: "POST",
+        url: "controller/ProductsController.php",
+        dataType: "json",
+        timeout: 1500, // sau 1.5 giây mà không phản hồi thì dừng => hiện lỗi
+        data: {
+          request: "getCurrentUser",
+        },
+        // data se bao gom user hientai va gio hang hientai
+        success: function (data) {
+          if (inputValue > 100) {
+              alert("Số lượng vượt quá giới hạn!");
+          } else {
+              data['cart'][index]['Quantity'] = inputValue;
+              saveSessionCart(data['cart']);
+          }
+        }
+      });
+  });
+});
 }
 
 function findProductInCart(listCart, curProduct) {
@@ -508,11 +531,11 @@ function findProductInCart(listCart, curProduct) {
   listCart.forEach(function (item) {
     if (item['Product'].MaSP == curProduct.MaSP && item['Product'].MaSize == curProduct.MaSize && item['Product'].MaVien == curProduct.MaVien) {
       result = true;
-      alert("ừ");
     }
   });
   return result;
 }
+
 
 function increasingNumber(e, index) {
   $.ajax({
@@ -530,8 +553,10 @@ function increasingNumber(e, index) {
         let qty = e.parentNode.querySelector('.input-qty');
         if (parseInt(qty.value) < qty.max) {
           qty.value = parseInt(qty.value) + 1;
+          qty.innerHTML = qty.value;
         } else {
           qty.value = qty.max;
+          qty.innerHTML = qty.value;
         }
     },
   });
@@ -551,16 +576,20 @@ function decreasingNumber(e, index) {
     // data se bao gom user hientai va gio hang hientai
     success: function (data) {
       data['cart'][index]['Quantity'] > 1 ? data['cart'][index]['Quantity']-- : data['cart'][index]['Quantity'];
-        saveSessionCart(data['cart']);
         let qty = e.parentNode.querySelector('.input-qty');
-        if (parseInt(qty.value) < qty.max) {
-          qty.value = data['cart'][index]['Quantity'];
-        } else {
-          qty.value = qty.max;
+        if (parseInt(qty.value) > 1) {
+          qty.value = parseInt(qty.value) - 1;
+          qty.innerHTML = qty.value;
+          saveSessionCart(data['cart']);
+        } else if (data['cart'][index]['Quantity'] == 1) {
+          data['cart'].splice(index, 1);
+          saveSessionCart(data['cart']);
+          loadSessionCart();
         }
     },
   });
 }
+
 
 function totalPrice(){
   $.ajax({
@@ -576,7 +605,6 @@ function totalPrice(){
       console.log(data);
       // hide load icon
       if (data === null || data['result'] === null) return;
-        
         data['cart'] == null ? data['cart'] = [] : data['cart'];
     var html = '';
     var totalA = 0;
@@ -589,6 +617,7 @@ function totalPrice(){
     }
   })
 }
+// end phuc
 
 function toVND(money) {
   let nf = new Intl.NumberFormat("en-US");

@@ -31,13 +31,13 @@
             <div class="middle-sidebar">
                 <ul class="sidebar-list">
                     <li class="sidebar-list-item tab-content active">
-                        <a href="#" class="sidebar-link">
+                        <a href="./admin_index.php" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-house"></i></div>
                             <div class="hidden-sidebar">Trang tổng quan</div>
                         </a>
                     </li>
                     <li class="sidebar-list-item tab-content">
-                        <a href="#" class="sidebar-link">
+                        <a href="./admin_product.php" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-pizza-slice"></i></i></div>
                             <div class="hidden-sidebar">Sản phẩm</div>
                         </a>
@@ -574,16 +574,16 @@
 
         var statusUser = document.querySelectorAll('.form-group edit-account-e');
         // tab for section
-        const sidebars = document.querySelectorAll(".sidebar-list-item.tab-content");
-        const sections = document.querySelectorAll(".section");
-        for (let i = 0; i < sidebars.length; i++) {
-            sidebars[i].onclick = function() {
-                document.querySelector(".sidebar-list-item.active").classList.remove("active");
-                document.querySelector(".section.active").classList.remove("active");
-                sidebars[i].classList.add("active");
-                sections[i].classList.add("active");
-            };
-        }
+        // const sidebars = document.querySelectorAll(".sidebar-list-item.tab-content");
+        // const sections = document.querySelectorAll(".section");
+        // for (let i = 0; i < sidebars.length; i++) {
+        //     sidebars[i].onclick = function() {
+        //         document.querySelector(".sidebar-list-item.active").classList.remove("active");
+        //         document.querySelector(".section.active").classList.remove("active");
+        //         sidebars[i].classList.add("active");
+        //         sections[i].classList.add("active");
+        //     };
+        // }
 
         const closeBtn = document.querySelectorAll('.section');
         console.log(closeBtn[0])

@@ -11,8 +11,8 @@ body {
   /* letter-spacing: -0.4px; */
 }
 *,
-*::after,
-*::before {
+*.scbox .product-list::after,
+*.scbox .product-list::before {
   box-sizing: border-box;
 }
 a {
@@ -41,7 +41,7 @@ a {
   overflow: hidden;
   background: var(--color-white);
   border-radius: 8px;
-  max-width: 269px;
+  max-width: 24%;
 }
 
 .scproducts .top {
@@ -129,6 +129,7 @@ a {
   height: 40px;
   font-weight: 400;
   display: block;
+  line-height: 1.4;
 }
 
 .content .btn__buy {
@@ -187,7 +188,7 @@ a {
   position: relative;
 }
 
-.wrapper__right .top .btnCloseAllCart{
+.wrapper__right .top .btnCloseAllCart {
   right: 20px;
   position: absolute;
   cursor: pointer;
@@ -466,7 +467,7 @@ a {
   font-size: 12px;
   grid-area: auto;
   letter-spacing: 0.14994px;
-  margin: 2px 14px 0px;
+  margin: 2px 2px 0px;
 }
 .form-item.--error label {
   color: #f44336;
@@ -479,7 +480,7 @@ a {
   margin-bottom: 24px;
 }
 
-.scbox__form.--bottom button{
+.scbox__form.--bottom button {
   background-color: white;
   cursor: pointer;
 }
@@ -578,17 +579,16 @@ a {
   gap: 56px;
 }
 
-
-.wrapper{
+.wrapper {
   background-image: url("background.jpg");
 }
-.top-title{
+.top-title {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 10px;
 }
-.top-title i{
+.top-title i {
   background: #c8102e;
   padding: 10px 10px;
   border-radius: 15px;
@@ -597,27 +597,28 @@ a {
   margin-right: 10px;
 }
 h1 {
-    text-align: center;
+  text-align: center;
 }
-.info{
+.info {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.info input,.info div{
+.info input,
+.info div {
   margin-bottom: 10px;
 }
 
-input{
+input {
   border: solid 1px rgb(214, 214, 214);
-  width: 750px;
+  /* width: 750px; */
   padding: 10px 5px;
   border-radius: 5px;
 }
 
-.show-detail{
+.show-detail {
   color: black;
   background-color: white;
   border: none;
@@ -625,7 +626,7 @@ input{
   cursor: pointer;
 }
 
-#Search{
+#Search {
   background: #0a8020;
   color: #fff;
   border: none;
@@ -635,45 +636,46 @@ input{
 }
 
 .container {
-    width: 800px;
-    margin: auto;
-    background-color: white;
-    border: solid 1px rgb(224, 224, 224);
-    position: relative;
+  width: 800px;
+  margin: auto;
+  background-color: white;
+  border: solid 1px rgb(224, 224, 224);
+  position: relative;
 }
 
 .table-responsive {
-    overflow-x: auto;
+  overflow-x: auto;
 }
 
 .container table {
-    margin-top: 10px;
-    width: 100%;
-    border-collapse: collapse;
+  margin-top: 10px;
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.container th, td {
-    padding: 20px;
-    text-align: center;
+.container th,
+td {
+  padding: 20px;
+  text-align: center;
 }
 
 .container th {
-    border-bottom: solid 1px rgb(224, 224, 224);
-    background-color: #c8102e;
-    color: #fff;
+  border-bottom: solid 1px rgb(224, 224, 224);
+  background-color: #c8102e;
+  color: #fff;
 }
 
 .container a {
-    text-decoration: none;
-    color: #000000;
+  text-decoration: none;
+  color: #000000;
 }
 
 /*======= bill detail =======*/
-.container-bill{
+.container-bill {
   width: 700px;
   left: 20%;
   top: 15%;
-  transition: translate(-50%,-50%);
+  transition: translate(-50%, -50%);
   background: white;
   padding: 20px 20px;
   border-radius: 25px;
@@ -681,7 +683,7 @@ input{
   z-index: 3;
 }
 
-.hide{
+.hide {
   display: none;
 }
 
@@ -707,12 +709,12 @@ input{
   position: relative;
 }
 
-.container-bill header img{
+.container-bill header img {
   width: 80px;
   height: auto;
 }
 
-.container-bill header i{
+.container-bill header i {
   color: black;
   font-size: 20px;
   position: absolute;
@@ -720,12 +722,12 @@ input{
   cursor: pointer;
 }
 
-.container-bill main{
+.container-bill main {
   display: flex;
   flex-direction: column;
 }
 
-.container-bill main .infor{
+.container-bill main .infor {
   display: flex;
   justify-content: center;
   gap: 40px;
@@ -738,11 +740,12 @@ input{
   background: white;
 }
 
-.thong-tin-don-hang, .thong-tin-khach-hang{
+.thong-tin-don-hang,
+.thong-tin-khach-hang {
   border: none;
 }
 
-.danh-sach-san-pham td img{
+.danh-sach-san-pham td img {
   width: 100px;
   height: auto;
 }
@@ -764,12 +767,13 @@ input{
   font-weight: bold;
 }
 
-.container-bill main section table{
+.container-bill main section table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.container-bill main section table th, .container-bill main section table td {
+.container-bill main section table th,
+.container-bill main section table td {
   border: 1px solid #ccc;
   padding: 5px;
   text-align: center;
@@ -785,9 +789,10 @@ input{
   text-align: right;
 }
 /*===== product-list =====*/
-.scbox .product-list{
+.scbox .product-list {
   width: auto;
-  height: auto;
+  height: 400px;
+  overflow-y: auto;
   border: solid 1px rgb(210, 210, 210);
   border-radius: 15px;
   padding: 10px 10px;
@@ -796,58 +801,76 @@ input{
   z-index: 201;
 }
 
-.scbox .hide{
+/* width */
+.scbox .product-list::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+.scbox .product-list::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+/* Handle */
+.scbox .product-list::-webkit-scrollbar-thumb {
+  background: rgb(183, 183, 183);
+  border-radius: 10px;
+  height: 30px;
+}
+
+
+.scbox .hide {
   display: none;
 }
 
-.scbox .product-list .close-bg{
+.scbox .product-list .close-bg {
   display: flex;
   justify-content: right;
 }
 
-.scbox .product-list .close{
-  background:#008000;
+.scbox .product-list .close {
+  background: #008000;
   padding: 7px 7px;
   color: #fff;
   border-radius: 5px;
   cursor: pointer;
 }
 
-.scbox .product-list h2{
+.scbox .product-list h2 {
   font-size: 20px;
   font-weight: bold;
   padding: 20px 20px;
 }
 
-.scbox .product-list th{
+.scbox .product-list th {
   font-weight: bold;
   text-align: center;
   align-content: center;
   padding: 20px 20px;
 }
 
-.scbox .product-list td{
+.scbox .product-list td {
   padding: 20px 20px;
   text-align: center;
   align-content: center;
 }
 
-.scbox .product-list .product-description{
+.scbox .product-list .product-description {
   display: flex;
   align-items: center;
 }
 
-.scbox .product-list img{
+.scbox .product-list img {
   width: 70px;
   height: auto;
   margin-right: 10px;
 }
 
-.scbox .product-list #total-price{
+.scbox .product-list #total-price {
   text-align: left;
 }
 
-.scbox .product-list #total{
+.scbox .product-list #total {
   font-weight: bold;
   text-align: right;
 }
@@ -866,4 +889,25 @@ input{
   transition: 0.2s;
   opacity: 1;
   visibility: visible;
+}
+.scregister__form-right {
+  max-width: 423px;
+}
+.form-item.--register select {
+  cursor: pointer;
+  font-size: 14px;
+  letter-spacing: 0.14994px;
+  line-height: 19.0016px;
+  padding: 10.5px 14px;
+  height: 38px;
+  outline: #b5b6bdba solid 1.6px;
+  border-radius: 4px;
+  margin-top: -4px;
+}
+
+.form-item.--register.--error input {
+  color: red;
+}
+.form-item.--login.--error input {
+  color: red;
 }

@@ -69,7 +69,7 @@
                         </div>
                         <div class="header__action-member">
                             <div class="icon"><i class="fa-solid fa-circle-user"></i></div>
-                            <p>Thanh Vien</p>
+                            <p>THÀNH VIÊN</p>
                         </div>
                     </div>
                 </header>
@@ -81,7 +81,7 @@
           <select
             name=""
             id="advanced-search-category-select"
-            onchange="searchProducts()"
+           
           >
             <option>Tất cả</option>
             <option>Pizza Bo </option>
@@ -97,27 +97,27 @@
             type="number"
             placeholder="tối thiểu"
             id="min-price"
-            onchange="searchProducts()"
+ 
           />
           <span>đến</span>
           <input
             type="number"
             placeholder="tối đa"
             id="max-price"
-            onchange="searchProducts()"
+     
           />
           <button id="advanced-search-price-btn">
             <i class="fa-light fa-magnifying-glass-dollar"></i>
           </button>
         </div>
         <div class="advanced-search-control">
-          <button id="sort-ascending" onclick="searchProducts(1)">
+          <button id="sort-ascending" >
             <i class="fa-regular fa-arrow-up-short-wide"></i>
           </button>
-          <button id="sort-descending" onclick="searchProducts(2)">
+          <button id="sort-descending" >
             <i class="fa-regular fa-arrow-down-wide-short"></i>
           </button>
-          <button id="reset-search" onclick="searchProducts(0)">
+          <button id="reset-search">
             <i class="fa-light fa-arrow-rotate-right"></i>
           </button>
           <button onclick="closeSearchAdvanced()">
@@ -153,23 +153,10 @@
                         <div class="a">
                             <div class="scproducts__list">
                                 <div class="scproducts__list-item">
-                                    <div class="top">
-                                        <div class="img">
-                                            <img src="img/Pizga_Pho_Mai_400x275.jpg" alt="">
-                                        </div>
-                                        <p class="title">Pizza Phô Mai</p>
-                                    </div>
-                                    <div class="content">
-                                        <p class="desc">Thưởng thức vị gà Karaage chiên giòn cắt lát trên nền pizza đậm vị,
-                                            cùng nấm tươi, hành tây hoà quyện xốt phô mai</p>
-                                        <button class="btn__buy">
-                                            <p class="chon">CHỌN</p>
-                                            <p class="price">119,000₫</p>
-                                        </button>
-                                    </div>
+                                    
                                 </div>
                             </div>
-                            <div class="pagnition">1 2</div>
+                            <div class="pagnition"></div>
                         </div>
                     </div>
                 </main>
@@ -204,7 +191,7 @@
                     <button class="btn">
                         <p class="text">THANH TOÁN</p>
 
-                        <p class="totalPrice">269,000 ₫</p>
+                        <p class="totalPrice"></p>
 
                     </button>
                 </a>
@@ -221,19 +208,22 @@
         </div>
         <div class="popupLogin__form">
             <h2 class="headingLogin">🍕🍕 WELCOME BACK!</h2>
-            <p class="heading__desc">NEU BẠN ĐÃ LÀ THÀNH VIÊN PIZZA HUT<br>HAY ĐĂNG NHẬP
-                TRƯỚC KHI THANH TOÁN PIZZA NHÉ!</p>
-                <div class="form-item --login --error">
+            <p class="heading__desc">NẾU BẠN CHƯA CÓ TÀI KHOẢN PIZZA HUT<br>HÃY ĐĂNG KÍ
+                TRƯỚC KHI ĐĂNG NHẬP BẠN NHÉ!</p>
+                <div class="form-item --login --email ">
                     <label for="email">Email *</label>
                     <input type="text" name="" id="taikhoan">
-                    <p class="error">Sai dinh dang email</p>
+                    <p class="error"></p>
                 </div>
-                <div class="form-item --login">
+                <div class="form-item --login --password">
                     <label for="email">Mật Khẩu *</label>
                     <input type="Password" name="" id="matkhau">
+                    <p class="error"></p>
+
                 </div>
-               
-                <button class="btn dangnhapz" onclick="loginz()">ĐĂNG NHẬP</button>
+                <!-- onclick="loginz()" -->
+             
+                <button class="btn dangnhapz"   >ĐĂNG NHẬP</button>
 
                 <div class="form-error">
                 <i class="fa-solid fa-circle-exclamation"></i>
@@ -254,7 +244,8 @@
     <a href="index.php?controller=AdminIndexController&action=index">admin</a>
 
     <script>
-
+    
+    
 document.addEventListener("DOMContentLoaded", function() {
   // Lấy phần tử .popupLogin
   var popupLogin = document.querySelector(".popupLogin");
@@ -291,6 +282,79 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
+var dangnhapBtn = document.querySelector('.dangnhapz');
+    dangnhapBtn.addEventListener('click', function(){
+        var checkForm = true;
+        var formError = document.querySelector(".form-error");
+        var email = document.getElementById("taikhoan");
+        var emailFormItem = document.querySelector(".form-item.--login.--email");
+        var emailError = document.querySelector(".form-item.--login.--email .error");
+        var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        var password = document.getElementById("matkhau");
+        var passwordError = document.querySelector(".form-item.--login.--password .error");
+        var passwordFormItem = document.querySelector(".form-item.--login.--password");
+        var passwordPattern = /^.{3,}$/;
+
+
+        if(email.value.trim() === "") {
+            emailFormItem.classList.add("--error");
+            emailError.innerHTML = "Vui lòng không để trống";
+            checkForm = false;
+        } else if(!emailPattern.test(email.value)) {
+            emailFormItem.classList.add("--error");
+            emailError.innerHTML = "Email không đúng định dạng";
+            checkForm = false;
+        } else {
+            emailFormItem.classList.remove("--error");
+            emailError.innerHTML = "";
+        }
+        email.addEventListener("input", function() {
+            if(!emailPattern.test(email.value)) {
+                emailFormItem.classList.add("--error");
+                emailError.innerHTML = "Email không đúng định dạng";
+                checkForm = false;
+            } else {
+                emailFormItem.classList.remove("--error");
+                emailError.innerHTML = "";
+            }
+        });
+
+        if(password.value.trim() === "") {
+            passwordFormItem.classList.add("--error");
+            passwordError.innerHTML = "Vui lòng không để trống";
+            checkForm = false;
+        }else if(!passwordPattern.test(password.value)) {
+            passwordFormItem.classList.add("--error");
+            passwordError.innerHTML = "Mật khẩu phải chứa ít nhất 3 ký tự";
+            checkForm = false;
+        } else {
+            passwordFormItem.classList.remove("--error");
+            passwordError.innerHTML = "";
+        }
+        password.addEventListener("input", function() {
+            if(!passwordPattern.test(password.value)) {
+                passwordFormItem.classList.add("--error");
+                passwordError.innerHTML = "Mật khẩu phải chứa ít nhất 3 ký tự";
+                checkForm = false;
+            } else {
+                passwordFormItem.classList.remove("--error");
+                passwordError.innerHTML = "";
+            }
+        });
+
+        if(checkForm) {
+            // alert("Đăng nhập thành công!" + email.value + " " + password.value);
+            loginz( email.value, password.value);
+            formError.style.display = "none";
+            // email.value = "";
+            // password.value = "";
+        } else {
+            formError.style.display = "flex";
+        }
+    
+    })
+
+
 
 </script>
 
@@ -300,6 +364,8 @@ document.addEventListener("DOMContentLoaded", function() {
     <script src="js/helper.js"></script>
     <script src="js/indexJS.js"></script>
     <script>
+
+        
 
     // document.addEventListener("DOMContentLoaded", function() {
 

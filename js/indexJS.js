@@ -146,6 +146,7 @@ function addEventProducts() {
   var products = document.querySelectorAll(".scproducts__list-item");
   products.forEach(function (product) {
     product.addEventListener("click", function () {
+      activeloader();
       var id = product.getAttribute("value");
       var popup = document.querySelector(".popup");
       // remove --none
@@ -271,6 +272,7 @@ function addeventPOPUP() {
   var btnBuy = document.querySelectorAll(".scproducts__list-item .top");
   var btnBuy = document.querySelectorAll(".scproducts__list-item .top");
   var btnClose = document.querySelector(".btnClose");
+  console.log("btnClose", btnClose);
   btnClose.addEventListener("click", function () {
     popup.classList.add("--none");
   });
@@ -292,7 +294,6 @@ function addeventPOPUP() {
   });
 
   //ĐẾ KÍCH THƯỚC
-  
 
   var boxItemsKT = document.querySelectorAll(".box__item.--kt");
   var boxItemsDE = document.querySelectorAll(".box__item.--de");
@@ -302,7 +303,6 @@ function addeventPOPUP() {
       item.classList.add("--active");
     });
   });
-
 
   boxItemsDE.forEach(function (item) {
     item.addEventListener("click", function () {
@@ -370,3 +370,6 @@ function addeventchuyensizevade(listDetail) {
     map.get("Nhỏ Mỏng")
   );
 }
+
+
+

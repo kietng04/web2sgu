@@ -18,38 +18,38 @@
 <body>
 
     <div class="container">
-        <aside class="sidebar open">
+    <aside class="sidebar open">
             <!-- <div class="btnSidebar">
                 <i class="fa-solid fa-bars"></i>
             </div> -->
             <div class="top-sidebar">
                 <a href="#" class="channel-logo"><img src="img/logo-pizza.png" alt="Channel Logo"></a>
-                <div class="hidden-sidebar your-channel"><img src="assets/img/admin/vy-food-title.png"
+                <div class="hidden-sidebar your-channel"><img src=""
                         style="height: 30px;" alt="">
                 </div>
             </div>
             <div class="middle-sidebar">
                 <ul class="sidebar-list">
                     <li class="sidebar-list-item tab-content active">
-                        <a href="#" class="sidebar-link">
+                        <a href="index.php?controller=AdminIndexController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-house"></i></div>
                             <div class="hidden-sidebar">Trang tổng quan</div>
                         </a>
                     </li>
                     <li class="sidebar-list-item tab-content">
-                        <a href="#" class="sidebar-link">
+                        <a href="index.php?controller=ProductManagementController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-pizza-slice"></i></i></div>
                             <div class="hidden-sidebar">Sản phẩm</div>
                         </a>
                     </li>
                     <li class="sidebar-list-item tab-content">
-                        <a href="#" class="sidebar-link">
+                        <a href="index.php?controller=AccountManagementController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-users"></i></i></div>
-                            <div class="hidden-sidebar">Khách hàng</div>
+                            <div class="hidden-sidebar">Tài khoản</div>
                         </a>
                     </li>
                     <li class="sidebar-list-item tab-content">
-                        <a href="#" class="sidebar-link">
+                        <a href="index.php?controller=BillManagementController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-box-open"></i></div>
                             <div class="hidden-sidebar">Đơn hàng</div>
                         </a>

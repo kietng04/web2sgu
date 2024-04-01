@@ -37,19 +37,19 @@
                         </a>
                     </li>
                     <li class="sidebar-list-item tab-content">
-                        <a href="index.php?admin_product.php" class="sidebar-link">
+                        <a href="index.php?controller=ProductManagementController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-pizza-slice"></i></i></div>
                             <div class="hidden-sidebar">Sản phẩm</div>
                         </a>
                     </li>
                     <li class="sidebar-list-item tab-content">
-                        <a href="#" class="sidebar-link">
+                        <a href="index.php?controller=AccountManagementController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-users"></i></i></div>
-                            <div class="hidden-sidebar">Khách hàng</div>
+                            <div class="hidden-sidebar">Tài khoản</div>
                         </a>
                     </li>
                     <li class="sidebar-list-item tab-content">
-                        <a href="#" class="sidebar-link">
+                        <a href="index.php?controller=BillManagementController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-box-open"></i></div>
                             <div class="hidden-sidebar">Đơn hàng</div>
                         </a>

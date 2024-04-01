@@ -92,7 +92,7 @@
           </select>
         </div>
         <div class="advanced-search-price">
-          <span>Giá từ</span>
+          <span>Giá từ (đơn vị: nghìn)</span>
           <input
             type="number"
             placeholder="tối thiểu"
@@ -140,10 +140,10 @@
                     <div class="btn__topic" onclick="toggleActive(this, 'HẢI SẢN')">
                         <span>PIZZA HẢI SẢN</span>
                     </div>
-                    <div class="btn__topic" onclick="toggleActive(this)">
+                    <div class="btn__topic" onclick="toggleActive(this,'MÓN KHAI VỊ')">
                         <span>MÓN KHAI VỊ</span>
                     </div>
-                    <div class="btn__topic" onclick="toggleActive(this)">
+                    <div class="btn__topic" onclick="toggleActive(this,'NƯỚC UỐNG')">
                         <span>THỨC UỐNG</span>
                     </div>
                 </div>

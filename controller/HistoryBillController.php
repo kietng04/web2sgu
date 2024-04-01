@@ -22,6 +22,11 @@ if (isset($_POST['request'])) {
         case 'getDetailBill':
             getDetailBill();
             break;
+        case 'changePage':
+            if(isset($_POST['currentpage']) && isset($_POST['currentquery'])){
+                   getRowPagAjax();
+            }
+            break;
     }
 }
 
@@ -35,4 +40,15 @@ function getDetailBill() {
     $mahd = $_POST['mahd'];
     $data = (new HoaDonBUS())->getDetailBill($mahd);
     die(json_encode($data));
+}
+
+function getRowPagAjax() {
+    $query = $_POST['currentquery'];
+    $from = ($_POST['currentpage'] - 1) * 4;
+    $to = 4;    
+    $query = $query . " LIMIT $from, $to";
+    $result = (new SanPhamBUS())->get_list($query);
+    if ($result != null) {
+        die (json_encode($result));
+    }
 }

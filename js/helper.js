@@ -456,7 +456,7 @@ function loadSessionCart() {
       totalPrice();
       // hide load icon
       if (data === null || data['result'] === null) {
-        alert("nul");
+        alert("null");
         return;
       }
         
@@ -487,9 +487,9 @@ function loadSessionCart() {
         // add event delete all cart
         document.querySelector('.btnCloseAllCart').addEventListener('click', function () {
           data['cart'] = [];
-          saveSessionCart(data['cart']);
           cartdiv.innerHTML = '';
-          totalPrice();
+          saveSessionCart(data['cart']);
+          loadSessionCart(data['cart']);
         });
         addeventinput();
         removeloader();
@@ -498,7 +498,6 @@ function loadSessionCart() {
 }
 
 function addeventinput() {
-  alert("a");
 var inputFields = document.querySelectorAll('.input-qty');
 inputFields.forEach(function(inputValue, index) {
   inputValue.addEventListener('input', function(event) {
@@ -518,8 +517,8 @@ inputFields.forEach(function(inputValue, index) {
           } else {
               data['cart'][index]['Quantity'] = inputValue;
               saveSessionCart(data['cart']);
-      }
-      }
+          }
+        }
       });
   });
 });

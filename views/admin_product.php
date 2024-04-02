@@ -290,14 +290,14 @@
             <h3 class="modal-container-title edit-product-e">CHỈNH SỬA SẢN PHẨM</h3>
             <button class="modal-close product-form"><i class="fa-solid fa-xmark"></i></i></button>
             <div class="modal-content">
-                <form action="" class="add-product-form">
+                <form action="" class="add-product-form" onsubmit="event.preventDefault();">
                     <div class="modal-content-left">
                         <img src="img/pizza-1.png" alt="" class="upload-image-preview">
                         <div class="form-group file">
                             <label for="up-hinh-anh" class="form-label-file"><i
                                     class="fa-solid fa-cloud-arrow-up"></i>Chọn hình ảnh</label>
                             <input accept="image/jpeg, image/png, image/jpg" id="up-hinh-anh" name="up-hinh-anh"
-                                type="file" class="form-control" onchange="uploadImage(this)">
+                                type="file" class="form-control">
                         </div>
                     </div>
                     <div class="modal-content-right">
@@ -589,12 +589,12 @@
         // }
 
         const closeBtn = document.querySelectorAll('.section');
-        console.log(closeBtn[0])
-        for (let i = 0; i < closeBtn.length; i++) {
-            closeBtn[i].addEventListener('click', (e) => {
-                sidebar.classList.add("open");
-            })
-        }
+        // console.log(closeBtn[0])
+        // for (let i = 0; i < closeBtn.length; i++) {
+        //     closeBtn[i].addEventListener('click', (e) => {
+        //         sidebar.classList.add("open");
+        //     })
+        // }
 
         editButtons.forEach(function(button) {
             button.addEventListener('click', function() {
@@ -617,13 +617,13 @@
             button.addEventListener('click', function() {
                 modal.classList.remove('open');
             });
+            alert("Fdd");
         });
 
         addButtons.addEventListener('click', function() {
             uploadImg.src = "img/upload-image.png";
             modal.classList.add('open');
             titleModal.innerHTML = "THÊM MỚI SẢN PHẨM";
-
         });
 
         detailButtons.forEach(function(button) {

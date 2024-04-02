@@ -456,7 +456,6 @@ function loadSessionCart() {
       totalPrice();
       // hide load icon
       if (data === null || data['result'] === null) {
-        alert("null");
         return;
       }
         

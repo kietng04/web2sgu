@@ -66,6 +66,9 @@ switch($_POST['request']) {
     // case `CreateRoom`
     //     createRoom();
     //     break;
+    case 'livesearch':
+        getProducts();
+        break;
 }
 }
 function login() {

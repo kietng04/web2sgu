@@ -9,10 +9,10 @@
     <script src="https://kit.fontawesome.com/3dff50b2d8.js" crossorigin="anonymous"></script>
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/variables.css">
     <!-- <link rel="stylesheet" href="../css/components.css"> -->
-    <link rel="stylesheet" href="../css/admin_styles1.css">
+    <link rel="stylesheet" href="css/admin_styles1.css">
 </head>
 
 <body>
@@ -23,8 +23,8 @@
                 <i class="fa-solid fa-bars"></i>
             </div> -->
             <div class="top-sidebar">
-                <a href="#" class="channel-logo"><img src="../img/logo-pizza.png" alt="Channel Logo"></a>
-                <div class="hidden-sidebar your-channel"><img src="assets/img/admin/vy-food-title.png"
+                <a href="#" class="channel-logo"><img src="img/logo-pizza.png" alt="Channel Logo"></a>
+                <div class="hidden-sidebar your-channel"><img src=""
                         style="height: 30px;" alt="">
                 </div>
             </div>
@@ -37,19 +37,19 @@
                         </a>
                     </li>
                     <li class="sidebar-list-item tab-content">
-                        <a href="index.php?admin_product.php" class="sidebar-link">
+                        <a href="index.php?controller=ProductManagementController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-pizza-slice"></i></i></div>
                             <div class="hidden-sidebar">Sản phẩm</div>
                         </a>
                     </li>
                     <li class="sidebar-list-item tab-content">
-                        <a href="#" class="sidebar-link">
+                        <a href="index.php?controller=AccountManagementController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-users"></i></i></div>
-                            <div class="hidden-sidebar">Khách hàng</div>
+                            <div class="hidden-sidebar">Tài khoản</div>
                         </a>
                     </li>
                     <li class="sidebar-list-item tab-content">
-                        <a href="#" class="sidebar-link">
+                        <a href="index.php?controller=BillManagementController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-box-open"></i></div>
                             <div class="hidden-sidebar">Đơn hàng</div>
                         </a>
@@ -93,7 +93,7 @@
                         <div class="box">
                             <h2 id="amount-user">0</h2>
                             <div class="on-box">
-                                <img src="../img/admin-pizza-1.png" alt="" style=" width: 200px;">
+                                <img src="img/admin-pizza-1.png" alt="" style=" width: 200px;">
                                 <h3>Khách hàng</h3>
                                 <p>Sản phẩm là bất cứ cái gì có thể đưa vào thị trường để tạo sự chú ý, mua sắm, sử dụng
                                     hay tiêu dùng nhằm thỏa mãn một nhu cầu hay ước muốn. Nó có thể là những vật thể,
@@ -105,7 +105,7 @@
                     <div class="card-single">
                         <div class="box">
                             <div class="on-box">
-                                <img src="../img/admin-pizza-1.png" alt="" style=" width: 200px;">
+                                <img src="img/admin-pizza-1.png" alt="" style=" width: 200px;">
 
                                 <h2 id="amount-product">0</h2>
                                 <h3>Sản phẩm</h3>
@@ -118,7 +118,7 @@
                         <div class="box">
                             <h2 id="doanh-thu">$5020</h2>
                             <div class="on-box">
-                                <img src="../img/admin-pizza-1.png" alt="" style=" width: 200px;">
+                                <img src="img/admin-pizza-1.png" alt="" style=" width: 200px;">
 
                                 <h3>Doanh thu</h3>
                                 <p>Doanh thu của doanh nghiệp là toàn bộ số tiền sẽ thu được do tiêu thụ sản phẩm, cung
@@ -159,7 +159,7 @@
                 <div id="show-product">
                     <div class="list">
                         <div class="list-left">
-                            <img src="../img/pizza-1.png" alt="">
+                            <img src="/img/pizza-1.png" alt="">
                             <div class="list-info">
                                 <h4>Pizza Bò Xốt Demi</h4>
                                 <p class="list-note">Bò bằm, hành tây tím, ớt chuông, cà chua, mozzarella, xốt demi
@@ -183,7 +183,7 @@
                     </div>
                     <div class="list">
                         <div class="list-left">
-                            <img src="../images/pizzaimg/bodemi.jpg" alt="">
+                            <img src="/images/pizzaimg/bodemi.jpg" alt="">
                             <div class="list-info">
                                 <h4>Pizza Bò Xốt Demi</h4>
                                 <p class="list-note">Bò bằm, hành tây tím, ớt chuông, cà chua, mozzarella, xốt demi
@@ -207,7 +207,7 @@
                     </div>
                     <div class="list">
                         <div class="list-left">
-                            <img src="../img/pizza-1.png" alt="">
+                            <img src="/img/pizza-1.png" alt="">
                             <div class="list-info">
                                 <h4>Pizza Bò Xốt Demi</h4>
                                 <p class="list-note">Bò bằm, hành tây tím, ớt chuông, cà chua, mozzarella, xốt demi
@@ -231,7 +231,7 @@
                     </div>
                     <div class="list">
                         <div class="list-left">
-                            <img src="../img/pizza-1.png" alt="">
+                            <img src="/img/pizza-1.png" alt="">
                             <div class="list-info">
                                 <h4>Pizza Bò Xốt Demi</h4>
                                 <p class="list-note">Bò bằm, hành tây tím, ớt chuông, cà chua, mozzarella, xốt demi
@@ -255,7 +255,7 @@
                     </div>
                     <div class="list">
                         <div class="list-left">
-                            <img src="../img/pizza-1.png" alt="">
+                            <img src="/img/pizza-1.png" alt="">
                             <div class="list-info">
                                 <h4>Pizza Bò Xốt Demi</h4>
                                 <p class="list-note">Bò bằm, hành tây tím, ớt chuông, cà chua, mozzarella, xốt demi
@@ -279,7 +279,7 @@
                     </div>
                     <div class="list">
                         <div class="list-left">
-                            <img src="../img/pizza-1.png" alt="">
+                            <img src="/img/pizza-1.png" alt="">
                             <div class="list-info">
                                 <h4>Pizza Bò Xốt Demi</h4>
                                 <p class="list-note">Bò bằm, hành tây tím, ớt chuông, cà chua, mozzarella, xốt demi
@@ -597,7 +597,7 @@
             <div class="modal-content">
                 <form action="" class="add-product-form">
                     <div class="modal-content-left">
-                        <img src="../img/pizza-1.png" alt="" class="upload-image-preview">
+                        <img src="/img/pizza-1.png" alt="" class="upload-image-preview">
                         <div class="form-group file">
                             <label for="up-hinh-anh" class="form-label-file"><i
                                     class="fa-solid fa-cloud-arrow-up"></i>Chọn hình ảnh</label>
@@ -681,7 +681,7 @@
                     <div class="order-item-group">
                         <div class="order-product">
                             <div class="order-product-left">
-                                <img src="../img/pizza-1.png" alt="">
+                                <img src="/img/pizza-1.png" alt="">
                                 <div class="order-product-info">
                                     <h4>Bánh lava phô mai nướng</h4>
                                     <p class="order-product-note"><i class="fa-regular fa-pen-to-square"></i> Kich co:
@@ -700,7 +700,7 @@
                         </div>
                         <div class="order-product">
                             <div class="order-product-left">
-                                <img src="../images/pizzaimg/bbq.jpg" alt="">
+                                <img src="/images/pizzaimg/bbq.jpg" alt="">
                                 <div class="order-product-info">
                                     <h4>Set lẩu Thái nấm chay</h4>
                                     <p class="order-product-note"><i class="fa-regular fa-pen-to-square"></i> Kich co:
@@ -719,7 +719,7 @@
                         </div>
                         <div class="order-product">
                             <div class="order-product-left">
-                                <img src="../img/pizza-1.png" alt="">
+                                <img src="/img/pizza-1.png" alt="">
                                 <div class="order-product-info">
                                     <h4>Bánh lava phô mai nướng</h4>
                                     <p class="order-product-note"><i class="fa-regular fa-pen-to-square"></i> Kich co:
@@ -738,7 +738,7 @@
                         </div>
                         <div class="order-product">
                             <div class="order-product-left">
-                                <img src="../images/pizzaimg/bbq.jpg" alt="">
+                                <img src="/images/pizzaimg/bbq.jpg" alt="">
                                 <div class="order-product-info">
                                     <h4>Set lẩu Thái nấm chay</h4>
                                     <p class="order-product-note"><i class="fa-regular fa-pen-to-square"></i> Kich co:

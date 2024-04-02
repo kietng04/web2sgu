@@ -16,6 +16,9 @@ closeDetail.forEach(button => {
     darkOverlay.style.display = 'none';
   })
 })
+var User;
+let tried_queryz="";
+let length=0;
 loadtable();
 
 // load lich su don hang
@@ -29,10 +32,10 @@ function loadtable() {
         request: 'getHistoryBill'
         },
         success: function(data) {
-          console.log(data);
+          console.table(data);
           var html = "";
           // traverse data
-          data.forEach((element) => {
+          data.slice(data.length-4,data.length).reverse().forEach((element) => {
             html += `<tr>
             <td>${element.MaHD}</td>
             <td>${element.NgayLap}</td>`;
@@ -58,13 +61,109 @@ function loadtable() {
             <td><button class="show-detail" value="${element.MaHD}">Xem chi tiết</button></td>
         </tr>`;
           });
-
+          if (data.length > 0) {
+            let MaND = data[0].MaND; // Assign value to MaND
+             tried_queryz="SELECT * FROM `HoaDon` where MaND="+MaND+"";
+          }
           document.querySelector('.rowtable').innerHTML = html;
           addeventdetailorder();
           removeloader();
+          render_page_li(Math.ceil(data.length/4));
+          length=Math.ceil(data.length/4);
         }
     })
 }
+
+function loadtablez(data) {
+  var html = "";
+          // traverse data
+          data.forEach((element) => {
+            console.log(element.MaND)
+            html += `<tr>
+            <td>${element.MaHD}</td>
+            <td>${element.NgayLap}</td>`;
+            // parse element.TrangThai to int
+            switch(element.TrangThai) {
+              case '0': 
+                html += `<td>Đang chờ xác nhận</td>`;
+                break;
+              case '1':
+                html += `<td>Đã xác nhận</td>`;
+                break;
+              case '2':
+                html += `<td>Đang giao hàng</td>`;
+                break;
+              case '3':
+                html += `<td>Đã giao hàng</td>`;
+                break;
+              default:
+                html += `<td>Đã hủy</td>`;
+                break;
+            }
+            html += `<td>${toVND(element.TongTien)}</td>
+            <td><button class="show-detail" value="${element.MaHD}">Xem chi tiết</button></td>
+        </tr>`;})
+        document.querySelector('.rowtable').innerHTML = html;
+        addeventdetailorder();
+        removeloader();
+        
+          
+}
+
+function render_page_li(totalPage) {
+  console.log("nhan vao render_page_li")
+  if (totalPage <= 1) totalPage = 0;
+  var html = "";
+  for (var i = 1; i <= totalPage; i++) {
+    if (i == 1) {
+      html += `<li class="page-item " onclick="ajaxrow(${i},this)" ><a  class="page-link">${i}</a></li>`;
+    } else {
+      html += `<li class="page-item " onclick="ajaxrow(${i},this)" ><a  class="page-link">${i}</a></li>`;
+    }
+   
+  }
+  document.querySelector(".pagination").innerHTML = html;
+
+}
+
+
+function ajaxrow(page,currentpage) {
+  let currentqueryz=tried_queryz;
+  console.log("nhan vao ajaxrow",currentqueryz);
+  let currentPagez=1;
+  currentPagez = page;
+  if(currentpage.previousElementSibling){
+    currentpage.previousElementSibling.classList.remove('--active');
+  }
+  if(currentpage.nextElementSibling){
+    currentpage.nextElementSibling.classList.remove('--active');
+  }
+  currentpage.classList.add('--active');
+  $.ajax({
+    url: "./controller/HistoryBillController.php",
+    type: "post",
+    dataType: "json",
+    timeout: 1500,
+    data: {
+      request: "changePage",
+      currentquery: currentqueryz,
+      currentpage: currentPagez,
+    },
+    success: function (data) {
+      listProduct = data;
+      loadtablez(data);
+    },
+    error: function () {
+      alert("del duoc roi oniichan");
+    },
+  });
+  console.log(length)
+  render_page_li(length)
+}
+
+
+
+
 
 function addeventdetailorder() {
   var detaillist = document.querySelectorAll('.show-detail');

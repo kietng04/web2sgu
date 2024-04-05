@@ -130,7 +130,6 @@ a {
   font-weight: 400;
   display: block;
   line-height: 1.4;
-  margin-bottom: 10px;
 }
 
 .content .btn__buy {
@@ -613,22 +612,12 @@ h1 {
 }
 
 input {
-  /* border: solid 1px rgb(214, 214, 214); */
+  border: solid 1px rgb(214, 214, 214);
   /* width: 750px; */
-  /* padding: 10px 5px;
-  border-radius: 5px; */
+  padding: 10px 5px;
+  border-radius: 5px;
 }
 
-.form-item.--register.--sexial select{
-  font-size: 14px;
-    letter-spacing: 0.14994px;
-    line-height: 19.0016px;
-    padding: 10.5px 14px;
-    /* width: 550px; */
-    height: 38px;
-    outline: #b5b6bd solid 1px;
-    border-radius: 4px;
-}
 .show-detail {
   color: black;
   background-color: white;

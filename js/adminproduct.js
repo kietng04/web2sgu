@@ -32,15 +32,15 @@ function showProductTableAdmin() {
     var html = "";
     listProduct.forEach(function (item) {
        html += `<div class="list">
-        <div class="list-left">
+       <div class="list-left">
            <img src="${item.Img}" alt="">
            <div class="list-info">
                <h4>${item.TenSP}</h4>
                <p class="list-note">${item.Mota}</p>
                <span class="list-category">${item.Loai}</span>
            </div>
-        </div>
-        <div class="list-right">
+
+           <div class="list-right">
                <div class="list-price">
                    <span class="list-current-price">${toVND(item.GiaTien)}</span>
                </div>
@@ -50,8 +50,10 @@ function showProductTableAdmin() {
                        <button class="btn-delete"><i class="fa-solid fa-trash"></i></button>
                    </div>
                </div>
-          </div>
-      </div>`
+           </div>
+
+       </div>
+   </div>`
     })
     document.querySelector("#show-product").innerHTML = html;
   }

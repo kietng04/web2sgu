@@ -329,7 +329,6 @@ function showProducts() {
   document.querySelector(".scproducts__list").innerHTML = html;
   addEventProducts();
 }
-/*============================ cart ===============================*/
 
 function addeventbutbtn() {
   var btn = document.querySelector(".btn.--add");
@@ -413,7 +412,7 @@ function addeventbutbtn() {
     });
   });
 }
-
+/*============================ cart ===============================*/
 var mapsize = new Map();
 // add key, value
 mapsize.set('S', 'Nhỏ');
@@ -488,8 +487,8 @@ function loadSessionCart() {
         document.querySelector('.btnCloseAllCart').addEventListener('click', function () {
           data['cart'] = [];
           cartdiv.innerHTML = '';
-          totalPrice();
           saveSessionCart(data['cart']);
+          loadSessionCart(data['cart']);
         });
         addeventinput();
         removeloader();

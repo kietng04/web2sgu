@@ -1,154 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/admin_styles.css">
+    <link rel="stylesheet" href="admin.css">
     <script src="https://kit.fontawesome.com/3dff50b2d8.js" crossorigin="anonymous"></script>
     <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/variables.css">
+    <!-- <link rel="stylesheet" href="../css/components.css"> -->
+    <link rel="stylesheet" href="../css/admin_styles1.css">
 </head>
+
 <body>
-    <nav>
-        <div class="logo-name">
-            <div class="logo-image">
-               <img src="../img/logo2.png" alt="">
+
+    <div class="container">
+        <aside class="sidebar open">
+            <!-- <div class="btnSidebar">
+                <i class="fa-solid fa-bars"></i>
+            </div> -->
+            <div class="top-sidebar">
+                <a href="#" class="channel-logo"><img src="../img/logo-pizza.png" alt="Channel Logo"></a>
+                <div class="hidden-sidebar your-channel"><img src="assets/img/admin/vy-food-title.png"
+                        style="height: 30px;" alt="">
+                </div>
             </div>
-            <span class="logo_name">Admin HP3K</span>
-        </div>
-
-        <div class="menu-items">
-            <ul class="nav-links">
-                <li><a href="admin_index.php">
-                  <i class="fa-solid fa-house"></i>
-                    <span class="link-name">Dashboard</span>
-                </a></li>
-                <li><a href="admin_product.php">
-                  <i class="fa-solid fa-boxes-stacked"></i>
-                    <span class="link-name">Quản lí sản phẩm </span>
-                </a></li>
-                <li><a href="admin_order.php">
-                  <i class="fa-solid fa-file-invoice"></i>
-                  <span class="link-name">Quản lí đơn hàng</span>
-                </a></li>
-                <li><a href="admin_account.php">
-                  <i class="fa-solid fa-users"></i>
-                    <span class="link-name">Quản lí người dùng</span>
-                </a></li>
-                <li><a href="admin_import.php">
-                  <i class="fa-solid fa-file-import"></i>
-                    <span class="link-name">Quản lí nhập hàng</span>
-                </a></li>
-                <li><a href="admin_export.php">
-                  <i class="fa-solid fa-file-export"></i>
-                    <span class="link-name">Quản lí xuất hàng</span>
-                </a></li>
-                <li><a href="views/admin_table.php">
-                  <i class="fa-solid fa-square-poll-vertical"></i>
-                    <span class="link-name">Thống kê</span>
-                </a></li>
-            </ul>
-          
-            <ul class="logout-mode">
-                <li><a href="#">
-                  <i class="fa-solid fa-right-from-bracket"></i>
-                    <span class="link-name">Logout</span>
-                </a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <section class="dashboard">
-        <div class="top">
-            <i class="fa-solid fa-bars sidebar-toggle"></i>
-        </div>
-
-        <div class="dash-content">
-            <div class="admin-control">
-                <div class="admin-control-left">
-                    <select name="the-loai-tk" id="the-loai-tk" onchange="thongKe()">
-                        <option>Tất cả</option>
-                        <option>Món chay</option>
-                        <option>Pizza Bò</option>
-                        <option>Món lẩu</option>
-                        <option>Món ăn vặt</option>
-                        <option>Món tráng miệng</option>
-                        <option>Nước uống</option>
-                        <option>Món khác</option>
-                    </select>
+            <div class="middle-sidebar">
+                <ul class="sidebar-list">
+                    <li class="sidebar-list-item tab-content active">
+                        <a href="./admin_index.php" class="sidebar-link">
+                            <div class="sidebar-icon"><i class="fa-solid fa-house"></i></div>
+                            <div class="hidden-sidebar">Trang tổng quan</div>
+                        </a>
+                    </li>
+                    <li class="sidebar-list-item tab-content">
+                        <a href="./admin_product.php" class="sidebar-link">
+                            <div class="sidebar-icon"><i class="fa-solid fa-pizza-slice"></i></i></div>
+                            <div class="hidden-sidebar">Sản phẩm</div>
+                        </a>
+                    </li>
+                    <li class="sidebar-list-item tab-content">
+                        <a href="#" class="sidebar-link">
+                            <div class="sidebar-icon"><i class="fa-solid fa-users"></i></i></div>
+                            <div class="hidden-sidebar">Khách hàng</div>
+                        </a>
+                    </li>
+                    <li class="sidebar-list-item tab-content">
+                        <a href="#" class="sidebar-link">
+                            <div class="sidebar-icon"><i class="fa-solid fa-box-open"></i></div>
+                            <div class="hidden-sidebar">Đơn hàng</div>
+                        </a>
+                    </li>
+                    <li class="sidebar-list-item tab-content">
+                        <a href="#" class="sidebar-link">
+                            <div class="sidebar-icon"><i class="fa-solid fa-chart-simple"></i></div>
+                            <div class="hidden-sidebar">Thống kê</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="bottom-sidebar">
+                <ul class="sidebar-list">
+                    <li class="sidebar-list-item user-logout">
+                        <a href="/" class="sidebar-link">
+                            <div class="sidebar-icon"><i class="fa-solid fa-angles-left"></i></div>
+                            <div class="hidden-sidebar">Trang chủ</div>
+                        </a>
+                    </li>
+                    <li class="sidebar-list-item user-logout">
+                        <a href="#" class="sidebar-link">
+                            <div class="sidebar-icon"><i class="fa-regular fa-user"></i></i></div>
+                            <div class="hidden-sidebar" id="name-acc">Pham Van Kiet</div>
+                        </a>
+                    </li>
+                    <li class="sidebar-list-item user-logout">
+                        <a href="#" class="sidebar-link" id="logout-acc">
+                            <div class="sidebar-icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></i></div>
+                            <div class="hidden-sidebar">Đăng xuất</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+        <main class="content">
+            <!-- Thong ke  -->
+            <div class="section active">
+                <div class="admin-control">
+                    <div class="admin-control-left">
+                        <select name="the-loai-tk" id="the-loai-tk" onchange="thongKe()">
+                            <option>Tất cả</option>
+                            <option>Món chay</option>
+                            <option>Pizza Bò</option>
+                            <option>Món lẩu</option>
+                            <option>Món ăn vặt</option>
+                            <option>Món tráng miệng</option>
+                            <option>Nước uống</option>
+                            <option>Món khác</option>
+                        </select>
+                    </div>
+                    <div class="admin-control-center">
+                        <form action="" class="form-search">
+                            <span class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></span>
+                            <input id="form-search-tk" type="text" class="form-search-input"
+                                placeholder="Tìm kiếm tên món..." oninput="thongKe()">
+                        </form>
+                    </div>
+                    <div class="admin-control-right">
+                        <form action="" class="fillter-date">
+                            <div>
+                                <label for="time-start">Từ</label>
+                                <input type="date" class="form-control-date" id="time-start-tk" onchange="thongKe()">
+                            </div>
+                            <div>
+                                <label for="time-end">Đến</label>
+                                <input type="date" class="form-control-date" id="time-end-tk" onchange="thongKe()">
+                            </div>
+                        </form>
+                        <button class="btn-reset-order" onclick="thongKe(1)"><i
+                                class="fa-solid fa-arrow-up-short-wide"></i></button>
+                        <button class="btn-reset-order" onclick="thongKe(2)"><i
+                                class="fa-solid fa-arrow-down-wide-short"></i></button>
+                        <button class="btn-reset-order" onclick="thongKe(0)"><i
+                                class="fa-solid fa-rotate-right"></i></button>
+                    </div>
                 </div>
-                <div class="admin-control-center">
-                    <form action="" class="form-search">
-                        <span class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></span>
-                        <input id="form-search-tk" type="text" class="form-search-input"
-                            placeholder="Tìm kiếm tên món..." oninput="thongKe()">
-                    </form>
-                </div>
-                <div class="admin-control-right">
-                    <form action="" class="fillter-date">
-                        <div>
-                            <label for="time-start">Từ</label>
-                            <input type="date" class="form-control-date" id="time-start-tk" onchange="thongKe()">
+                <div class="order-statistical" id="order-statistical">
+                    <div class="order-statistical-item">
+                        <div class="order-statistical-item-content">
+                            <p class="order-statistical-item-content-desc">Sản phẩm được bán ra</p>
+                            <h4 class="order-statistical-item-content-h" id="quantity-product">5</h4>
                         </div>
-                        <div>
-                            <label for="time-end">Đến</label>
-                            <input type="date" class="form-control-date" id="time-end-tk" onchange="thongKe()">
+                        <div class="order-statistical-item-icon">
+                            <i class="fa-solid fa-pizza-slice"></i>
                         </div>
-                    </form>
-                    <button class="btn-reset-order" onclick="thongKe(1)"><i
-                            class="fa-solid fa-arrow-up-short-wide"></i></button>
-                    <button class="btn-reset-order" onclick="thongKe(2)"><i
-                            class="fa-solid fa-arrow-down-wide-short"></i></button>
-                    <button class="btn-reset-order" onclick="thongKe(0)"><i
-                            class="fa-solid fa-rotate-right"></i></button>
+                    </div>
+                    <div class="order-statistical-item">
+                        <div class="order-statistical-item-content">
+                            <p class="order-statistical-item-content-desc">Số lượng bán ra</p>
+                            <h4 class="order-statistical-item-content-h" id="quantity-order">18</h4>
+                        </div>
+                        <div class="order-statistical-item-icon">
+                            <i class="fa-regular fa-file-lines"></i>
+                        </div>
+                    </div>
+                    <div class="order-statistical-item">
+                        <div class="order-statistical-item-content">
+                            <p class="order-statistical-item-content-desc">Doanh thu</p>
+                            <h4 class="order-statistical-item-content-h" id="quantity-sale">46.000.000đ</h4>
+                        </div>
+                        <div class="order-statistical-item-icon">
+                            <i class="fa-solid fa-hand-holding-dollar"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="table">
+                    <table width="100%">
+                        <thead>
+                            <tr>
+                                <td>STT</td>
+                                <td>Tên món</td>
+                                <td>Số lượng bán</td>
+                                <td>Doanh thu</td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody id="showTk">
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <div class="order-statistical" id="order-statistical">
-                <div class="order-statistical-item">
-                    <div class="order-statistical-item-content">
-                        <p class="order-statistical-item-content-desc">Sản phẩm được bán ra</p>
-                        <h4 class="order-statistical-item-content-h" id="quantity-product">5</h4>
-                    </div>
-                    <div class="order-statistical-item-icon">
-                        <i class="fa-solid fa-pizza-slice"></i>
-                    </div>
-                </div>
-                <div class="order-statistical-item">
-                    <div class="order-statistical-item-content">
-                        <p class="order-statistical-item-content-desc">Số lượng bán ra</p>
-                        <h4 class="order-statistical-item-content-h" id="quantity-order">18</h4>
-                    </div>
-                    <div class="order-statistical-item-icon">
-                        <i class="fa-regular fa-file-lines"></i>
-                    </div>
-                </div>
-                <div class="order-statistical-item">
-                    <div class="order-statistical-item-content">
-                        <p class="order-statistical-item-content-desc">Doanh thu</p>
-                        <h4 class="order-statistical-item-content-h" id="quantity-sale">46.000.000đ</h4>
-                    </div>
-                    <div class="order-statistical-item-icon">
-                        <i class="fa-solid fa-hand-holding-dollar"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="table">
-                <table width="100%">
-                    <thead>
-                        <tr>
-                            <td>STT</td>
-                            <td>Tên món</td>
-                            <td>Số lượng bán</td>
-                            <td>Doanh thu</td>
-                            <td></td>
-                        </tr>
-                    </thead>
-                    <tbody id="showTk">
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
+        </main>
+    </div>
+
     <!-- Modal them hoa chinh sua san pham -->
     <div class="modal add-product">
         <div class="modal-container">

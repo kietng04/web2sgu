@@ -1,192 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="../css/admin_styles.css">
     <script src="https://kit.fontawesome.com/3dff50b2d8.js" crossorigin="anonymous"></script>
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/variables.css">
-    <!-- <link rel="stylesheet" href="css/components.css"> -->
-    <link rel="stylesheet" href="css/admin_styles1.css">
 </head>
-
 <body>
+    <nav>
+        <div class="logo-name">
+            <div class="logo-image">
+               <img src="../img/logo2.png" alt="">
+            </div>
+            <span class="logo_name">Admin HP3K</span>
+        </div>
 
-    <div class="container">
-    <aside class="sidebar open">
-            <!-- <div class="btnSidebar">
-                <i class="fa-solid fa-bars"></i>
-            </div> -->
-            <div class="top-sidebar">
-                <a href="#" class="channel-logo"><img src="img/logo-pizza.png" alt="Channel Logo"></a>
-                <div class="hidden-sidebar your-channel"><img src=""
-                        style="height: 30px;" alt="">
-                </div>
-            </div>
-            <div class="middle-sidebar">
-                <ul class="sidebar-list">
-                    <li class="sidebar-list-item tab-content active">
-                        <a href="index.php?controller=AdminIndexController&action=index" class="sidebar-link">
-                            <div class="sidebar-icon"><i class="fa-solid fa-house"></i></div>
-                            <div class="hidden-sidebar">Trang tổng quan</div>
-                        </a>
-                    </li>
-                    <li class="sidebar-list-item tab-content">
-                        <a href="index.php?controller=ProductManagementController&action=index" class="sidebar-link">
-                            <div class="sidebar-icon"><i class="fa-solid fa-pizza-slice"></i></i></div>
-                            <div class="hidden-sidebar">Sản phẩm</div>
-                        </a>
-                    </li>
-                    <li class="sidebar-list-item tab-content">
-                        <a href="index.php?controller=AccountManagementController&action=index" class="sidebar-link">
-                            <div class="sidebar-icon"><i class="fa-solid fa-users"></i></i></div>
-                            <div class="hidden-sidebar">Tài khoản</div>
-                        </a>
-                    </li>
-                    <li class="sidebar-list-item tab-content">
-                        <a href="index.php?controller=BillManagementController&action=index" class="sidebar-link">
-                            <div class="sidebar-icon"><i class="fa-solid fa-box-open"></i></div>
-                            <div class="hidden-sidebar">Đơn hàng</div>
-                        </a>
-                    </li>
-                    <li class="sidebar-list-item tab-content">
-                        <a href="#" class="sidebar-link">
-                            <div class="sidebar-icon"><i class="fa-solid fa-chart-simple"></i></div>
-                            <div class="hidden-sidebar">Thống kê</div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="bottom-sidebar">
-                <ul class="sidebar-list">
-                    <li class="sidebar-list-item user-logout">
-                        <a href="/" class="sidebar-link">
-                            <div class="sidebar-icon"><i class="fa-solid fa-angles-left"></i></div>
-                            <div class="hidden-sidebar">Trang chủ</div>
-                        </a>
-                    </li>
-                    <li class="sidebar-list-item user-logout">
-                        <a href="#" class="sidebar-link">
-                            <div class="sidebar-icon"><i class="fa-regular fa-user"></i></i></div>
-                            <div class="hidden-sidebar" id="name-acc">Pham Van Kiet</div>
-                        </a>
-                    </li>
-                    <li class="sidebar-list-item user-logout">
-                        <a href="#" class="sidebar-link" id="logout-acc">
-                            <div class="sidebar-icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></i></div>
-                            <div class="hidden-sidebar">Đăng xuất</div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </aside>
-        <main class="content">
-            <!-- Account  -->
-            <div class="section active">
-                <div class="admin-control">
-                    <div class="admin-control-left">
-                        <select name="tinh-trang-user" id="tinh-trang-user" onchange="showUser()">
-                            <option value="2">Tất cả</option>
-                            <option value="1">Hoạt động</option>
-                            <option value="0">Bị khóa</option>
-                        </select>
-                    </div>
-                    <div class="admin-control-center">
-                        <form action="" class="form-search">
-                            <span class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></span>
-                            <input id="form-search-user" type="text" class="form-search-input"
-                                placeholder="Tìm kiếm khách hàng..." oninput="showUser()">
-                        </form>
-                    </div>
-                    <div class="admin-control-right">
-                        <form action="" class="fillter-date">
-                            <div>
-                                <label for="time-start">Từ</label>
-                                <input type="date" class="form-control-date" id="time-start-user" onchange="showUser()">
-                            </div>
-                            <div>
-                                <label for="time-end">Đến</label>
-                                <input type="date" class="form-control-date" id="time-end-user" onchange="showUser()">
-                            </div>
-                        </form>
-                        <button class="btn-reset-order" onclick="cancelSearchUser()"><i
-                                class="fa-solid fa-rotate-right"></i></button>
-                        <button id="btn-add-user" class="btn-control-large" onclick="openCreateAccount()"><i
-                                class="fa-light fa-plus"></i> <span>Thêm khách hàng</span></button>
-                    </div>
-                </div>
-                <div class="table">
-                    <table width="100%">
-                        <thead>
-                            <tr>
-                                <td>STT</td>
-                                <td>Họ và tên</td>
-                                <td>Liên hệ</td>
-                                <td>Email</td>
-                                <td>Dia chi</td>
-                                <td>Ngày tham gia</td>
-                                <td>Tình trạng</td>
-                                <td></td>
-                            </tr>
-                        </thead>
-                        <tbody id="show-user">
-                            <tr>
-                                <td>1</td>
-                                <td>Pham Van Kiet</td>
-                                <td>0976204878</td>
-                                <td>kiet@gmail.com</td>
-                                <td>273 Đ. An Dương Vương, Phường 3, Quận 5</td>
-                                <td>27/03/2024</td>
-                                <td><span class="status-complete">Hoạt động</span></td>
-                                <td class="control control-table">
-                                    <button class="btn-edit" id="edit-account"><i
-                                            class="fa-regular fa-pen-to-square"></i></button>
-                                    <button class="btn-delete" id="delete-account"><i
-                                            class="fa-solid fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Pham Van Kiet</td>
-                                <td>0976204878</td>
-                                <td>kiet@gmail.com</td>
-                                <td>273 Đ. An Dương Vương, Phường 3, Quận 5</td>
-                                <td>27/03/2024</td>
-                                <td><span class="status-complete">Hoạt động</span></td>
-                                <td class="control control-table">
-                                    <button class="btn-edit" id="edit-account"><i
-                                            class="fa-regular fa-pen-to-square"></i></button>
-                                    <button class="btn-delete" id="delete-account"><i
-                                            class="fa-solid fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Pham Van Kiet</td>
-                                <td>0976204878</td>
-                                <td>kiet@gmail.com</td>
-                                <td>273 Đ. An Dương Vương, Phường 3, Quận 5</td>
-                                <td>27/03/2024</td>
-                                <td><span class="status-complete">Hoạt động</span></td>
-                                <td class="control control-table">
-                                    <button class="btn-edit" id="edit-account"><i
-                                            class="fa-regular fa-pen-to-square"></i></button>
-                                    <button class="btn-delete" id="delete-account"><i
-                                            class="fa-solid fa-trash"></i></button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <!-- </div> -->
-            </div>
-        </main>
+        <div class="menu-items">
+            <ul class="nav-links">
+                <li><a href="admin_index.php">
+                  <i class="fa-solid fa-house"></i>
+                    <span class="link-name">Dashboard</span>
+                </a></li>
+                <li><a href="admin_product.php">
+                  <i class="fa-solid fa-boxes-stacked"></i>
+                    <span class="link-name">Quản lí sản phẩm </span>
+                </a></li>
+                <li><a href="admin_order.php">
+                  <i class="fa-solid fa-file-invoice"></i>
+                  <span class="link-name">Quản lí đơn hàng</span>
+                </a></li>
+                <li><a href="views/admin_account.php">
+                  <i class="fa-solid fa-users"></i>
+                    <span class="link-name">Quản lí người dùng</span>
+                </a></li>
+                <li><a href="admin_import.php">
+                  <i class="fa-solid fa-file-import"></i>
+                    <span class="link-name">Quản lí nhập hàng</span>
+                </a></li>
+                <li><a href="admin_export.php">
+                  <i class="fa-solid fa-file-export"></i>
+                    <span class="link-name">Quản lí xuất hàng</span>
+                </a></li>
+                <li><a href="admin_table.php">
+                  <i class="fa-solid fa-square-poll-vertical"></i>
+                    <span class="link-name">Thống kê</span>
+                </a></li>
+            </ul>
+          
+            <ul class="logout-mode">
+                <li><a href="#">
+                  <i class="fa-solid fa-right-from-bracket"></i>
+                    <span class="link-name">Logout</span>
+                </a></li>
+            </ul>
+        </div>
+    </nav>
+
+  <section class="dashboard">
+    <div class="top">
+      <i class="fa-solid fa-bars sidebar-toggle"></i>
     </div>
+
+    <div class="dash-content">
+      <div class="section active">
+        <div class="admin-control">
+          <div class="admin-control-left">
+            <select name="tinh-trang-user" id="tinh-trang-user" onchange="showUser()">
+              <option value="2">Tất cả</option>
+              <option value="1">Hoạt động</option>
+              <option value="0">Bị khóa</option>
+            </select>
+          </div>
+          <div class="admin-control-center">
+            <form action="" class="form-search">
+              <span class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></span>
+              <input id="form-search-user" type="text" class="form-search-input" placeholder="Tìm kiếm khách hàng..."
+                oninput="showUser()">
+            </form>
+          </div>
+          <div class="admin-control-right">
+            <form action="" class="fillter-date">
+              <div>
+                <label for="time-start">Từ</label>
+                <input type="date" class="form-control-date" id="time-start-user" onchange="showUser()">
+              </div>
+              <div>
+                <label for="time-end">Đến</label>
+                <input type="date" class="form-control-date" id="time-end-user" onchange="showUser()">
+              </div>
+            </form>
+            <button class="btn-reset-order" onclick="cancelSearchUser()"><i
+                class="fa-solid fa-rotate-right"></i></button>
+            <button id="btn-add-user" class="btn-control-large" onclick="openCreateAccount()"><i
+                class="fa-light fa-plus"></i> <span>Thêm khách hàng</span></button>
+          </div>
+        </div>
+        <div class="table">
+          <table width="100%">
+            <thead>
+              <tr>
+                <td>STT</td>
+                <td>Họ và tên</td>
+                <td>Liên hệ</td>
+                <td>Email</td>
+                <td>Dia chi</td>
+                <td>Ngày tham gia</td>
+                <td>Tình trạng</td>
+                <td></td>
+              </tr>
+            </thead>
+            <tbody id="show-user">
+              <tr>
+                <td>1</td>
+                <td>Pham Van Kiet</td>
+                <td>0976204878</td>
+                <td>kiet@gmail.com</td>
+                <td>273 Đ. An Dương Vương, Phường 3, Quận 5</td>
+                <td>27/03/2024</td>
+                <td><span class="status-complete">Hoạt động</span></td>
+                <td class="control control-table">
+                  <button class="btn-edit" id="edit-account"><i class="fa-regular fa-pen-to-square"></i></button>
+                  <button class="btn-delete" id="delete-account"><i class="fa-solid fa-trash"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Pham Van Kiet</td>
+                <td>0976204878</td>
+                <td>kiet@gmail.com</td>
+                <td>273 Đ. An Dương Vương, Phường 3, Quận 5</td>
+                <td>27/03/2024</td>
+                <td><span class="status-complete">Hoạt động</span></td>
+                <td class="control control-table">
+                  <button class="btn-edit" id="edit-account"><i class="fa-regular fa-pen-to-square"></i></button>
+                  <button class="btn-delete" id="delete-account"><i class="fa-solid fa-trash"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Pham Van Kiet</td>
+                <td>0976204878</td>
+                <td>kiet@gmail.com</td>
+                <td>273 Đ. An Dương Vương, Phường 3, Quận 5</td>
+                <td>27/03/2024</td>
+                <td><span class="status-complete">Hoạt động</span></td>
+                <td class="control control-table">
+                  <button class="btn-edit" id="edit-account"><i class="fa-regular fa-pen-to-square"></i></button>
+                  <button class="btn-delete" id="delete-account"><i class="fa-solid fa-trash"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
 
     <!-- Modal them hoa chinh sua san pham -->
     <div class="modal add-product">

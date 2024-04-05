@@ -5,6 +5,9 @@ var currentRowqueryz =
 var currentPagez = 1;
 var perPage = 8;
 loadTableProduct();
+addeventinputthemsp();
+// addeventthemsp();
+
 var listProduct;
 function loadTableProduct() {
     $.ajax({
@@ -64,4 +67,74 @@ function renderPagAdmin(totalPage) {
       }
     }
     document.querySelector(".page-nav-list").innerHTML = html;
+}
+
+function addeventinputthemsp() {
+    var input = document.getElementById("up-hinh-anh");
+    alert("ad");
+    input.addEventListener('change', function(e) {
+        var reader = new FileReader();
+
+        reader.onload = function(event) {
+            document.querySelector('.modal-content-left img').src = event.target.result;
+        }
+
+        reader.readAsDataURL(e.target.files[0]);
+
+        // Create a FormData object
+        var formData = new FormData();
+        // Add the file to the FormData object
+        formData.append('file', e.target.files[0]);
+
+        // Create an AJAX request
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '../controller/FileUploadController.php', true);
+
+        // Send the FormData object with the AJAX request
+        xhr.send(formData);
+    });
+}
+
+function addeventthemsp() {
+    var btn = document.getElementById("update-product-button");
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        // ajax tai hinh vao thu muc
+        var formData = new FormData();
+        var files = document.getElementById('up-hinh-anh').files;
+        formData.append('file', files[0]);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '../controller/FileUploadController.php', true);
+        xhr.send(formData);
+        // lay ten hinh
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var img = xhr.responseText;
+                // lay thong tin san pham
+                var tensp = document.getElementById("up-ten-san-pham").value;
+                var mota = document.getElementById("up-mo-ta").value;
+                var loai = document.getElementById("up-loai").value;
+                var gia = document.getElementById("up-gia-tien").value;
+                var size = document.getElementById("up-size").value;
+                var vien = document.getElementById("up-vien").value;
+                var formData = new FormData();
+                formData.append('img', img);
+                formData.append('tensp', tensp);
+                formData.append('mota', mota);
+                formData.append('loai', loai);
+                formData.append('gia', gia);
+                formData.append('size', size);
+                formData.append('vien', vien);
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '../controller/ProductManagementController.php', true);
+                xhr.send(formData);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        console.log(xhr.responseText);
+                        // loadTableProduct();
+                    }
+                }
+            }
+        }
+    });
 }

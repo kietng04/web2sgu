@@ -90,25 +90,24 @@
             <div class="section product-all active ">
                 <div class="admin-control">
                     <div class="admin-control-left">
-                        <select name="the-loai" id="the-loai" onchange="showProduct()">
+                        <select name="the-loai" id="the-loai">
                             <option>Tất cả</option>
-                            <option>Pizza Bò</option>
-                            <option>Pizza Gà</option>
-                            <option>Pizza Hải Sản</option>
-                            <option>Pizza Rau Củ</option>
+                            <option>BÒ</option>
+                            <option>GÀ</option>
+                            <option>HẢI SẢN</option>
                             <option>Món Phụ</option>
                             <option>Nước uống</option>
                         </select>
                     </div>
                     <div class="admin-control-center">
                         <form action="" class="form-search">
-                            <span class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></i></span>
+                            <span class="search-btn"><i class="fa-solid fa-magnifying-glass" onclick="searchProduct()"></i></i></span>
                             <input id="form-search-product" type="text" class="form-search-input"
-                                placeholder="Tìm kiếm tên món..." oninput="showProduct()">
+                                placeholder="Tìm kiếm tên món..." >
                         </form>
                     </div>
                     <div class="admin-control-right">
-                        <button class="btn-control-large" id="btn-cancel-product" onclick="cancelSearchProduct()"><i
+                        <button class="btn-control-large" id="btn-cancel-product" onclick="resetInput()"><i
                                 class="fa-solid fa-rotate-right"></i></i> Làm mới</button>
                         <button class="btn-control-large" id="btn-add-product"><i class="fa-light fa-plus"></i> Thêm món
                             mới</button>
@@ -309,53 +308,78 @@
                         </div>
                         <div class="form-group">
                             <label for="category" class="form-label">Chọn món</label>
-                            <select name="category" id="chon-mon">
-                                <option>Pizza Bò</option>
-                                <option>Pizza Gà</option>
-                                <option>Pizza Hải Sản</option>
+                            <select name="category" id="chon-loai">
+                                <option>Chọn loại</option>
+                                <option>BÒ</option>
+                                <option>HẢI SẢN</option>
                                 <option>Món Phụ</option>
                                 <option>Nước uống</option>
                             </select>
                             <span class="form-message"></span>
                         </div>
                         <div class="wrapper-form-group">
-                            <div class="form-group">
-                                <label for="category" class="form-label">Chọn Đế</label>
-                                <select name="category" id="chon-de">
-                                    <option>Mỏng</option>
-                                    <option>Vừa</option>
-                                    <option>Dày</option>
-                                </select>
+                            <div class="form-group divItem">
+                                <label for="category" class="form-label">Chọn Item</label>
+                                <br>
+
+                                <div class="subitem">
+                                    <select name="category" id="chon-item" >
+                                        <option>Size: Nhỏ - Đế: Mỏng</option>
+                                        <option>Size: Vừa - Đế: Mỏng</option>
+                                        <option>Size: Lớn - Đế: Mỏng</option>
+                                    </select>
+
+                                    <label for="gia-moi" class="form-label">Giá nhập</label>
+                                    <input id="gia-moi" name="gia-moi" type="text" placeholder="Nhập giá nhập"
+                                        class="form-control">
+
+                                    <label for="gia-moi" class="form-label">Giá xuất</label>
+                                    <input id="gia-moi" name="gia-moi" type="text" placeholder="Nhập giá xuất"
+                                        class="form-control">
+                                </div>
+
+                                <div class="subitem">
+                                    <select name="category" id="chon-item" >
+                                        <option>Size: Nhỏ - Đế: Vừa</option>
+                                        <option>Size: Vừa - Đế: Vừa</option>
+                                        <option>Size: Lớn - Đế: Vừa</option>
+                                    </select>
+
+                                    <label for="gia-moi" class="form-label">Giá nhập</label>
+                                    <input id="gia-moi" name="gia-moi" type="text" placeholder="Nhập giá nhập"
+                                        class="form-control">
+
+                                    <label for="gia-moi" class="form-label">Giá xuất</label>
+                                    <input id="gia-moi" name="gia-moi" type="text" placeholder="Nhập giá xuất"
+                                        class="form-control">
+                                </div>
+
+                                <div class="subitem">
+                                    <select name="category" id="chon-item">
+                                        <option>Size: Nhỏ - Đế: Dày</option>
+                                        <option>Size: Vừa - Đế: Dày</option>
+                                        <option>Size: Lớn - Đế: Dày</option>
+                                    </select>
+
+                                    <label for="gia-moi" class="form-label">Giá nhập</label>
+                                    <input id="gia-moi" name="gia-moi" type="text" placeholder="Nhập giá nhập"
+                                        class="form-control">
+
+                                    <label for="gia-moi" class="form-label">Giá xuất</label>
+                                    <input id="gia-moi" name="gia-moi" type="text" placeholder="Nhập giá xuất"
+                                        class="form-control">
+                                </div>
+
                                 <span class="form-message"></span>
                             </div>
-                            <div class="form-group">
-                                <label for="category" class="form-label">Chọn Kích Cỡ</label>
-                                <select name="category" id="chon-co">
-                                    <option>Nhỏ</option>
-                                    <option>Vừa</option>
-                                    <option>Lớn</option>
-                                </select>
-                                <span class="form-message"></span>
-                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="gia-moi" class="form-label">Giá bán</label>
-                            <input id="gia-moi" name="gia-moi" type="text" placeholder="Nhập giá bán"
-                                class="form-control">
-                            <span class="form-message"></span>
-                        </div>
-                        <div class="form-group">
-                            <label for="so-luong" class="form-label">Số lượng </label>
-                            <input id="so-luong" name="so-luong" type="number" placeholder="Nhập số lượng"
-                                class="form-control">
-                            <span class="form-message"></span>
-                        </div>
+            
                         <div class="form-group">
                             <label for="mo-ta" class="form-label">Mô tả</label>
                             <textarea class="product-desc" id="mo-ta" placeholder="Nhập mô tả món ăn..."></textarea>
                             <span class="form-message"></span>
                         </div>
-                        <button class="form-submit btn-update-product-form edit-product-e" id="update-product-button">
+                        <button class="form-submit btn-update-product-form edit-product-e" id="add-product-button">
                             <i class="fa-solid fa-pen"></i>
                             <span>LƯU THAY ĐỔI</span>
                         </button>

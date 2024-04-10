@@ -312,9 +312,14 @@ function showProducts() {
   listProduct.forEach(function (item) {
      html += `<div class="scproducts__list-item" value="${item.MaSP}">
      <div class="top">
-         <div class="img">
-             <img src="${item.Img}">
-         </div>
+         <div class="img">`
+            if (item.Img == "") {
+              html += `<img src="data:image/jpg;charset=utf8;base64,${item.ImgBinary}" alt="">`
+            }
+            else {
+              html += `<img src="${item.Img}" alt="">`
+            }
+         html += `</div>
          <p class="title">${item.TenSP}</p>
      </div>
      <div class="content">

@@ -312,14 +312,10 @@ function showProducts() {
   listProduct.forEach(function (item) {
      html += `<div class="scproducts__list-item" value="${item.MaSP}">
      <div class="top">
-         <div class="img">`
-            if (item.Img == "") {
-              html += `<img src="data:image/jpg;charset=utf8;base64,${item.ImgBinary}" alt="">`
-            }
-            else {
-              html += `<img src="${item.Img}" alt="">`
-            }
-         html += `</div>
+         <div class="img">
+        <img src="${item.Img}" alt="">
+            
+    </div>
          <p class="title">${item.TenSP}</p>
      </div>
      <div class="content">
@@ -356,7 +352,10 @@ function addeventbutbtn() {
       success: function (data) {
         curProduct = data;
         console.log(data);
-      }
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+    }
     });
     // show load icon
     // ajax get current product
@@ -392,7 +391,7 @@ function addeventbutbtn() {
           data['cart'].forEach(function (item, index) {
             html += `<div class="list__item">
             <div class="img">
-                <img src="${item['Product'].Img}" alt="">
+            <img src="${item['Product'].Img}" alt="">
             </div>
             <div class="content">
                 <p class="title">${item['Product'].TenSP}</p>
@@ -414,6 +413,9 @@ function addeventbutbtn() {
           alert("Vui lòng đăng nhập để thêm vào giỏ hàng!");
         }
       },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+    }
     });
   });
 }

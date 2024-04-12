@@ -157,7 +157,6 @@ CREATE TABLE `SanPham` (
   `Mota` varchar(100) NOT NULL,
   `Img` varchar(100) NOT NULL,
   `Loai` varchar(100) NOT NULL,
-  `ImgBinary` longblob default null,
   `TrangThai` int(11) DEFAULT 1,
   primary key (MaSP)
 );
@@ -177,24 +176,26 @@ INSERT INTO `SanPham` (`MaSP`, `TenSP`, `Mota`, `Img`, `Loai`) VALUES
 CREATE TABLE `SizeSanPham`(
   `MaSize` varchar(100) NOT NULL,
   `TenSize` varchar(100) NOT NULL,
+  `DinhLuongSize` varchar(100) NOT NULL,
   primary key (MaSize)
 );
 
-INSERT INTO `SizeSanPham` (`MaSize`, `TenSize`) VALUES
-('S', 'Nhỏ'),
-('M', 'Vừa'),
-('L', 'Lớn');
+INSERT INTO `SizeSanPham` (`MaSize`, `TenSize`, `DinhLuongSize`) VALUES
+('S', 'Nhỏ', 'Bán kính 15cm'),
+('M', 'Vừa', 'Bán kính 20cm'),
+('L', 'Lớn', 'Bán kính 25cm');
 
 CREATE TABLE `VienSanPham`(
   `MaVien` varchar(100) NOT NULL,
   `TenVien` varchar(100) NOT NULL,
+  `DinhLuongVien` nvarchar(100) NOT NULL,
   primary key (MaVien)
 );
 
-INSERT INTO `VienSanPham` (`MaVien`, `TenVien`) VALUES
-('M', 'Mỏng'),
-('D', 'Dày'),
-('V', 'Vừa');
+INSERT INTO `VienSanPham` (`MaVien`, `TenVien`, `DinhLuongVien`) VALUES
+('M', 'Mỏng', 'Độ dày 0.3cm'),
+('V', 'Vừa', 'Độ dày 0.4cm'),
+('D', 'Dày', 'Độ dày 0.5cm');
 
 
 CREATE TABLE `LoaiSanPham`(

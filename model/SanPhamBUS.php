@@ -21,7 +21,7 @@ class SanPhamBUS extends DB_business {
     function getProductDetailID($id, $idsize, $idcrust) {
         $sql = "SELECT * FROM sanpham, chitietsanpham where sanpham.MaSP = chitietsanpham.MaSP and sanpham.MaSP = '$id' and chitietsanpham.MaSize = '$idsize' and chitietsanpham.MaVien = '$idcrust'";
         $result = $this->get_list($sql);
-        // get 1 row in result
+        // get 1 row in resultf
         $row = $result[0];
         return $row;
     }

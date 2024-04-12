@@ -1,7 +1,7 @@
 var currentqueryz =
-  'SELECT sanpham.MaSP, TenSP, Mota, Img, Loai, MaSize, MaVien, GiaTien, ImgBinary FROM `sanpham`, `chitietsanpham` WHERE sanpham.MaSP = chitietsanpham.MaSP AND chitietsanpham.MaSize = "S" AND chitietsanpham.MaVien ="V" and sanpham.TrangThai = 1 ';
+  'SELECT * FROM `sanpham` WHERE  sanpham.TrangThai = 1 ';
 var currentRowqueryz =
-  'SELECT COUNT(*) FROM `sanpham`, `chitietsanpham` WHERE sanpham.MaSP = chitietsanpham.MaSP AND pizzadetail.MaSize = "S" AND pizzadetail.MaCrust ="V" ';
+  'SELECT COUNT(*) FROM `sanpham';
 var currentPagez = 1;
 var perPage = 4;
 var listDeProduct = [];
@@ -9,10 +9,8 @@ var listDeLength = 0;
 var listSizeProduct = ['Lớn', 'Vừa', 'Nhỏ'];
 loadTableProduct();
 addeventinputthemsp();  
-loadCombinationSizeAndCrust();
 addeventaddproduct();
 // addeventthemsp();
-
 var listProduct;
 function loadTableProduct() {
     $.ajax({
@@ -38,7 +36,7 @@ function loadTableProduct() {
             showProductTableAdmin();
             renderPagAdmin(totalPage, currentPagez);
             addeventdelete();
-        }
+        },
     });
 }
 
@@ -46,22 +44,16 @@ function showProductTableAdmin() {
     var html = "";
     listProduct.forEach(function (item) {
        html += `<div class="list">
-       <div class="list-left">`
-       if (item.Img == "" && item.ImgBinary != null) 
-            html += `<img src="data:image/jpg;charset=utf8;base64,${item.ImgBinary}" alt="">`;
-         else
-            html += `<img src="${item.Img}" alt="">`;
+       <div class="list-left">
+       <img src="${item.Img}" alt="">;
            
-        html += `<div class="list-info">
+        <div class="list-info">
                <h4>${item.TenSP}</h4>
                <p class="list-note">${item.Mota}</p>
                <span class="list-category">${item.Loai}</span>
            </div>
 
            <div class="list-right">
-               <div class="list-price">
-                   <span class="list-current-price">${toVND(item.GiaTien)}</span>
-               </div>
                <div class="list-control">
                    <div class="list-tool">
                        <button class="btn-edit"><i class="fa-regular fa-pen-to-square"></i></button>
@@ -282,20 +274,23 @@ function addeventaddproduct() {
     var btn = document.getElementById("add-product-button");
     btn.addEventListener('click', function(e) {
         e.preventDefault();
+        clearmsg();
+        if (checkregrex().result == false) {
+            var resultMsg = checkregrex().resultMsg;
+            console.log(resultMsg)
+            var msgdiv = document.querySelectorAll('.form-message');
+            
+            for (var i = 0; i < resultMsg.length; i++) {
+                if (resultMsg[i] != "") {
+                    msgdiv[i].innerHTML = resultMsg[i];
+                }
+            }
+            return 0;
+        }
+        var masp = document.getElementById("masanpham").value;
         var tensp = document.getElementById("ten-mon").value;
         var loai = document.getElementById("chon-loai").value;
-        var arrayitem = [];
-        var listitem = document.querySelectorAll('.listitem');
-        var listgianhap = document.querySelectorAll('.gianhap');
-        var listgiaxuat = document.querySelectorAll('.giaxuat');
-
-        for (var i = 0; i < listitem.length; i++) {
-            var item = listitem[i].value;
-            var gianhap = listgianhap[i].value;
-            var giaxuat = listgiaxuat[i].value;
-            arrayitem.push({item: item, gianhap: gianhap, giaxuat: giaxuat});
-        }
-        console.log(arrayitem);
+        var listgiaxuat = document.getElementById('masanpham').value;
         var mota = document.getElementById("mo-ta").value;
 
         var formData = new FormData(document.querySelector('.add-product-form'));
@@ -303,11 +298,11 @@ function addeventaddproduct() {
         formData.append('request', 'uploadProduct');
         formData.append('tensp', tensp);
         formData.append('loai', loai);
-        formData.append('arrayitem', JSON.stringify(arrayitem)); // Convert array to string
         formData.append('mota', mota);
+        formData.append('masp', masp);
 
         var fileField = document.querySelector('input[type="file"]');
-        alert(fileField.files[0].name);
+
         formData.append('up-hinh-anh', fileField.files[0]);
 
         $.ajax({
@@ -323,4 +318,42 @@ function addeventaddproduct() {
         });
         
     });
+}
+
+function checkregrex() {
+    var masp = document.getElementById("masanpham").value;
+    var tensp = document.getElementById("ten-mon").value;
+    var loai = document.getElementById("chon-loai").value;
+    var result = true;
+    var resultMsg = ["", "", ""];
+    // check ma san pham co bat dau la P khong
+    if (masp.charAt(0) != 'P') {
+        resultMsg[0] = "Mã sản phẩm phải bắt đầu bằng chữ P";
+        result = false;
+    }
+    
+
+    // check ten san pham co ky tu dac biet khong
+    // regrex có dấu
+    
+
+    if (tensp == "" || tensp.length <= 5) {
+        resultMsg[1] = "Tên sản phẩm phải lớn hơn 5 ký tự";
+        result = false;
+    }
+    
+
+    if (loai == "Chọn loại") {
+        resultMsg[2] = "Chưa chọn loại sản phẩm";
+        result = false;
+    }
+
+    return {result, resultMsg};
+}
+
+function clearmsg() {
+    var msgdiv = document.querySelectorAll('.form-message');
+    for (var i = 0; i < msgdiv.length; i++) {
+        msgdiv[i].innerHTML = "";
+    }
 }

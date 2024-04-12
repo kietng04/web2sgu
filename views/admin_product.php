@@ -301,6 +301,12 @@
                     </div>
                     <div class="modal-content-right">
                         <div class="form-group">
+                            <label class="form-label">Mã sản phẩm</label>
+                            <input id="masanpham" name="ten-mon" type="text" placeholder="Nhập mã sản phẩm"
+                                class="form-control">
+                            <span class="form-message"></span>
+                        </div>
+                        <div class="form-group">
                             <label for="ten-mon" class="form-label">Tên món</label>
                             <input id="ten-mon" name="ten-mon" type="text" placeholder="Nhập tên món"
                                 class="form-control">
@@ -318,60 +324,7 @@
                             <span class="form-message"></span>
                         </div>
                         <div class="wrapper-form-group">
-                            <div class="form-group divItem">
-                                <label for="category" class="form-label">Chọn Item</label>
-                                <br>
-
-                                <div class="subitem">
-                                    <select name="category" id="chon-item" >
-                                        <option>Size: Nhỏ - Đế: Mỏng</option>
-                                        <option>Size: Vừa - Đế: Mỏng</option>
-                                        <option>Size: Lớn - Đế: Mỏng</option>
-                                    </select>
-
-                                    <label for="gia-moi" class="form-label">Giá nhập</label>
-                                    <input id="gia-moi" name="gia-moi" type="text" placeholder="Nhập giá nhập"
-                                        class="form-control">
-
-                                    <label for="gia-moi" class="form-label">Giá xuất</label>
-                                    <input id="gia-moi" name="gia-moi" type="text" placeholder="Nhập giá xuất"
-                                        class="form-control">
-                                </div>
-
-                                <div class="subitem">
-                                    <select name="category" id="chon-item" >
-                                        <option>Size: Nhỏ - Đế: Vừa</option>
-                                        <option>Size: Vừa - Đế: Vừa</option>
-                                        <option>Size: Lớn - Đế: Vừa</option>
-                                    </select>
-
-                                    <label for="gia-moi" class="form-label">Giá nhập</label>
-                                    <input id="gia-moi" name="gia-moi" type="text" placeholder="Nhập giá nhập"
-                                        class="form-control">
-
-                                    <label for="gia-moi" class="form-label">Giá xuất</label>
-                                    <input id="gia-moi" name="gia-moi" type="text" placeholder="Nhập giá xuất"
-                                        class="form-control">
-                                </div>
-
-                                <div class="subitem">
-                                    <select name="category" id="chon-item">
-                                        <option>Size: Nhỏ - Đế: Dày</option>
-                                        <option>Size: Vừa - Đế: Dày</option>
-                                        <option>Size: Lớn - Đế: Dày</option>
-                                    </select>
-
-                                    <label for="gia-moi" class="form-label">Giá nhập</label>
-                                    <input id="gia-moi" name="gia-moi" type="text" placeholder="Nhập giá nhập"
-                                        class="form-control">
-
-                                    <label for="gia-moi" class="form-label">Giá xuất</label>
-                                    <input id="gia-moi" name="gia-moi" type="text" placeholder="Nhập giá xuất"
-                                        class="form-control">
-                                </div>
-
-                                <span class="form-message"></span>
-                            </div>
+                            
                         </div>
             
                         <div class="form-group">
@@ -381,7 +334,7 @@
                         </div>
                         <button class="form-submit btn-update-product-form edit-product-e" id="add-product-button">
                             <i class="fa-solid fa-pen"></i>
-                            <span>LƯU THAY ĐỔI</span>
+                            <span>THÊM SẢN PHẨM</span>
                         </button>
                     </div>
                 </form>
@@ -637,12 +590,6 @@
             });
         });
 
-        updateButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
-                modal.classList.remove('open');
-            });
-            alert("Fdd");
-        });
 
         addButtons.addEventListener('click', function() {
             uploadImg.src = "img/upload-image.png";

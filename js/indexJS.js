@@ -10,7 +10,7 @@
 //     document.querySelector('.black-bg').style.display = 'none';
 // })
 var currentqueryz =
-  'SELECT sanpham.MaSP, TenSP, Mota, Img, Loai, MaSize, MaVien, GiaTien, ImgBinary FROM `sanpham`, `chitietsanpham` WHERE sanpham.MaSP = chitietsanpham.MaSP AND chitietsanpham.MaSize = "S" AND chitietsanpham.MaVien ="V" ';
+  'SELECT sanpham.MaSP, TenSP, Mota, Img, Loai, MaSize, MaVien, GiaTien FROM `sanpham`, `chitietsanpham` WHERE sanpham.MaSP = chitietsanpham.MaSP AND chitietsanpham.MaSize = "S" AND chitietsanpham.MaVien ="V" ';
 var currentRowqueryz =
   'SELECT COUNT(*) FROM `sanpham`, `chitietsanpham` WHERE sanpham.MaSP = chitietsanpham.MaSP AND pizzadetail.MaSize = "S" AND pizzadetail.MaCrust ="V" ';
 var currentPagez = 1;
@@ -37,6 +37,7 @@ function loadDefaultProducts() {
       console.log(data);
       listProduct = data.result;
       var totalPage = data.countrow / perPage;
+      totalPage = Math.ceil(totalPage);
       showProducts();
       renderPag(totalPage);
       document.querySelector(".loader").style.display = "none";
@@ -87,8 +88,15 @@ function ajaxproduct(page, currentpage) {
     },
     success: function (data) {
       listProduct = data;
+      console.log(data);
       showProducts();
     },
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log("HTTP Request Failed");
+      console.log("jqXHR:", jqXHR);
+      console.log("textStatus:", textStatus);
+      console.log("errorThrown:", errorThrown);
+  }
   });
 }
 
@@ -163,11 +171,41 @@ function addEventProducts() {
           id: id,
         },
         success: function (data) {
+          console.log(data);
+          let setSize = new Set();
+          let setVien = new Set();
+          var sizearray = [];
+          var sizevien = [];
+          data.forEach(function (item) {
+
+            var obj1 = {
+              MaSize: item.MaSize,
+              TenSize: item.TenSize,
+              DinhLuongSize: item.DinhLuongSize,
+            };
+
+            var obj2 = {
+              MaVien: item.MaVien,
+              TenVien: item.TenVien,
+              DinhLuongVien: item.DinhLuongVien,
+            }
+
+            if (!setSize.has(item.MaSize)) {
+              setSize.add(item.MaSize);
+              sizearray.push(obj1);
+            }
+
+            if (!setVien.has(item.MaVien)) {
+              setVien.add(item.MaVien);
+              sizevien.push(obj2);
+            }
+          });
+          console.log(setSize);
           var product = data;
           var html = `
                     <div class="popup__item">
                 <div class="popup__item-img">
-                    <img src="${data[0].Img}" alt="">
+                   <img src="${data[0].Img}" alt="">
                 </div>
                 <div class="popup__iten-content">
                     <h3 class="heading --lv2">
@@ -179,68 +217,44 @@ function addEventProducts() {
                     <div class="box">
                         <div class="box__item --none">
                             <p class="title">Kích thước </p>
-                        </div>
-                        <div class="box__item --kt --active">
-                            <div class="icon ">
-                                <img src="./img/checkbox.jpeg" alt="">
-                                <div class="line1"></div>
-                                <div class="line2"></div>
-                                <div class="circle"></div>
-                            </div>
-                            <p value="S">Nhỏ</p>
-                        </div>
-                        <div class="box__item --kt">
-                            <div class="icon ">
-                                <img src="./img/checkbox.jpeg" alt="">
-                                <div class="line1"></div>
-                                <div class="line2"></div>
-                                <div class="circle"></div>
-                            </div>
-                            <p value="M">Vừa</p>
-                        </div>
-                        <div class="box__item --kt">
-                            <div class="icon ">
-                                <img src="./img/checkbox.jpeg" alt="">
-                                <div class="line1"></div>
-                                <div class="line2"></div>
-                                <div class="circle"></div>
-                            </div>
-                            <p value="L">Lớn</p>
-                        </div>
-
-                    </div>
+                        </div>`
+                      sizearray.forEach(function (item, index) {
+                          if (index == 0) 
+                              html += `<div class="box__item --kt --active">`
+                          else 
+                              html += `<div class="box__item --kt">`
+                          html += 
+                          `<div class="icon ">
+                              <img src="./img/checkbox.jpeg" alt="">
+                              <div class="line1"></div>
+                              <div class="line2"></div>
+                              <div class="circle"></div>
+                          </div>
+                          <p value="${item.MaSize}">${item.TenSize} (${item.DinhLuongSize})</p>
+                      </div>`
+                      })
+                    html += `</div>
                     <div class="box">
                         <div class="box__item --none">
                             <p class="title">Loại đế</p>
-                        </div>
-                        <div class="box__item --de ">
-                            <div class="icon ">
-                                <img src="./img/checkbox.jpeg" alt="">
-                                <div class="line1"></div>
-                                <div class="line2"></div>
-                                <div class="circle"></div>
-                            </div>
-                            <p value="M">Mỏng</p>
-                        </div>
-                        <div class="box__item --de --active">
-                            <div class="icon ">
-                                <img src="./img/checkbox.jpeg" alt="">
-                                <div class="line1"></div>
-                                <div class="line2"></div>
-                                <div class="circle"></div>
-                            </div>
-                            <p value="V">Vừa</p>
-                        </div>
-                        <div class="box__item --de">
-                            <div class="icon ">
-                                <img src="./img/checkbox.jpeg" alt="">
-                                <div class="line1"></div>
-                                <div class="line2"></div>
-                                <div class="circle"></div>
-                            </div>
-                            <p value="D">Dày</p>
-                        </div>
-                    </div>
+                        </div>`
+                      sizevien.forEach(function (item, index) {
+                          if (index == 0) 
+                              html += `<div class="box__item --de --active">`
+                          else 
+                              html += `<div class="box__item --de">`
+                          html += 
+                          `<div class="icon ">
+                              <img src="./img/checkbox.jpeg" alt="">
+                              <div class="line1"></div>
+                              <div class="line2"></div>
+                              <div class="circle"></div>
+                          </div>
+                          <p value="${item.MaVien}">${item.TenVien} (${item.DinhLuongVien})</p>
+                      </div>`
+                      })
+
+                    html += `</div>
                   <div class="box__bottom">
                   <div class="buttons_added">
                   <input class="minus is-form" type="button" value="-" onclick="decreasingNumber(this, ${data})">
@@ -340,18 +354,21 @@ function addeventchuyensizevade(listDetail) {
 
   for (i = 0; i < listDetail.length; i++) {
     map.set(
-      listDetail[i].TenSize + " " + listDetail[i].TenVien,
+      listDetail[i].TenSize + " (" + listDetail[i].DinhLuongSize + ") " + listDetail[i].TenVien + " (" + listDetail[i].DinhLuongVien + ")",
       listDetail[i].GiaTien
     );
+    if (i == 0) {
+      document.querySelectorAll(".--add p")[1].innerHTML = toVND(
+        map.get(listDetail[i].TenSize + " (" + listDetail[i].DinhLuongSize + ") " + listDetail[i].TenVien + " (" + listDetail[i].DinhLuongVien + ")")
+      );
+    }
   }
-  map.set("default", map.get("Nhỏ Mỏng"));
 
   size.forEach(function (item) {
     item.addEventListener("click", function () {
       var size = item.querySelector("p").innerText;
       var de = document.querySelector(".box__item.--de.--active p").innerText;
       var price = map.get(size + " " + de);
-
       document.querySelector(".popup .btn.--add p:nth-child(2)").innerText =
         toVND(price);
     });
@@ -367,9 +384,7 @@ function addeventchuyensizevade(listDetail) {
     });
   });
 
-  document.querySelectorAll(".--add p")[1].innerHTML = toVND(
-    map.get("Nhỏ Mỏng")
-  );
+
 }
 
 

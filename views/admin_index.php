@@ -14,9 +14,7 @@
     <!-- <link rel="stylesheet" href="../css/components.css"> -->
     <link rel="stylesheet" href="css/admin_styles1.css">
 </head>
-
 <body>
-
     <div class="container">
         <aside class="sidebar open">
             <!-- <div class="btnSidebar">
@@ -62,14 +60,18 @@
                     </li>
                 </ul>
             </div>
+
             <div class="bottom-sidebar">
+
                 <ul class="sidebar-list">
+
                     <li class="sidebar-list-item user-logout">
                         <a href="/" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-angles-left"></i></div>
                             <div class="hidden-sidebar">Trang chủ</div>
                         </a>
                     </li>
+
                     <li class="sidebar-list-item user-logout">
                         <a href="#" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-regular fa-user"></i></i></div>

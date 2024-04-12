@@ -97,7 +97,6 @@ function getCurrentUser(callbackFunc) {
     },
   });
 }
-
 function initlize() {
   document.querySelector(".fa.fa-sign-out").addEventListener("click", function () {
       $.ajax({
@@ -330,6 +329,7 @@ function showProducts() {
   addEventProducts();
 }
 
+
 function addeventbutbtn() {
   var btn = document.querySelector(".btn.--add");
   var curProduct = null;
@@ -412,9 +412,10 @@ function addeventbutbtn() {
     });
   });
 }
+
 /*============================ cart ===============================*/
+
 var mapsize = new Map();
-// add key, value
 mapsize.set('S', 'Nhỏ');
 mapsize.set('M', 'Vừa');
 mapsize.set('L', 'Lớn');
@@ -429,7 +430,7 @@ function saveSessionCart(value) {
     type: "POST",
     url: "controller/ProductsController.php",
     dataType: "json",
-    timeout: 1500, // sau 1.5 giây mà không phản hồi thì dừng => hiện lỗi
+    timeout: 1500,
     data: {
       request: "saveSessionCart",
       cart: value,
@@ -440,6 +441,7 @@ function saveSessionCart(value) {
     },
   });
 }
+
 
 function loadSessionCart() {
   $.ajax({

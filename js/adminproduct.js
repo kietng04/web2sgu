@@ -31,7 +31,7 @@ function loadTableProduct() {
 function showProductTableAdmin() {
     var html = "";
     listProduct.forEach(function (item) {
-       html += `<div class="list">
+        html += `<div class="list">
        <div class="list-left">
            <img src="${item.Img}" alt="">
            <div class="list-info">
@@ -39,20 +39,18 @@ function showProductTableAdmin() {
                <p class="list-note">${item.Mota}</p>
                <span class="list-category">${item.Loai}</span>
            </div>
-
-           <div class="list-right">
-               <div class="list-price">
-                   <span class="list-current-price">${toVND(item.GiaTien)}</span>
-               </div>
-               <div class="list-control">
-                   <div class="list-tool">
-                       <button class="btn-edit"><i class="fa-regular fa-pen-to-square"></i></button>
-                       <button class="btn-delete"><i class="fa-solid fa-trash"></i></button>
-                   </div>
-               </div>
-           </div>
-
        </div>
+       <div class="list-right">
+       <div class="list-price">
+           <span class="list-current-price">${toVND(item.GiaTien)}</span>
+       </div>
+       <div class="list-control">
+           <div class="list-tool">
+               <button class="btn-edit"><i class="fa-regular fa-pen-to-square"></i></button>
+               <button class="btn-delete"><i class="fa-solid fa-trash"></i></button>
+           </div>
+       </div>
+   </div>
    </div>`
     })
     document.querySelector("#show-product").innerHTML = html;

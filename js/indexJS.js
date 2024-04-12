@@ -1,14 +1,4 @@
-// updateUI();
 
-// document.querySelector('.fa.fa-user').addEventListener('click', function() {
-//     document.querySelector('.container').style.display = 'block';
-//     document.querySelector('.black-bg').style.display = 'block';
-// })
-
-// document.querySelector('.fa.fa-times').addEventListener('click', function() {
-//     document.querySelector('.container').style.display = 'none';
-//     document.querySelector('.black-bg').style.display = 'none';
-// })
 var currentqueryz =
   'SELECT sanpham.MaSP, TenSP, Mota, Img, Loai, MaSize, MaVien, GiaTien FROM `sanpham`, `chitietsanpham` WHERE sanpham.MaSP = chitietsanpham.MaSP AND chitietsanpham.MaSize = "S" AND chitietsanpham.MaVien ="V" ';
 var currentRowqueryz =
@@ -20,6 +10,7 @@ var listProduct = [];
 
 loadDefaultProducts();
 loadSessionCart();
+
 
 function loadDefaultProducts() {
   activeloader();
@@ -46,6 +37,7 @@ function loadDefaultProducts() {
     },
   });
 }
+
 
 function renderPag(totalPage) {
   if (totalPage < 2) totalPage = 0;
@@ -98,7 +90,6 @@ function toggleActive(clickedBtn, category) {
     btn.classList.remove("--active");
   });
 
-  // Thêm lớp --active vào nút được nhấn
   clickedBtn.classList.add("--active");
 
   if (category == "all") {
@@ -267,6 +258,7 @@ function addEventProducts() {
   });
 }
 
+
 function addeventPOPUP() {
   var popup = document.querySelector(".popup");
   var btnBuy = document.querySelectorAll(".scproducts__list-item .top");
@@ -292,6 +284,7 @@ function addeventPOPUP() {
       }
     }
   });
+
 
   //ĐẾ KÍCH THƯỚC
 
@@ -327,9 +320,9 @@ function addeventPOPUP() {
 
   btnAdd.addEventListener("click", function () {
     popup.classList.add("--none");
-    //f
   });
 }
+
 
 function addeventchuyensizevade(listDetail) {
   var map = new Map();
@@ -356,6 +349,7 @@ function addeventchuyensizevade(listDetail) {
     });
   });
 
+
   de.forEach(function (item) {
     item.addEventListener("click", function () {
       var de = item.querySelector("p").innerText;
@@ -370,7 +364,6 @@ function addeventchuyensizevade(listDetail) {
     map.get("Nhỏ Mỏng")
   );
 }
-
 
 
 ////TÌM KIẾM VÀ TÌM KIẾM NÂNG CAO (AUTHROR: TRUNG HƯNG)

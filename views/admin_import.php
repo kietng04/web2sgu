@@ -22,10 +22,8 @@
             <div class="logo-image">
                 <img src="logo1.png" alt="">
             </div>
-
             <span class="logo_name">Admin HP3K</span>
         </div>
-
         <div class="menu-items">
             <ul class="nav-links">
                 <li><a href="admin.html">

@@ -39,8 +39,8 @@ function showProductTableAdmin() {
                <p class="list-note">${item.Mota}</p>
                <span class="list-category">${item.Loai}</span>
            </div>
-
-           <div class="list-right">
+       </div>
+       <div class="list-right">
                <div class="list-price">
                    <span class="list-current-price">${toVND(item.GiaTien)}</span>
                </div>
@@ -50,9 +50,7 @@ function showProductTableAdmin() {
                        <button class="btn-delete"><i class="fa-solid fa-trash"></i></button>
                    </div>
                </div>
-           </div>
-
-       </div>
+        </div>
    </div>`
     })
     document.querySelector("#show-product").innerHTML = html;
@@ -73,7 +71,6 @@ function renderPagAdmin(totalPage) {
 
 function addeventinputthemsp() {
     var input = document.getElementById("up-hinh-anh");
-    alert("ad");
     input.addEventListener('change', function(e) {
         var reader = new FileReader();
 

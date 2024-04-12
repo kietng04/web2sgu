@@ -14,7 +14,75 @@ if (isset($_POST['request'])) {
         case 'loadTableProduct':
             getProducts();
             break;
+        case 'uploadProduct':
+            uploadProduct();
+            break;
     }
+}
+
+
+function uploadProduct() {
+    $name = $_POST['tensp'];
+    
+    $category = $_POST['loai'];
+    $description = $_POST['mota'];
+    $masp = $_POST['masp'];
+
+    // for ($i = 0; $i < count($sizelist); $i++) {
+    //     for ($j = 0; $j < count($vienlist); $j++) {
+    //         $sql = "INSERT INTO chitietsanpham(MaSP, MaSize, MaVien, GiaNhap, GiaTien, SoLuong) VALUES ('pi12zza222aa', '{$sizelist[$i]}', '{$vienlist[$j]['MaVien']}','{$arrayitem[$i]->gianhap}' ,'{$arrayitem[$i]->giaxuat}', 0)";
+    //         $result = (new SanPhamBUS())->insertz($sql);
+    //         if (!$result) {
+    //             var_dump("ppo");
+    //         }
+    //         else {
+    //             var_dump("ppp");
+    //         }
+    //     }
+    // }
+
+    // if(!empty($_FILES["up-hinh-anh"]["name"])) { 
+    //     $fileName = basename($_FILES["up-hinh-anh"]["name"]); 
+    //     // lấy loại file (đuôi file) jpg, png, gif,...
+    //     $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+        
+    //     $allowTypes = array('jpg','png','jpeg','gif'); 
+    //     // nếu mà file đó nằm trong mảng allowTypes (tức là file hợp lệ)
+    //     if(in_array($fileType, $allowTypes)) {
+    //         $image = $_FILES['up-hinh-anh']['tmp_name']; 
+    //         $imgContent = addslashes(file_get_contents($image)); 
+
+    //         $sql = "INSERT INTO sanpham(MaSP, TenSP, Mota, Img, Loai, ImgBinary) VALUES ('pi12zza', '$name', '$description', '', '$category', '$imgContent')";
+    //         $result = (new SanPhamBUS())->insertz($sql);
+    //         if ($result) {
+    //             die (json_encode(array('status' => 'success')));
+    //         }
+    //     }
+    // }
+    
+    if (isset($_FILES['up-hinh-anh'])) {
+        $file = $_FILES['up-hinh-anh'];
+        $uploadDir = '../images/pizzaimg/';
+
+        // Tạo một tên file duy nhất
+        $uploadFile = $uploadDir . basename($file['name']);
+
+        // Di chuyển file đã tải lên vào thư mục tải lên
+        if (move_uploaded_file($file['tmp_name'], $uploadFile)) {
+            $uploadFile = './images/pizzaimg/' . basename($file['name']);
+            // them sp vao db
+            $sql = "INSERT INTO sanpham(MaSP, TenSP, Mota, Img, Loai) VALUES ('$masp', '$name', '$description', '$uploadFile', '$category')";
+            $result = (new SanPhamBUS())->insertz($sql);
+
+            if ($result)
+                die (json_encode(array('status' => 'success')));
+        } else {
+            echo 'Possible file upload attack!';
+        }
+    }
+    
+
+    die (json_encode(array('status' => 'fail')));
 }
 
 function getProducts() {
@@ -28,9 +96,17 @@ function getProducts() {
     $to = 8;
     $query = $query . " LIMIT $from, $to";
     $result = (new SanPhamBUS())->get_list($query);
+    
+
     // return countrow and result
     if ($result != null) {
         die (json_encode(array('countrow' => $rownum['total'], 'result' => $result)));
     }
     die (json_encode(null));
 }
+
+function getprod() {
+    $sql = "SELECT * FROM sanpham, chitietsanpham where sanpham.MaSP = chitietsanpham.MaSP and chitietsanpham.MaSize = 'S' and chitietsanpham.MaVien = 'V'";
+    return (new SanPhamBUS())->get_list($sql);
+}
+

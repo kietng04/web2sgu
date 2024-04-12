@@ -29,7 +29,7 @@
             <div class="middle-sidebar">
                 <ul class="sidebar-list">
                     <li class="sidebar-list-item tab-content active">
-                        <a href="./admin_index.php" class="sidebar-link">
+                        <a href="index.php?controller=AdminIndexController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-house"></i></div>
                             <div class="hidden-sidebar">Trang tổng quan</div>
                         </a>
@@ -53,7 +53,13 @@
                         </a>
                     </li>
                     <li class="sidebar-list-item tab-content">
-                        <a href="#" class="sidebar-link">
+                        <a href="index.php?controller=ImportController&action=index" class="sidebar-link">
+                            <div class="sidebar-icon"><i class="fa-solid fa-file-import"></i></div>
+                            <div class="hidden-sidebar">Nhập hàng</div>
+                        </a>
+                    </li>
+                    <li class="sidebar-list-item tab-content">
+                        <a href="index.php?controller=AdminStatisticController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-chart-simple"></i></div>
                             <div class="hidden-sidebar">Thống kê</div>
                         </a>

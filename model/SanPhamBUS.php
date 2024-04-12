@@ -25,4 +25,30 @@ class SanPhamBUS extends DB_business {
         $row = $result[0];
         return $row;
     }
+
+    function getAllCrust() {
+        $sql = "SELECT * FROM viensanpham";
+        $result = $this->get_list($sql);
+        return $result;
+    }
+
+    function getAllIDCrust() {
+        $sql = "SELECT MaVien FROM viensanpham";
+        $result = $this->get_list($sql);
+        return $result;
+    }
+
+    function insertProducts($name, $category, $description) {
+        $target_dir = "images/pizzaimg/";
+        // $data = array(
+        //     'MaSP' => 'POIZZA' . rand(1000, 9999),
+        //     'TenSP' => $name,
+        //     'Loai' => $category,
+        //     'Mota' => $description,
+        //     'HinhAnh' => $target_dir
+        // );
+        $sql = "INSERT INTO sanpham(MaSP, TenSP, Mota, Img, Loai) VALUES ('Poz', '$name', '$description', '$target_dir', '$category')";
+        $result = $this->insertz($sql);
+        return $result;
+    }
 }

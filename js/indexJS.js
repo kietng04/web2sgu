@@ -10,7 +10,7 @@
 //     document.querySelector('.black-bg').style.display = 'none';
 // })
 var currentqueryz =
-  'SELECT sanpham.MaSP, TenSP, Mota, Img, Loai, MaSize, MaVien, GiaTien FROM `sanpham`, `chitietsanpham` WHERE sanpham.MaSP = chitietsanpham.MaSP AND chitietsanpham.MaSize = "S" AND chitietsanpham.MaVien ="V" ';
+  'SELECT sanpham.MaSP, TenSP, Mota, Img, Loai, MaSize, MaVien, GiaTien, ImgBinary FROM `sanpham`, `chitietsanpham` WHERE sanpham.MaSP = chitietsanpham.MaSP AND chitietsanpham.MaSize = "S" AND chitietsanpham.MaVien ="V" ';
 var currentRowqueryz =
   'SELECT COUNT(*) FROM `sanpham`, `chitietsanpham` WHERE sanpham.MaSP = chitietsanpham.MaSP AND pizzadetail.MaSize = "S" AND pizzadetail.MaCrust ="V" ';
 var currentPagez = 1;
@@ -34,6 +34,7 @@ function loadDefaultProducts() {
       currentpage: currentPagez,
     },
     success: function (data) {
+      console.log(data);
       listProduct = data.result;
       var totalPage = data.countrow / perPage;
       showProducts();

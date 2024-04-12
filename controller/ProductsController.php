@@ -69,6 +69,10 @@ switch($_POST['request']) {
     case 'livesearch':
         getProducts();
         break;
+    
+    case 'getAllCrust':
+        getAllCrust();
+        break;
 }
 }
 function login() {
@@ -154,7 +158,13 @@ function getProducts() {
     $to = 8;
     $query = $query . " LIMIT $from, $to";
     $result = (new SanPhamBUS())->get_list($query);
-    // return countrow and result
+    
+    for ($i = 0; $i < count($result); $i++) {
+        if ($result[$i]['ImgBinary'] != null) {
+            $result[$i]['ImgBinary'] = base64_encode($result[$i]['ImgBinary']);
+        }
+    }
+
     if ($result != null) {
         die (json_encode(array('countrow' => $rownum['total'], 'result' => $result)));
     }
@@ -201,4 +211,12 @@ function saveSessionCart() {
 function createRoom() {
     // get all id room
     $sql = "SELECT maphong FROM PhongOrder";
+}
+
+function getAllCrust() {
+    $result = (new SanPhamBUS())->getAllCrust();
+    if ($result != null) {
+        die (json_encode($result));
+    }
+    die (json_encode(null));
 }

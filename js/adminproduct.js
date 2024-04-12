@@ -52,7 +52,7 @@ function showProductTableAdmin() {
                <p class="list-note">${item.Mota}</p>
                <span class="list-category">${item.Loai}</span>
            </div>
-
+            </div>
            <div class="list-right">
                <div class="list-control">
                    <div class="list-tool">

@@ -69,6 +69,10 @@ switch($_POST['request']) {
     case 'livesearch':
         getProducts();
         break;
+    
+    case 'getAllCrust':
+        getAllCrust();
+        break;
 }
 }
 function login() {
@@ -154,7 +158,7 @@ function getProducts() {
     $to = 8;
     $query = $query . " LIMIT $from, $to";
     $result = (new SanPhamBUS())->get_list($query);
-    // return countrow and result
+
     if ($result != null) {
         die (json_encode(array('countrow' => $rownum['total'], 'result' => $result)));
     }
@@ -163,18 +167,22 @@ function getProducts() {
 
 function getProductPagAjax() {
     $query = $_POST['currentquery'];
-    $from = ($_POST['currentpage'] - 1) * 4;
-    $to = 4;    
+    $from = ($_POST['currentpage'] - 1) * 8;
+    $to = 8;    
     $query = $query . " LIMIT $from, $to";
     $result = (new SanPhamBUS())->get_list($query);
+
+    
     if ($result != null) {
         die (json_encode($result));
     }
+    die (json_encode(null));
 }
 
 function getProductByID() {
     $id = $_POST['id'];
     $result = (new SanPhamBUS())->getProductByID($id);
+
     if ($result != null) {
         die (json_encode($result));
     }
@@ -183,6 +191,7 @@ function getProductByID() {
 
 function getProductDetailID() {
     $result = (new SanPhamBUS())->getProductDetailID($_POST['id'], $_POST['idsize'], $_POST['idcrust']);
+
     if ($result != null) {
         die (json_encode($result));
     }
@@ -201,4 +210,12 @@ function saveSessionCart() {
 function createRoom() {
     // get all id room
     $sql = "SELECT maphong FROM PhongOrder";
+}
+
+function getAllCrust() {
+    $result = (new SanPhamBUS())->getAllCrust();
+    if ($result != null) {
+        die (json_encode($result));
+    }
+    die (json_encode(null));
 }

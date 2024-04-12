@@ -55,7 +55,13 @@
                         </a>
                     </li>
                     <li class="sidebar-list-item tab-content">
-                        <a href="#" class="sidebar-link">
+                        <a href="index.php?controller=ImportController&action=index" class="sidebar-link">
+                            <div class="sidebar-icon"><i class="fa-solid fa-file-import"></i></div>
+                            <div class="hidden-sidebar">Nhập hàng</div>
+                        </a>
+                    </li>
+                    <li class="sidebar-list-item tab-content">
+                        <a href="index.php?controller=AdminStatisticController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-chart-simple"></i></div>
                             <div class="hidden-sidebar">Thống kê</div>
                         </a>
@@ -114,7 +120,7 @@
                     </div>
                 </div>
                 <div id="show-product">
-                    <div class="list">
+                    <!-- <div class="list">
                         <div class="list-left">
                             <img src="img/pizza-1.png" alt="">
                             <div class="list-info">
@@ -258,7 +264,7 @@
 
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="page-nav">
                     <ul class="page-nav-list">
                         <li class="page-nav-item active">

@@ -1403,13 +1403,12 @@ label a {
 
 
 
-.modal.add-import {
+
+.modal.add-import .modal-container {
   width: 800px;
   height: auto;
 }
-
-
-.modal.add-import form {
+.modal.add-import .modal-layout-one {
   height: 600px;
   width: 500px;
 }

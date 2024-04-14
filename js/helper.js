@@ -322,7 +322,6 @@ function showProducts() {
          <p class="desc">${item.Mota}</p>
          <button class="btn__buy">
              <p class="chon">CHỌN</p>
-             <p class="price">${toVND(item.GiaTien)}</p>
          </button>
      </div>
  </div>`
@@ -333,10 +332,12 @@ function showProducts() {
 
 function addeventbutbtn() {
   var btn = document.querySelector(".btn.--add");
-  var curProduct = null;
-
 
   btn.addEventListener("click", function () {
+    if (document.querySelector(".popup .btn.--add").style.backgroundColor == "rgb(204, 204, 204)") {
+      alert("Size và đế bạn vừa chọn hiện chưa có!");
+    }
+    
     $.ajax({
       type: "POST",
       url: "controller/ProductsController.php",

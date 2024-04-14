@@ -6,10 +6,13 @@ var currentPagez = 1;
 var perPage = 4;
 var listDeProduct = [];
 var listDeLength = 0;
-var listSizeProduct = ['Lớn', 'Vừa', 'Nhỏ'];
+var listSizeProduct = [];
+var curAttribute = new Map();
 loadTableProduct();
+loadCombinationSizeAndCrust();
 addeventinputthemsp();  
 addeventaddproduct();
+addeventthemthuoctinh();
 // addeventthemsp();
 var listProduct;
 function loadTableProduct() {
@@ -230,42 +233,43 @@ function loadCombinationSizeAndCrust() {
         },
         success: function(data) {
             var listDeProduct = data;
-            listDeLength = listDeProduct.length;
-            var div = document.querySelector('.divItem');
-            console.log(div);
-            var html = `<label for="category" class="form-label">Chọn Item</label>
-            <br>`;
+            $.ajax({
+                url: './controller/ProductsController.php',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    request: 'getAllSize',
+                },
+                success: function(data) {
+                    listSizeProduct = data;
+                    listDeLength = listDeProduct.length;
+                    var div = document.getElementById('chon-tt');
+                    console.log(div);
+                    var html = ``;
 
-            var listCombination = [];
-            listDeProduct.forEach(function (item) {
-                listSizeProduct.forEach(function (size) {
-                    listCombination.push("Size: " + size + " - " + item.TenVien);
-                });
-            });
- 
-            console.log(listCombination);
-            for (var i = 0; i < listCombination.length; i++) {
-                html += `<div class="subitem">
-                <select name="category" id="chon-item" class="listitem">`;
-                for (var j = 0; j < listCombination.length; j++) {
-                    if (j == i) html += `<option value="${listCombination[j]}" selected>${listCombination[j]}</option>`;
-                    else html += `<option value="${listCombination[j]}">${listCombination[j]}</option>`;
+                    var listCombination = [];
+                    var listIDCombination = [];
+                    listSizeProduct.forEach(function (size) {
+                        listDeProduct.forEach(function (de) {
+                            listCombination.push("Size: " + size.TenSize + " - " + de.TenVien);
+                            listIDCombination.push(size.MaSize + de.MaVien);
+                        });
+                    });
+
+                    for (var i = 0; i < listCombination.length; i++) {
+                    html += `<option value="${listIDCombination[i]}">${listCombination[i]}</option>`;
+                    }
+                    div.innerHTML = html;
+                },
+                error: function(xhr, status, error) {
+                    console.log(xhr);
+                    console.log(status);
+                    console.log(error);
                 }
-  
-                html += `</select>
-
-                <label for="gia-moi" class="form-label">Giá nhập</label>
-                <input id="gia-moi" class="gianhap" name="gia-moi" type="text" placeholder="Nhập giá nhập"
-                    class="form-control">
-
-                <label for="gia-moi" class="form-label">Giá xuất</label>
-                <input id="gia-moi" class="giaxuat" name="gia-moi" type="text" placeholder="Nhập giá xuất"
-                    class="form-control">
-            </div>`;
-            }
-            div.innerHTML = html;
+            });
         }
     });
+
 }
 
 function addeventaddproduct() {
@@ -302,7 +306,18 @@ function addeventaddproduct() {
         var fileField = document.querySelector('input[type="file"]');
 
         formData.append('up-hinh-anh', fileField.files[0]);
-
+        // traverse curAttribute
+        var chitietsanpham = [];
+        curAttribute.forEach(function (value, key) {
+            chitietsanpham.push({
+                masize: key[0],
+                made: key[1],
+                gianhap: value.gianhap,
+                giaban: value.giaban
+            });
+        });
+        formData.append('chitietsanpham', JSON.stringify(chitietsanpham));
+        
         $.ajax({
             url: './controller/ProductManagementController.php',
             type: 'POST',
@@ -354,4 +369,51 @@ function clearmsg() {
     for (var i = 0; i < msgdiv.length; i++) {
         msgdiv[i].innerHTML = "";
     }
+}
+
+
+function addeventthemthuoctinh() {
+    var btn = document.querySelector('.themthuoctinh');
+    btn.addEventListener('click', function() {
+        var thuoctinh = document.querySelector('#chon-tt').value;
+        var gianhap = document.querySelector('#gia-nhap').value;
+        var giaban = document.querySelector('#gia-ban').value;
+        var tentt = document.querySelector('#chon-tt');
+        // get text of option
+        var tentt = tentt.options[tentt.selectedIndex].text;
+        tentt = tentt.replace("Size: ", "");
+        tentt = tentt.replace(" - ", "-");
+
+
+        if (curAttribute.has(thuoctinh)) {
+            alert('Thuộc tính đã tồn tại');
+            return 0;
+        }
+        else {
+            curAttribute.set(thuoctinh, 
+                {
+                    gianhap: gianhap,
+                    giaban: giaban,
+                    tensize: tentt.split('-')[0],
+                    tende: tentt.split('-')[1]
+                }
+            );
+        }
+        filltable();
+    });
+}
+
+function filltable() {
+    var rowTable = document.querySelector('.rowTable');
+    // traverse map
+    var html = "";
+    curAttribute.forEach(function (value, key) {
+        html += `<tr>
+        <td>${value.tensize}</td>
+        <td>${value.tende}</td>
+        <td>${value.gianhap}</td>
+        <td>${value.giaban}</td>
+        </tr>`;
+    });
+    rowTable.innerHTML = html;
 }

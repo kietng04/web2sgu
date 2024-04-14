@@ -74,12 +74,27 @@ function uploadProduct() {
             $sql = "INSERT INTO sanpham(MaSP, TenSP, Mota, Img, Loai) VALUES ('$masp', '$name', '$description', '$uploadFile', '$category')";
             $result = (new SanPhamBUS())->insertz($sql);
 
-            if ($result)
+            if ($result) {
+                // add chitietsanpham
+                // convert to arrray $_POST['chitietsanpham'];
+                
+                $listchitiet = json_decode($_POST['chitietsanpham'], true);
+                foreach ($listchitiet as $item) {
+                    $sql = "INSERT INTO chitietsanpham(MaSP, MaSize, MaVien, GiaNhap, GiaTien, SoLuong) VALUES ('$masp', '{$item['masize']}', '{$item['made']}','{$item['gianhap']}' ,'{$item['giaban']}', 0)";
+                    $result = (new SanPhamBUS())->insertz($sql);
+                    if (!$result) {
+                        die (json_encode(array('status' => 'fail')));
+                    }
+                }
                 die (json_encode(array('status' => 'success')));
+            }
+                
         } else {
             echo 'Possible file upload attack!';
         }
     }
+
+
     
 
     die (json_encode(array('status' => 'fail')));

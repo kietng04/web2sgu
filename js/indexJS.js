@@ -10,9 +10,9 @@
 //     document.querySelector('.black-bg').style.display = 'none';
 // })
 var currentqueryz =
-  'SELECT sanpham.MaSP, TenSP, Mota, Img, Loai, MaSize, MaVien, GiaTien FROM `sanpham`, `chitietsanpham` WHERE sanpham.MaSP = chitietsanpham.MaSP AND chitietsanpham.MaSize = "S" AND chitietsanpham.MaVien ="V" ';
+  'SELECT sanpham.MaSP, TenSP, Mota, Img, Loai FROM `sanpham` WHERE TrangThai = 1'
 var currentRowqueryz =
-  'SELECT COUNT(*) FROM `sanpham`, `chitietsanpham` WHERE sanpham.MaSP = chitietsanpham.MaSP AND pizzadetail.MaSize = "S" AND pizzadetail.MaCrust ="V" ';
+  'SELECT COUNT(*) FROM `sanpham` WHERE TrangThai = 1';
 var currentPagez = 1;
 const productSection = document.querySelector(".pro-collection");
 var html = "";
@@ -141,6 +141,7 @@ function toggleActive(clickedBtn, category) {
     success: function (data) {
       listProduct = data.result;
       var totalPage = data.countrow / perPage;
+      totalPage = Math.ceil(totalPage);
       showProducts();
       renderPag(totalPage);
     },
@@ -366,9 +367,13 @@ function addeventchuyensizevade(listDetail) {
 
   size.forEach(function (item) {
     item.addEventListener("click", function () {
+      document.querySelector(".popup .btn.--add").style.backgroundColor =
+        "#0a8020";
       var size = item.querySelector("p").innerText;
       var de = document.querySelector(".box__item.--de.--active p").innerText;
       var price = map.get(size + " " + de);
+      // if price is NaN
+      if (!price) alert("Price is NaN");
       document.querySelector(".popup .btn.--add p:nth-child(2)").innerText =
         toVND(price);
     });
@@ -376,9 +381,19 @@ function addeventchuyensizevade(listDetail) {
 
   de.forEach(function (item) {
     item.addEventListener("click", function () {
+      document.querySelector(".popup .btn.--add").style.backgroundColor =
+        "#0a8020";
       var de = item.querySelector("p").innerText;
       var size = document.querySelector(".box__item.--kt.--active p").innerText;
       var price = map.get(size + " " + de);
+      if (!price) {
+        //disable button
+        document.querySelector(".popup .btn.--add").style.backgroundColor =
+          "#ccc";
+        // disabled = true;
+        document.querySelector(".popup .btn.--add").disabled = true;
+      
+      }
       document.querySelector(".popup .btn.--add p:nth-child(2)").innerText =
         toVND(price);
     });

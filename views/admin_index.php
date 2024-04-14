@@ -668,6 +668,11 @@
                             <textarea class="product-desc" id="mo-ta" placeholder="Nhập mô tả món ăn..."></textarea>
                             <span class="form-message"></span>
                         </div>
+                        <table>
+                            <tr>
+                                <td>Mã món</td>
+                            </tr>
+                        </table>
                         <button class="form-submit btn-update-product-form edit-product-e" id="update-product-button">
                             <i class="fa-solid fa-pen"></i>
                             <span>LƯU THAY ĐỔI</span>

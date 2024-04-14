@@ -295,6 +295,89 @@
             </div>
         </section>
     </div>
+    <div class="modal add-import">
+        <div class="modal-container">
+            <form action="">
+                <label for="search">Tìm kiếm:</label>
+                <input type="text" class="search"> <button type="submit">Tìm</button>
+                <table>
+                    <tr>
+                        <td>Mã sản phẩm</td>
+                        <td>Tên sản phẩm</td>
+                        <td>Số lượng</td>
+                    </tr>
+                </table>
+            </form>
+            <form action="">
+                <label for="product-name">Mã sản phẩm - Tên sản phẩm</label>
+                <input type="text" id="product-name" name="product-name">
+                <label for="product-size">Kích thước sản phẩm</label>
+                <select id="product-size" name="product-size">
+                    <option value="">Chọn kích thước</option>
+                    <option value="1">Size S</option>
+                    <option value="2">Size M</option>
+                    <option value="3">Size L</option>
+                </select>
+                <label for="product-crust">Đế sản phẩm</label>
+                <select id="product-crust" name="product-crust">
+                    <option value="">Chọn đế</option>
+                    <option value="1">Đế mỏng</option>
+                    <option value="2">Đế vừa</option>
+                    <option value="3">Đế dày</option>
+                </select>
+                <label for="product-price">Giá nhập (VNĐ)</label>
+                <input type="text" id="product-price" name="product-price">
+                <label for="import-method">Phương thức nhập</label>
+                <select id="import-method" name="import-method">
+                    <option value="">Chọn phương thức</option>
+                    <option value="1">Nhập mới</option>
+                    <option value="2">Nhập thêm</option>
+                </select>
+                <label for="product-quantity">Số lượng</label>
+                <input type="text" id="product-quantity" name="product-quantity">
+                <button type="submit">Thêm</button>
+
+            </form>
+            <form action="">
+                <table>
+                    <tr>
+                        <td>STT</td>
+                        <td>Mã sản phẩm</td>
+                        <td>Tên sản phẩm</td>
+                        <td>Kích thước</td>
+                        <td>Đế</td>
+                        <td>Loại</td>
+                        <td>Đơn giá</td>
+                        <td>Số lượng</td>
+                    </tr>
+                </table>
+            </form>
+
+            <form action="">
+                <label for="import-id">Mã phiếu nhập:</label>
+                <input type="text" id="import-id" name="import-id">
+                <label for="import-staff">Nhân viên nhập:</label>
+                <input type="text" id="import-staff" name="import-staff">
+                <label for="import-date">Ngày nhập:</label>
+                <input type="date" id="import-date" name="import-date">
+                <button>gửi</button>
+            </form>
+            
+    </div>
+
+
+
+    <script>
+        var addButtons = document.querySelectorAll('.add');
+        var modal = document.querySelector('.modal.add-import');
+
+        addButtons.forEach(function (addButton) {
+            addButton.addEventListener('click', function () {
+                modal.classList.add('open');
+            });
+        });
+    </script>
 </body>
+
 
 </html>

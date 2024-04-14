@@ -74,6 +74,7 @@ a {
   height: 100%;
   object-fit: cover;
   transition: 0.3s;
+  height: 216px;
 }
 
 /* .img {

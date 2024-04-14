@@ -263,8 +263,8 @@
                             </div>
 
                         </div>
-                    </div>
-                </div> -->
+                    </div> -->
+                </div> 
                 <div class="page-nav">
                     <ul class="page-nav-list">
                         <li class="page-nav-item active">
@@ -277,7 +277,7 @@
                             <a href="#">3</a>
                         </li>
                         <li class="page-nav-item ">
-                            <a href="#">4</a>
+                            <a href="#">4</a> 
                         </li>
                         <li class="page-nav-item ">
                             <a href="#">5</a>
@@ -329,10 +329,35 @@
                             </select>
                             <span class="form-message"></span>
                         </div>
+                        <div class="form-group">
+                            <label for="attribute" class="form-label">Chọn thuộc tính</label>
+                            <select name="attribute" id="chon-tt">
+                                
+                            </select>
+                            <label class="form-label">Giá nhập</label>
+                            <input id="gia-nhap" name="gia-nhap" type="text" placeholder="Nhập giá nhập"
+                                class="form-control">
+                            <label class="form-label">Giá bán</label>
+                            <input id="gia-ban" name="gia-ban" type="text" placeholder="Nhập giá bán"
+                                class="form-control">
+                            <button class="themthuoctinh">Thêm thuộc tính</button>
+                            <span class="form-message"></span>
+                        </div>
                         <div class="wrapper-form-group">
                             
                         </div>
-            
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td>Size</td>
+                                    <td>Đế</td>
+                                    <td>Giá nhập</td>
+                                    <td>Giá bán</td>
+                                </tr>
+                            </thead>
+                            <tbody class="rowTable">
+                            </tobdy>
+                        </table>
                         <div class="form-group">
                             <label for="mo-ta" class="form-label">Mô tả</label>
                             <textarea class="product-desc" id="mo-ta" placeholder="Nhập mô tả món ăn..."></textarea>

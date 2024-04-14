@@ -43,9 +43,9 @@ class HoaDonBUS extends DB_business
         return $data;
     }
 
-    function getDetailBill($mahd)
+    function getBillbymaHD($id)
     {
-        $sql = "SELECT * FROM chitiethoadon, sanpham WHERE MaHD = '$mahd' AND chitiethoadon.MaSP = sanpham.MaSP";
+        $sql = "SELECT * FROM hoadon WHERE MaHD = '$id'";
         $result = mysqli_query($this->__conn, $sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($result)) {
@@ -53,4 +53,38 @@ class HoaDonBUS extends DB_business
         }
         return $data;
     }
+
+    function getDetailBill($mahd)
+    {
+        $sql = "SELECT * FROM chitiethoadon, sanpham WHERE MaHD = '$mahd' AND chitiethoadon.MaSP = sanpham.MaSP ";    
+        $result = mysqli_query($this->__conn, $sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            $data[] = $row;
+        }
+        return $data;
+    }
+    function getDetail_Customer_Bill($mahd)
+    {
+        $sql="SELECT * 
+        FROM hoadon,nguoidung
+        WHERE MaHD = '$mahd'
+        and hoadon.MaND=nguoidung.MaND";
+        $result = mysqli_query($this->__conn, $sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            $data[] = $row;
+        }
+        return $data;
+    }
+
+    function update_trangthai($mahd, $trangthai)
+    {
+        $sql = "UPDATE hoadon SET TrangThai = '$trangthai' WHERE MaHD = '$mahd'";
+        $result = mysqli_query($this->__conn, $sql);
+        return $result;
+    }
 }
+
+
+

@@ -822,6 +822,24 @@ tbody tr td {
   cursor: pointer;
 }
 
+
+.modal-close-order {
+  background-color: rgba(0, 0, 0, 0.3);
+  height: 30px;
+  width: 30px;
+  line-height: 30px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 2;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  color: var(--white);
+  cursor: pointer;
+}
+
+
 .modal.open .modal-container {
   transform: scale(1);
 }

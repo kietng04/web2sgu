@@ -60,20 +60,22 @@
     </section>
 
     <section class="scbox">
-
-
         <div class="scbox__form">
+
             <h2>
                 Thông tin đặt hàng
             </h2>
+
             <div class="form-item">
                 <label for="Ho va ten*">Họ và tên*</label>
                 <input type="text" placeholder="Nhap ten" class="name">
             </div>
+
             <div class="form-item">
                 <label for="Ho va ten*">Số điện thoại*</label>
                 <input type="text" placeholder="Nhap so dien thoai" class="sdt">
             </div>
+            
             <div class="form-item">
                 <label for="Ho va ten*">Email*</label>
                 <input type="text" placeholder="Nhap email" class="email">

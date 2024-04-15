@@ -1,18 +1,8 @@
-// updateUI();
 
-// document.querySelector('.fa.fa-user').addEventListener('click', function() {
-//     document.querySelector('.container').style.display = 'block';
-//     document.querySelector('.black-bg').style.display = 'block';
-// })
-
-// document.querySelector('.fa.fa-times').addEventListener('click', function() {
-//     document.querySelector('.container').style.display = 'none';
-//     document.querySelector('.black-bg').style.display = 'none';
-// })
 var currentqueryz =
-  'SELECT sanpham.MaSP, TenSP, Mota, Img, Loai, MaSize, MaVien, GiaTien FROM `sanpham`, `chitietsanpham` WHERE sanpham.MaSP = chitietsanpham.MaSP AND chitietsanpham.MaSize = "S" AND chitietsanpham.MaVien ="V" ';
+  'SELECT sanpham.MaSP, TenSP, Mota, Img, Loai FROM `sanpham` WHERE TrangThai = 1'
 var currentRowqueryz =
-  'SELECT COUNT(*) FROM `sanpham`, `chitietsanpham` WHERE sanpham.MaSP = chitietsanpham.MaSP AND pizzadetail.MaSize = "S" AND pizzadetail.MaCrust ="V" ';
+  'SELECT COUNT(*) FROM `sanpham` WHERE TrangThai = 1';
 var currentPagez = 1;
 const productSection = document.querySelector(".pro-collection");
 var html = "";
@@ -20,6 +10,7 @@ var listProduct = [];
 
 loadDefaultProducts();
 loadSessionCart();
+
 
 function loadDefaultProducts() {
   activeloader();
@@ -48,6 +39,7 @@ function loadDefaultProducts() {
     },
   });
 }
+
 
 function renderPag(totalPage) {
   if (totalPage < 2) totalPage = 0;
@@ -107,7 +99,6 @@ function toggleActive(clickedBtn, category) {
     btn.classList.remove("--active");
   });
 
-  // Thêm lớp --active vào nút được nhấn
   clickedBtn.classList.add("--active");
 
   if (category == "all") {
@@ -141,6 +132,7 @@ function toggleActive(clickedBtn, category) {
     success: function (data) {
       listProduct = data.result;
       var totalPage = data.countrow / perPage;
+      totalPage = Math.ceil(totalPage);
       showProducts();
       renderPag(totalPage);
     },
@@ -282,6 +274,7 @@ function addEventProducts() {
   });
 }
 
+
 function addeventPOPUP() {
   var popup = document.querySelector(".popup");
   var btnBuy = document.querySelectorAll(".scproducts__list-item .top");
@@ -307,6 +300,7 @@ function addeventPOPUP() {
       }
     }
   });
+
 
   //ĐẾ KÍCH THƯỚC
 
@@ -342,9 +336,9 @@ function addeventPOPUP() {
 
   btnAdd.addEventListener("click", function () {
     popup.classList.add("--none");
-    //f
   });
 }
+
 
 function addeventchuyensizevade(listDetail) {
   var map = new Map();
@@ -366,19 +360,34 @@ function addeventchuyensizevade(listDetail) {
 
   size.forEach(function (item) {
     item.addEventListener("click", function () {
+      document.querySelector(".popup .btn.--add").style.backgroundColor =
+        "#0a8020";
       var size = item.querySelector("p").innerText;
       var de = document.querySelector(".box__item.--de.--active p").innerText;
       var price = map.get(size + " " + de);
+      // if price is NaN
+      if (!price) alert("Price is NaN");
       document.querySelector(".popup .btn.--add p:nth-child(2)").innerText =
         toVND(price);
     });
   });
 
+
   de.forEach(function (item) {
     item.addEventListener("click", function () {
+      document.querySelector(".popup .btn.--add").style.backgroundColor =
+        "#0a8020";
       var de = item.querySelector("p").innerText;
       var size = document.querySelector(".box__item.--kt.--active p").innerText;
       var price = map.get(size + " " + de);
+      if (!price) {
+        //disable button
+        document.querySelector(".popup .btn.--add").style.backgroundColor =
+          "#ccc";
+        // disabled = true;
+        document.querySelector(".popup .btn.--add").disabled = true;
+      
+      }
       document.querySelector(".popup .btn.--add p:nth-child(2)").innerText =
         toVND(price);
     });
@@ -386,7 +395,6 @@ function addeventchuyensizevade(listDetail) {
 
 
 }
-
 
 
 ////TÌM KIẾM VÀ TÌM KIẾM NÂNG CAO (AUTHROR: TRUNG HƯNG)

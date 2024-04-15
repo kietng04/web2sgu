@@ -1,32 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="../css/admin_styles.css">
     <script src="https://kit.fontawesome.com/3dff50b2d8.js" crossorigin="anonymous"></script>
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/variables.css">
-    <!-- <link rel="stylesheet" href="css/components.css"> -->
-    <link rel="stylesheet" href="css/admin_styles1.css">
 </head>
-
 <body>
-
-    <div class="container">
-    <aside class="sidebar open">
-            <!-- <div class="btnSidebar">
-                <i class="fa-solid fa-bars"></i>
-            </div> -->
-            <div class="top-sidebar">
-                <a href="#" class="channel-logo"><img src="img/logo-pizza.png" alt="Channel Logo"></a>
-                <div class="hidden-sidebar your-channel"><img src=""
-                        style="height: 30px;" alt="">
-                </div>
+    <nav>
+        <div class="logo-name">
+            <div class="logo-image">
+               <img src="../img/logo2.png" alt="">
             </div>
             <div class="middle-sidebar">
                 <ul class="sidebar-list">
@@ -55,13 +41,7 @@
                         </a>
                     </li>
                     <li class="sidebar-list-item tab-content">
-                        <a href="index.php?controller=ImportController&action=index" class="sidebar-link">
-                            <div class="sidebar-icon"><i class="fa-solid fa-file-import"></i></div>
-                            <div class="hidden-sidebar">Nhập hàng</div>
-                        </a>
-                    </li>
-                    <li class="sidebar-list-item tab-content">
-                        <a href="index.php?controller=AdminStatisticController&action=index" class="sidebar-link">
+                        <a href="#" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-chart-simple"></i></div>
                             <div class="hidden-sidebar">Thống kê</div>
                         </a>
@@ -193,6 +173,7 @@
             </div>
         </main>
     </div>
+  </section>
 
     <!-- Modal them hoa chinh sua san pham -->
     <div class="modal add-product">

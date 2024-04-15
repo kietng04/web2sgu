@@ -1,32 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="../css/admin_styles.css">
     <script src="https://kit.fontawesome.com/3dff50b2d8.js" crossorigin="anonymous"></script>
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/variables.css">
-    <!-- <link rel="stylesheet" href="../css/components.css"> -->
-    <link rel="stylesheet" href="css/admin_styles1.css">
 </head>
-
 <body>
-
-    <div class="container">
-        <aside class="sidebar open">
-            <!-- <div class="btnSidebar">
-                <i class="fa-solid fa-bars"></i>
-            </div> -->
-            <div class="top-sidebar">
-                <a href="#" class="channel-logo"><img src="img/logo-pizza.png" alt="Channel Logo"></a>
-                <div class="hidden-sidebar your-channel"><img src=""
-                        style="height: 30px;" alt="">
-                </div>
+    <nav>
+        <div class="logo-name">
+            <div class="logo-image">
+               <img src="../img/logo2.png" alt="">
             </div>
             <div class="middle-sidebar">
                 <ul class="sidebar-list">
@@ -106,25 +92,25 @@
                                     dịch vụ, con người, địa điểm, tổ chức hoặc một ý tưởng.</p>
                             </div>
 
-                        </div>
-                    </div>
-                    <div class="card-single">
-                        <div class="box">
-                            <div class="on-box">
-                                <img src="img/admin-pizza-1.png" alt="" style=" width: 200px;">
+                  </div>
+              </div>
+              <div class="card-single">
+                  <div class="box">
+                      <div class="on-box">
+                          <img src="../img/admin-pizza-1.png" alt="" style=" width: 200px;">
 
-                                <h2 id="amount-product">0</h2>
-                                <h3>Sản phẩm</h3>
-                                <p>Khách hàng mục tiêu là một nhóm đối tượng khách hàng trong phân khúc thị trường mục
-                                    tiêu mà doanh nghiệp bạn đang hướng tới. </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-single">
-                        <div class="box">
-                            <h2 id="doanh-thu">$5020</h2>
-                            <div class="on-box">
-                                <img src="img/admin-pizza-1.png" alt="" style=" width: 200px;">
+                          <h2 id="amount-product">0</h2>
+                          <h3>Sản phẩm</h3>
+                          <p>Khách hàng mục tiêu là một nhóm đối tượng khách hàng trong phân khúc thị trường mục
+                              tiêu mà doanh nghiệp bạn đang hướng tới. </p>
+                      </div>
+                  </div>
+              </div>
+              <div class="card-single">
+                  <div class="box">
+                      <h2 id="doanh-thu">$5020</h2>
+                      <div class="on-box">
+                          <img src="../img/admin-pizza-1.png" alt="" style=" width: 200px;">
 
                                 <h3>Doanh thu</h3>
                                 <p>Doanh thu của doanh nghiệp là toàn bộ số tiền sẽ thu được do tiêu thụ sản phẩm, cung
@@ -901,13 +887,13 @@
             };
         }
 
-        const closeBtn = document.querySelectorAll('.section');
-        console.log(closeBtn[0])
-        for (let i = 0; i < closeBtn.length; i++) {
-            closeBtn[i].addEventListener('click', (e) => {
-                sidebar.classList.add("open");
-            })
-        }
+        // const closeBtn = document.querySelectorAll('.section');
+        // console.log(closeBtn[0])
+        // for (let i = 0; i < closeBtn.length; i++) {
+        //     closeBtn[i].addEventListener('click', (e) => {
+        //         sidebar.classList.add("open");
+        //     })
+        // }
 
         editButtons.forEach(function(button) {
             button.addEventListener('click', function() {

@@ -263,8 +263,8 @@
                             </div>
 
                         </div>
-                    </div>
-                </div> -->
+                    </div> -->
+                </div> 
                 <div class="page-nav">
                     <ul class="page-nav-list">
                         <li class="page-nav-item active">

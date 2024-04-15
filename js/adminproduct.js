@@ -3,7 +3,7 @@ var currentqueryz =
 var currentRowqueryz =
   'SELECT COUNT(*) FROM `sanpham';
 var currentPagez = 1;
-var perPage = 4;
+var perPage = 8;
 var listDeProduct = [];
 var listDeLength = 0;
 var listSizeProduct = ['Lớn', 'Vừa', 'Nhỏ'];
@@ -33,6 +33,7 @@ function loadTableProduct() {
                 row = data.countrow;
             }
             var totalPage =  row / perPage;
+            totalPage = Math.ceil(totalPage);
             showProductTableAdmin();
             renderPagAdmin(totalPage, currentPagez);
             addeventdelete();

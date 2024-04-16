@@ -97,7 +97,6 @@ function getCurrentUser(callbackFunc) {
     },
   });
 }
-
 function initlize() {
   document.querySelector(".fa.fa-sign-out").addEventListener("click", function () {
       $.ajax({
@@ -322,7 +321,6 @@ function showProducts() {
          <p class="desc">${item.Mota}</p>
          <button class="btn__buy">
              <p class="chon">CHỌN</p>
-             <p class="price">${toVND(item.GiaTien)}</p>
          </button>
      </div>
  </div>`
@@ -331,12 +329,15 @@ function showProducts() {
   addEventProducts();
 }
 
+
 function addeventbutbtn() {
   var btn = document.querySelector(".btn.--add");
-  var curProduct = null;
-
 
   btn.addEventListener("click", function () {
+    if (document.querySelector(".popup .btn.--add").style.backgroundColor == "rgb(204, 204, 204)") {
+      alert("Size và đế bạn vừa chọn hiện chưa có!");
+    }
+    
     $.ajax({
       type: "POST",
       url: "controller/ProductsController.php",
@@ -419,9 +420,10 @@ function addeventbutbtn() {
     });
   });
 }
+
 /*============================ cart ===============================*/
+
 var mapsize = new Map();
-// add key, value
 mapsize.set('S', 'Nhỏ');
 mapsize.set('M', 'Vừa');
 mapsize.set('L', 'Lớn');
@@ -436,7 +438,7 @@ function saveSessionCart(value) {
     type: "POST",
     url: "controller/ProductsController.php",
     dataType: "json",
-    timeout: 1500, // sau 1.5 giây mà không phản hồi thì dừng => hiện lỗi
+    timeout: 1500,
     data: {
       request: "saveSessionCart",
       cart: value,
@@ -447,6 +449,7 @@ function saveSessionCart(value) {
     },
   });
 }
+
 
 function loadSessionCart() {
   $.ajax({

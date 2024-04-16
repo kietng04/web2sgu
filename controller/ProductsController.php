@@ -73,6 +73,9 @@ switch($_POST['request']) {
     case 'getAllCrust':
         getAllCrust();
         break;
+    case 'getAllSize':
+        getAllSize();
+        break;
 }
 }
 function login() {
@@ -214,6 +217,14 @@ function createRoom() {
 
 function getAllCrust() {
     $result = (new SanPhamBUS())->getAllCrust();
+    if ($result != null) {
+        die (json_encode($result));
+    }
+    die (json_encode(null));
+}
+
+function getAllSize() {
+    $result = (new SanPhamBUS())->getAllSize();
     if ($result != null) {
         die (json_encode($result));
     }

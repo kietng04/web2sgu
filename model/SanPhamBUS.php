@@ -7,7 +7,7 @@ class SanPhamBUS extends DB_business {
     }
     // hàm này chỉ dùng để hiển thị sản phẩm khi trang vừa load lên
     function getProduct() {
-        $sql = "SELECT * FROM sanpham, chitietsanpham where sanpham.MaSP = chitietsanpham.MaSP and chitietsanpham.MaSize = 'S' and chitietsanpham.MaVien = 'V'";
+        $sql = "SELECT * FROM sanpham WHERE TrangThai = 1";
         $result = $this->get_list($sql);
         return $result;
     }
@@ -54,6 +54,12 @@ class SanPhamBUS extends DB_business {
 
     function getAllSize() {
         $sql = "SELECT * FROM sizesanpham";
+        $result = $this->get_list($sql);
+        return $result;
+    }
+
+    function getListSizeDeProduct($id) {
+        $sql = "SELECT * FROM sanpham, chitietsanpham, sizesanpham, viensanpham WHERE sanpham.MaSP = '$id' AND sanpham.MaSP = chitietsanpham.MaSP AND chitietsanpham.MaSize = sizesanpham.MaSize AND chitietsanpham.MaVien = viensanpham.MaVien";
         $result = $this->get_list($sql);
         return $result;
     }

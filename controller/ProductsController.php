@@ -76,6 +76,12 @@ switch($_POST['request']) {
     case 'getAllSize':
         getAllSize();
         break;
+    case 'getAllProduct':
+        getDefaultProducts();
+        break;
+    case 'getListSizeDeProduct':
+        getListSizeDeProduct();
+        break;
 }
 }
 function login() {
@@ -225,6 +231,15 @@ function getAllCrust() {
 
 function getAllSize() {
     $result = (new SanPhamBUS())->getAllSize();
+    if ($result != null) {
+        die (json_encode($result));
+    }
+    die (json_encode(null));
+}
+
+function getListSizeDeProduct() {
+    $id = $_POST['productID'];
+    $result = (new SanPhamBUS())->getListSizeDeProduct($id);
     if ($result != null) {
         die (json_encode($result));
     }

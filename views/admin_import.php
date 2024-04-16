@@ -20,83 +20,6 @@
 </head>
 
 <body>
-<<<<<<< HEAD
-    <nav>
-        <div class="logo-name">
-            <div class="logo-image">
-                <img src="logo1.png" alt="">
-            </div>
-            <span class="logo_name">Admin HP3K</span>
-        </div>
-        <div class="menu-items">
-            <ul class="nav-links">
-                <li><a href="admin.html">
-                        <i class="fa-solid fa-house"></i>
-                        <span class="link-name">Dashboard</span>
-                    </a></li>
-                <li><a href="#">
-                        <i class="fa-solid fa-boxes-stacked"></i>
-                        <span class="link-name">Quản lí sản phẩm </span>
-                    </a></li>
-                <li><a href="#">
-                        <i class="fa-solid fa-file-invoice"></i>
-                        <span class="link-name">Quản lí đơn hàng</span>
-                    </a></li>
-                <li><a href="#">
-                        <i class="fa-solid fa-users"></i>
-                        <span class="link-name">Quản lí người dùng</span>
-                    </a></li>
-                <li><a href="Import.html">
-                        <i class="fa-solid fa-file-import"></i>
-                        <span class="link-name">Quản lí nhập hàng</span>
-                    </a></li>
-                <li><a href="Export.html">
-                        <i class="fa-solid fa-file-export"></i>
-                        <span class="link-name">Quản lí xuất hàng</span>
-                    </a></li>
-                <li><a href="#">
-                        <i class="fa-solid fa-square-poll-vertical"></i>
-                        <span class="link-name">Quản lí doanh thu</span>
-                    </a></li>
-            </ul>
-
-            <ul class="logout-mode">
-                <li><a href="#">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                        <span class="link-name">Logout</span>
-                    </a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <section class="dashboard">
-        <div class="top">
-            <i class="fa-solid fa-bars sidebar-toggle"></i>
-
-            <div class="search-box">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Search here...">
-            </div>
-
-            <!--<img src="images/profile.jpg" alt="">-->
-        </div>
-
-        <div class="dash-content">
-            <div class="import">
-                <div class="title">
-                    <i class="fa-solid fa-box"></i>
-                    <span class="text"> Nhập hàng </span>
-                </div>
-                <div class="import-function">
-                    <div class="add">
-                        <i class="fa-solid fa-plus"></i>
-                        <span>Nhập thêm</span>
-                    </div>
-                    <div class="cancel">
-                        <i class="fa-solid fa-ban"></i>
-                        <span>Hủy</span>
-                    </div>
-=======
     <div class="container">
     <aside class="sidebar open">
             <!-- <div class="btnSidebar">
@@ -106,7 +29,6 @@
                 <a href="#" class="channel-logo"><img src="img/logo-pizza.png" alt="Channel Logo"></a>
                 <div class="hidden-sidebar your-channel"><img src=""
                         style="height: 30px;" alt="">
->>>>>>> 93590a104b7ab110947628991907ecbd7fc8e967
                 </div>
             </div>
             <div class="middle-sidebar">
@@ -301,29 +223,45 @@
                 <label for="search">Tìm kiếm:</label>
                 <input type="text" class="search"> <button type="submit">Tìm</button>
                 <table>
-                    <tr>
-                        <td>Mã sản phẩm</td>
-                        <td>Tên sản phẩm</td>
-                        <td>Số lượng</td>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <td>Mã sản phẩm</td>
+                            <td>Tên sản phẩm</td>
+                        </tr>
+                    </thead>
+                    <tbody class="product-list">
+                        <tr>
+                            <td>SP001</td>
+                            <td>Bánh pizza hải sản</td>
+                        </tr>
+                        <tr>
+                            <td>SP002</td>
+                            <td>Bánh pizza thịt bò</td>
+                        </tr>
+                        <tr>
+                            <td>SP003</td>
+                            <td>Bánh pizza thịt gà</td>
+                        </tr>
+                        <tr>
+                            <td>SP004</td>
+                            <td>Bánh pizza thịt heo</td>
+                        </tr>
+                        <tr>
+                            <td>SP005</td>
+                            <td>Bánh pizza thịt cừu</td>
+                        </tr>
+                    </tbody>
                 </table>
             </form>
             <form action="">
                 <label for="product-name">Mã sản phẩm - Tên sản phẩm</label>
                 <input type="text" id="product-name" name="product-name">
                 <label for="product-size">Kích thước sản phẩm</label>
-                <select id="product-size" name="product-size">
-                    <option value="">Chọn kích thước</option>
+                <select id="product-item" name="product-size">
+                    <option value="">Chọn item</option>
                     <option value="1">Size S</option>
                     <option value="2">Size M</option>
                     <option value="3">Size L</option>
-                </select>
-                <label for="product-crust">Đế sản phẩm</label>
-                <select id="product-crust" name="product-crust">
-                    <option value="">Chọn đế</option>
-                    <option value="1">Đế mỏng</option>
-                    <option value="2">Đế vừa</option>
-                    <option value="3">Đế dày</option>
                 </select>
                 <label for="product-price">Giá nhập (VNĐ)</label>
                 <input type="text" id="product-price" name="product-price">
@@ -366,7 +304,8 @@
     </div>
 
 
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="js/importproduct.js"></script>
     <script>
         var addButtons = document.querySelectorAll('.add');
         var modal = document.querySelector('.modal.add-import');

@@ -6,6 +6,7 @@ var listDeProduct = [];
 var listDeLength = 0;
 var listSizeProduct = [];
 var curAttribute = new Map();
+var totalPage = 0;
 loadTableProduct();
 loadCombinationSizeAndCrust();
 addeventinputthemsp();  
@@ -14,7 +15,6 @@ addeventthemthuoctinh();
 // addeventthemsp();
 var listProduct;
 function loadTableProduct() {
-<<<<<<< HEAD
     $.ajax({
         url: "./controller/ProductManagementController.php",
         type: 'POST',
@@ -34,14 +34,14 @@ function loadTableProduct() {
                 listProduct = data.result;
                 row = data.countrow;
             }
-            var totalPage =  row / perPage;
+            totalPage =  row / perPage;
             totalPage = Math.ceil(totalPage);
             showProductTableAdmin();
             renderPagAdmin(totalPage, currentPagez);
             addeventdelete();
         },
     });
-=======
+
   $.ajax({
     url: "./controller/ProductManagementController.php",
     type: "POST",
@@ -60,13 +60,13 @@ function loadTableProduct() {
         listProduct = data.result;
         row = data.countrow;
       }
-      var totalPage = row / perPage;
+      totalPage = row / perPage;
+      totalPage = Math.ceil(totalPage);
       showProductTableAdmin();
       renderPagAdmin(totalPage, currentPagez);
       addeventdelete();
     },
   });
->>>>>>> 7cfe8e456efa5b2121cce20ba188a25fcd460b4d
 }
 
 function showProductTableAdmin() {
@@ -224,6 +224,7 @@ function ajaxproductadmin(page, currentpage) {
     success: function (data) {
       listProduct = data;
       loadTableProduct();
+      renderPagAdmin(totalPage, currentPagez);
     },
   });
 }
@@ -284,6 +285,7 @@ function loadCombinationSizeAndCrust() {
                     html += `<option value="${listIDCombination[i]}">${listCombination[i]}</option>`;
                     }
                     div.innerHTML = html;
+                    removeloader();
                 },
                 error: function(xhr, status, error) {
                     console.log(xhr);

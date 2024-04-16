@@ -219,72 +219,155 @@
     </div>
     <div class="modal add-import">
         <div class="modal-container">
-            <form action="">
-                <label for="search">Tìm kiếm:</label>
-                <input type="text" class="search"> <button type="submit">Tìm</button>
-                <table>
-                    <tr>
-                        <td>Mã sản phẩm</td>
-                        <td>Tên sản phẩm</td>
-                        <td>Số lượng</td>
-                    </tr>
-                </table>
-            </form>
-            <form action="">
-                <label for="product-name">Mã sản phẩm - Tên sản phẩm</label>
-                <input type="text" id="product-name" name="product-name">
-                <label for="product-size">Kích thước sản phẩm</label>
-                <select id="product-size" name="product-size">
-                    <option value="">Chọn kích thước</option>
-                    <option value="1">Size S</option>
-                    <option value="2">Size M</option>
-                    <option value="3">Size L</option>
-                </select>
-                <label for="product-crust">Đế sản phẩm</label>
-                <select id="product-crust" name="product-crust">
-                    <option value="">Chọn đế</option>
-                    <option value="1">Đế mỏng</option>
-                    <option value="2">Đế vừa</option>
-                    <option value="3">Đế dày</option>
-                </select>
-                <label for="product-price">Giá nhập (VNĐ)</label>
-                <input type="text" id="product-price" name="product-price">
-                <label for="import-method">Phương thức nhập</label>
-                <select id="import-method" name="import-method">
-                    <option value="">Chọn phương thức</option>
-                    <option value="1">Nhập mới</option>
-                    <option value="2">Nhập thêm</option>
-                </select>
-                <label for="product-quantity">Số lượng</label>
-                <input type="text" id="product-quantity" name="product-quantity">
-                <button type="submit">Thêm</button>
+            <div class="modal-layout-one">
+            <div class="modal-layout-four">
+                <div class="modal-layout-third">
+                    <form action="" class="form-search">
+                                <span class="search-btn"><i class="fa-solid fa-magnifying-glass" onclick="searchProduct()"></i></i></span>
+                                <input id="form-search-product" type="text" class="form-search-input"
+                                    placeholder="Tìm kiếm tên món..." >
+                            </form>
+                        <table>
+                            <tr>
+                                <td>Mã sản phẩm</td>
+                                <td>Tên sản phẩm</td>
+                                <td>Số lượng</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                        <button type="submit" class="btn-control-large">Thêm</button>
+                    </form>
+                </div>
+                <div class="modal-layout-third grid">
+                    <div class="vertical item-1">
+                        <span>Mã sản phẩm - Tên sản phẩm</span>
+                        <input type="text" id="product-name" class="input" placeholder="Chọn sản phẩm">
 
-            </form>
-            <form action="">
-                <table>
-                    <tr>
-                        <td>STT</td>
-                        <td>Mã sản phẩm</td>
-                        <td>Tên sản phẩm</td>
-                        <td>Kích thước</td>
-                        <td>Đế</td>
-                        <td>Loại</td>
-                        <td>Đơn giá</td>
-                        <td>Số lượng</td>
-                    </tr>
-                </table>
-            </form>
+                    </div>
+                    <div class="vertical item-2">
+                        <label for="product-size">Kích thước sản phẩm</label>
+                        <select id="product-size" name="product-size">
+                            <option value="">Chọn kích thước</option>
+                            <option value="1">Size S</option>
+                            <option value="2">Size M</option>
+                            <option value="3">Size L</option>
+                        </select>
+                    </div>  
+                    <div class="vertical item-3">
+                        <label for="product-crust">Đế sản phẩm</label>
+                        <select id="product-crust" name="product-crust">
+                            <option value="">Chọn đế</option>
+                            <option value="1">Đế mỏng</option>
+                            <option value="2">Đế vừa</option>
+                            <option value="3">Đế dày</option>
+                        </select>
+                    </div>
+                    <div class="vertical item-4">
+                        <label for="product-price">Giá nhập (VNĐ)</label>
+                        <input type="text" id="product-price" class="input" placeholder="Nhập giá nhập">
+                    </div>
+                    <div class="vertical item-5">
+                        <label for="product-quantity">Số lượng</label>
+                        <input type="text" id="product-quantity" class="input" placeholder="Nhập số lượng">
+                    </div>
 
-            <form action="">
-                <label for="import-id">Mã phiếu nhập:</label>
-                <input type="text" id="import-id" name="import-id">
-                <label for="import-staff">Nhân viên nhập:</label>
-                <input type="text" id="import-staff" name="import-staff">
-                <label for="import-date">Ngày nhập:</label>
-                <input type="date" id="import-date" name="import-date">
-                <button>gửi</button>
-            </form>
-            
+                    <button type="submit" class="btn-control-large item-2">Sửa</button>
+                    <button type="submit" class="btn-control-large item-3">Xoá</button>
+                </div>
+            </div>
+            <div class="modal-layout-four">
+                    <table>
+                        <tr>
+                            <td>STT</td>
+                            <td>Mã sản phẩm</td>
+                            <td>Tên sản phẩm</td>
+                            <td>Kích thước</td>
+                            <td>Đế</td>
+                            <td>Loại</td>
+                            <td>Đơn giá</td>
+                            <td>Số lượng</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        
+                    </table>
+            </div>
+        </div>
+            <div class="modal-layout-two">
+                <form action="">
+                    <div class="vertical">
+                        <span>Mã phiếu nhập:</span>
+                        <input type="text" id="import-id" class="input" placeholder="Nhập mã phiếu nhập">
+                    </div>
+                    <div class="vertical">
+                        <span>Nhân viên nhập:</span>
+                        <input type="text" id="import-staff" class="input" placeholder="Nhập tên nhân viên">
+                    </div>
+                    <div class="vertical">
+                        <span>Ngày nhập:</span>
+                        <input type="date" id="import-date" class="input" placeholder="Nhập ngày nhập">
+                    </div>
+
+                    <button type="submit" class="btn-control-large">Thêm</button>
+                </form>
+            </div>
     </div>
 
 

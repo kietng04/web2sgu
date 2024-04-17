@@ -1,18 +1,8 @@
-// updateUI();
 
-// document.querySelector('.fa.fa-user').addEventListener('click', function() {
-//     document.querySelector('.container').style.display = 'block';
-//     document.querySelector('.black-bg').style.display = 'block';
-// })
-
-// document.querySelector('.fa.fa-times').addEventListener('click', function() {
-//     document.querySelector('.container').style.display = 'none';
-//     document.querySelector('.black-bg').style.display = 'none';
-// })
 var currentqueryz =
-  'SELECT sanpham.MaSP, TenSP, Mota, Img, Loai, MaSize, MaVien, GiaTien FROM `sanpham`, `chitietsanpham` WHERE sanpham.MaSP = chitietsanpham.MaSP AND chitietsanpham.MaSize = "S" AND chitietsanpham.MaVien ="V" ';
+  'SELECT sanpham.MaSP, TenSP, Mota, Img, Loai FROM `sanpham` WHERE TrangThai = 1'
 var currentRowqueryz =
-  'SELECT COUNT(*) FROM `sanpham`, `chitietsanpham` WHERE sanpham.MaSP = chitietsanpham.MaSP AND pizzadetail.MaSize = "S" AND pizzadetail.MaCrust ="V" ';
+  'SELECT COUNT(*) FROM `sanpham` WHERE TrangThai = 1';
 var currentPagez = 1;
 const productSection = document.querySelector(".pro-collection");
 var html = "";
@@ -20,6 +10,7 @@ var listProduct = [];
 
 loadDefaultProducts();
 loadSessionCart();
+
 
 function loadDefaultProducts() {
   activeloader();
@@ -34,8 +25,10 @@ function loadDefaultProducts() {
       currentpage: currentPagez,
     },
     success: function (data) {
+      console.log(data);
       listProduct = data.result;
       var totalPage = data.countrow / perPage;
+      totalPage = Math.ceil(totalPage);
       showProducts();
       renderPag(totalPage);
       document.querySelector(".loader").style.display = "none";
@@ -46,6 +39,7 @@ function loadDefaultProducts() {
     },
   });
 }
+
 
 function renderPag(totalPage) {
   if (totalPage < 2) totalPage = 0;
@@ -86,8 +80,15 @@ function ajaxproduct(page, currentpage) {
     },
     success: function (data) {
       listProduct = data;
+      console.log(data);
       showProducts();
     },
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log("HTTP Request Failed");
+      console.log("jqXHR:", jqXHR);
+      console.log("textStatus:", textStatus);
+      console.log("errorThrown:", errorThrown);
+  }
   });
 }
 
@@ -98,7 +99,6 @@ function toggleActive(clickedBtn, category) {
     btn.classList.remove("--active");
   });
 
-  // Thêm lớp --active vào nút được nhấn
   clickedBtn.classList.add("--active");
 
   if (category == "all") {
@@ -132,6 +132,7 @@ function toggleActive(clickedBtn, category) {
     success: function (data) {
       listProduct = data.result;
       var totalPage = data.countrow / perPage;
+      totalPage = Math.ceil(totalPage);
       showProducts();
       renderPag(totalPage);
     },
@@ -162,11 +163,41 @@ function addEventProducts() {
           id: id,
         },
         success: function (data) {
+          console.log(data);
+          let setSize = new Set();
+          let setVien = new Set();
+          var sizearray = [];
+          var sizevien = [];
+          data.forEach(function (item) {
+
+            var obj1 = {
+              MaSize: item.MaSize,
+              TenSize: item.TenSize,
+              DinhLuongSize: item.DinhLuongSize,
+            };
+
+            var obj2 = {
+              MaVien: item.MaVien,
+              TenVien: item.TenVien,
+              DinhLuongVien: item.DinhLuongVien,
+            }
+
+            if (!setSize.has(item.MaSize)) {
+              setSize.add(item.MaSize);
+              sizearray.push(obj1);
+            }
+
+            if (!setVien.has(item.MaVien)) {
+              setVien.add(item.MaVien);
+              sizevien.push(obj2);
+            }
+          });
+          console.log(setSize);
           var product = data;
           var html = `
                     <div class="popup__item">
                 <div class="popup__item-img">
-                    <img src="${data[0].Img}" alt="">
+                   <img src="${data[0].Img}" alt="">
                 </div>
                 <div class="popup__iten-content">
                     <h3 class="heading --lv2">
@@ -178,68 +209,44 @@ function addEventProducts() {
                     <div class="box">
                         <div class="box__item --none">
                             <p class="title">Kích thước </p>
-                        </div>
-                        <div class="box__item --kt --active">
-                            <div class="icon ">
-                                <img src="./img/checkbox.jpeg" alt="">
-                                <div class="line1"></div>
-                                <div class="line2"></div>
-                                <div class="circle"></div>
-                            </div>
-                            <p value="S">Nhỏ</p>
-                        </div>
-                        <div class="box__item --kt">
-                            <div class="icon ">
-                                <img src="./img/checkbox.jpeg" alt="">
-                                <div class="line1"></div>
-                                <div class="line2"></div>
-                                <div class="circle"></div>
-                            </div>
-                            <p value="M">Vừa</p>
-                        </div>
-                        <div class="box__item --kt">
-                            <div class="icon ">
-                                <img src="./img/checkbox.jpeg" alt="">
-                                <div class="line1"></div>
-                                <div class="line2"></div>
-                                <div class="circle"></div>
-                            </div>
-                            <p value="L">Lớn</p>
-                        </div>
-
-                    </div>
+                        </div>`
+                      sizearray.forEach(function (item, index) {
+                          if (index == 0) 
+                              html += `<div class="box__item --kt --active">`
+                          else 
+                              html += `<div class="box__item --kt">`
+                          html += 
+                          `<div class="icon ">
+                              <img src="./img/checkbox.jpeg" alt="">
+                              <div class="line1"></div>
+                              <div class="line2"></div>
+                              <div class="circle"></div>
+                          </div>
+                          <p value="${item.MaSize}">${item.TenSize} (${item.DinhLuongSize})</p>
+                      </div>`
+                      })
+                    html += `</div>
                     <div class="box">
                         <div class="box__item --none">
                             <p class="title">Loại đế</p>
-                        </div>
-                        <div class="box__item --de ">
-                            <div class="icon ">
-                                <img src="./img/checkbox.jpeg" alt="">
-                                <div class="line1"></div>
-                                <div class="line2"></div>
-                                <div class="circle"></div>
-                            </div>
-                            <p value="M">Mỏng</p>
-                        </div>
-                        <div class="box__item --de --active">
-                            <div class="icon ">
-                                <img src="./img/checkbox.jpeg" alt="">
-                                <div class="line1"></div>
-                                <div class="line2"></div>
-                                <div class="circle"></div>
-                            </div>
-                            <p value="V">Vừa</p>
-                        </div>
-                        <div class="box__item --de">
-                            <div class="icon ">
-                                <img src="./img/checkbox.jpeg" alt="">
-                                <div class="line1"></div>
-                                <div class="line2"></div>
-                                <div class="circle"></div>
-                            </div>
-                            <p value="D">Dày</p>
-                        </div>
-                    </div>
+                        </div>`
+                      sizevien.forEach(function (item, index) {
+                          if (index == 0) 
+                              html += `<div class="box__item --de --active">`
+                          else 
+                              html += `<div class="box__item --de">`
+                          html += 
+                          `<div class="icon ">
+                              <img src="./img/checkbox.jpeg" alt="">
+                              <div class="line1"></div>
+                              <div class="line2"></div>
+                              <div class="circle"></div>
+                          </div>
+                          <p value="${item.MaVien}">${item.TenVien} (${item.DinhLuongVien})</p>
+                      </div>`
+                      })
+
+                    html += `</div>
                   <div class="box__bottom">
                   <div class="buttons_added">
                   <input class="minus is-form" type="button" value="-" onclick="decreasingNumber(this, ${data})">
@@ -267,6 +274,7 @@ function addEventProducts() {
   });
 }
 
+
 function addeventPOPUP() {
   var popup = document.querySelector(".popup");
   var btnBuy = document.querySelectorAll(".scproducts__list-item .top");
@@ -292,6 +300,7 @@ function addeventPOPUP() {
       }
     }
   });
+
 
   //ĐẾ KÍCH THƯỚC
 
@@ -327,9 +336,9 @@ function addeventPOPUP() {
 
   btnAdd.addEventListener("click", function () {
     popup.classList.add("--none");
-    //f
   });
 }
+
 
 function addeventchuyensizevade(listDetail) {
   var map = new Map();
@@ -339,38 +348,53 @@ function addeventchuyensizevade(listDetail) {
 
   for (i = 0; i < listDetail.length; i++) {
     map.set(
-      listDetail[i].TenSize + " " + listDetail[i].TenVien,
+      listDetail[i].TenSize + " (" + listDetail[i].DinhLuongSize + ") " + listDetail[i].TenVien + " (" + listDetail[i].DinhLuongVien + ")",
       listDetail[i].GiaTien
     );
+    if (i == 0) {
+      document.querySelectorAll(".--add p")[1].innerHTML = toVND(
+        map.get(listDetail[i].TenSize + " (" + listDetail[i].DinhLuongSize + ") " + listDetail[i].TenVien + " (" + listDetail[i].DinhLuongVien + ")")
+      );
+    }
   }
-  map.set("default", map.get("Nhỏ Mỏng"));
 
   size.forEach(function (item) {
     item.addEventListener("click", function () {
+      document.querySelector(".popup .btn.--add").style.backgroundColor =
+        "#0a8020";
       var size = item.querySelector("p").innerText;
       var de = document.querySelector(".box__item.--de.--active p").innerText;
       var price = map.get(size + " " + de);
-
+      // if price is NaN
+      if (!price) alert("Price is NaN");
       document.querySelector(".popup .btn.--add p:nth-child(2)").innerText =
         toVND(price);
     });
   });
+
 
   de.forEach(function (item) {
     item.addEventListener("click", function () {
+      document.querySelector(".popup .btn.--add").style.backgroundColor =
+        "#0a8020";
       var de = item.querySelector("p").innerText;
       var size = document.querySelector(".box__item.--kt.--active p").innerText;
       var price = map.get(size + " " + de);
+      if (!price) {
+        //disable button
+        document.querySelector(".popup .btn.--add").style.backgroundColor =
+          "#ccc";
+        // disabled = true;
+        document.querySelector(".popup .btn.--add").disabled = true;
+      
+      }
       document.querySelector(".popup .btn.--add p:nth-child(2)").innerText =
         toVND(price);
     });
   });
 
-  document.querySelectorAll(".--add p")[1].innerHTML = toVND(
-    map.get("Nhỏ Mỏng")
-  );
-}
 
+}
 
 
 ////TÌM KIẾM VÀ TÌM KIẾM NÂNG CAO (AUTHROR: TRUNG HƯNG)

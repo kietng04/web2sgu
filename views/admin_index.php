@@ -14,9 +14,7 @@
     <!-- <link rel="stylesheet" href="../css/components.css"> -->
     <link rel="stylesheet" href="css/admin_styles1.css">
 </head>
-
 <body>
-
     <div class="container">
         <aside class="sidebar open">
             <!-- <div class="btnSidebar">
@@ -31,7 +29,7 @@
             <div class="middle-sidebar">
                 <ul class="sidebar-list">
                     <li class="sidebar-list-item tab-content active">
-                        <a href="./admin_index.php" class="sidebar-link">
+                        <a href="index.php?controller=AdminIndexController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-house"></i></div>
                             <div class="hidden-sidebar">Trang tổng quan</div>
                         </a>
@@ -55,21 +53,31 @@
                         </a>
                     </li>
                     <li class="sidebar-list-item tab-content">
-                        <a href="#" class="sidebar-link">
+                        <a href="index.php?controller=ImportController&action=index" class="sidebar-link">
+                            <div class="sidebar-icon"><i class="fa-solid fa-file-import"></i></div>
+                            <div class="hidden-sidebar">Nhập hàng</div>
+                        </a>
+                    </li>
+                    <li class="sidebar-list-item tab-content">
+                        <a href="index.php?controller=AdminStatisticController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-chart-simple"></i></div>
                             <div class="hidden-sidebar">Thống kê</div>
                         </a>
                     </li>
                 </ul>
             </div>
+
             <div class="bottom-sidebar">
+
                 <ul class="sidebar-list">
+
                     <li class="sidebar-list-item user-logout">
                         <a href="/" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-angles-left"></i></div>
                             <div class="hidden-sidebar">Trang chủ</div>
                         </a>
                     </li>
+
                     <li class="sidebar-list-item user-logout">
                         <a href="#" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-regular fa-user"></i></i></div>
@@ -660,6 +668,11 @@
                             <textarea class="product-desc" id="mo-ta" placeholder="Nhập mô tả món ăn..."></textarea>
                             <span class="form-message"></span>
                         </div>
+                        <table>
+                            <tr>
+                                <td>Mã món</td>
+                            </tr>
+                        </table>
                         <button class="form-submit btn-update-product-form edit-product-e" id="update-product-button">
                             <i class="fa-solid fa-pen"></i>
                             <span>LƯU THAY ĐỔI</span>

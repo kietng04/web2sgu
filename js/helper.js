@@ -97,7 +97,6 @@ function getCurrentUser(callbackFunc) {
     },
   });
 }
-
 function initlize() {
   document.querySelector(".fa.fa-sign-out").addEventListener("click", function () {
       $.ajax({
@@ -313,15 +312,15 @@ function showProducts() {
      html += `<div class="scproducts__list-item" value="${item.MaSP}">
      <div class="top">
          <div class="img">
-             <img src="${item.Img}">
-         </div>
+        <img src="${item.Img}" alt="">
+            
+    </div>
          <p class="title">${item.TenSP}</p>
      </div>
      <div class="content">
          <p class="desc">${item.Mota}</p>
          <button class="btn__buy">
              <p class="chon">CHỌN</p>
-             <p class="price">${toVND(item.GiaTien)}</p>
          </button>
      </div>
  </div>`
@@ -330,12 +329,15 @@ function showProducts() {
   addEventProducts();
 }
 
+
 function addeventbutbtn() {
   var btn = document.querySelector(".btn.--add");
-  var curProduct = null;
-
 
   btn.addEventListener("click", function () {
+    if (document.querySelector(".popup .btn.--add").style.backgroundColor == "rgb(204, 204, 204)") {
+      alert("Size và đế bạn vừa chọn hiện chưa có!");
+    }
+    
     $.ajax({
       type: "POST",
       url: "controller/ProductsController.php",
@@ -351,7 +353,10 @@ function addeventbutbtn() {
       success: function (data) {
         curProduct = data;
         console.log(data);
-      }
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+    }
     });
     // show load icon
     // ajax get current product
@@ -387,7 +392,7 @@ function addeventbutbtn() {
           data['cart'].forEach(function (item, index) {
             html += `<div class="list__item">
             <div class="img">
-                <img src="${item['Product'].Img}" alt="">
+            <img src="${item['Product'].Img}" alt="">
             </div>
             <div class="content">
                 <p class="title">${item['Product'].TenSP}</p>
@@ -409,12 +414,16 @@ function addeventbutbtn() {
           alert("Vui lòng đăng nhập để thêm vào giỏ hàng!");
         }
       },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+    }
     });
   });
 }
+
 /*============================ cart ===============================*/
+
 var mapsize = new Map();
-// add key, value
 mapsize.set('S', 'Nhỏ');
 mapsize.set('M', 'Vừa');
 mapsize.set('L', 'Lớn');
@@ -429,7 +438,7 @@ function saveSessionCart(value) {
     type: "POST",
     url: "controller/ProductsController.php",
     dataType: "json",
-    timeout: 1500, // sau 1.5 giây mà không phản hồi thì dừng => hiện lỗi
+    timeout: 1500,
     data: {
       request: "saveSessionCart",
       cart: value,
@@ -440,6 +449,7 @@ function saveSessionCart(value) {
     },
   });
 }
+
 
 function loadSessionCart() {
   $.ajax({

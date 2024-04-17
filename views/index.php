@@ -30,7 +30,6 @@
     <link rel="stylesheet" href="css/loader.css">
 
 </head>
-
 <body>
     <div class="loader"></div>
     <script src="js/loader.js"></script>

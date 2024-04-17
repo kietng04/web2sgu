@@ -21,8 +21,40 @@ class SanPhamBUS extends DB_business {
     function getProductDetailID($id, $idsize, $idcrust) {
         $sql = "SELECT * FROM sanpham, chitietsanpham where sanpham.MaSP = chitietsanpham.MaSP and sanpham.MaSP = '$id' and chitietsanpham.MaSize = '$idsize' and chitietsanpham.MaVien = '$idcrust'";
         $result = $this->get_list($sql);
-        // get 1 row in result
+        // get 1 row in resultf
         $row = $result[0];
         return $row;
+    }
+
+    function getAllCrust() {
+        $sql = "SELECT * FROM viensanpham";
+        $result = $this->get_list($sql);
+        return $result;
+    }
+
+    function getAllIDCrust() {
+        $sql = "SELECT MaVien FROM viensanpham";
+        $result = $this->get_list($sql);
+        return $result;
+    }
+
+    function insertProducts($name, $category, $description) {
+        $target_dir = "images/pizzaimg/";
+        // $data = array(
+        //     'MaSP' => 'POIZZA' . rand(1000, 9999),
+        //     'TenSP' => $name,
+        //     'Loai' => $category,
+        //     'Mota' => $description,
+        //     'HinhAnh' => $target_dir
+        // );
+        $sql = "INSERT INTO sanpham(MaSP, TenSP, Mota, Img, Loai) VALUES ('Poz', '$name', '$description', '$target_dir', '$category')";
+        $result = $this->insertz($sql);
+        return $result;
+    }
+
+    function getAllSize() {
+        $sql = "SELECT * FROM sizesanpham";
+        $result = $this->get_list($sql);
+        return $result;
     }
 }

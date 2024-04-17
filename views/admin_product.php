@@ -55,7 +55,13 @@
                         </a>
                     </li>
                     <li class="sidebar-list-item tab-content">
-                        <a href="#" class="sidebar-link">
+                        <a href="index.php?controller=ImportController&action=index" class="sidebar-link">
+                            <div class="sidebar-icon"><i class="fa-solid fa-file-import"></i></div>
+                            <div class="hidden-sidebar">Nhập hàng</div>
+                        </a>
+                    </li>
+                    <li class="sidebar-list-item tab-content">
+                        <a href="index.php?controller=AdminStatisticController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-chart-simple"></i></div>
                             <div class="hidden-sidebar">Thống kê</div>
                         </a>
@@ -90,32 +96,31 @@
             <div class="section product-all active ">
                 <div class="admin-control">
                     <div class="admin-control-left">
-                        <select name="the-loai" id="the-loai" onchange="showProduct()">
+                        <select name="the-loai" id="the-loai">
                             <option>Tất cả</option>
-                            <option>Pizza Bò</option>
-                            <option>Pizza Gà</option>
-                            <option>Pizza Hải Sản</option>
-                            <option>Pizza Rau Củ</option>
+                            <option>BÒ</option>
+                            <option>GÀ</option>
+                            <option>HẢI SẢN</option>
                             <option>Món Phụ</option>
                             <option>Nước uống</option>
                         </select>
                     </div>
                     <div class="admin-control-center">
                         <form action="" class="form-search">
-                            <span class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></i></span>
+                            <span class="search-btn"><i class="fa-solid fa-magnifying-glass" onclick="searchProduct()"></i></i></span>
                             <input id="form-search-product" type="text" class="form-search-input"
-                                placeholder="Tìm kiếm tên món..." oninput="showProduct()">
+                                placeholder="Tìm kiếm tên món..." >
                         </form>
                     </div>
                     <div class="admin-control-right">
-                        <button class="btn-control-large" id="btn-cancel-product" onclick="cancelSearchProduct()"><i
+                        <button class="btn-control-large" id="btn-cancel-product" onclick="resetInput()"><i
                                 class="fa-solid fa-rotate-right"></i></i> Làm mới</button>
                         <button class="btn-control-large" id="btn-add-product"><i class="fa-light fa-plus"></i> Thêm món
                             mới</button>
                     </div>
                 </div>
                 <div id="show-product">
-                    <div class="list">
+                    <!-- <div class="list">
                         <div class="list-left">
                             <img src="img/pizza-1.png" alt="">
                             <div class="list-info">
@@ -258,8 +263,8 @@
                             </div>
 
                         </div>
-                    </div>
-                </div>
+                    </div> -->
+                </div> 
                 <div class="page-nav">
                     <ul class="page-nav-list">
                         <li class="page-nav-item active">
@@ -272,7 +277,7 @@
                             <a href="#">3</a>
                         </li>
                         <li class="page-nav-item ">
-                            <a href="#">4</a>
+                            <a href="#">4</a> 
                         </li>
                         <li class="page-nav-item ">
                             <a href="#">5</a>
@@ -302,6 +307,12 @@
                     </div>
                     <div class="modal-content-right">
                         <div class="form-group">
+                            <label class="form-label">Mã sản phẩm</label>
+                            <input id="masanpham" name="ten-mon" type="text" placeholder="Nhập mã sản phẩm"
+                                class="form-control">
+                            <span class="form-message"></span>
+                        </div>
+                        <div class="form-group">
                             <label for="ten-mon" class="form-label">Tên món</label>
                             <input id="ten-mon" name="ten-mon" type="text" placeholder="Nhập tên món"
                                 class="form-control">
@@ -309,55 +320,52 @@
                         </div>
                         <div class="form-group">
                             <label for="category" class="form-label">Chọn món</label>
-                            <select name="category" id="chon-mon">
-                                <option>Pizza Bò</option>
-                                <option>Pizza Gà</option>
-                                <option>Pizza Hải Sản</option>
+                            <select name="category" id="chon-loai">
+                                <option>Chọn loại</option>
+                                <option>BÒ</option>
+                                <option>HẢI SẢN</option>
                                 <option>Món Phụ</option>
                                 <option>Nước uống</option>
                             </select>
                             <span class="form-message"></span>
                         </div>
+                        <div class="form-group">
+                            <label for="attribute" class="form-label">Chọn thuộc tính</label>
+                            <select name="attribute" id="chon-tt">
+                                
+                            </select>
+                            <label class="form-label">Giá nhập</label>
+                            <input id="gia-nhap" name="gia-nhap" type="text" placeholder="Nhập giá nhập"
+                                class="form-control">
+                            <label class="form-label">Giá bán</label>
+                            <input id="gia-ban" name="gia-ban" type="text" placeholder="Nhập giá bán"
+                                class="form-control">
+                            <button class="themthuoctinh">Thêm thuộc tính</button>
+                            <span class="form-message"></span>
+                        </div>
                         <div class="wrapper-form-group">
-                            <div class="form-group">
-                                <label for="category" class="form-label">Chọn Đế</label>
-                                <select name="category" id="chon-de">
-                                    <option>Mỏng</option>
-                                    <option>Vừa</option>
-                                    <option>Dày</option>
-                                </select>
-                                <span class="form-message"></span>
-                            </div>
-                            <div class="form-group">
-                                <label for="category" class="form-label">Chọn Kích Cỡ</label>
-                                <select name="category" id="chon-co">
-                                    <option>Nhỏ</option>
-                                    <option>Vừa</option>
-                                    <option>Lớn</option>
-                                </select>
-                                <span class="form-message"></span>
-                            </div>
+                            
                         </div>
-                        <div class="form-group">
-                            <label for="gia-moi" class="form-label">Giá bán</label>
-                            <input id="gia-moi" name="gia-moi" type="text" placeholder="Nhập giá bán"
-                                class="form-control">
-                            <span class="form-message"></span>
-                        </div>
-                        <div class="form-group">
-                            <label for="so-luong" class="form-label">Số lượng </label>
-                            <input id="so-luong" name="so-luong" type="number" placeholder="Nhập số lượng"
-                                class="form-control">
-                            <span class="form-message"></span>
-                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td>Size</td>
+                                    <td>Đế</td>
+                                    <td>Giá nhập</td>
+                                    <td>Giá bán</td>
+                                </tr>
+                            </thead>
+                            <tbody class="rowTable">
+                            </tobdy>
+                        </table>
                         <div class="form-group">
                             <label for="mo-ta" class="form-label">Mô tả</label>
                             <textarea class="product-desc" id="mo-ta" placeholder="Nhập mô tả món ăn..."></textarea>
                             <span class="form-message"></span>
                         </div>
-                        <button class="form-submit btn-update-product-form edit-product-e" id="update-product-button">
+                        <button class="form-submit btn-update-product-form edit-product-e" id="add-product-button">
                             <i class="fa-solid fa-pen"></i>
-                            <span>LƯU THAY ĐỔI</span>
+                            <span>THÊM SẢN PHẨM</span>
                         </button>
                     </div>
                 </form>
@@ -613,12 +621,6 @@
             });
         });
 
-        updateButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
-                modal.classList.remove('open');
-            });
-            alert("Fdd");
-        });
 
         addButtons.addEventListener('click', function() {
             uploadImg.src = "img/upload-image.png";

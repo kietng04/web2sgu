@@ -253,7 +253,7 @@
                     </tbody>
                 </table>
             </form>
-            <form action="">
+            <form class="myform" action="">
                 <label for="product-name">Mã sản phẩm - Tên sản phẩm</label>
                 <input type="text" id="product-name" name="product-name">
                 <label for="product-size">Kích thước sản phẩm</label>
@@ -265,46 +265,42 @@
                 </select>
                 <label for="product-price">Giá nhập (VNĐ)</label>
                 <input type="text" id="product-price" name="product-price">
-                <label for="import-method">Phương thức nhập</label>
-                <select id="import-method" name="import-method">
-                    <option value="">Chọn phương thức</option>
-                    <option value="1">Nhập mới</option>
-                    <option value="2">Nhập thêm</option>
-                </select>
                 <label for="product-quantity">Số lượng</label>
                 <input type="text" id="product-quantity" name="product-quantity">
-                <button type="submit">Thêm</button>
+                <button type="submit" class="addphieunhap">Thêm</button>
 
             </form>
             <form action="">
                 <table>
-                    <tr>
-                        <td>STT</td>
-                        <td>Mã sản phẩm</td>
-                        <td>Tên sản phẩm</td>
-                        <td>Kích thước</td>
-                        <td>Đế</td>
-                        <td>Loại</td>
-                        <td>Đơn giá</td>
-                        <td>Số lượng</td>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <td>Mã sản phẩm</td>
+                            <td>Tên sản phẩm</td>
+                            <td>Size</td>
+                            <td>Đế</td>
+                            <td>Giá nhập</td>
+                            <td>Số lượng</td>
+                        </tr>
+                    </thead>
+                    <tbody class="rowtable">
+                        
+                    </tbody>
                 </table>
             </form>
 
             <form action="">
                 <label for="import-id">Mã phiếu nhập:</label>
                 <input type="text" id="import-id" name="import-id">
-                <label for="import-staff">Nhân viên nhập:</label>
-                <input type="text" id="import-staff" name="import-staff">
-                <label for="import-date">Ngày nhập:</label>
-                <input type="date" id="import-date" name="import-date">
-                <button>gửi</button>
+                <label for="import-date">Tổng tiền</label>
+                <p class="tongtienpn">0 VNĐ</p>
+                <button onclick="thempn(event)">Thêm phiếu nhập</button>
             </form>
             
     </div>
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="js/helper.js"></script>
     <script src="js/importproduct.js"></script>
     <script>
         var addButtons = document.querySelectorAll('.add');

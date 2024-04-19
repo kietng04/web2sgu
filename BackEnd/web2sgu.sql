@@ -313,7 +313,7 @@ INSERT INTO `ChiTietSanPham` (`MaSP`, `MaSize`, `MaVien`, `GiaNhap` ,`GiaTien`) 
 
 
 CREATE TABLE `NhapSanPham` (
-  `MaPN` int(11) NOT NULL,
+  `MaPN` int(11) NOT NULL AUTO_INCREMENT,
   `MaNV` int(11) NOT NULL,
   `NgayNhap` date NOT NULL,
   primary key (MaPN)

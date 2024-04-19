@@ -311,6 +311,14 @@
                 modal.classList.add('open');
             });
         });
+
+        var closeButtons = document.querySelectorAll('.modal-close');
+
+        closeButtons.forEach(function (closeButton) {
+            closeButton.addEventListener('click', function () {
+                modal.classList.remove('open');
+            });
+        });
     </script>
 </body>
 

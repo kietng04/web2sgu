@@ -616,6 +616,7 @@ thead td {
   font-weight: 500;
   background: var(--lighter-gray);
   padding: 15px;
+  padding: 15px;
   text-align: center;
   white-space: nowrap;
 }

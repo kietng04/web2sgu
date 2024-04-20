@@ -615,7 +615,8 @@ thead td {
   text-transform: uppercase;
   font-weight: 500;
   background: var(--lighter-gray);
-  padding: 10px;
+  padding: 15px;
+  padding: 15px;
   text-align: center;
   white-space: nowrap;
 }
@@ -1404,6 +1405,8 @@ label a {
 
 
 
+
+
 .modal.add-import .modal-container {
   display: flex;
   width: 1000px;
@@ -1519,7 +1522,11 @@ label a {
 
 .modal.add-import .modal-container .scroll-table{
   overflow: auto;
-  height: 150px;
+  height: 200px;
+}
+
+.modal.add-import .btn-control-large {
+  width: 100%;
 }
 
 .scroll-table.padding {

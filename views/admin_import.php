@@ -333,7 +333,7 @@
                     <input type="text" id="import-id" name="import-id" class="input">
                 </div>
                     <div class="total-price">
-                        <h2>Tổng tiền:  </h3>
+                        <h2>Tổng tiền:  </h2>
                         <p class="tongtienpn">0 VNĐ</p>
                     </div>
 
@@ -346,6 +346,8 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="js/importproduct.js"></script>
+    <script src="js/helper.js"></script>
+
     <script>
         var addButtons = document.querySelectorAll('.add');
         var modal = document.querySelector('.modal.add-import');

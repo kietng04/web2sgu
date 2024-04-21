@@ -1,11 +1,12 @@
 var currentqueryz = "SELECT * FROM `sanpham` WHERE  sanpham.TrangThai = 1 ";
 var currentRowqueryz = "SELECT COUNT(*) FROM `sanpham";
 var currentPagez = 1;
-var perPage = 4;
+var perPage = 8;
 var listDeProduct = [];
 var listDeLength = 0;
 var listSizeProduct = [];
 var curAttribute = new Map();
+var totalPage = 0;
 loadTableProduct();
 loadCombinationSizeAndCrust();
 addeventinputthemsp();  
@@ -14,6 +15,33 @@ addeventthemthuoctinh();
 // addeventthemsp();
 var listProduct;
 function loadTableProduct() {
+    $.ajax({
+        url: "./controller/ProductManagementController.php",
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            request: 'loadTableProduct',
+            currentquery: currentqueryz,
+            currentpage: currentPagez,
+        },
+        success: function(data) {
+            var row;
+            if (data == null) { 
+                listProduct = [];
+                row = 0;
+            }
+            else {
+                listProduct = data.result;
+                row = data.countrow;
+            }
+            totalPage =  row / perPage;
+            totalPage = Math.ceil(totalPage);
+            showProductTableAdmin();
+            renderPagAdmin(totalPage, currentPagez);
+            addeventdelete();
+        },
+    });
+
   $.ajax({
     url: "./controller/ProductManagementController.php",
     type: "POST",
@@ -32,7 +60,8 @@ function loadTableProduct() {
         listProduct = data.result;
         row = data.countrow;
       }
-      var totalPage = row / perPage;
+      totalPage = row / perPage;
+      totalPage = Math.ceil(totalPage);
       showProductTableAdmin();
       renderPagAdmin(totalPage, currentPagez);
       addeventdelete();
@@ -195,6 +224,7 @@ function ajaxproductadmin(page, currentpage) {
     success: function (data) {
       listProduct = data;
       loadTableProduct();
+      renderPagAdmin(totalPage, currentPagez);
     },
   });
 }
@@ -255,6 +285,7 @@ function loadCombinationSizeAndCrust() {
                     html += `<option value="${listIDCombination[i]}">${listCombination[i]}</option>`;
                     }
                     div.innerHTML = html;
+                    removeloader();
                 },
                 error: function(xhr, status, error) {
                     console.log(xhr);

@@ -13,10 +13,12 @@
     <link rel="stylesheet" href="css/variables.css">
     <!-- <link rel="stylesheet" href="css/components.css"> -->
     <link rel="stylesheet" href="css/admin_styles1.css">
+    <link rel="stylesheet" href="css/loader.css">
 </head>
 
 <body>
-
+<div class="loader"></div>
+<script src="js/loader.js"></script>
     <div class="container">
     <aside class="sidebar open">
             <!-- <div class="btnSidebar">

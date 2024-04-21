@@ -636,10 +636,10 @@ function toVND(money) {
 
 function activeloader() {
   const loader = document.querySelector(".loader"); 
-  loader.classList.add("loader-hidden");
+  loader.classList.remove("loader-hidden");
 }
 
 function removeloader(toast) {
   const loader = document.querySelector(".loader"); 
-  loader.classList.remove("loader-hidden");
+  loader.classList.add("loader-hidden");
 }

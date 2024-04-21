@@ -97,7 +97,7 @@
             <div class="section active">
                 <div class="admin-control">
                     <div class="admin-control-left">
-                        <select name="tinh-trang" id="tinh-trang" onchange="findOrder()">
+                        <select name="tinh-trang" id="tinh-trang" onchange="findOrder_category.bind(this)()">
                             <option value="2">Tất cả</option>
                             <option value="1">Đã xử lý</option>
                             <option value="0">Chưa xử lý</option>
@@ -107,18 +107,18 @@
                         <form action="" class="form-search">
                             <span class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></span>
                             <input id="form-search-order" type="text" class="form-search-input"
-                                placeholder="Tìm kiếm mã đơn, khách hàng..." oninput="findOrder()">
+                                placeholder="Tìm kiếm mã đơn, khách hàng..." oninput="findOrder(event)">
                         </form>
                     </div>
                     <div class="admin-control-right">
                         <form action="" class="fillter-date">
                             <div>
                                 <label for="time-start">Từ</label>
-                                <input type="date" class="form-control-date" id="time-start" onchange="findOrder()">
+                                <input type="date" class="form-control-date" id="time-start" onchange="findOrder_time()">
                             </div>
                             <div>
                                 <label for="time-end">Đến</label>
-                                <input type="date" class="form-control-date" id="time-end" onchange="findOrder()">
+                                <input type="date" class="form-control-date" id="time-end" onchange="findOrder_time()">
                             </div>
                         </form>
                         <button class="btn-reset-order" onclick="cancelSearchOrder()"><i
@@ -138,36 +138,7 @@
                             </tr>
                         </thead>
                         <tbody id="showOrder">
-                            <tr>
-                                <td>DH1</td>
-                                <td>Pham Van Kiet</td>
-                                <td>05/03/2024 </td>
-                                <td>4.720.000 ₫</td>
-                                <td><span class="status-complete">Đã xử lý</span></td>
-                                <td class="control">
-                                    <button class="btn-detail" id=""><i class="fa-regular fa-eye"></i> Chi tiết</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>DH2</td>
-                                <td>Pham Van Kiet</td>
-                                <td>05/03/2024 </td>
-                                <td>4.720.000 ₫</td>
-                                <td><span class="status-complete">Đã xử lý</span></td>
-                                <td class="control">
-                                    <button class="btn-detail" id=""><i class="fa-regular fa-eye"></i> Chi tiết</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>DH3</td>
-                                <td>Pham Van Kiet</td>
-                                <td>05/03/2024 </td>
-                                <td>4.720.000 ₫</td>
-                                <td><span class="status-complete">Đã xử lý</span></td>
-                                <td class="control">
-                                    <button class="btn-detail" id=""><i class="fa-regular fa-eye"></i> Chi tiết</button>
-                                </td>
-                            </tr>
+                           
                         </tbody>
                     </table>
                 </div>
@@ -262,127 +233,22 @@
     <div class="modal detail-order">
         <div class="modal-container">
             <h3 class="modal-container-title">CHI TIẾT ĐƠN HÀNG</h3>
-            <button class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+            <button class="modal-close-order" ><i class="fa-solid fa-xmark"></i></button>
             <div class="modal-detail-order">
                 <div class="modal-detail-left">
                     <div class="order-item-group">
-                        <div class="order-product">
-                            <div class="order-product-left">
-                                <img src="../img/pizza-1.png" alt="">
-                                <div class="order-product-info">
-                                    <h4>Bánh lava phô mai nướng</h4>
-                                    <p class="order-product-note"><i class="fa-regular fa-pen-to-square"></i> Kich co:
-                                        Lon; De: Mong
-                                    </p>
-                                    <p class="order-product-quantity">SL: 14</p>
-                                    <p>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="order-product-right">
-                                <div class="order-product-price">
-                                    <span class="order-product-current-price">180.000&nbsp;₫</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="order-product">
-                            <div class="order-product-left">
-                                <img src="../images/pizzaimg/bbq.jpg" alt="">
-                                <div class="order-product-info">
-                                    <h4>Set lẩu Thái nấm chay</h4>
-                                    <p class="order-product-note"><i class="fa-regular fa-pen-to-square"></i> Kich co:
-                                        Lon; De: Mong
-                                    </p>
-                                    <p class="order-product-quantity">SL: 4</p>
-                                    <p>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="order-product-right">
-                                <div class="order-product-price">
-                                    <span class="order-product-current-price">550.000&nbsp;₫</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="order-product">
-                            <div class="order-product-left">
-                                <img src="../img/pizza-1.png" alt="">
-                                <div class="order-product-info">
-                                    <h4>Bánh lava phô mai nướng</h4>
-                                    <p class="order-product-note"><i class="fa-regular fa-pen-to-square"></i> Kich co:
-                                        Lon; De: Mong
-                                    </p>
-                                    <p class="order-product-quantity">SL: 14</p>
-                                    <p>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="order-product-right">
-                                <div class="order-product-price">
-                                    <span class="order-product-current-price">180.000&nbsp;₫</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="order-product">
-                            <div class="order-product-left">
-                                <img src="../images/pizzaimg/bbq.jpg" alt="">
-                                <div class="order-product-info">
-                                    <h4>Set lẩu Thái nấm chay</h4>
-                                    <p class="order-product-note"><i class="fa-regular fa-pen-to-square"></i> Kich co:
-                                        Lon; De: Mong
-                                    </p>
-                                    <p class="order-product-quantity">SL: 4</p>
-                                    <p>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="order-product-right">
-                                <div class="order-product-price">
-                                    <span class="order-product-current-price">550.000&nbsp;₫</span>
-                                </div>
-                            </div>
-                        </div>
+                        
+                        
+                        
+                        
                     </div>
                 </div>
                 <div class="modal-detail-right">
-                    <ul class="detail-order-group">
-                        <li class="detail-order-item">
-                            <span class="detail-order-item-left"><i class="fa-regular fa-calendar"></i> Ngày đặt
-                                hàng</span>
-                            <span class="detail-order-item-right">05/03/2024</span>
-                        </li>
-
-                        <li class="detail-order-item">
-                            <span class="detail-order-item-left"><i class="fa-solid fa-person"></i> Người nhận</span>
-                            <span class="detail-order-item-right">Pham Van Kiet</span>
-                        </li>
-                        <li class="detail-order-item">
-                            <span class="detail-order-item-left"><i class="fa-solid fa-phone"></i> Số điện thoại</span>
-                            <span class="detail-order-item-right">0909090909</span>
-                        </li>
-                        <li class="detail-order-item tb">
-                            <span class="detail-order-item-t"><i class="fa-solid fa-location-dot"></i> Địa chỉ
-                                nhận</span>
-                            <p class="detail-order-item-b">273 Đ. An Dương Vương, Phường 3, Quận 5, Thành phố Hồ Chí
-                                Minh 700000, Vietnam</p>
-                        </li>
-                        <li class="detail-order-item tb">
-                            <span class="detail-order-item-t"><i class="fa-regular fa-note-sticky"></i> Ghi chú</span>
-                            <p class="detail-order-item-b">bhbhjb</p>
-                        </li>
-                    </ul>
+                    
                 </div>
             </div>
             <div class="modal-detail-bottom">
-                <div class="modal-detail-bottom-left">
-                    <div class="price-total">
-                        <span class="thanhtien">Thành tiền</span>
-                        <span class="price">4.720.000&nbsp;₫</span>
-                    </div>
-                </div>
-                <div class="modal-detail-bottom-right">
-                    <button class="modal-detail-btn btn-daxuly"><i class="fa-solid fa-check"></i> Đã xử lý</button>
-                </div>
+                
             </div>
 
             </form>
@@ -445,104 +311,115 @@
             </div>
         </div>
     </div>
+
+
+    <div class="combobox-container" style="z-index:1000;display:none;">
+        <div class="combobox-item" value="1">Đã xác nhận</div>
+        <div class="combobox-item" value="2">Đang giao hàng</div>
+        <div class="combobox-item" value="3">Đã giao hàng</div>
+        <div class="combobox-item" value="4">Đã hủy</div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js/adminOrder.js"></script>
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var editButtons = document.querySelectorAll('.btn-edit');
-        var closeButtons = document.querySelectorAll('.modal-close');
-        var updateButtons = document.querySelectorAll('.btn-update-product-form');
-        var addButtons = document.querySelector('#btn-add-product');
-        var modalDetail = document.querySelector('.detail-order');
-        var titleModal = document.querySelector('.modal-container-title');
-        var modal = document.querySelector('.add-product');
-        var uploadImg = document.querySelector('.upload-image-preview');
-        var detailButtons = document.querySelectorAll('.btn-detail');
-        var modalSignup = document.querySelector('.signup');
-        var editUserButtons = document.querySelectorAll('#edit-account');
-        var addUserButtons = document.querySelectorAll('#btn-add-user');
-        var addUser = document.querySelector('#btn-add-user');
-        var addUserTitle = document.querySelector('.add-account-e');
-        var addSignupButton = document.querySelector('#signup-button');
-        var updateSignupButton = document.querySelector('#btn-update-account');
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     var editButtons = document.querySelectorAll('.btn-edit');
+    //     var closeButtons = document.querySelectorAll('.modal-close');
+    //     var updateButtons = document.querySelectorAll('.btn-update-product-form');
+    //     var addButtons = document.querySelector('#btn-add-product');
+    //     var modalDetail = document.querySelector('.detail-order');
+    //     var titleModal = document.querySelector('.modal-container-title');
+    //     var modal = document.querySelector('.add-product');
+    //     var uploadImg = document.querySelector('.upload-image-preview');
+    //     var detailButtons = document.querySelectorAll('.btn-detail');
+    //     var modalSignup = document.querySelector('.signup');
+    //     var editUserButtons = document.querySelectorAll('#edit-account');
+    //     var addUserButtons = document.querySelectorAll('#btn-add-user');
+    //     var addUser = document.querySelector('#btn-add-user');
+    //     var addUserTitle = document.querySelector('.add-account-e');
+    //     var addSignupButton = document.querySelector('#signup-button');
+    //     var updateSignupButton = document.querySelector('#btn-update-account');
 
-        var statusUser = document.querySelectorAll('.form-group edit-account-e');
-        // tab for section
-        const sidebars = document.querySelectorAll(".sidebar-list-item.tab-content");
-        const sections = document.querySelectorAll(".section");
-        for (let i = 0; i < sidebars.length; i++) {
-            sidebars[i].onclick = function() {
-                document.querySelector(".sidebar-list-item.active").classList.remove("active");
-                document.querySelector(".section.active").classList.remove("active");
-                sidebars[i].classList.add("active");
-                sections[i].classList.add("active");
-            };
-        }
+    //     var statusUser = document.querySelectorAll('.form-group edit-account-e');
+    //     // tab for section
+    //     const sidebars = document.querySelectorAll(".sidebar-list-item.tab-content");
+    //     const sections = document.querySelectorAll(".section");
+    //     for (let i = 0; i < sidebars.length; i++) {
+    //         sidebars[i].onclick = function() {
+    //             document.querySelector(".sidebar-list-item.active").classList.remove("active");
+    //             document.querySelector(".section.active").classList.remove("active");
+    //             sidebars[i].classList.add("active");
+    //             sections[i].classList.add("active");
+    //         };
+    //     }
 
-        const closeBtn = document.querySelectorAll('.section');
-        console.log(closeBtn[0])
-        for (let i = 0; i < closeBtn.length; i++) {
-            closeBtn[i].addEventListener('click', (e) => {
-                sidebar.classList.add("open");
-            })
-        }
+    //     const closeBtn = document.querySelectorAll('.section');
+    //     console.log(closeBtn[0])
+    //     for (let i = 0; i < closeBtn.length; i++) {
+    //         closeBtn[i].addEventListener('click', (e) => {
+    //             sidebar.classList.add("open");
+    //         })
+    //     }
 
-        editButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
+    //     editButtons.forEach(function(button) {
+    //         button.addEventListener('click', function() {
 
-                uploadImg.src = "../img/pizza-1.png";
-                modal.classList.add('open');
-                titleModal.innerHTML = "CHỈNH SỬA SẢN PHẨM";
-            });
-        });
+    //             uploadImg.src = "../img/pizza-1.png";
+    //             modal.classList.add('open');
+    //             titleModal.innerHTML = "CHỈNH SỬA SẢN PHẨM";
+    //         });
+    //     });
 
-        closeButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
-                modal.classList.remove('open');
-                modalDetail.classList.remove('open');
-                modalSignup.classList.remove('open');
-            });
-        });
+    //     closeButtons.forEach(function(button) {
+    //         button.addEventListener('click', function() {
+    //             modal.classList.remove('open');
+    //             modalDetail.classList.remove('open');
+    //             modalSignup.classList.remove('open');
+    //         });
+    //     });
 
-        updateButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
-                modal.classList.remove('open');
-            });
-        });
+    //     updateButtons.forEach(function(button) {
+    //         button.addEventListener('click', function() {
+    //             modal.classList.remove('open');
+    //         });
+    //     });
 
-        addButtons.addEventListener('click', function() {
-            uploadImg.src = "../img/upload-image.png";
-            modal.classList.add('open');
-            titleModal.innerHTML = "THÊM MỚI SẢN PHẨM";
+    //     addButtons.addEventListener('click', function() {
+    //         uploadImg.src = "../img/upload-image.png";
+    //         modal.classList.add('open');
+    //         titleModal.innerHTML = "THÊM MỚI SẢN PHẨM";
 
-        });
+    //     });
 
-        detailButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
-                modalDetail.classList.add('open');
-            });
-        });
+    //     detailButtons.forEach(function(button) {
+    //         button.addEventListener('click', function() {
+    //             modalDetail.classList.add('open');
+    //         });
+    //     });
 
-        editUserButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
+    //     editUserButtons.forEach(function(button) {
+    //         button.addEventListener('click', function() {
 
-                updateSignupButton.innerHTML = `<i
-                            class="fa-regular fa-floppy-disk"></i> Lưu thay đổi`;
-                addUserTitle.innerHTML = "Chinh sửa khách hàng";
-                modal.classList.remove('open');
-                modalSignup.classList.add('open');
-            });
-        });
+    //             updateSignupButton.innerHTML = `<i
+    //                         class="fa-regular fa-floppy-disk"></i> Lưu thay đổi`;
+    //             addUserTitle.innerHTML = "Chinh sửa khách hàng";
+    //             modal.classList.remove('open');
+    //             modalSignup.classList.add('open');
+    //         });
+    //     });
 
-        addUserButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
-                updateSignupButton.innerHTML = ` <i class="fa-solid fa-user-plus"></i>
-                                        Thêm khách hàng `;
-                addUserTitle.innerHTML = "Thêm khách hàng mới";
-                modal.classList.remove('open');
-                modalSignup.classList.add('open');
-            });
-        });
+    //     addUserButtons.forEach(function(button) {
+    //         button.addEventListener('click', function() {
+    //             updateSignupButton.innerHTML = ` <i class="fa-solid fa-user-plus"></i>
+    //                                     Thêm khách hàng `;
+    //             addUserTitle.innerHTML = "Thêm khách hàng mới";
+    //             modal.classList.remove('open');
+    //             modalSignup.classList.add('open');
+    //         });
+    //     });
 
-    });
+    // });
     </script>
 
 </body>

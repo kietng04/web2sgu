@@ -23,7 +23,7 @@ loadtable();
 
 // load lich su don hang
 function loadtable() {
-    activeloader();
+
     $.ajax({  
         url: './controller/HistoryBillController.php',
         type: 'POST',

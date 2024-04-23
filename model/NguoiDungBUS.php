@@ -4,7 +4,7 @@ require_once(__DIR__ . '/../model/NguoiDungBUS.php');
 class NguoiDungBUS extends DB_business {
     function __construct()
     {
-        $this->setTable("nguoidung");
+        $this->setTable("TaiKhoanNguoiDung");
         parent::__construct();
     }
 

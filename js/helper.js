@@ -13,9 +13,36 @@ function loginz() {
     dataType: "json",
     timeout: 1500,
     data: {
-      request: "dangnhap",
+      request: "dangnhapnguoidung",
       data_username: a,
       data_pass: b,
+    },
+    success: function (result) {
+      if (result != null) {
+        alert("Đăng nhập thành công!");
+        document.querySelector('.popupLogin').classList.add('--none');
+        return 1;
+      } else {
+        alert("Tên đăng nhập hoặc mật khẩu không đúng!");
+        return 0;
+      }
+    },
+  });
+
+}
+function logins() {
+  var a = document.querySelector('#taikhoans').value;
+  var b = document.querySelector('#matkhaus').value;
+
+  $.ajax({
+    url: "./controller/ProductsController.php",
+    type: "post",
+    dataType: "json",
+    timeout: 1500,
+    data: {
+      request: "dangnhapnhanvien",
+      data_usernames: a,
+      data_passs: b,
     },
     success: function (result) {
       if (result != null) {
@@ -43,7 +70,7 @@ function login(e, a = document.getElementById("username").value, b = document.ge
     dataType: "json",
     timeout: 1500,
     data: {
-      request: "dangnhap",
+      request: "dangnhapnguoidung",
       data_username: a,
       data_pass: b,
     },

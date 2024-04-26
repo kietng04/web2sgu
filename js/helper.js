@@ -632,6 +632,10 @@ function removeItemFromCart(index) {
       if (productElements[index]) {
         productElements[index].remove();
       }
+
+      if (data['cart'].length === 0) {
+        document.querySelector('.totalPrice').innerHTML = '';
+      }
     },
   });
 }

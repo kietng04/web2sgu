@@ -20,17 +20,19 @@ class PhieuNhapBUS extends DB_business {
         $mapn = $data['MaPN'];
         $sql = "INSERT INTO nhapsanpham (mapn,manv,ngaynhap) VALUES ('$mapn','$manv','$ngaynhap')";
         $result = $this->insertz($sql);
-        // if ($result) {
-        //     foreach ($listCTPN as $ctpn) {
-        //         $masp = $ctpn['MaSP'];
-        //         $soluong = $ctpn['SoLuong'];
-        //         $sql = "INSERT INTO nhapsanpham (mapn,masp,soluong) VALUES ('$mapn','$masp','$soluong')";  
-        //         $result = $this->insertz($sql);
-        //         if (!$result) {
-        //             return false;
-        //         }
-        //     }
-        //     return true;
-        // }
-    }
+        if ($result) {
+            foreach ($listCTPN as $ctpn) {
+                $masp = $ctpn['MaSP'];
+                $soluong = $ctpn['SoLuong'];
+                $Masize = $ctpn['MaSize'];
+                $Mavien = $ctpn['MaDe'];
+                $sql = "INSERT INTO chitietnhap (mapn,masp,masize,mavien,soluong) VALUES ('$mapn','$masp','$Masize','$Mavien','$soluong')";
+                $result = $this->insertz($sql);
+                if (!$result) {
+                    die (json_encode(array('status' => 'fail')));
+                }
+            }
+            die (json_encode(array('status' => 'success')));
+        }
+    }   
 }

@@ -134,6 +134,7 @@ function loadmaphieunhap() {
         success: function(data) {
             document.querySelector('#import-id').value = parseInt(data[0].count) + 1; 
             document.querySelector('#import-id').disabled = true;
+            removeloader();
         }
     })
 }

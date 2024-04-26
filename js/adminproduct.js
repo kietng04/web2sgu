@@ -191,8 +191,8 @@ function themsanphammoi() {}
 function addeventdelete() {
   var btns = document.querySelectorAll(".btn-delete");
   btns.forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      var masp = document.querySelector(".btn-delete").getAttribute("value");
+    btn.addEventListener("click", function (ev) {
+      var masp = ev.target.getAttribute("value");
       $.ajax({
         url: "./controller/ProductManagementController.php",
         type: "POST",

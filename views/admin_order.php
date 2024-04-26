@@ -13,10 +13,13 @@
     <link rel="stylesheet" href="css/variables.css">
     <!-- <link rel="stylesheet" href="../css/components.css"> -->
     <link rel="stylesheet" href="css/admin_styles1.css">
+    <link rel="stylesheet" href="css/loader.css">
+    <script src="js/helper.js"></script>
 </head>
 
 <body>
-
+<div class="loader"></div>
+<script src="js/loader.js"></script>
     <div class="container">
     <aside class="sidebar open">
             <!-- <div class="btnSidebar">
@@ -421,7 +424,7 @@
 
     // });
     </script>
-
+    
 </body>
 
 </html>

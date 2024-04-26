@@ -163,10 +163,7 @@
 
         <div class="wrapper__right">
             <div class="top">
-                <p class="heading">-- Giỏ Hàng --</p>
-                <div class="btnCloseAllCart">
-                    <i class="fa-solid fa-xmark"></i>
-                </div>
+                <p class="heading"> GIỎ HÀNG </p>
             </div>
 
             
@@ -194,6 +191,9 @@
 
                     </button>
                 </a>
+                <div class="btnCloseAllCart">
+                    <p class="delete-text">HỦY</p>
+                </div>
             </div>
         </div>
 
@@ -240,7 +240,7 @@
 
 
     </div>
-    <a href="index.php?controller=AdminIndexController&action=index">admin</a>
+    <!-- <a href="index.php?controller=AdminIndexController&action=index">admin</a> -->
 
     <script>
     

@@ -659,7 +659,7 @@
   width: 30px;
   border: 1px solid #ddd;
   cursor: pointer;
-  line-height: 20px;
+  line-height: 2px;
   border-radius: 50%;
 }
 .is-form:hover {

@@ -92,4 +92,13 @@ class DB_driver {
         }
         return false;
     }
+
+    function update($sql) {
+        $this->connect();
+        $result = mysqli_query($this->__conn, $sql);
+        if ($result) {
+            return "success";
+        }
+        return false;
+    }
 }

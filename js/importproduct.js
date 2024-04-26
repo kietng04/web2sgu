@@ -101,7 +101,7 @@ function addeventThempn() {
         })
         loadTablepn();
         sum += parseInt(document.getElementById('product-price').value) * parseInt(soluong);
-        alert(sum);
+        
         document.querySelector('.tongtienpn').innerHTML = toVND(sum);
     })
 
@@ -134,11 +134,27 @@ function loadmaphieunhap() {
         success: function(data) {
             document.querySelector('#import-id').value = parseInt(data[0].count) + 1; 
             document.querySelector('#import-id').disabled = true;
+            removeloader();
         }
     })
 }
 
 function thempn(e) {
     e.preventDefault();
-    alert("Wef");
+    var currendate = new Date();
+    var date = currendate.getFullYear() + '-' + (currendate.getMonth() + 1) + '-' + currendate.getDate();
+    $.ajax({
+        url: './controller/ImportController.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            request: 'themphieunhap',
+            MaPN: document.querySelector('#import-id').value,
+            listCTPN: listCTPN,
+            date: date,
+        },
+        success: function(data) {
+            console.log(data);
+        }
+    })
 }

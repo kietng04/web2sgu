@@ -370,7 +370,7 @@ function addeventbutbtn() {
       },
       // data se bao gom user hientai va gio hang hientai
       success: function (data) {
-        // hide load icon
+        // hide load ico
         var html = '';
         var cartdiv = document.querySelector(".list");
         if (data) {

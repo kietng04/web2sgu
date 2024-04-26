@@ -390,7 +390,7 @@ function addeventbutbtn() {
             data['cart'].push(cart);
           }
           data['cart'].forEach(function (item, index) {
-            html += `<div class="list__item">
+            html += `<div class="list__item data-index="${index}">
             <div class="img">
             <img src="${item['Product'].Img}" alt="">
             </div>
@@ -402,9 +402,10 @@ function addeventbutbtn() {
             
             <div class="buttons_added">
             <input class="minus is-form" type="button" value="-" onclick="decreasingNumber(this, ${index})">
-            <input class="input-qty" max="100" min="1" name="" type="number" value="${item['Quantity']}">
+            <input class="input-qty" max="100" min="1" name="" type="number" value="${item['Quantity']}" oninput="addeventinput()">
             <input class="plus is-form" type="button" value="+" onclick="increasingNumber(this, ${index})">
             </div>
+            <i class="fa-solid fa-xmark" data-index="${index}" onclick="removeItemFromCart(this.getAttribute('data-index'))"></i>
           </div>`
           })
           cartdiv.innerHTML = html;
@@ -443,39 +444,60 @@ function saveSessionCart(value) {
       request: "saveSessionCart",
       cart: value,
     },
-    success: function (data) {
+    success: (data) => {
       console.log(data);
       totalPrice();
-    },
+    }
   });
 }
 
+
+document.querySelector('.btnCloseAllCart').addEventListener('click', function () {
+  $.ajax({
+    type: "POST",
+    url: "controller/ProductsController.php",
+    dataType: "json",
+    timeout: 1500,
+    data: {
+      request: "getCurrentUser",
+    },
+    success: (data) => {
+      data['cart'] = [];
+      var cartdiv = document.querySelector(".list");
+      cartdiv.innerHTML = '';
+      document.querySelector('.totalPrice').innerHTML = '';
+      saveSessionCart(data['cart']);
+    },
+  });
+});
 
 function loadSessionCart() {
   $.ajax({
     type: "POST",
     url: "controller/ProductsController.php",
     dataType: "json",
-    timeout: 1500, // sau 1.5 giây mà không phản hồi thì dừng => hiện lỗi
+    timeout: 1500,
     data: {
       request: "getCurrentUser",
     },
-    // data se bao gom user hientai va gio hang hientai
     success: function (data) {
       console.log(data);
-      totalPrice();
       // hide load icon
       if (data === null || data['result'] === null) {
         return;
       }
         
-        data['cart'] == null ? data['cart'] = [] : data['cart'];
-        
+        if (data['cart'] == null) {
+          data['cart'] = [];
+          document.querySelector('.totalPrice').innerHTML = '';
+        } else {
+        return data['cart'];
+        }
         var cartdiv = document.querySelector(".list");
         var html = '';
         console.log(data['cart']);
         data['cart'].forEach(function (item, index) {
-          html += `<div class="list__item">
+          html += `<div class="list__item data-index="${index}">
           <div class="img">
               <img src="${item['Product'].Img}" alt="">
           </div>
@@ -486,51 +508,50 @@ function loadSessionCart() {
           </div>
           <div class="buttons_added">
             <input class="minus is-form" type="button" value="-" onclick="decreasingNumber(this, ${index})">
-            <input class="input-qty" max="100" min="1" name="" type="number" value="${item['Quantity']}">
+            <input class="input-qty" max="100" min="1" name="" type="number" value="${item['Quantity']}" oninput="addeventinput()">
             <input class="plus is-form" type="button" value="+" onclick="increasingNumber(this,  ${index})">
             </div>
-      </div>`
+            <i class="fa-solid fa-xmark" data-index="${index}" onclick="removeItemFromCart(this.getAttribute('data-index'))"></i>
+          </div>`
         })
         cartdiv.innerHTML = html;
         console.log(html);
-        // add event delete all cart
-        document.querySelector('.btnCloseAllCart').addEventListener('click', function () {
-          data['cart'] = [];
-          cartdiv.innerHTML = '';
-          saveSessionCart(data['cart']);
-          loadSessionCart(data['cart']);
-        });
-        addeventinput();
         removeloader();
     },
   });
 }
 
+let alertShown = false;
+
 function addeventinput() {
-var inputFields = document.querySelectorAll('.input-qty');
-inputFields.forEach(function(inputValue, index) {
-  inputValue.addEventListener('input', function(event) {
-      var inputValue = event.target.value;
+  let inputFields = document.querySelectorAll('.input-qty');
+  inputFields.forEach((inputField, index) => {
+    inputField.addEventListener('input', (event) => {
+      let inputValue = event.target.value;
+      if (inputValue > 100) {
+        if (!alertShown) {
+          alert("Số lượng vượt quá giới hạn!");
+          alertShown = true;
+        }
+        return;
+      } else {
+        alertShown = false;
+      }
       $.ajax({
         type: "POST",
         url: "controller/ProductsController.php",
         dataType: "json",
-        timeout: 1500, // sau 1.5 giây mà không phản hồi thì dừng => hiện lỗi
+        timeout: 1500,
         data: {
           request: "getCurrentUser",
         },
-        // data se bao gom user hientai va gio hang hientai
         success: function (data) {
-          if (inputValue > 100) {
-              alert("Số lượng vượt quá giới hạn!");
-          } else {
-              data['cart'][index]['Quantity'] = inputValue;
-              saveSessionCart(data['cart']);
-          }
+          data['cart'][index]['Quantity'] = inputValue;
+          saveSessionCart(data['cart']);
         }
       });
+    });
   });
-});
 }
 
 function findProductInCart(listCart, curProduct) {
@@ -571,62 +592,74 @@ function increasingNumber(e, index) {
   });
 }
 
-  
-
 function decreasingNumber(e, index) {
   $.ajax({
     type: "POST",
     url: "controller/ProductsController.php",
     dataType: "json",
-    timeout: 1500, // sau 1.5 giây mà không phản hồi thì dừng => hiện lỗi
+    timeout: 1500,
     data: {
       request: "getCurrentUser",
     },
-    // data se bao gom user hientai va gio hang hientai
-    success: function (data) {
-      data['cart'][index]['Quantity'] > 1 ? data['cart'][index]['Quantity']-- : data['cart'][index]['Quantity'];
-        let qty = e.parentNode.querySelector('.input-qty');
-        if (parseInt(qty.value) > 1) {
-          qty.value = parseInt(qty.value) - 1;
-          qty.innerHTML = qty.value;
-          saveSessionCart(data['cart']);
-        } else if (data['cart'][index]['Quantity'] == 1) {
-          data['cart'].splice(index, 1);
-          saveSessionCart(data['cart']);
-          loadSessionCart();
-        }
+    success: (data) => {
+      if (data['cart'][index]['Quantity'] > 1) {
+        data['cart'][index]['Quantity']--;
+        const qty = e.parentNode.querySelector('.input-qty');
+        qty.value = parseInt(qty.value) - 1;
+        qty.innerHTML = qty.value;
+        saveSessionCart(data['cart']);
+      }
     },
   });
 }
 
+function removeItemFromCart(index) {
+  index = parseInt(index);
+  $.ajax({
+    type: "POST",
+    url: "controller/ProductsController.php",
+    dataType: "json",
+    timeout: 1500,
+    data: {
+      request: "getCurrentUser",
+    },
+    success: (data) => {
+      data['cart'].splice(index, 1);
+      saveSessionCart(data['cart']);
+      loadSessionCart();
 
+      let productElements = document.querySelectorAll('.list__item');
+      if (productElements[index]) {
+        productElements[index].remove();
+      }
+
+      if (data['cart'].length === 0) {
+        document.querySelector('.totalPrice').innerHTML = '';
+      }
+    },
+  });
+}
 function totalPrice(){
   $.ajax({
     type: "POST",
     url: "controller/ProductsController.php",
     dataType: "json",
-    timeout: 1500, // sau 1.5 giây mà không phản hồi thì dừng => hiện lỗi
+    timeout: 1500,
     data: {
       request: "getCurrentUser",
     },
-    // data se bao gom user hientai va gio hang hientai
-    success: function (data) {
+    success: (data) => {
       console.log(data);
-      // hide load icon
-      if (data === null || data['result'] === null) return;
-        data['cart'] == null ? data['cart'] = [] : data['cart'];
-    var html = '';
-    var totalA = 0;
-    data['cart'].forEach(function(item) {
-      totalA += item['Product'].GiaTien * item['Quantity'];
-    })
-    html += `<div>${toVND(totalA)}</div>`;
-    document.querySelector('.totalPrice').innerHTML = html;
-    document.querySelector('.totalPrice').innerHTML = toVND(totalA);
+      if (data === null || data['result'] === null || !data['cart']) return;
+      let totalA = 0;
+      data['cart'].forEach((item) => {
+        totalA += item['Product'].GiaTien * item['Quantity'];
+      })
+      document.querySelector('.totalPrice').innerHTML = toVND(totalA);
     }
   })
 }
-// end phuc
+
 
 function toVND(money) {
   let nf = new Intl.NumberFormat("en-US");

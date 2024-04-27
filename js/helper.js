@@ -475,27 +475,28 @@ function saveSessionCart(value) {
     },
   });
 }
-
-document
-  .querySelector(".btnCloseAllCart")
-  .addEventListener("click", function () {
-    $.ajax({
-      type: "POST",
-      url: "controller/ProductsController.php",
-      dataType: "json",
-      timeout: 1500,
-      data: {
-        request: "getCurrentUser",
-      },
-      success: (data) => {
-        data["cart"] = [];
-        var cartdiv = document.querySelector(".list");
-        cartdiv.innerHTML = "";
-        document.querySelector(".totalPrice").innerHTML = "";
-        saveSessionCart(data["cart"]);
-      },
+if (document.querySelector(".btnCloseAllCart") != null) {
+  document
+    .querySelector(".btnCloseAllCart")
+    .addEventListener("click", function () {
+      $.ajax({
+        type: "POST",
+        url: "controller/ProductsController.php",
+        dataType: "json",
+        timeout: 1500,
+        data: {
+          request: "getCurrentUser",
+        },
+        success: (data) => {
+          data["cart"] = [];
+          var cartdiv = document.querySelector(".list");
+          cartdiv.innerHTML = "";
+          document.querySelector(".totalPrice").innerHTML = "";
+          saveSessionCart(data["cart"]);
+        },
+      });
     });
-  });
+}
 
 function loadSessionCart() {
   $.ajax({

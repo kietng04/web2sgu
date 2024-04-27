@@ -291,7 +291,7 @@
         </main>
     </div>
 
-    <!-- Modal them hoa chinh sua san pham -->
+    <!-- Modal them hoac chinh sua san pham -->
     <div class="modal add-product">
         <div class="modal-container">
             <h3 class="modal-container-title edit-product-e">CHỈNH SỬA SẢN PHẨM</h3>
@@ -567,97 +567,103 @@
     <script src="js/helper.js"></script>
     <script src="js/adminproduct.js"></script>
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var editButtons = document.querySelectorAll('.btn-edit');
-        var closeButtons = document.querySelectorAll('.modal-close');
-        var updateButtons = document.querySelectorAll('.btn-update-product-form');
-        var addButtons = document.querySelector('#btn-add-product');
-        var modalDetail = document.querySelector('.detail-order');
-        var titleModal = document.querySelector('.modal-container-title');
-        var modal = document.querySelector('.add-product');
-        var uploadImg = document.querySelector('.upload-image-preview');
-        var detailButtons = document.querySelectorAll('.btn-detail');
-        var modalSignup = document.querySelector('.signup');
-        var editUserButtons = document.querySelectorAll('#edit-account');
-        var addUserButtons = document.querySelectorAll('#btn-add-user');
-        var addUser = document.querySelector('#btn-add-user');
-        var addUserTitle = document.querySelector('.add-account-e');
-        var addSignupButton = document.querySelector('#signup-button');
-        var updateSignupButton = document.querySelector('#btn-update-account');
+    // document.addEventListener('DOMContentLoaded', function() {
 
-        var statusUser = document.querySelectorAll('.form-group edit-account-e');
-        // tab for section
-        // const sidebars = document.querySelectorAll(".sidebar-list-item.tab-content");
-        // const sections = document.querySelectorAll(".section");
-        // for (let i = 0; i < sidebars.length; i++) {
-        //     sidebars[i].onclick = function() {
-        //         document.querySelector(".sidebar-list-item.active").classList.remove("active");
-        //         document.querySelector(".section.active").classList.remove("active");
-        //         sidebars[i].classList.add("active");
-        //         sections[i].classList.add("active");
-        //     };
-        // }
+    //     var closeButtons = document.querySelectorAll('.modal-close');
+    //     var updateButtons = document.querySelectorAll('.btn-update-product-form');
+    //     var addButtons = document.querySelector('#btn-add-product');
+    //     var modalDetail = document.querySelector('.detail-order');
+    //     var titleModal = document.querySelector('.modal-container-title');
+    //     var modal = document.querySelector('.add-product');
+    //     var uploadImg = document.querySelector('.upload-image-preview');
+    //     var detailButtons = document.querySelectorAll('.btn-detail');
+    //     var modalSignup = document.querySelector('.signup');
+    //     var editUserButtons = document.querySelectorAll('#edit-account');
+    //     var addUserButtons = document.querySelectorAll('#btn-add-user');
+    //     var addUser = document.querySelector('#btn-add-user');
+    //     var addUserTitle = document.querySelector('.add-account-e');
+    //     var addSignupButton = document.querySelector('#signup-button');
+    //     var updateSignupButton = document.querySelector('#btn-update-account');
+    //     var editButtons = document.querySelectorAll('.btn-edit');
+    
+    //    console.log(editButtons)
+   
 
-        const closeBtn = document.querySelectorAll('.section');
-        // console.log(closeBtn[0])
-        // for (let i = 0; i < closeBtn.length; i++) {
-        //     closeBtn[i].addEventListener('click', (e) => {
-        //         sidebar.classList.add("open");
-        //     })
-        // }
+    //     var statusUser = document.querySelectorAll('.form-group edit-account-e');
+    //     // tab for section
+    //     // const sidebars = document.querySelectorAll(".sidebar-list-item.tab-content");
+    //     // const sections = document.querySelectorAll(".section");
+    //     // for (let i = 0; i < sidebars.length; i++) {
+    //     //     sidebars[i].onclick = function() {
+    //     //         document.querySelector(".sidebar-list-item.active").classList.remove("active");
+    //     //         document.querySelector(".section.active").classList.remove("active");
+    //     //         sidebars[i].classList.add("active");
+    //     //         sections[i].classList.add("active");
+    //     //     };
+    //     // }
 
-        editButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
+    //     const closeBtn = document.querySelectorAll('.section');
+    //     // console.log(closeBtn[0])
+    //     // for (let i = 0; i < closeBtn.length; i++) {
+    //     //     closeBtn[i].addEventListener('click', (e) => {
+    //     //         sidebar.classList.add("open");
+    //     //     })
+    //     // }
 
-                uploadImg.src = "img/pizza-1.png";
-                modal.classList.add('open');
-                titleModal.innerHTML = "CHỈNH SỬA SẢN PHẨM";
-            });
-        });
-
-        closeButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
-                modal.classList.remove('open');
-                modalDetail.classList.remove('open');
-                modalSignup.classList.remove('open');
-            });
-        });
+    //     // console.log('editButtons', editButtons)
 
 
-        addButtons.addEventListener('click', function() {
-            uploadImg.src = "img/upload-image.png";
-            modal.classList.add('open');
-            titleModal.innerHTML = "THÊM MỚI SẢN PHẨM";
-        });
+    //     editButtons.forEach(function(button) {
+    //         button.addEventListener('click', function() {
+    //             uploadImg.src = "img/pizza-1.png";
+    //             modal.classList.add('open');
+    //             titleModal.innerHTML = "CHỈNH SỬA SẢN PHẨM";
+    //         });
+    //     });
 
-        detailButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
-                modalDetail.classList.add('open');
-            });
-        });
+    //     closeButtons.forEach(function(button) {
+    //         button.addEventListener('click', function() {
+    //             modal.classList.remove('open');
+    //             modalDetail.classList.remove('open');
+    //             modalSignup.classList.remove('open');
+    //         });
+    //     });
 
-        editUserButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
 
-                updateSignupButton.innerHTML = `<i
-                            class="fa-regular fa-floppy-disk"></i> Lưu thay đổi`;
-                addUserTitle.innerHTML = "Chinh sửa khách hàng";
-                modal.classList.remove('open');
-                modalSignup.classList.add('open');
-            });
-        });
+    //     addButtons.addEventListener('click', function() {
+    //         uploadImg.src = "img/upload-image.png";
+    //         modal.classList.add('open');
+    //         titleModal.innerHTML = "THÊM MỚI SẢN PHẨM";
+    //     });
 
-        addUserButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
-                updateSignupButton.innerHTML = ` <i class="fa-solid fa-user-plus"></i>
-                                        Thêm khách hàng `;
-                addUserTitle.innerHTML = "Thêm khách hàng mới";
-                modal.classList.remove('open');
-                modalSignup.classList.add('open');
-            });
-        });
+    //     detailButtons.forEach(function(button) {
+    //         button.addEventListener('click', function() {
+    //             modalDetail.classList.add('open');
+    //         });
+    //     });
 
-    });
+    //     editUserButtons.forEach(function(button) {
+    //         button.addEventListener('click', function() {
+
+    //             updateSignupButton.innerHTML = `<i
+    //                         class="fa-regular fa-floppy-disk"></i> Lưu thay đổi`;
+    //             addUserTitle.innerHTML = "Chinh sửa khách hàng";
+    //             modal.classList.remove('open');
+    //             modalSignup.classList.add('open');
+    //         });
+    //     });
+
+    //     addUserButtons.forEach(function(button) {
+    //         button.addEventListener('click', function() {
+    //             updateSignupButton.innerHTML = ` <i class="fa-solid fa-user-plus"></i>
+    //                                     Thêm khách hàng `;
+    //             addUserTitle.innerHTML = "Thêm khách hàng mới";
+    //             modal.classList.remove('open');
+    //             modalSignup.classList.add('open');
+    //         });
+    //     });
+
+    // });
     </script>
 
 </body>

@@ -63,4 +63,9 @@ class SanPhamBUS extends DB_business {
         $result = $this->get_list($sql);
         return $result;
     }
+
+    function update($sql) {
+        $result = $this->update($sql);
+        return $result;
+    }
 }

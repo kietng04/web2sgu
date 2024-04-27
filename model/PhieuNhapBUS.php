@@ -13,4 +13,26 @@ class PhieuNhapBUS extends DB_business {
         $result = $this->get_list($sql);
         die (json_encode($result));
     }
+
+    function add1phieunhap($data, $listCTPN) {
+        $ngaynhap = $data['NgayNhap'];
+        $manv = $data['MaNV'];
+        $mapn = $data['MaPN'];
+        $sql = "INSERT INTO nhapsanpham (mapn,manv,ngaynhap) VALUES ('$mapn','$manv','$ngaynhap')";
+        $result = $this->insertz($sql);
+        if ($result) {
+            foreach ($listCTPN as $ctpn) {
+                $masp = $ctpn['MaSP'];
+                $soluong = $ctpn['SoLuong'];
+                $Masize = $ctpn['MaSize'];
+                $Mavien = $ctpn['MaDe'];
+                $sql = "INSERT INTO chitietnhap (mapn,masp,masize,mavien,soluong) VALUES ('$mapn','$masp','$Masize','$Mavien','$soluong')";
+                $result = $this->insertz($sql);
+                if (!$result) {
+                    die (json_encode(array('status' => 'fail')));
+                }
+            }
+            die (json_encode(array('status' => 'success')));
+        }
+    }   
 }

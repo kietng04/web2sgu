@@ -17,9 +17,12 @@
     <!-- <link rel="stylesheet" href="../css/components.css"> -->
     <link rel="stylesheet" href="css/admin_styles1.css">
     <link rel="stylesheet" href="css/admin_styles.css">
+    <link rel="stylesheet" href="css/loader.css">
 </head>
 
 <body>
+    <div class="loader"></div>
+    <script src="js/loader.js"></script>
     <div class="container">
     <aside class="sidebar open">
             <!-- <div class="btnSidebar">
@@ -281,13 +284,7 @@
                         </select>
                     </div>
                     <div class="vertical item-3">
-                        <label for="product-crust">Đế sản phẩm</label>
-                        <select id="product-crust" name="product-crust">
-                            <option value="">Chọn đế</option>
-                            <option value="1">Mỏng</option>
-                            <option value="2">Vừa</option>
-                            <option value="3">Dày</option>
-                        </select>
+            
                     </div>
                     <div class="vertical item-4">
                         <label for="product-price">Giá nhập (VNĐ)</label>
@@ -315,11 +312,12 @@
                                 <td>Tên sản phẩm</td>
                                 <td>Kích thước</td>
                                 <td>Đế</td>
-                                <td>Loại</td>
                                 <td>Đơn giá</td>
                                 <td>Số lượng</td>
                              </tr>
                          </thead>
+                         <tbody class="rowtable">
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -333,7 +331,7 @@
                     <input type="text" id="import-id" name="import-id" class="input">
                 </div>
                     <div class="total-price">
-                        <h2>Tổng tiền:  </h2>
+                        <h2>Tổng tiền:  </h3>
                         <p class="tongtienpn">0 VNĐ</p>
                     </div>
 
@@ -345,9 +343,8 @@
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="js/importproduct.js"></script>
     <script src="js/helper.js"></script>
-
+    <script src="js/importproduct.js"></script>
     <script>
         var addButtons = document.querySelectorAll('.add');
         var modal = document.querySelector('.modal.add-import');

@@ -7,7 +7,7 @@ var listDeLength = 0;
 var listSizeProduct = [];
 var curAttribute = new Map();
 var totalPage = 0;
-
+var flag = 0;
 loadTableProduct();
 loadCombinationSizeAndCrust();
 addeventinputthemsp();
@@ -40,7 +40,6 @@ function loadTableProduct() {
       showProductTableAdmin();
       renderPagAdmin(totalPage, currentPagez);
       addeventdelete();
-      prepared();
     },
   });
 
@@ -87,7 +86,7 @@ function showProductTableAdmin() {
            <div class="list-right">
                <div class="list-control">
                    <div class="list-tool">
-                       <button class="btn-edit"><i class="fa-regular fa-pen-to-square"></i></button>
+                       <button class="btn-edit" onclick="prepared()"><i class="fa-regular fa-pen-to-square"></i></button>
                        <button class="btn-delete" value="${item.MaSP}"><i class="fa-solid fa-trash"></i></button>
                    </div>
                </div>
@@ -98,7 +97,15 @@ function showProductTableAdmin() {
   // var editButtons = document.querySelectorAll('.btn-edit');
   // console.log('editButtons', editButtons)
 }
+function prepared() {
+  var titleModal = document.querySelector(".modal-container-title");
+  var modal = document.querySelector(".add-product");
+  var uploadImg = document.querySelector(".upload-image-preview");
 
+  uploadImg.src = "img/pizza-1.png";
+  modal.classList.add("open");
+  titleModal.innerHTML = "CHỈNH SỬA SẢN PHẨM";
+}
 function renderPagAdmin(totalPage, currentPage) {
   if (totalPage < 2) totalPage = 0;
   var html = "";

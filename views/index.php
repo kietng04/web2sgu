@@ -66,6 +66,7 @@
                         <div class="header__action-bell">
                             <i class="fa-regular fa-bell"></i>
                         </div>
+                        <i class="fa-solid fa-cart-shopping"></i>
                         <div class="header__action-member">
                             <div class="icon"><i class="fa-solid fa-circle-user"></i></div>
                             <p>THÀNH VIÊN</p>
@@ -164,6 +165,7 @@
         <div class="wrapper__right">
             <div class="top">
                 <p class="heading"> GIỎ HÀNG </p>
+                <i class="fa-solid fa-xmark close-cart"></i>
             </div>
 
             
@@ -455,7 +457,29 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 
+window.onload = function() {
+    let cartIcon = document.querySelector('.fa-cart-shopping');
+    let closeCartIcon = document.querySelector('.close-cart');
+    let wrapperRight = document.querySelector('.wrapper__right');
+    let wrapperLeft = document.querySelector('.wrapper__left');
+    let scproductsList = document.querySelector('.scproducts__list');
 
+    cartIcon.addEventListener('click', function(event) {
+        event.stopPropagation(); 
+        wrapperRight.style.display = 'block'; 
+        wrapperLeft.style.width = '75%'; 
+        scproductsList.style.padding = '30px 30px';
+        scproductsList.style.gap = '10px';
+    });
+
+    closeCartIcon.addEventListener('click', function(event) {
+        event.stopPropagation();
+        wrapperRight.style.display = 'none';
+        wrapperLeft.style.width = '100%';
+        scproductsList.style.padding = '';
+        scproductsList.style.gap = '';
+    });
+}
     </script>
 
 </body>

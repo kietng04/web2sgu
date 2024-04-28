@@ -13,7 +13,7 @@ left join nguoidung on hoadon.MaND=nguoidung.MaND
 `;
 let currentRowqueryz="select count(*) from hoadon";
 let currentPagez=1;
-let perPage=4;
+var perPage=4;
 //do du lieu tu db
 let showorder_wrapper=document.querySelector("#showOrder");
 var listOrder;
@@ -35,6 +35,7 @@ function loadTableOrder() {
             var totalPage = data.countrow / perPage;
             showOrderTableAdmin();
             addEventButton();
+            removeloader();
             close();
             // renderPagAdmin(totalPage);
             

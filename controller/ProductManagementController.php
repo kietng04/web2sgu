@@ -17,6 +17,9 @@ if (isset($_POST['request'])) {
         case 'uploadProduct':
             uploadProduct();
             break;
+        case 'deleteProduct':
+            deleteProduct();
+            break;
     }
 }
 
@@ -125,3 +128,12 @@ function getprod() {
     return (new SanPhamBUS())->get_list($sql);
 }
 
+function deleteProduct() {
+    $masp = $_POST['masp'];
+    $sql = "UPDATE sanpham SET TrangThai = 0 WHERE MaSP = '$masp'";
+    $result = (new SanPhamBUS())->update($sql);
+    if ($result) {
+        die (json_encode(array('status' => 'success')));
+    }
+    die (json_encode(array('status' => 'fail')));
+}

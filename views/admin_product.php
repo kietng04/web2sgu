@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="admin.css">
     <script src="https://kit.fontawesome.com/3dff50b2d8.js" crossorigin="anonymous"></script>
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -297,7 +296,7 @@
         </main>
     </div>
 
-    <!-- Modal them hoa chinh sua san pham -->
+    <!-- Modal them hoac chinh sua san pham -->
     <div class="modal add-product">
         <div class="modal-container">
             <h3 class="modal-container-title edit-product-e">CHỈNH SỬA SẢN PHẨM</h3>
@@ -574,7 +573,7 @@
     <script src="js/adminproduct.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        var editButtons = document.querySelectorAll('.btn-edit');
+
         var closeButtons = document.querySelectorAll('.modal-close');
         var updateButtons = document.querySelectorAll('.btn-update-product-form');
         var addButtons = document.querySelector('#btn-add-product');
@@ -590,6 +589,9 @@
         var addUserTitle = document.querySelector('.add-account-e');
         var addSignupButton = document.querySelector('#signup-button');
         var updateSignupButton = document.querySelector('#btn-update-account');
+       
+    
+
 
         var statusUser = document.querySelectorAll('.form-group edit-account-e');
         // tab for section
@@ -612,14 +614,10 @@
         //     })
         // }
 
-        editButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
+        // console.log('editButtons', editButtons)
 
-                uploadImg.src = "img/pizza-1.png";
-                modal.classList.add('open');
-                titleModal.innerHTML = "CHỈNH SỬA SẢN PHẨM";
-            });
-        });
+
+        
 
         closeButtons.forEach(function(button) {
             button.addEventListener('click', function() {

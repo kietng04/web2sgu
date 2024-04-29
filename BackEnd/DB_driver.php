@@ -56,6 +56,9 @@ class DB_driver {
         if (!$result) {
             die('sai truy van');
         }
+        if ($sql[0] == 'U') {
+            die(json_encode(array('status' => 'success')));
+        }
 
         $return = array();
 
@@ -93,12 +96,16 @@ class DB_driver {
         return false;
     }
 
-    function update($sql) {
+    function updatezzz($sql) {
         $this->connect();
         $result = mysqli_query($this->__conn, $sql);
+
         if ($result) {
-            return "success";
+            return true;
         }
         return false;
     }
+   
+
+
 }

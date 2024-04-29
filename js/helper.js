@@ -371,8 +371,13 @@ function addeventbutbtn() {
       // data se bao gom user hientai va gio hang hientai
       success: function (data) {
         // hide load ico
+        if (curProduct.SoLuong == 0) {
+          createToast("error", "Sản phẩm đã hết hàng!");
+          return;
+        }
         var html = '';
         var cartdiv = document.querySelector(".list");
+        
         if (data) {
           data['cart'] == null ? data['cart'] = [] : data['cart'];
           // check current product in cart
@@ -451,7 +456,7 @@ function saveSessionCart(value) {
   });
 }
 
-
+if (document.querySelector('.btnCloseAllCart') != null) {
 document.querySelector('.btnCloseAllCart').addEventListener('click', function () {
   $.ajax({
     type: "POST",
@@ -470,6 +475,7 @@ document.querySelector('.btnCloseAllCart').addEventListener('click', function ()
     },
   });
 });
+}
 
 function loadSessionCart() {
   $.ajax({
@@ -521,7 +527,7 @@ function loadSessionCart() {
   });
 }
 
-let alertShown = false;
+let alertShownz = false;
 
 function addeventinput() {
   let inputFields = document.querySelectorAll('.input-qty');
@@ -529,13 +535,13 @@ function addeventinput() {
     inputField.addEventListener('input', (event) => {
       let inputValue = event.target.value;
       if (inputValue > 100) {
-        if (!alertShown) {
+        if (!alertShownz) {
           alert("Số lượng vượt quá giới hạn!");
-          alertShown = true;
+          alertShownz = true;
         }
         return;
       } else {
-        alertShown = false;
+        alertShownz = false;
       }
       $.ajax({
         type: "POST",

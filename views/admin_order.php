@@ -108,24 +108,26 @@
                     </div>
                     <div class="admin-control-center">
                         <form action="" class="form-search">
-                            <span class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></span>
+                            <span class="search-btn" onclick="findOrder(event)"><i class="fa-solid fa-magnifying-glass"></i></span>
                             <input id="form-search-order" type="text" class="form-search-input"
-                                placeholder="Tìm kiếm mã đơn, khách hàng..." oninput="findOrder(event)">
+                                placeholder="Tìm kiếm mã đơn, khách hàng...">
                         </form>
                     </div>
                     <div class="admin-control-right">
                         <form action="" class="fillter-date">
                             <div>
                                 <label for="time-start">Từ</label>
-                                <input type="date" class="form-control-date" id="time-start" onchange="findOrder_time()">
+                                <input type="date" class="form-control-date" id="time-start" >
                             </div>
                             <div>
                                 <label for="time-end">Đến</label>
-                                <input type="date" class="form-control-date" id="time-end" onchange="findOrder_time()">
+                                <input type="date" class="form-control-date" id="time-end">
                             </div>
                         </form>
+                        <button class="btn-reset-order" onclick="findOrder_time()"><i class="fa-solid fa-magnifying-glass"></i></button>
                         <button class="btn-reset-order" onclick="cancelSearchOrder()"><i
                                 class="fa-solid fa-rotate-right"></i></button>
+                        
                     </div>
                 </div>
                 <div class="table">

@@ -278,3 +278,8 @@ nav.close~.dashboard .top {
 .import-detail td {
   padding: 20px 5px;
 }
+
+tr.black {
+  background-color: rgb(159, 157, 157);
+  color: white; 
+}

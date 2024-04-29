@@ -28,10 +28,11 @@
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/loader.css">
-
+    <link rel="stylesheet" href="css/notification.css">
 </head>
 <body>
     <div class="loader"></div>
+    <div class="notifications"></div>
     <script src="js/loader.js"></script>
     <div class="wrapper">
         <ul class="notifications"></ul>
@@ -140,11 +141,8 @@
                     <div class="btn__topic" onclick="toggleActive(this, 'HẢI SẢN')">
                         <span>PIZZA HẢI SẢN</span>
                     </div>
-                    <div class="btn__topic" onclick="toggleActive(this,'MÓN KHAI VỊ')">
-                        <span>MÓN KHAI VỊ</span>
-                    </div>
-                    <div class="btn__topic" onclick="toggleActive(this,'NƯỚC UỐNG')">
-                        <span>THỨC UỐNG</span>
+                    <div class="btn__topic" onclick="toggleActive(this, 'HEO')">
+                        <span>PIZZA HEO</span>
                     </div>
                 </div>
 
@@ -361,6 +359,7 @@ var dangnhapBtn = document.querySelector('.dangnhapz');
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="js/notificationEffect.js"></script>
     <script src="js/script.js"></script>
     <script src="js/helper.js"></script>
     <script src="js/indexJS.js"></script>

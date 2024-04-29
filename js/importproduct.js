@@ -38,6 +38,14 @@ function addeventClick() {
         element.addEventListener('click', function() {
             var productID = element.getAttribute('value');
             var combobox = document.getElementById('product-item');
+            clickbtnlist.forEach(element => {
+                if (element.classList.contains('black')) {
+                    element.classList.remove('black');
+                }
+                if (element.getAttribute('value') == productID) {
+                    element.classList.add('black');
+                }
+            })
             listproduct.forEach(element => {
                 if (element.MaSP == productID) {
                     document.querySelector('#product-name').value = element.MaSP + ' - ' + element.TenSP;
@@ -83,9 +91,15 @@ function addeventThempn() {
         var masize = document.querySelector('#product-item').value[0];
         var made = document.querySelector('#product-item').value[1];
         var soluong = document.querySelector('#product-quantity').value;
-        
+        var giaban = document.querySelector('#product-pricesell').value;
+        var gianhap = document.querySelector('#product-price').value;
         if (masp == '' || masize == '' || made == '' || soluong == '') {
-            alert('Vui lòng nhập đủ thông tin');
+            createToast('error', 'Vui lòng nhập đủ thông tin phiếu nhập!');
+            return;
+        }
+
+        if (parseFloat(gianhap) >= parseFloat(giaban)) {
+            createToast('error', 'Giá nhập phải nhỏ hơn giá bán!');
             return;
         }
 
@@ -132,7 +146,7 @@ function loadmaphieunhap() {
             request: 'getMaPNnew'
         },
         success: function(data) {
-            document.querySelector('#import-id').value = parseInt(data[0].count) + 1; 
+            document.querySelector('#import-id').value = parseInt(data[data.length - 1].mapn) + 1; 
             document.querySelector('#import-id').disabled = true;
             removeloader();
         }

@@ -199,22 +199,16 @@ INSERT INTO `VienSanPham` (`MaVien`, `TenVien`, `DinhLuongVien`) VALUES
 
 
 CREATE TABLE `LoaiSanPham`(
-  `MaSP` varchar(100) NOT NULL,
   `MaLoai` int(11) NOT NULL,
   `TenLoai` varchar(100) not null,
   primary key (MaSP)
 );
 
-INSERT INTO `LoaiSanPham` (`MaSP`, `MaLoai`, `TenLoai`) VALUES
-('PBBQ', '01', 'GÀ'),
-('PBD', '02', 'BÒ'),
-('PCH', '03', 'HẢI SẢN'),
-('PPR', '04', 'HEO'),
-('PHS', '03', 'HẢI SẢN'),
-('PGM', '01', 'GÀ'),
-('PTC', '03', 'HẢI SẢN'),
-('PCHP', '03', 'HẢI SẢN'),
-('PCB', '02', 'BÒ');
+INSERT INTO `LoaiSanPham` (`MaLoai`, `TenLoai`) VALUES
+(1, 'GÀ'),
+(2, 'BÒ'),
+(3, 'HẢI SẢN'),
+(4, 'HEO');
 
 
 
@@ -225,6 +219,7 @@ CREATE TABLE `ChiTietSanPham`(
   `GiaNhap` DECIMAL(10, 2) NOT NULL,
   `GiaTien` DECIMAL(10, 2) NOT NULL,
   `SoLuong` int(11) NOT NULL,
+  `TrangThai` int(11) DEFAULT 1,
   primary key (MaSP, MaSize, MaVien)
 );
 

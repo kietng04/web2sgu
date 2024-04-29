@@ -12,6 +12,7 @@ loadCombinationSizeAndCrust();
 addeventinputthemsp();  
 addeventaddproduct();
 addeventthemthuoctinh();
+loadcomcomboboxtheloai();
 // addeventthemsp();
 var listProduct;
 function loadTableProduct() {
@@ -193,9 +194,11 @@ function addeventdelete() {
   btns.forEach(function (btn) {
     btn.addEventListener("click", function (ev) {
       var masp = ev.target.getAttribute("value");
+      alert(masp);
       $.ajax({
         url: "./controller/ProductManagementController.php",
         type: "POST",
+        dataType: "json",
         data: {
           request: "deleteProduct",
           masp: masp,
@@ -257,7 +260,7 @@ function loadCombinationSizeAndCrust() {
             request: 'getAllCrust',
         },
         success: function(data) {
-            var listDeProduct = data;
+             listDeProduct = data;
             $.ajax({
                 url: './controller/ProductsController.php',
                 type: 'POST',
@@ -318,7 +321,6 @@ function addeventaddproduct() {
     var masp = document.getElementById("masanpham").value;
     var tensp = document.getElementById("ten-mon").value;
     var loai = document.getElementById("chon-loai").value;
-    var listgiaxuat = document.getElementById("masanpham").value;
     var mota = document.getElementById("mo-ta").value;
 
     var formData = new FormData(document.querySelector(".add-product-form"));
@@ -338,8 +340,6 @@ function addeventaddproduct() {
             chitietsanpham.push({
                 masize: key[0],
                 made: key[1],
-                gianhap: value.gianhap,
-                giaban: value.giaban
             });
         });
         formData.append('chitietsanpham', JSON.stringify(chitietsanpham));
@@ -399,8 +399,6 @@ function addeventthemthuoctinh() {
     var btn = document.querySelector('.themthuoctinh');
     btn.addEventListener('click', function() {
         var thuoctinh = document.querySelector('#chon-tt').value;
-        var gianhap = document.querySelector('#gia-nhap').value;
-        var giaban = document.querySelector('#gia-ban').value;
         var tentt = document.querySelector('#chon-tt');
         // get text of option
         var tentt = tentt.options[tentt.selectedIndex].text;
@@ -415,8 +413,6 @@ function addeventthemthuoctinh() {
         else {
             curAttribute.set(thuoctinh, 
                 {
-                    gianhap: gianhap,
-                    giaban: giaban,
                     tensize: tentt.split('-')[0],
                     tende: tentt.split('-')[1]
                 }
@@ -434,9 +430,26 @@ function filltable() {
         html += `<tr>
         <td>${value.tensize}</td>
         <td>${value.tende}</td>
-        <td>${value.gianhap}</td>
-        <td>${value.giaban}</td>
         </tr>`;
     });
     rowTable.innerHTML = html;
+}
+
+
+function loadcomcomboboxtheloai() {
+    $.ajax({
+        url: './controller/ProductsController.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            request: 'getAllCategory',
+        },
+        success: function(data) {
+            var html = '<option>Tất cả</option>';
+            data.forEach(function (item) {
+                html += `<option ${item.TenLoai}</option>`;
+            });
+            document.getElementById('the-loai').innerHTML = html;
+        }
+    });
 }

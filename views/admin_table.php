@@ -96,35 +96,42 @@
             <div class="section active">
                 <div class="admin-control">
                     <div class="admin-control-left">
-                        <select name="the-loai-tk" id="the-loai-tk" onchange="thongKe()">
-                            <option>Tất cả</option>
-                            <option>Món chay</option>
-                            <option>Pizza Bò</option>
-                            <option>Món lẩu</option>
-                            <option>Món ăn vặt</option>
-                            <option>Món tráng miệng</option>
-                            <option>Nước uống</option>
-                            <option>Món khác</option>
+                        <select name="the-loai-tk" id="the-loai-tk" onchange="thongKe()" style="width:200px;">
+                            <option value="0" name="0">Tất cả</option>
+                            <option value="2" name="2">Pizza Bò</option>
+                            <option value="1" name="1">Pizza Gà</option>
+                            <option value="4" name="4">Pizza Heo</option>
+                            <option value="3" name="3">Pizza Hải Sản</option>
                         </select>
                     </div>
-                    <div class="admin-control-center">
-                        <form action="" class="form-search">
-                            <span class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></span>
-                            <input id="form-search-tk" type="text" class="form-search-input"
-                                placeholder="Tìm kiếm tên món..." oninput="thongKe()">
-                        </form>
-                    </div>
-                    <div class="admin-control-right">
-                        <form action="" class="fillter-date">
+                    
+                    <div class="admin-control-right ">
+                        <select name="chon-khoang-thoigian" id="chon-khoang-thoigian" style="width:200px;" onchange="date_chosen()">
+                            <option>Khoản Thời Gian</option>
+                            <option>Ngày</option>
+                            <option>Tháng</option>
+                            
+                        </select>
+                        <div style="display:flex;">
+                        <select name="chon_nam" id="chon-nam" style="display:none;" >
+                            <option>2020</option>
+                            <option>2021</option>
+                            <option>2022</option>
+                            <option>2023</option>
+                            <option>2024</option>
+                        </select>
+                        <form action="" class="fillter-date" style="display:none;top:40px;">
                             <div>
                                 <label for="time-start">Từ</label>
-                                <input type="date" class="form-control-date" id="time-start-tk" onchange="thongKe()">
+                                <input type="date" class="form-control-date" id="time-start-tk" >
                             </div>
                             <div>
                                 <label for="time-end">Đến</label>
-                                <input type="date" class="form-control-date" id="time-end-tk" onchange="thongKe()">
+                                <input type="date" class="form-control-date" id="time-end-tk" >
                             </div>
+                            <button id="thongke_action">Thống kê</button>
                         </form>
+                        </div>
                         <button class="btn-reset-order" onclick="thongKe(1)"><i
                                 class="fa-solid fa-arrow-up-short-wide"></i></button>
                         <button class="btn-reset-order" onclick="thongKe(2)"><i
@@ -134,24 +141,7 @@
                     </div>
                 </div>
                 <div class="order-statistical" id="order-statistical">
-                    <div class="order-statistical-item">
-                        <div class="order-statistical-item-content">
-                            <p class="order-statistical-item-content-desc">Sản phẩm được bán ra</p>
-                            <h4 class="order-statistical-item-content-h" id="quantity-product">5</h4>
-                        </div>
-                        <div class="order-statistical-item-icon">
-                            <i class="fa-solid fa-pizza-slice"></i>
-                        </div>
-                    </div>
-                    <div class="order-statistical-item">
-                        <div class="order-statistical-item-content">
-                            <p class="order-statistical-item-content-desc">Số lượng bán ra</p>
-                            <h4 class="order-statistical-item-content-h" id="quantity-order">18</h4>
-                        </div>
-                        <div class="order-statistical-item-icon">
-                            <i class="fa-regular fa-file-lines"></i>
-                        </div>
-                    </div>
+
                     <div class="order-statistical-item">
                         <div class="order-statistical-item-content">
                             <p class="order-statistical-item-content-desc">Doanh thu</p>
@@ -161,22 +151,26 @@
                             <i class="fa-solid fa-hand-holding-dollar"></i>
                         </div>
                     </div>
-                </div>
-                <div class="table">
-                    <table width="100%">
-                        <thead>
-                            <tr>
-                                <td>STT</td>
-                                <td>Tên món</td>
-                                <td>Số lượng bán</td>
-                                <td>Doanh thu</td>
-                                <td></td>
-                            </tr>
-                        </thead>
-                        <tbody id="showTk">
-                        </tbody>
-                    </table>
-                </div>
+                    
+                    <div class="order-statistical-item">
+                        <div class="order-statistical-item-content">
+                            <p class="order-statistical-item-content-desc">Lợi nhuận</p>
+                            <h4 class="order-statistical-item-content-h" id="profit-sale">46.000.000đ</h4>
+                        </div>
+                        <div class="order-statistical-item-icon">
+                            <i class="fa-solid fa-hand-holding-dollar"></i>
+                        </div>
+                    </div>
+
+                    <div class="order-statistical-item">
+                        <div class="order-statistical-item-content">
+                            <p class="order-statistical-item-content-desc">Số Lượng Sản Phẩm Bán Được</p>
+                            <h4 class="order-statistical-item-content-h" id="products-sale">46.000.000đ</h4>
+                        </div>
+                        <div class="order-statistical-item-icon">
+                            <i class="fa-solid fa-hand-holding-dollar"></i>
+                        </div>
+                    </div>
                 </div>
                     <canvas id="myChart" style="width:100%;max-height:500px"></canvas>
                 </div>
@@ -339,6 +333,7 @@
 
     });
     </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/statistic.js"></script>
 

@@ -3,7 +3,6 @@ tìm kiếm,xem chi tiết đơn hàng đơn hàng
 xử lí chưa xử lí
 tìm kiếm đơn hàng trong khoảng thời gian
 Hưng*/
-
 let currentqueryz=`
 select CONCAT('DH',hoadon.MaHD) as MaHD,CONCAT(nguoidung.Ho, ' ',nguoidung.Ten) as TenND,ngaylap,tongtien,trangthai.chitiettt as trangthai 
 from hoadon

@@ -1,20 +1,60 @@
 var currentqueryz = "SELECT * FROM `sanpham` WHERE  sanpham.TrangThai = 1 ";
+var tblSizeSanPham = "SELECT * FROM `SizeSanPham`";
 var currentRowqueryz = "SELECT COUNT(*) FROM `sanpham";
 var currentPagez = 1;
 var perPage = 8;
 var listDeProduct = [];
-var listDeLength = 0;
 var listSizeProduct = [];
+var listDeLength = 0;
 var curAttribute = new Map();
 var totalPage = 0;
 var flag = 0;
+
 loadTableProduct();
 loadCombinationSizeAndCrust();
 addeventinputthemsp();
 addeventaddproduct();
 addeventthemthuoctinh();
 
-// addeventthemsp();
+function showSizeTable() {
+  console.log("listSizeProduct", listSizeProduct);
+  var html = "";
+  var tblbodysize = document.querySelector("#show-size");
+  tblbodysize.innerHTML = "";
+  listSizeProduct.forEach(function (item) {
+    html += `<tr>
+    <td>${item.MaSize}</td>
+    <td>${item.TenSize}</td>
+    <td>${item.DinhLuongSize}</td>
+    <td>
+        <button class="btn-edit" value="${item.MaSize}"><i class="fa-regular fa-pen-to-square"></i></button>
+        <button class="btn-delete" value="${item.MaSize}"><i class="fa-solid fa-trash"></i></button>
+    </td>
+    `;
+  });
+  tblbodysize.innerHTML = html;
+}
+
+function showVienTable() {
+  console.log("listDeProduct", listDeProduct);
+
+  var html = "";
+  var tblbodysize = document.querySelector("#show-vien");
+  tblbodysize.innerHTML = "";
+  listDeProduct.forEach(function (item) {
+    html += `<tr>
+    <td>${item.MaVien}</td>
+    <td>${item.TenVien}</td>
+    <td>${item.DinhLuongVien}</td>
+    <td>
+        <button class="btn-edit" value="${item.MaVien}"><i class="fa-regular fa-pen-to-square"></i></button>
+        <button class="btn-delete" value="${item.MaVien}"><i class="fa-solid fa-trash"></i></button>
+    </td>
+    `;
+  });
+  tblbodysize.innerHTML = html;
+}
+
 var listProduct;
 function loadTableProduct() {
   $.ajax({
@@ -69,7 +109,9 @@ function loadTableProduct() {
     },
   });
 }
-
+// setTimeout(() => {
+//   alert(listProduct)
+// }, 1000);
 function showProductTableAdmin() {
   var html = "";
   listProduct.forEach(function (item) {
@@ -268,7 +310,8 @@ function loadCombinationSizeAndCrust() {
       request: "getAllCrust",
     },
     success: function (data) {
-      var listDeProduct = data;
+      listDeProduct = data;
+
       $.ajax({
         url: "./controller/ProductsController.php",
         type: "POST",
@@ -278,6 +321,9 @@ function loadCombinationSizeAndCrust() {
         },
         success: function (data) {
           listSizeProduct = data;
+          // cua kiet
+          showSizeTable();
+
           listDeLength = listDeProduct.length;
           var div = document.getElementById("chon-tt");
           console.log(div);
@@ -285,6 +331,7 @@ function loadCombinationSizeAndCrust() {
 
           var listCombination = [];
           var listIDCombination = [];
+          showVienTable();
           listSizeProduct.forEach(function (size) {
             listDeProduct.forEach(function (de) {
               listCombination.push(
@@ -300,6 +347,7 @@ function loadCombinationSizeAndCrust() {
           div.innerHTML = html;
           removeloader();
         },
+
         error: function (xhr, status, error) {
           console.log(xhr);
           console.log(status);
@@ -446,3 +494,91 @@ function filltable() {
   });
   rowTable.innerHTML = html;
 }
+
+function showThuocTinh() {
+  var tableSize = document.querySelector(".table.--size");
+  var tableDe = document.querySelector(".table.--vien");
+  var selectElement = document.getElementById("chonthuoctinh");
+  console.log(tableSize);
+  console.log(tableDe);
+
+  switch (selectElement.value) {
+    case "1": // Kích thước
+      tableSize.style.display = "block";
+      tableDe.style.display = "none";
+      break;
+    case "0": // Đế
+      tableSize.style.display = "none";
+      tableDe.style.display = "block";
+      break;
+    case "2": // Tất cả
+      tableSize.style.display = "block";
+      tableDe.style.display = "block";
+      break;
+  }
+}
+
+// V.Kiet: Add event for button add attribute
+
+document
+  .getElementById("btn-add-attribute")
+  .addEventListener("click", function () {
+    var modal = document.querySelector(".modal.signup");
+    modal.classList.add("open");
+  });
+
+var btnClose = document.querySelectorAll(".modal-close");
+btnClose.forEach(function (btn) {
+  btn.addEventListener("click", function () {
+    var modal = this.closest(".modal");
+    modal.classList.remove("open");
+  });
+});
+
+
+function showThemThuocTinh() {
+  var sizeForm = document.querySelector(".size-form");
+  var deForm = document.querySelector(".de-form");
+  var selectElement = document.getElementById("themthuoctinh");
+
+  switch (selectElement.value) {
+    case "0": // Kích thước
+      sizeForm.style.display = "block";
+      deForm.style.display = "none";
+      var sizeSanPham = {
+        MaSize: document.getElementById("masize").value,
+        TenSize: document.getElementById("tensize").value,
+        DinhLuongSize: document.getElementById("dinhluongsize").value
+      }
+
+     addSizeSanPham(sizeSanPham)
+      break;
+    case "1": // Đế
+      sizeForm.style.display = "none";
+      deForm.style.display = "block";
+      break;
+  }
+}
+
+function addSizeSanPham(sizeSanPham) {
+  $.ajax({
+    url: './controller/ProductManagementController.php', // URL API để thêm SizeSanPham
+    type: 'POST',
+    data: JSON.stringify(sizeSanPham),
+    contentType: 'application/json; charset=utf-8',
+    success: function (response) {
+      alert("Thêm thành công");
+      console.log(response);
+    },
+    error: function(error) {
+      console.error(error);
+    }
+  });
+}
+
+var btnInsert = document.getElementById("btn-insert");
+btnInsert.addEventListener("click", function (e) {
+  // e.preventDefault();
+});
+
+//End V.Kiet: Add event for button add attribute

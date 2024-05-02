@@ -52,6 +52,12 @@ class SanPhamBUS extends DB_business {
         return $result;
     }
 
+    function insertSize($id_size, $name_size, $amount_size) {
+        $sql = "INSERT INTO sizesanpham(MaSize, TenSize, DinhLuongSize) VALUES ('$id_size', '$name_size', '$amount_size')";
+        $result = $this->insertz($sql);
+        return $result;
+    }
+
     function getAllSize() {
         $sql = "SELECT * FROM sizesanpham";
         $result = $this->get_list($sql);

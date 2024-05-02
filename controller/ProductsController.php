@@ -4,6 +4,7 @@ require_once('BaseController.php');
 require_once(__DIR__ . '/../model/NguoiDungBUS.php');
 require_once(__DIR__ . '/../model/SanPhamBUS.php');
 session_start();
+
 class ProductsController extends BaseController
 {
 	public function index()

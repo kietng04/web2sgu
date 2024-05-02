@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php include 'BackEnd/DB_business.php'; ?>
 
 <head>
     <meta charset="UTF-8">
@@ -13,7 +14,7 @@
     <!-- <link rel="stylesheet" href="css/components.css"> -->
     <link rel="stylesheet" href="css/admin_styles1.css">
     <link rel="stylesheet" href="css/loader.css">
-</head>
+</head>     
 
 <body>
 <div class="loader"></div>
@@ -37,7 +38,7 @@
                             <div class="hidden-sidebar">Trang tổng quan</div>
                         </a>
                     </li>
-                    <li class="sidebar-list-item tab-content active">
+                    <li class="sidebar-list-item tab-content ">
                         <a href="index.php?controller=ProductManagementController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-pizza-slice"></i></i></div>
                             <div class="hidden-sidebar">Sản phẩm</div>
@@ -67,7 +68,7 @@
                             <div class="hidden-sidebar">Thống kê</div>
                         </a>
                     </li>
-                    <li class="sidebar-list-item tab-content">
+                    <li class="sidebar-list-item tab-content active">
                         <a href="index.php?controller=ProductAttributeController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-chart-simple"></i></div>
                             <div class="hidden-sidebar">Thuộc tính sản phẩm</div>
@@ -99,198 +100,129 @@
             </div>
         </aside>
         <main class="content">
-            <!-- Product  -->
-            <div class="section product-all active ">
+            <!-- Atribute Product  -->
+            <div class="section active">
                 <div class="admin-control">
                     <div class="admin-control-left">
-                        <select name="the-loai" id="the-loai">
-                            <option>Tất cả</option>
-                            <option>BÒ</option>
-                            <option>GÀ</option>
-                            <option>HẢI SẢN</option>
-                            <option>Món Phụ</option>
-                            <option>Nước uống</option>
+                        <select name="chonthuoctinh" id="chonthuoctinh" onchange="showThuocTinh()">
+                            <option value="2">Tất cả</option>
+                            <option value="1">Kích thước</option>
+                            <option value="0">Viền </option>
                         </select>
                     </div>
                     <div class="admin-control-center">
                         <form action="" class="form-search">
-                            <span class="search-btn"><i class="fa-solid fa-magnifying-glass" onclick="searchProduct()"></i></i></span>
-                            <input id="form-search-product" type="text" class="form-search-input"
-                                placeholder="Tìm kiếm tên món..." >
+                            <span class="search-btn"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></span>
+                            <input id="form-search-user" type="text" class="form-search-input" placeholder="Tìm kiếm khách hàng..." oninput="showThuocTinh()">
                         </form>
                     </div>
                     <div class="admin-control-right">
-                        <button class="btn-control-large" id="btn-cancel-product" onclick="resetInput()"><i
-                                class="fa-solid fa-rotate-right"></i></i> Làm mới</button>
-                        <button class="btn-control-large" id="btn-add-product"><i class="fa-light fa-plus"></i> Thêm món
-                            mới</button>
+                    
+                        <button class="btn-reset-order" onclick="cancelSearchUser()"><i class="fa-solid fa-rotate-right" aria-hidden="true"></i></button>
+                        <button id="btn-add-attribute" class="btn-control-large" ><i class="fa-light fa-plus" aria-hidden="true"></i> <span>Thêm mới</span></button>
                     </div>
                 </div>
-                <div id="show-product">
-                    <!-- <div class="list">
-                        <div class="list-left">
-                            <img src="img/pizza-1.png" alt="">
-                            <div class="list-info">
-                                <h4>Pizza Bò Xốt Demi</h4>
-                                <p class="list-note">Bò bằm, hành tây tím, ớt chuông, cà chua, mozzarella, xốt demi
-                                    glace.</p>
-                                <span class="list-category">Pizza Bò</span>
-                            </div>
+                <div class="table --size">
+                    <table width="100%">
+                        <thead>
+                            <tr>
+                                <td>Mã size</td>
+                                <td>Tên size</td>
+                                <td>Định lượng size</td>
 
-                            <div class="list-right">
-                                <div class="list-price">
-                                    <span class="list-current-price">200.000 ₫</span>
-                                </div>
-                                <div class="list-control">
-                                    <div class="list-tool">
-                                        <button class="btn-edit"><i class="fa-regular fa-pen-to-square"></i></button>
-                                        <button class="btn-delete"><i class="fa-solid fa-trash"></i></button>
-                                    </div>
-                                </div>
-                            </div>
+                                <!-- <td>Liên hệ</td>
+                                <td>Email</td>
+                                <td>Dia chi</td>
+                                <td>Ngày tham gia</td>
+                                <td>Tình trạng</td>
+                                <td></td> -->
+                            </tr>
+                        </thead>
+                        <tbody id="show-size">
+                            <tr>
+                                <td>XXL</td>
+                                <td>Cực Lớn Maximun</td>
+                                <td>Cực Lớn Maximun</td>
+                                
+                
+                                <td class="control control-table">
+                                    <button class="btn-edit" id="edit-account"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></button>
+                                    <button class="btn-delete" id="delete-account"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>XL</td>
+                                <td>Rất Lớn </td>
+                                <td>Cực Lớn Maximun</td>
 
-                        </div>
-                    </div>
-                    <div class="list">
-                        <div class="list-left">
-                            <img src="images/pizzaimg/bodemi.jpg" alt="">
-                            <div class="list-info">
-                                <h4>Pizza Bò Xốt Demi</h4>
-                                <p class="list-note">Bò bằm, hành tây tím, ớt chuông, cà chua, mozzarella, xốt demi
-                                    glace.</p>
-                                <span class="list-category">Pizza Bò</span>
-                            </div>
+                     
+                                <td class="control control-table">
+                                    <button class="btn-edit" id="edit-account"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></button>
+                                    <button class="btn-delete" id="delete-account"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>X</td>
+                                <td>Vừa Lớn</td>
+                                <td>Cực Lớn Maximun</td>
 
-                            <div class="list-right">
-                                <div class="list-price">
-                                    <span class="list-current-price">200.000 ₫</span>
-                                </div>
-                                <div class="list-control">
-                                    <div class="list-tool">
-                                        <button class="btn-edit"><i class="fa-regular fa-pen-to-square"></i></button>
-                                        <button class="btn-delete"><i class="fa-solid fa-trash"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="list">
-                        <div class="list-left">
-                            <img src="img/pizza-1.png" alt="">
-                            <div class="list-info">
-                                <h4>Pizza Bò Xốt Demi</h4>
-                                <p class="list-note">Bò bằm, hành tây tím, ớt chuông, cà chua, mozzarella, xốt demi
-                                    glace.</p>
-                                <span class="list-category">Pizza Bò</span>
-                            </div>
-
-                            <div class="list-right">
-                                <div class="list-price">
-                                    <span class="list-current-price">200.000 ₫</span>
-                                </div>
-                                <div class="list-control">
-                                    <div class="list-tool">
-                                        <button class="btn-edit"><i class="fa-regular fa-pen-to-square"></i></button>
-                                        <button class="btn-delete"><i class="fa-solid fa-trash"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="list">
-                        <div class="list-left">
-                            <img src="img/pizza-1.png" alt="">
-                            <div class="list-info">
-                                <h4>Pizza Bò Xốt Demi</h4>
-                                <p class="list-note">Bò bằm, hành tây tím, ớt chuông, cà chua, mozzarella, xốt demi
-                                    glace.</p>
-                                <span class="list-category">Pizza Bò</span>
-                            </div>
-
-                            <div class="list-right">
-                                <div class="list-price">
-                                    <span class="list-current-price">200.000 ₫</span>
-                                </div>
-                                <div class="list-control">
-                                    <div class="list-tool">
-                                        <button class="btn-edit"><i class="fa-regular fa-pen-to-square"></i></button>
-                                        <button class="btn-delete"><i class="fa-solid fa-trash"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="list">
-                        <div class="list-left">
-                            <img src="img/pizza-1.png" alt="">
-                            <div class="list-info">
-                                <h4>Pizza Bò Xốt Demi</h4>
-                                <p class="list-note">Bò bằm, hành tây tím, ớt chuông, cà chua, mozzarella, xốt demi
-                                    glace.</p>
-                                <span class="list-category">Pizza Bò</span>
-                            </div>
-
-                            <div class="list-right">
-                                <div class="list-price">
-                                    <span class="list-current-price">200.000 ₫</span>
-                                </div>
-                                <div class="list-control">
-                                    <div class="list-tool">
-                                        <button class="btn-edit"><i class="fa-regular fa-pen-to-square"></i></button>
-                                        <button class="btn-delete"><i class="fa-solid fa-trash"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="list">
-                        <div class="list-left">
-                            <img src="img/pizza-1.png" alt="">
-                            <div class="list-info">
-                                <h4>Pizza Bò Xốt Demi</h4>
-                                <p class="list-note">Bò bằm, hành tây tím, ớt chuông, cà chua, mozzarella, xốt demi
-                                    glace.</p>
-                                <span class="list-category">Pizza Bò</span>
-                            </div>
-
-                            <div class="list-right">
-                                <div class="list-price">
-                                    <span class="list-current-price">200.000 ₫</span>
-                                </div>
-                                <div class="list-control">
-                                    <div class="list-tool">
-                                        <button class="btn-edit"><i class="fa-regular fa-pen-to-square"></i></button>
-                                        <button class="btn-delete"><i class="fa-solid fa-trash"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div> -->
-                </div> 
-                <div class="page-nav">
-                    <ul class="page-nav-list">
-                        <li class="page-nav-item active">
-                            <a href="#">1</a>
-                        </li>
-                        <li class="page-nav-item ">
-                            <a href="#">2</a>
-                        </li>
-                        <li class="page-nav-item ">
-                            <a href="#">3</a>
-                        </li>
-                        <li class="page-nav-item ">
-                            <a href="#">4</a> 
-                        </li>
-                        <li class="page-nav-item ">
-                            <a href="#">5</a>
-                        </li>
-                    </ul>
+                                <td class="control control-table">
+                                    <button class="btn-edit" id="edit-account"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></button>
+                                    <button class="btn-delete" id="delete-account"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
+                <div class="table --vien">
+                    <table width="100%">
+                        <thead>
+                            <tr>
+                                <td>Mã viền</td>
+                                <td>Tên viền</td>
+                                <td>Định lượng viền</td>
+                                <!-- <td>Liên hệ</td>
+                                <td>Email</td>
+                                <td>Dia chi</td>
+                                <td>Ngày tham gia</td>
+                                <td>Tình trạng</td>
+                                <td></td> -->
+                            </tr>
+                        </thead>
+                        <tbody id="show-vien">
+                            <tr>
+                                <td>DXXL</td>
+                                <td>Đế Cực Lớn Maximun</td>
+                                <td>Đế Cực Lớn Maximun</td>
+                
+                                <td class="control control-table">
+                                    <button class="btn-edit" id="edit-account"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></button>
+                                    <button class="btn-delete" id="delete-account"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>DXL</td>
+                                <td>Đế Rất Lớn </td>
+                                <td>Đế Cực Lớn Maximun</td>
+                     
+                                <td class="control control-table">
+                                    <button class="btn-edit" id="edit-account"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></button>
+                                    <button class="btn-delete" id="delete-account"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>DX</td>
+                                <td>Đế Vừa Lớn</td>
+                                <td>Đế Cực Lớn Maximun</td>
+                                <td class="control control-table">
+                                    <button class="btn-edit" id="edit-account"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></button>
+                                    <button class="btn-delete" id="delete-account"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- </div> -->
             </div>
 
         </main>
@@ -515,55 +447,59 @@
 
     <div class="modal signup">
         <div class="modal-container">
-            <h3 class="modal-container-title add-account-e" style="font-weight: 600; font-size:20px">THÊM KHÁCH HÀNG MỚI
+            <h3 class="modal-container-title add-account-e" style="font-weight: 600; font-size:20px">THÊM THUỘC TÍNH MỚI
             </h3>
             <!-- <h3 class="modal-container-title edit-account-e" style="font-weight: 600; font-size:20px">CHỈNH SỬA THÔNG
                 TIN</h3> -->
             <button class="modal-close"><i class="fa-solid fa-xmark"></i></button>
             <div class="form-content sign-up">
-                <form action="" class="signup-form">
+            <select name="themthuoctinh" id="themthuoctinh" onchange="showThemThuocTinh()"  style="margin-left: 0px; width: 360px; margin-top: 10px;">
+                <option value="0" selected>Kích thước</option>
+                <option value="1">Viền </option>
+            </select>
+                <form action="" class="size-form">
                     <div class="form-group">
-                        <label for="fullname" class="form-label">Tên đầy đủ</label>
-                        <input id="fullname" name="fullname" type="text" placeholder="VD: Pham Van Kiet"
+                        <label for="masize" class="form-label">Nhập mã size:</label>
+                        <input id="masize" name="masize" type="text" placeholder="VD: S"
                             class="form-control">
                         <span class="form-message-name form-message"></span>
                     </div>
                     <div class="form-group">
-                        <label for="phone" class="form-label">Số điện thoại</label>
-                        <input id="phone" name="phone" type="text" placeholder="Nhập số điện thoại"
-                            class="form-control">
-                        <span class="form-message-phone form-message"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="email" class="form-label">Email</label>
-                        <input id="email" name="email" type="text" placeholder="Nhập email" class="form-control">
+                        <label for="tensize" class="form-label">Nhập tên size:</label>
+                        <input id="tensize" name="tensize" type="text" placeholder="VD: Nhỏ" class="form-control">
                         <span class="form-message-email form-message"></span>
                     </div>
                     <div class="form-group">
-                        <label for="address" class="form-label">Địa chỉ</label>
-                        <input id="address" name="address" type="text" placeholder="Nhập Địa chỉ" class="form-control">
+                        <label for="dinhluongsize" class="form-label">Nhập định lượng size:</label>
+                        <input id="dinhluongsize" name="dinhluongsize" type="text" placeholder="VD: Bán kính 15cm" class="form-control">
                         <span class="form-message-email form-message"></span>
                     </div>
-                    <div class="form-group">
-                        <label for="password" class="form-label">Mật khẩu</label>
-                        <input id="password" name="password" type="password" placeholder="Nhập mật khẩu"
-                            class="form-control">
-                        <span class="form-message-password form-message"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="confirm-password" class="form-label">Nhập lai mật khẩu</label>
-                        <input id="confirm-password" name="confirm-password" type="password" placeholder="Nhập mật khẩu"
-                            class="form-control">
-                        <span class="form-message-confirm-password form-message"></span>
-                    </div>
-                    <div class="form-group edit-account-e">
-                        <label for="" class="form-label">Trạng thái</label>
-                        <input type="checkbox" id="user-status" class="switch-input">
-                        <label for="user-status" class="switch"></label>
-                    </div>
+              
                     <!-- <button class="form-submit add-account-e" id="signup-button">Đăng ký</button> -->
-                    <button class="form-submit edit-account-e" id="btn-update-account"><i
-                            class="fa-regular fa-floppy-disk"></i> Lưu thông tin</button>
+                    <button class="form-submit edit-account-e" id="btn-insert"><i
+                            class="fa-regular fa-floppy-disk"></i> Thêm size</button>
+                </form>
+                <form action="" class="de-form" style="display:none">
+                    <div class="form-group">
+                        <label for="fullname" class="form-label">Nhập mã viền:</label>
+                        <input id="fullname" name="fullname" type="text" placeholder="VD: M"
+                            class="form-control">
+                        <span class="form-message-name form-message"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="tenvien" class="form-label">Nhập tên viền:</label>
+                        <input id="tenvien" name="tenvien" type="text" placeholder="VD: Mỏng" class="form-control">
+                        <span class="form-message-email form-message"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="dlvien" class="form-label">Nhập định lượng viền:</label>
+                        <input id="dlvien" name="dlvien" type="text" placeholder="VD: Độ dày 0.3cm" class="form-control">
+                        <span class="form-message-email form-message"></span>
+                    </div>
+              
+                    <!-- <button class="form-submit add-account-e" id="signup-button">Đăng ký</button> -->
+                    <button class="form-submit edit-account-e" id="btn-insert"><i
+                            class="fa-regular fa-floppy-disk"></i> Thêm viền</button>
                 </form>
             </div>
         </div>
@@ -572,96 +508,8 @@
     <script src="js/helper.js"></script>
     <script src="js/adminproduct.js"></script>
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-
-        var closeButtons = document.querySelectorAll('.modal-close');
-        var updateButtons = document.querySelectorAll('.btn-update-product-form');
-        var addButtons = document.querySelector('#btn-add-product');
-        var modalDetail = document.querySelector('.detail-order');
-        var titleModal = document.querySelector('.modal-container-title');
-        var modal = document.querySelector('.add-product');
-        var uploadImg = document.querySelector('.upload-image-preview');
-        var detailButtons = document.querySelectorAll('.btn-detail');
-        var modalSignup = document.querySelector('.signup');
-        var editUserButtons = document.querySelectorAll('#edit-account');
-        var addUserButtons = document.querySelectorAll('#btn-add-user');
-        var addUser = document.querySelector('#btn-add-user');
-        var addUserTitle = document.querySelector('.add-account-e');
-        var addSignupButton = document.querySelector('#signup-button');
-        var updateSignupButton = document.querySelector('#btn-update-account');
-       
-    
-
-
-        var statusUser = document.querySelectorAll('.form-group edit-account-e');
-        // tab for section
-        // const sidebars = document.querySelectorAll(".sidebar-list-item.tab-content");
-        // const sections = document.querySelectorAll(".section");
-        // for (let i = 0; i < sidebars.length; i++) {
-        //     sidebars[i].onclick = function() {
-        //         document.querySelector(".sidebar-list-item.active").classList.remove("active");
-        //         document.querySelector(".section.active").classList.remove("active");
-        //         sidebars[i].classList.add("active");
-        //         sections[i].classList.add("active");
-        //     };
-        // }
-
-        const closeBtn = document.querySelectorAll('.section');
-        // console.log(closeBtn[0])
-        // for (let i = 0; i < closeBtn.length; i++) {
-        //     closeBtn[i].addEventListener('click', (e) => {
-        //         sidebar.classList.add("open");
-        //     })
-        // }
-
-        // console.log('editButtons', editButtons)
-
-
         
-
-        closeButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
-                modal.classList.remove('open');
-                modalDetail.classList.remove('open');
-                modalSignup.classList.remove('open');
-            });
-        });
-
-
-        addButtons.addEventListener('click', function() {
-            uploadImg.src = "img/upload-image.png";
-            modal.classList.add('open');
-            titleModal.innerHTML = "THÊM MỚI SẢN PHẨM";
-        });
-
-        detailButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
-                modalDetail.classList.add('open');
-            });
-        });
-
-        editUserButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
-
-                updateSignupButton.innerHTML = `<i
-                            class="fa-regular fa-floppy-disk"></i> Lưu thay đổi`;
-                addUserTitle.innerHTML = "Chinh sửa khách hàng";
-                modal.classList.remove('open');
-                modalSignup.classList.add('open');
-            });
-        });
-
-        addUserButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
-                updateSignupButton.innerHTML = ` <i class="fa-solid fa-user-plus"></i>
-                                        Thêm khách hàng `;
-                addUserTitle.innerHTML = "Thêm khách hàng mới";
-                modal.classList.remove('open');
-                modalSignup.classList.add('open');
-            });
-        });
-
-    });
+       
     </script>
 
 </body>

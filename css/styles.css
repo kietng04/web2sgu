@@ -42,7 +42,7 @@ a {
   overflow: hidden;
   background: var(--color-white);
   border-radius: 8px;
-  max-width: 24%;
+  width: 24%;
 }
 
 .scproducts .top {

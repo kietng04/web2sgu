@@ -219,4 +219,14 @@
     text-align: right;
   }
 
+  .pagination {
+    display: flex;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    margin-top: 20px; /* Điều chỉnh khoảng cách với bảng */
+  }
+  
+  .pagination li {
+    list-style: none;
+    margin: 0 5px; /* Khoảng cách giữa các phần tử */
+  }
   

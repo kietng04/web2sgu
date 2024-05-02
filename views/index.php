@@ -207,11 +207,12 @@
         <div class="popupLogin__img">
             <img src="./images/loginbackground.jpg" alt="">
         </div>
-        <div class="popupLogin__form">
+        <div class="popupLogin__form user">
             <h2 class="headingLogin">🍕🍕 WELCOME BACK!</h2>
             <p class="heading__desc">NẾU BẠN CHƯA CÓ TÀI KHOẢN PIZZA HUT<br>HÃY ĐĂNG KÍ
                 TRƯỚC KHI ĐĂNG NHẬP BẠN NHÉ!</p>
-                <div class="form-item --login --email ">
+                <!-- <div class="form-item --login --email "> -->
+                <div class="form-item --login">
                     <label for="email">Email *</label>
                     <input type="text" name="" id="taikhoan">
                     <p class="error"></p>
@@ -233,7 +234,33 @@
 
                 <p class="register">Bạn chưa có tài khoản? <a href="index.php?controller=SignUpController&action=index">Đăng ký ngay</a> hoặc tìm hiểu thêm về <a href="">Điều khoản và Quyền lợi Thành viên</a></p>
         </div>
+        <div class="popupLogin__form staff hidden none">
+            <h2 class="headingLogin">🍕🍕 WELCOME BACK!</h2>
+            <p class="heading__desc">ĐÂY LÀ KHU VỰC ĐĂNG NHẬP CHO NHÂN VIÊN<br>XIN HÃY TRỞ VỀ NẾU BẠN KHÔNG PHẢI NHÂN VIÊN</p>
+                <!-- <div class="form-item --login --email "> -->
+                <div class="form-item --logins">
+                <label for="email">Tên đăng nhập *</label>
+                    <input type="text" name="" id="taikhoans">
+                    <p class="error"></p>
+                </div>
+                <div class="form-item --login --passwords">
+                    <label for="email">Mật Khẩu *</label>
+                    <input type="Password" name="" id="matkhaus">
+                    <p class="error"></p>
 
+                </div>
+                <!-- onclick="loginz()" -->
+             
+                <button class="btn dangnhaps"   >ĐĂNG NHẬP</button>
+
+                <div class="form-error">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <p>Tên đăng nhập hoặc mật khẩu đăng nhập không hợp lệ. Vui lòng thử lại.</p>
+                </div>
+                
+            </div>
+            
+        <div class="login__switch">Bạn là người dùng? Ấn đây</div>
         <button class="btnX">
                 <img src="./images/iconClose.png">
         </button>
@@ -253,6 +280,10 @@ document.addEventListener("DOMContentLoaded", function() {
   var button = document.querySelector(".btn");
   // Lấy phần tử .btnX
   var closeButton = document.querySelector(".btnX");
+  // Lấy phần tử switch login
+  var loginSwitch = document.querySelector(".login__switch");
+  var staffLogin = document.querySelector(".popupLogin__form.staff");
+  var userLogin = document.querySelector(".popupLogin__form.user");
 
   // Thêm sự kiện click cho .header__action-member
   var headerActionMember = document.querySelector(".header__action-member");
@@ -275,6 +306,34 @@ document.addEventListener("DOMContentLoaded", function() {
       popupLogin.classList.add("--none");
     }
   });
+  // Thêm sự kiện click cho loginSwitch
+    loginSwitch.addEventListener("click", function() {
+        // Kiểm tra xem phần tử .popupLogin__form.staff có class --none không
+        var isNone = staffLogin.classList.contains("none");
+    
+        // Nếu có class --none, loại bỏ nó; nếu không, thêm vào
+        if (isNone) {
+            userLogin.classList.add("hidden");
+            setTimeout(() => {
+                userLogin.classList.add("none");
+                staffLogin.classList.remove("none");
+            }, 300);
+            setTimeout(() => {
+                staffLogin.classList.remove("hidden");
+            }, 600);
+            
+            
+        } else {
+            staffLogin.classList.add("hidden");
+            setTimeout(() => {
+                staffLogin.classList.add("none");
+                userLogin.classList.remove("none");
+            }, 300);
+            setTimeout(() => {
+                userLogin.classList.remove("hidden");
+            }, 600);
+        }
+    });
 
   button.addEventListener("click", function() {
     // Thêm lại class --none cho .popupLogin
@@ -283,40 +342,40 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
-var dangnhapBtn = document.querySelector('.dangnhapz');
-    dangnhapBtn.addEventListener('click', function(){
+var dangnhapUserBtn = document.querySelector('.dangnhapz');
+    dangnhapUserBtn.addEventListener('click', function(){
         var checkForm = true;
         var formError = document.querySelector(".form-error");
-        var email = document.getElementById("taikhoan");
-        var emailFormItem = document.querySelector(".form-item.--login.--email");
-        var emailError = document.querySelector(".form-item.--login.--email .error");
-        var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        var username = document.getElementById("taikhoan");
+        var usernameFormItem = document.querySelector(".form-item.--login");
+        var usernameError = document.querySelector(".form-item.--login .error");
+        var usernamePattern = /^.{3,}$/;
         var password = document.getElementById("matkhau");
         var passwordError = document.querySelector(".form-item.--login.--password .error");
         var passwordFormItem = document.querySelector(".form-item.--login.--password");
         var passwordPattern = /^.{3,}$/;
 
 
-        if(email.value.trim() === "") {
-            emailFormItem.classList.add("--error");
-            emailError.innerHTML = "Vui lòng không để trống";
+        if(username.value.trim() === "") {
+            usernameFormItem.classList.add("--error");
+            usernameError.innerHTML = "Vui lòng không để trống";
             checkForm = false;
-        } else if(!emailPattern.test(email.value)) {
-            emailFormItem.classList.add("--error");
-            emailError.innerHTML = "Email không đúng định dạng";
+        } else if(!usernamePattern.test(username.value)) {
+            usernameFormItem.classList.add("--error");
+            usernameError.innerHTML = "Tên đăng nhập không đúng định dạng";
             checkForm = false;
         } else {
-            emailFormItem.classList.remove("--error");
-            emailError.innerHTML = "";
+            usernameFormItem.classList.remove("--error");
+            usernameError.innerHTML = "";
         }
-        email.addEventListener("input", function() {
-            if(!emailPattern.test(email.value)) {
-                emailFormItem.classList.add("--error");
-                emailError.innerHTML = "Email không đúng định dạng";
+        username.addEventListener("input", function() {
+            if(!usernamePattern.test(username.value)) {
+                usernameFormItem.classList.add("--error");
+                usernameError.innerHTML = "Tên đăng nhập không đúng định dạng";
                 checkForm = false;
             } else {
-                emailFormItem.classList.remove("--error");
-                emailError.innerHTML = "";
+                usernameFormItem.classList.remove("--error");
+                usernameError.innerHTML = "";
             }
         });
 
@@ -345,17 +404,89 @@ var dangnhapBtn = document.querySelector('.dangnhapz');
 
         if(checkForm) {
             // alert("Đăng nhập thành công!" + email.value + " " + password.value);
-            loginz( email.value, password.value);
+            loginz( username.value, password.value);
             formError.style.display = "none";
             // email.value = "";
             // password.value = "";
         } else {
             formError.style.display = "flex";
         }
+
     
     })
 
+var dangnhapStaffBtn = document.querySelector('.dangnhaps');
+    dangnhapStaffBtn.addEventListener('click', function(){
+        
+        var checkForm = true;
+        var formError = document.querySelector(".form-error");
+        var username = document.getElementById("taikhoans");
+        var usernameFormItem = document.querySelector(".form-item.--logins");
+        var usernameError = document.querySelector(".form-item.--logins .error");
+        var usernamePattern = /^.{3,}$/;
+        var password = document.getElementById("matkhaus");
+        var passwordError = document.querySelector(".form-item.--login.--passwords .error");
+        var passwordFormItem = document.querySelector(".form-item.--login.--passwords");
+        var passwordPattern = /^.{3,}$/;
 
+
+        if(username.value.trim() === "") {
+            usernameFormItem.classList.add("--error");
+            usernameError.innerHTML = "Vui lòng không để trống";
+            checkForm = false;
+        } else if(!usernamePattern.test(username.value)) {
+            usernameFormItem.classList.add("--error");
+            usernameError.innerHTML = "Tên đăng nhập không đúng định dạng";
+            checkForm = false;
+        } else {
+            usernameFormItem.classList.remove("--error");
+            usernameError.innerHTML = "";
+        }
+        username.addEventListener("input", function() {
+            if(!usernamePattern.test(username.value)) {
+                usernameFormItem.classList.add("--error");
+                usernameError.innerHTML = "Tên đăng nhập không đúng định dạng";
+                checkForm = false;
+            } else {
+                usernameFormItem.classList.remove("--error");
+                usernameError.innerHTML = "";
+            }
+        });
+
+        if(password.value.trim() === "") {
+            passwordFormItem.classList.add("--error");
+            passwordError.innerHTML = "Vui lòng không để trống";
+            checkForm = false;
+        }else if(!passwordPattern.test(password.value)) {
+            passwordFormItem.classList.add("--error");
+            passwordError.innerHTML = "Mật khẩu phải chứa ít nhất 3 ký tự";
+            checkForm = false;
+        } else {
+            passwordFormItem.classList.remove("--error");
+            passwordError.innerHTML = "";
+        }
+        password.addEventListener("input", function() {
+            if(!passwordPattern.test(password.value)) {
+                passwordFormItem.classList.add("--error");
+                passwordError.innerHTML = "Mật khẩu phải chứa ít nhất 3 ký tự";
+                checkForm = false;
+            } else {
+                passwordFormItem.classList.remove("--error");
+                passwordError.innerHTML = "";
+            }
+        });
+        
+
+        if(checkForm) {
+            // alert("Đăng nhập thành công!" + email.value + " " + password.value);
+            logins( username.value, password.value);
+            formError.style.display = "none";
+            // email.value = "";
+            // password.value = "";
+        } else {
+            formError.style.display = "flex";
+        }
+    });
 
 </script>
 
@@ -463,13 +594,17 @@ window.onload = function() {
     let wrapperRight = document.querySelector('.wrapper__right');
     let wrapperLeft = document.querySelector('.wrapper__left');
     let scproductsList = document.querySelector('.scproducts__list');
+    let items = document.querySelectorAll('.scproducts__list-item');
 
     cartIcon.addEventListener('click', function(event) {
         event.stopPropagation(); 
         wrapperRight.style.display = 'block'; 
         wrapperLeft.style.width = '75%'; 
-        scproductsList.style.padding = '30px 30px';
-        scproductsList.style.gap = '10px';
+        scproductsList.style.padding = '30px 0px';
+        scproductsList.style.gap = '5px';
+        items.forEach(function(item) {
+            item.style.width = '24.5%';
+        });
     });
 
     closeCartIcon.addEventListener('click', function(event) {
@@ -478,6 +613,9 @@ window.onload = function() {
         wrapperLeft.style.width = '100%';
         scproductsList.style.padding = '';
         scproductsList.style.gap = '';
+        items.forEach(function(item) {
+            item.style.width = '';
+        });
     });
 }
     </script>

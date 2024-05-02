@@ -13,8 +13,10 @@ CREATE TABLE `PhanQuyen` (
 
 INSERT INTO `PhanQuyen` (`MaQuyen`, `ChiTietQuyen`) VALUES
 (1, 'Admin'),
-(2, 'Nhân viên'),
-(3, 'Khách hàng');
+(2, 'Nhân viên sale'),
+(3, 'Nhân viên giao hàng'),
+(4, 'Nhân viên bán hàng'),
+(5, 'Nhân viên nấu ăn');
 
 CREATE TABLE `TrangThai` (
   `MaTT` int(11) NOT NULL,
@@ -22,58 +24,72 @@ CREATE TABLE `TrangThai` (
   primary key (MaTT)
 );
 INSERT INTO `TrangThai` (`MaTT`, `ChiTietTT`) VALUES
-(1, 'Đã xác nhận'),
-(2, 'Đang giao hàng'),
-(3, 'Đã giao hàng'),
-(4, 'Đã hủy');
+(1, 'Đã xác minh'),
+(2, 'Chưa xác minh'),
+(3, 'Bị hạn chế'),
+(4, 'Bị khoá');
 
-CREATE TABLE `TaiKhoan` (
-  `MaTK` int(11) NOT NULL,
+CREATE TABLE `TaiKhoanNguoiDung` (
+  `MaND` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `TaiKhoan` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `MatKhau` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `MaQuyen` int(11) NOT NULL,
-  `MaTT` int(11) NOT NULL,
-  primary key (MaTK)
+  `TrangThai` int(11) NOT NULL,
+  primary key (MaND)
 );
 
-INSERT INTO `TaiKhoan` (`MaTK`, `TaiKhoan`, `MatKhau`, `MaQuyen`, `MaTT`) VALUES
-(1, 'admin', 'admin', 1, 1),
-(2, 'nhanvien', 'nhanvien', 2, 1),
-(3, 'khachhang', 'khachhang', 3, 1);
+INSERT INTO `TaiKhoanNguoiDung` (`MaND`, `TaiKhoan`, `MatKhau`, `TrangThai`) VALUES
+('ND01', 'abc', '123', 1),
+('ND02', 'def', '456', 1),
+('ND03', 'ghi', '789', 1);
 
+CREATE TABLE `TaiKhoanNhanVien` (
+  `MaNV` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `TaiKhoan` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `MatKhau` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `TrangThai` int(11) NOT NULL,
+  primary key (MaNV)
+);
 
+INSERT INTO `TaiKhoanNhanVien` (`MaNV`, `TaiKhoan`, `MatKhau`, `TrangThai`) VALUES
+('NV01', 'aaa', '123', 1),
+('NV02', 'bbb', '456', 1),
+('NV03', 'ccc', '789', 1);
 
 
 -- USER DATABASE
 CREATE TABLE `NguoiDung` (
-  `MaND` int(11) NOT NULL AUTO_INCREMENT,
+  `MaND` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `Ho` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `Ten` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `GioiTinh` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `SDT` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `Email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `DiaChi` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `MatKhau` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (MaND)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `NguoiDung` (`MaND`, `Ho`, `Ten`, `GioiTinh`, `SDT`, `Email`, `DiaChi`, `MatKhau`) VALUES
-(1, 'Nguyen The', 'Kiet', 'Nam', '0123456789', 'trungky@gmail.com', 'Dak Lag', '123456');
+INSERT INTO `NguoiDung` (`MaND`, `Ho`, `Ten`, `GioiTinh`, `SDT`, `Email`, `DiaChi`) VALUES
+('ND01', 'Nguyen The', 'Kiet', 'Nam', '0123456789', 'trungky@gmail.com', 'Dak Lag'),
+('ND02', 'Nguyen The', 'Kien', 'Nam', '0123456789', 'bbn@gmail.com', 'Dak Lag'),
+('ND03', 'Nguyen The', 'Khai', 'Nam', '0123456789', 'asd@gmail.com', 'Dak Lag');
 
 
 CREATE TABLE `NhanVien` ( 
-  `MaNV` int(11) NOT NULL,
+  `MaNV` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `Ho` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `Ten` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `GioiTinh` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `SDT` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `Email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `DiaChi` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `PhanQuyen` int(11) NOT NULL,
   primary key (MaNV)
 );
 
-INSERT INTO `NhanVien` (`MaNV`, `Ho`, `Ten`, `GioiTinh`, `SDT`, `Email`, `DiaChi`) VALUES
-(1, 'Nguyen The', 'Kiet', 'Nam', '0123456789', 'trungki@gmail.com', 'Dak Lak');
+INSERT INTO `NhanVien` (`MaNV`, `Ho`, `Ten`, `GioiTinh`, `SDT`, `Email`, `DiaChi`, `PhanQuyen`) VALUES
+('NV01', 'Nguyen The', 'Hanh', 'Nam', '0123456789', 'trung@gmail.com', 'Dak Lak', 1),
+('NV02', 'Nguyen The', 'Hung', 'Nam', '0123456789', 'abc@gmail.com', 'Dak Lak', 2),
+('NV03', 'Nguyen The', 'Huy', 'Nam', '0123456789', 'skd@gmail.com', 'Dak Lak', 3);
 
 
 CREATE TABLE `HoaDon` (
@@ -382,22 +398,6 @@ INSERT INTO `ChiTietXuat` (`MaPX`, `MaSP`, `MaSize`, `MaVien`, `SoLuong`) VALUES
 (1, 'PBD', 'S', 'D', 10),
 (1, 'PBD', 'M', 'D', 10);
 
-CREATE TABLE `PhongOrder` (
-  `MaPhong` int(11) NOT NULL,
-  `MaND` int(11) NOT NULL,
-  `TrangThai` int(11) NOT NULL,
-  primary key (MaPhong)
-);
-
-CREATE TABLE `ChiTietPhongOrder` (
-  `MaPhong` int(11) NOT NULL,
-  `MaSP` varchar(100) NOT NULL,
-  `MaSize` varchar(100) NOT NULL,
-  `MaVien` varchar(100) NOT NULL,
-  `SoLuong` int(11) NOT NULL,
-  `GiaTien` decimal(10,2) NOT NULL,
-  primary key (MaPhong, MaSP, MaSize, MaVien)
-);
 
 
 

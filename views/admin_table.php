@@ -66,6 +66,12 @@
                             <div class="hidden-sidebar">Thống kê</div>
                         </a>
                     </li>
+                    <li class="sidebar-list-item tab-content">
+                        <a href="index.php?controller=PermissionController&action=index" class="sidebar-link">
+                            <div class="sidebar-icon"><i class="fa-solid fa-couch"></i></i></div>
+                            <div class="hidden-sidebar">Phân quyền</div>
+                        </a>
+                    </li>
                 </ul>
             </div>
             <div class="bottom-sidebar">

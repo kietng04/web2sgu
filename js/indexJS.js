@@ -1,4 +1,3 @@
-
 var currentqueryz =
   'SELECT distinct sanpham.MaSP, TenSP, Mota, Img, Loai FROM sanpham, chitietsanpham WHERE sanpham.MaSP = chitietsanpham.MaSP and chitietsanpham.gianhap > 0 and sanpham.TrangThai = 1 and chitietsanpham.trangthai = 1'
 var currentRowqueryz =
@@ -40,7 +39,6 @@ function loadDefaultProducts() {
     },
   });
 }
-
 
 function renderPag(totalPage) {
   if (totalPage < 2) totalPage = 0;
@@ -89,7 +87,7 @@ function ajaxproduct(page, currentpage) {
       console.log("jqXHR:", jqXHR);
       console.log("textStatus:", textStatus);
       console.log("errorThrown:", errorThrown);
-  }
+    },
   });
 }
 
@@ -159,7 +157,6 @@ function addEventProducts() {
           var sizearray = [];
           var sizevien = [];
           data.forEach(function (item) {
-
             var obj1 = {
               MaSize: item.MaSize,
               TenSize: item.TenSize,
@@ -170,7 +167,7 @@ function addEventProducts() {
               MaVien: item.MaVien,
               TenVien: item.TenVien,
               DinhLuongVien: item.DinhLuongVien,
-            }
+            };
 
             if (!setSize.has(item.MaSize)) {
               setSize.add(item.MaSize);
@@ -199,44 +196,38 @@ function addEventProducts() {
                     <div class="box">
                         <div class="box__item --none">
                             <p class="title">Kích thước </p>
-                        </div>`
-                      sizearray.forEach(function (item, index) {
-                          if (index == 0) 
-                              html += `<div class="box__item --kt --active">`
-                          else 
-                              html += `<div class="box__item --kt">`
-                          html += 
-                          `<div class="icon ">
+                        </div>`;
+          sizearray.forEach(function (item, index) {
+            if (index == 0) html += `<div class="box__item --kt --active">`;
+            else html += `<div class="box__item --kt">`;
+            html += `<div class="icon ">
                               <img src="./img/checkbox.jpeg" alt="">
                               <div class="line1"></div>
                               <div class="line2"></div>
                               <div class="circle"></div>
                           </div>
                           <p value="${item.MaSize}">${item.TenSize} (${item.DinhLuongSize})</p>
-                      </div>`
-                      })
-                    html += `</div>
+                      </div>`;
+          });
+          html += `</div>
                     <div class="box">
                         <div class="box__item --none">
                             <p class="title">Loại đế</p>
-                        </div>`
-                      sizevien.forEach(function (item, index) {
-                          if (index == 0) 
-                              html += `<div class="box__item --de --active">`
-                          else 
-                              html += `<div class="box__item --de">`
-                          html += 
-                          `<div class="icon ">
+                        </div>`;
+          sizevien.forEach(function (item, index) {
+            if (index == 0) html += `<div class="box__item --de --active">`;
+            else html += `<div class="box__item --de">`;
+            html += `<div class="icon ">
                               <img src="./img/checkbox.jpeg" alt="">
                               <div class="line1"></div>
                               <div class="line2"></div>
                               <div class="circle"></div>
                           </div>
                           <p value="${item.MaVien}">${item.TenVien} (${item.DinhLuongVien})</p>
-                      </div>`
-                      })
+                      </div>`;
+          });
 
-                    html += `</div>
+          html += `</div>
                   <div class="box__bottom">
                   <div class="buttons_added">
                   <input class="minus is-form" type="button" value="-" onclick="decreasingNumber(this, ${data})">
@@ -264,7 +255,6 @@ function addEventProducts() {
   });
 }
 
-
 function addeventPOPUP() {
   var popup = document.querySelector(".popup");
   var btnBuy = document.querySelectorAll(".scproducts__list-item .top");
@@ -290,7 +280,6 @@ function addeventPOPUP() {
       }
     }
   });
-
 
   //ĐẾ KÍCH THƯỚC
 
@@ -329,7 +318,6 @@ function addeventPOPUP() {
   });
 }
 
-
 function addeventchuyensizevade(listDetail) {
   var map = new Map();
   var size = document.querySelectorAll(".box__item.--kt");
@@ -338,12 +326,28 @@ function addeventchuyensizevade(listDetail) {
 
   for (i = 0; i < listDetail.length; i++) {
     map.set(
-      listDetail[i].TenSize + " (" + listDetail[i].DinhLuongSize + ") " + listDetail[i].TenVien + " (" + listDetail[i].DinhLuongVien + ")",
+      listDetail[i].TenSize +
+        " (" +
+        listDetail[i].DinhLuongSize +
+        ") " +
+        listDetail[i].TenVien +
+        " (" +
+        listDetail[i].DinhLuongVien +
+        ")",
       listDetail[i].GiaTien
     );
     if (i == 0) {
       document.querySelectorAll(".--add p")[1].innerHTML = toVND(
-        map.get(listDetail[i].TenSize + " (" + listDetail[i].DinhLuongSize + ") " + listDetail[i].TenVien + " (" + listDetail[i].DinhLuongVien + ")")
+        map.get(
+          listDetail[i].TenSize +
+            " (" +
+            listDetail[i].DinhLuongSize +
+            ") " +
+            listDetail[i].TenVien +
+            " (" +
+            listDetail[i].DinhLuongVien +
+            ")"
+        )
       );
     }
   }
@@ -362,7 +366,6 @@ function addeventchuyensizevade(listDetail) {
     });
   });
 
-
   de.forEach(function (item) {
     item.addEventListener("click", function () {
       document.querySelector(".popup .btn.--add").style.backgroundColor =
@@ -376,84 +379,88 @@ function addeventchuyensizevade(listDetail) {
           "#ccc";
         // disabled = true;
         document.querySelector(".popup .btn.--add").disabled = true;
-      
       }
       document.querySelector(".popup .btn.--add p:nth-child(2)").innerText =
         toVND(price);
     });
   });
-
-
 }
-
 
 ////TÌM KIẾM VÀ TÌM KIẾM NÂNG CAO (AUTHROR: TRUNG HƯNG)
-function livesearch(input,category,min,max) {
+function livesearch(input, category, min, max) {
   // userInput là giá trị được nhập vào từ người dùng
 
-// Tạo câu truy vấn với biến input
- currentqueryz = "SELECT sanpham.MaSP, TenSP, Mota, Img, Loai, MaSize, MaVien, GiaTien FROM `sanpham` left join `chitietsanpham` on `sanpham`.masp=`chitietsanpham`.masp left join `loaisanpham` on chitietsanpham.masp=loaisanpham.masp WHERE sanpham.TenSP LIKE '%" + input + "%' and (chitietsanpham.MASIZE='S' AND chitietsanpham.MAVIEN='M') ";
- let category_id=0;
+  // Tạo câu truy vấn với biến input
+  currentqueryz =
+    "SELECT sanpham.MaSP, TenSP, Mota, Img, Loai, MaSize, MaVien, GiaTien FROM `sanpham` left join `chitietsanpham` on `sanpham`.masp=`chitietsanpham`.masp left join `loaisanpham` on chitietsanpham.masp=loaisanpham.masp WHERE sanpham.TenSP LIKE '%" +
+    input +
+    "%' and (chitietsanpham.MASIZE='S' AND chitietsanpham.MAVIEN='M') ";
+  let category_id = 0;
 
- if(min+max!=0){
-   currentqueryz+="and chitietsanpham.giatien between "+min+"000 and "+max+"000";
- }
+  if (min + max != 0) {
+    currentqueryz +=
+      "and chitietsanpham.giatien between " + min + "000 and " + max + "000";
+  }
 
- if(category != "Tất cả"){
-   switch(category){
-     case "Pizza Bo":
-       category_id=2;break;
-     case "Pizza Ga":
-       category_id=1;break;
-     case "Pizza Hai San":
-       category_id=3;break;
-     case "Món ăn vặt":
-       category_id=4;break;
-     case "Nước uống":
-       category_id=5;break;
-   }
-   currentqueryz+=" and loaisanpham.maloai= "+category_id+"";
- }
- currentPagez=1
- console.log(currentPagez,currentqueryz)
- 
- $.ajax({
-   url: "./controller/ProductsController.php",
-   type: "post",
-   method: "POST",
-   dataType: "json",
-   timeout:1500,
-   data: {
-     request:"livesearch",
-     currentquery: currentqueryz,
-     currentpage: currentPagez,
-   },
-   success: function (data) {
-     if(data && data.result && data.result.length > 0){
-     listProduct = data.result;
-     var totalPage = data.countrow / perPage;
-     showProducts();
-     renderPag(totalPage);
-     }
-     else {
-       // Hiển thị thông báo không có kết quả
-       $('.scproducts__list').html('<h5>Không có sản phẩm nào phù hợp với từ khóa tìm kiếm của bạn.</h5>');
-     }
- },
-   //fail
-   error: function () {
-     console.log("onii chan baka");
-   },
- 
- });
+  if (category != "Tất cả") {
+    switch (category) {
+      case "Pizza Bo":
+        category_id = 2;
+        break;
+      case "Pizza Ga":
+        category_id = 1;
+        break;
+      case "Pizza Hai San":
+        category_id = 3;
+        break;
+      case "Món ăn vặt":
+        category_id = 4;
+        break;
+      case "Nước uống":
+        category_id = 5;
+        break;
+    }
+    currentqueryz += " and loaisanpham.maloai= " + category_id + "";
+  }
+  currentPagez = 1;
+  console.log(currentPagez, currentqueryz);
+
+  $.ajax({
+    url: "./controller/ProductsController.php",
+    type: "post",
+    method: "POST",
+    dataType: "json",
+    timeout: 1500,
+    data: {
+      request: "livesearch",
+      currentquery: currentqueryz,
+      currentpage: currentPagez,
+    },
+    success: function (data) {
+      if (data && data.result && data.result.length > 0) {
+        listProduct = data.result;
+        var totalPage = data.countrow / perPage;
+        showProducts();
+        renderPag(totalPage);
+      } else {
+        // Hiển thị thông báo không có kết quả
+        $(".scproducts__list").html(
+          "<h5>Không có sản phẩm nào phù hợp với từ khóa tìm kiếm của bạn.</h5>"
+        );
+      }
+    },
+    //fail
+    error: function () {
+      console.log("onii chan baka");
+    },
+  });
 }
-
 
 document.querySelector(".search-btn").addEventListener("click", function () {
   var input = $(".form-search-input").val();
   var category = $("#advanced-search-category-select").val();
   var min = $("#min-price").val();
   var max = $("#max-price").val();
-  console.log(input,category,min,max)
-  livesearch(input,category,min,max);
+  console.log(input, category, min, max);
+  livesearch(input, category, min, max);
 });

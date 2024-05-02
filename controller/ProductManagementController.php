@@ -68,6 +68,7 @@ function uploadProduct() {
     if (isset($_FILES['up-hinh-anh'])) {
         global $bussp;
         $file = $_FILES['up-hinh-anh'];
+        
         $uploadDir = '../images/pizzaimg/';
 
         // Tạo một tên file duy nhất
@@ -76,27 +77,26 @@ function uploadProduct() {
         // Di chuyển file đã tải lên vào thư mục tải lên
         if (move_uploaded_file($file['tmp_name'], $uploadFile)) {
             $uploadFile = './images/pizzaimg/' . basename($file['name']);
-            // them sp vao db
-            $sql = "INSERT INTO sanpham(MaSP, TenSP, Mota, Img, Loai) VALUES ('$masp', '$name', '$description', '$uploadFile', '$category')";
-            $result = $bussp->insertz($sql);
-
-            if ($result) {
-                // add chitietsanpham
-                // convert to arrray $_POST['chitietsanpham'];
-                
-                $listchitiet = json_decode($_POST['chitietsanpham'], true);
-                foreach ($listchitiet as $item) {
-                    $sql = "INSERT INTO chitietsanpham(MaSP, MaSize, MaVien, GiaNhap, GiaTien, SoLuong) VALUES ('$masp', '{$item['masize']}', '{$item['made']}','0' ,'0', 0)";
-                    $result = $bussp->insertz($sql);
-                    if (!$result) {
-                        die (json_encode(array('status' => 'fail')));
-                    }
-                }
-                die (json_encode(array('status' => 'success')));
-            }
-                
         } else {
-            echo 'Possible file upload attack!';
+            $uploadFile = './images/pizzaimg/pizza_temp.jpg';
+        }
+        // them sp vao db
+        $sql = "INSERT INTO sanpham(MaSP, TenSP, Mota, Img, Loai) VALUES ('$masp', '$name', '$description', '$uploadFile', '$category')";
+        $result = $bussp->insertz($sql);
+
+        if ($result) {
+            // add chitietsanpham
+            // convert to arrray $_POST['chitietsanpham'];
+            
+            $listchitiet = json_decode($_POST['chitietsanpham'], true);
+            foreach ($listchitiet as $item) {
+                $sql = "INSERT INTO chitietsanpham(MaSP, MaSize, MaVien, GiaNhap, GiaTien, SoLuong) VALUES ('$masp', '{$item['masize']}', '{$item['made']}','0' ,'0', 0)";
+                $result = $bussp->insertz($sql);
+                if (!$result) {
+                    die (json_encode(array('status' => 'fail')));
+                }
+            }
+            die (json_encode(array('status' => 'success')));
         }
     }
 

@@ -7,41 +7,41 @@ var listDeLength = 0;
 var listSizeProduct = [];
 var curAttribute = new Map();
 var totalPage = 0;
+var flag = 0;
 loadTableProduct();
 loadCombinationSizeAndCrust();
-addeventinputthemsp();  
+addeventinputthemsp();
 addeventaddproduct();
 addeventthemthuoctinh();
 loadcomcomboboxtheloai();
-// addeventthemsp();
+
 var listProduct;
 function loadTableProduct() {
-    $.ajax({
-        url: "./controller/ProductManagementController.php",
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            request: 'loadTableProduct',
-            currentquery: currentqueryz,
-            currentpage: currentPagez,
-        },
-        success: function(data) {
-            var row;
-            if (data == null) { 
-                listProduct = [];
-                row = 0;
-            }
-            else {
-                listProduct = data.result;
-                row = data.countrow;
-            }
-            totalPage =  row / perPage;
-            totalPage = Math.ceil(totalPage);
-            showProductTableAdmin();
-            renderPagAdmin(totalPage, currentPagez);
-            addeventdelete();
-        },
-    });
+  $.ajax({
+    url: "./controller/ProductManagementController.php",
+    type: "POST",
+    dataType: "json",
+    data: {
+      request: "loadTableProduct",
+      currentquery: currentqueryz,
+      currentpage: currentPagez,
+    },
+    success: function (data) {
+      var row;
+      if (data == null) {
+        listProduct = [];
+        row = 0;
+      } else {
+        listProduct = data.result;
+        row = data.countrow;
+      }
+      totalPage = row / perPage;
+      totalPage = Math.ceil(totalPage);
+      showProductTableAdmin();
+      renderPagAdmin(totalPage, currentPagez);
+      addeventdelete();
+    },
+  });
 
   $.ajax({
     url: "./controller/ProductManagementController.php",
@@ -86,7 +86,7 @@ function showProductTableAdmin() {
            <div class="list-right">
                <div class="list-control">
                    <div class="list-tool">
-                       <button class="btn-edit"><i class="fa-regular fa-pen-to-square"></i></button>
+                       <button class="btn-edit" onclick="prepared()"><i class="fa-regular fa-pen-to-square"></i></button>
                        <button class="btn-delete" value="${item.MaSP}"><i class="fa-solid fa-trash"></i></button>
                    </div>
                </div>
@@ -94,8 +94,18 @@ function showProductTableAdmin() {
    </div>`;
   });
   document.querySelector("#show-product").innerHTML = html;
+  // var editButtons = document.querySelectorAll('.btn-edit');
+  // console.log('editButtons', editButtons)
 }
+function prepared() {
+  var titleModal = document.querySelector(".modal-container-title");
+  var modal = document.querySelector(".add-product");
+  var uploadImg = document.querySelector(".upload-image-preview");
 
+  uploadImg.src = "img/pizza-1.png";
+  modal.classList.add("open");
+  titleModal.innerHTML = "CHỈNH SỬA SẢN PHẨM";
+}
 function renderPagAdmin(totalPage, currentPage) {
   if (totalPage < 2) totalPage = 0;
   var html = "";
@@ -120,18 +130,6 @@ function addeventinputthemsp() {
     };
 
     reader.readAsDataURL(e.target.files[0]);
-
-    // Create a FormData object
-    var formData = new FormData();
-    // Add the file to the FormData object
-    formData.append("file", e.target.files[0]);
-
-    // Create an AJAX request
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "../controller/FileUploadController.php", true);
-
-    // Send the FormData object with the AJAX request
-    xhr.send(formData);
   });
 }
 
@@ -252,52 +250,52 @@ function resetInput() {
 }
 
 function loadCombinationSizeAndCrust() {
-    $.ajax({
-        url: './controller/ProductsController.php',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            request: 'getAllCrust',
-        },
-        success: function(data) {
-             listDeProduct = data;
-            $.ajax({
-                url: './controller/ProductsController.php',
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    request: 'getAllSize',
-                },
-                success: function(data) {
-                    listSizeProduct = data;
-                    listDeLength = listDeProduct.length;
-                    var div = document.getElementById('chon-tt');
-                    console.log(div);
-                    var html = ``;
+  $.ajax({
+      url: './controller/ProductsController.php',
+      type: 'POST',
+      dataType: 'json',
+      data: {
+          request: 'getAllCrust',
+      },
+      success: function(data) {
+          var listDeProduct = data;
+          $.ajax({
+              url: './controller/ProductsController.php',
+              type: 'POST',
+              dataType: 'json',
+              data: {
+                  request: 'getAllSize',
+              },
+              success: function(data) {
+                  listSizeProduct = data;
+                  listDeLength = listDeProduct.length;
+                  var div = document.getElementById('chon-tt');
+                  console.log(div);
+                  var html = ``;
 
-                    var listCombination = [];
-                    var listIDCombination = [];
-                    listSizeProduct.forEach(function (size) {
-                        listDeProduct.forEach(function (de) {
-                            listCombination.push("Size: " + size.TenSize + " - " + de.TenVien);
-                            listIDCombination.push(size.MaSize + de.MaVien);
-                        });
-                    });
+                  var listCombination = [];
+                  var listIDCombination = [];
+                  listSizeProduct.forEach(function (size) {
+                      listDeProduct.forEach(function (de) {
+                          listCombination.push("Size: " + size.TenSize + " - " + de.TenVien);
+                          listIDCombination.push(size.MaSize + de.MaVien);
+                      });
+                  });
 
-                    for (var i = 0; i < listCombination.length; i++) {
-                    html += `<option value="${listIDCombination[i]}">${listCombination[i]}</option>`;
-                    }
-                    div.innerHTML = html;
-                    removeloader();
-                },
-                error: function(xhr, status, error) {
-                    console.log(xhr);
-                    console.log(status);
-                    console.log(error);
-                }
-            });
-        }
-    });
+                  for (var i = 0; i < listCombination.length; i++) {
+                  html += `<option value="${listIDCombination[i]}">${listCombination[i]}</option>`;
+                  }
+                  div.innerHTML = html;
+                  removeloader();
+              },
+              error: function(xhr, status, error) {
+                  console.log(xhr);
+                  console.log(status);
+                  console.log(error);
+              }
+          });
+      }
+  });
 
 }
 
@@ -332,8 +330,7 @@ function addeventaddproduct() {
     formData.append("masp", masp);
 
     var fileField = document.querySelector('input[type="file"]');
-
-        formData.append('up-hinh-anh', fileField.files[0]);
+    formData.append('up-hinh-anh', fileField.files[0]);
         // traverse curAttribute
         var chitietsanpham = [];
         curAttribute.forEach(function (value, key) {
@@ -394,7 +391,6 @@ function clearmsg() {
   }
 }
 
-
 function addeventthemthuoctinh() {
     var btn = document.querySelector('.themthuoctinh');
     btn.addEventListener('click', function() {
@@ -423,16 +419,16 @@ function addeventthemthuoctinh() {
 }
 
 function filltable() {
-    var rowTable = document.querySelector('.rowTable');
-    // traverse map
-    var html = "";
-    curAttribute.forEach(function (value, key) {
-        html += `<tr>
+  var rowTable = document.querySelector(".rowTable");
+  // traverse map
+  var html = "";
+  curAttribute.forEach(function (value, key) {
+    html += `<tr>
         <td>${value.tensize}</td>
         <td>${value.tende}</td>
         </tr>`;
-    });
-    rowTable.innerHTML = html;
+  });
+  rowTable.innerHTML = html;
 }
 
 
@@ -445,10 +441,12 @@ function loadcomcomboboxtheloai() {
             request: 'getAllCategory',
         },
         success: function(data) {
+          console.log(data);
             var html = '<option>Tất cả</option>';
             data.forEach(function (item) {
-                html += `<option ${item.TenLoai}</option>`;
+                html += `<option>${item.TenLoai}</option>`;
             });
+            console.log(html);
             document.getElementById('the-loai').innerHTML = html;
         }
     });

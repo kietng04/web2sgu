@@ -70,7 +70,7 @@ class SanPhamBUS extends DB_business {
     }
 
     function getAllCategory() {
-        $sql = "SELECT DISTINCT Loai FROM sanpham";
+        $sql = "SELECT * FROM LoaiSanPham";
         $result = $this->get_list($sql);
         return $result;
     }

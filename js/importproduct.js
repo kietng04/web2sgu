@@ -1,6 +1,7 @@
 loadProductPN();
 addeventThempn();
 loadmaphieunhap();
+addeventsuapn();
 var curProduct;
 var listDeProduct = [];
 var listDeLength = 0;
@@ -36,6 +37,9 @@ function addeventClick() {
     var clickbtnlist = document.querySelectorAll('.productClicked');
     clickbtnlist.forEach(element => {
         element.addEventListener('click', function() {
+            document.querySelectorAll('.rowdetail').forEach(element => {
+                element.classList.remove('black');
+            })
             var productID = element.getAttribute('value');
             var combobox = document.getElementById('product-item');
             clickbtnlist.forEach(element => {
@@ -78,6 +82,9 @@ function addeventClick() {
                     combobox.innerHTML = html;
                 }
             });
+            document.querySelector('#product-price').value = '';
+            document.querySelector('#product-pricesell').value = '';
+            document.querySelector('#product-quantity').value = '';
         })
     })
 }
@@ -86,6 +93,16 @@ function addeventThempn() {
     var btnThem = document.querySelector('.addphieunhap');
     btnThem.addEventListener('click', function(e) {
         e.preventDefault();
+        var flag = 0;
+        document.querySelectorAll('.productClicked').forEach(element => {
+            if (element.classList.contains('black')) {
+                flag = 1;
+            }
+        })
+        if (flag == 0) {
+            createToast('error', 'Vui lòng chọn sản phẩm cần nhập!');
+            return;
+        }
         var masp = document.querySelector('#product-name').value.split(' - ')[0];
         var tensp = document.querySelector('#product-name').value.split(' - ')[1]
         var masize = document.querySelector('#product-item').value[0];
@@ -102,7 +119,17 @@ function addeventThempn() {
             createToast('error', 'Giá nhập phải nhỏ hơn giá bán!');
             return;
         }
-
+        // check xem sản phẩm đã tồn tại trong list chưa
+        var flag = 0;
+        listCTPN.forEach(element => {
+            if (element.MaSP == masp && element.MaSize == masize && element.MaDe == made) {
+                createToast('error', 'Sản phẩm đã tồn tại trong danh sách!');
+                flag = 1;
+            }
+        })
+        if (flag == 1) {
+            return;
+        }
         listCTPN.push({
             "MaSP": masp,
             "TenSP": tensp,
@@ -111,7 +138,8 @@ function addeventThempn() {
             "SoLuong": soluong,
             "TenSize": document.querySelector('#product-item').options[document.querySelector('#product-item').selectedIndex].text.split(' - ')[0],
             "TenDe": document.querySelector('#product-item').options[document.querySelector('#product-item').selectedIndex].text.split(' - ')[1],
-            "GiaNhap": document.getElementById('product-price').value
+            "GiaNhap": document.getElementById('product-price').value,
+            "GiaBan": document.getElementById('product-pricesell').value
         })
         loadTablepn();
         sum += parseInt(document.getElementById('product-price').value) * parseInt(soluong);
@@ -124,17 +152,47 @@ function addeventThempn() {
 function loadTablepn() {
     var divtable = document.querySelector('.rowtable');
     var html = '';
-    listCTPN.forEach(element => {
-        html += `<tr>
+    listCTPN.forEach((element,index) => {
+        html += `<tr class="rowdetail" value="${index}">
                     <td>${element.MaSP}</td>
                     <td>${element.TenSP}</td>
                     <td>${element.TenSize}</td>
                     <td>${element.TenDe}</td>
                     <td>${element.GiaNhap}</td>
+                    <td>${element.GiaBan}</td>
                     <td>${element.SoLuong}</td>
                 </tr>`
     })
     divtable.innerHTML = html;
+    addeventclickdetail();
+}
+
+function addeventclickdetail() {
+    var rowdetail = document.querySelectorAll('.rowdetail');
+    rowdetail.forEach((element, index) => {
+        element.addEventListener('click', function() {
+            document.querySelectorAll('.productClicked').forEach(element => {
+                element.classList.remove('black');
+            })
+            var index = element.getAttribute('value');
+
+            rowdetail.forEach(element => {
+                if (element.classList.contains('black')) {
+                    element.classList.remove('black');
+                }
+                if (element.querySelectorAll('td')[0].innerHTML == listCTPN[index].MaSP && element.querySelectorAll('td')[2].innerHTML == listCTPN[index].TenSize && element.querySelectorAll('td')[3].innerHTML == listCTPN[index].TenDe) {
+                    element.classList.add('black');
+                }   
+            })
+
+            document.querySelector('#product-name').value = listCTPN[index].MaSP + ' - ' + listCTPN[index].TenSP;
+            document.querySelector('#product-name').disabled = true;
+            document.querySelector('#product-item').value = listCTPN[index].MaSize + listCTPN[index].MaDe;
+            document.querySelector('#product-price').value = listCTPN[index].GiaNhap;
+            document.querySelector('#product-pricesell').value = listCTPN[index].GiaBan;
+            document.querySelector('#product-quantity').value = listCTPN[index].SoLuong;
+        })
+    })
 }
 
 function loadmaphieunhap() {
@@ -155,8 +213,11 @@ function loadmaphieunhap() {
 
 function thempn(e) {
     e.preventDefault();
-    var currendate = new Date();
-    var date = currendate.getFullYear() + '-' + (currendate.getMonth() + 1) + '-' + currendate.getDate();
+    // get current date and time
+    var date = new Date();
+    var curdate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+    var curtime = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+    var date = curdate + ' ' + curtime;
     $.ajax({
         url: './controller/ImportController.php',
         type: 'POST',
@@ -171,4 +232,21 @@ function thempn(e) {
             console.log(data);
         }
     })
+}
+
+function addeventsuapn() {
+    document.querySelector('.suapn').addEventListener('click', function(e) {
+        e.preventDefault();
+        var flag = 0;
+        document.querySelectorAll('.rowdetail').forEach(element => {
+            if (element.classList.contains('black')) {
+                flag = 1;
+            }
+        })
+        if (flag == 0) {
+            createToast('error', 'Vui lòng chọn sản phẩm cần sửa!');
+            return;
+        }    
+    })
+
 }

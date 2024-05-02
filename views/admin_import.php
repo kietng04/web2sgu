@@ -303,7 +303,7 @@
                         <input type="text" id="product-quantity" name="product-quantity" class="input">
                     </div>
                     <div class="vertical item-2">
-                        <button type="submit" class="btn-control-large">Sửa</button>
+                        <button type="submit" class="btn-control-large suapn">Sửa</button>
                     </div>
                     <div class="vertical item-3">
                         <button type="submit" class="btn-control-large item-3">Xoá</button>
@@ -319,7 +319,8 @@
                                 <td>Tên sản phẩm</td>
                                 <td>Kích thước</td>
                                 <td>Đế</td>
-                                <td>Đơn giá</td>
+                                <td>Giá nhập</td>
+                                <td>Giá bán</td>
                                 <td>Số lượng</td>
                              </tr>
                          </thead>

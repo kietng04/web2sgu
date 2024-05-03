@@ -64,10 +64,10 @@
   z-index: 98;
   display: flex;
   align-items: center;
-  position: sticky;
   flex-grow: 1;
   font-weight: bold;
   background: #ffffff;
+  justify-content: space-between;
   border-bottom: 1px solid rgba(0, 0, 0, 0.129);
 }
 .btn__topic {
@@ -555,10 +555,19 @@
 }
 
 .popupLogin__form {
+  opacity: 1;
+  width: 50%;
   padding: 45px 45px 25px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: opacity 0.3s ease;
+}
+.popupLogin__form.hidden {
+  opacity: 0;
+}
+.popupLogin__form.none {
+  display: none;
 }
 
 .headingLogin {
@@ -579,7 +588,8 @@
   text-align: center;
   margin-bottom: 18px;
 }
-.form-item.--login input {
+.form-item.--login input,
+.form-item.--logins input {
   width: 366px;
 }
 .popupLogin .btn {
@@ -596,6 +606,13 @@
 }
 .popupLogin .register a {
   color: green;
+}
+.popupLogin .login__switch {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  cursor: pointer;
+  color: var(--color-red);
 }
 
 .form-error {
@@ -627,13 +644,13 @@
 }
 
 .pagnition {
-  margin-top: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   text-decoration: none;
   list-style-type: none;
+  margin-bottom: 20px;
 }
 
 .page-item {

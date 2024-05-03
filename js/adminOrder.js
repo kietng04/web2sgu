@@ -4,7 +4,7 @@ xử lí chưa xử lí
 tìm kiếm đơn hàng trong khoảng thời gian
 Hưng*/
 let currentqueryz=`
-select CONCAT('DH',hoadon.MaHD) as MaHD,CONCAT(nguoidung.Ho, ' ',nguoidung.Ten) as TenND,ngaylap,tongtien,trangthai.chitiettt as trangthai 
+select CONCAT('',hoadon.MaHD) as MaHD,CONCAT(nguoidung.Ho, ' ',nguoidung.Ten) as TenND,ngaylap,tongtien,trangthai.chitiettt as trangthai 
 from hoadon
 left join trangthai on hoadon.trangthai=trangthai.MaTT
 left join nguoidung on hoadon.MaND=nguoidung.MaND
@@ -57,7 +57,7 @@ function showOrderTableAdmin(){
         <td>${item.tongtien}</td>
         <td><span class="status-complete">${item.trangthai}</span></td>
         <td class="control">
-            <button class="btn-detail" id=""><i class="fa-regular fa-eye"></i> Chi tiết</button>
+            <button class="btn-detail" id="${item.MaHD}"><i class="fa-regular fa-eye"></i> Chi tiết</button>
         </td>
     </tr>`
     });
@@ -287,8 +287,13 @@ function addEventButton() {
         item.addEventListener("click", function(e) {
             let row = e.target.parentElement.parentElement;
             // let row_id = row.querySelectorAll("td");
-            let row_id=row.querySelectorAll("td")[0].innerText.slice(2);
+<<<<<<< HEAD
+            let row_id=row.querySelectorAll("td")[0].innerText;
             console.log(row_id);
+=======
+            let row_id=row.querySelectorAll("td")[0].innerText.slice(2);
+            console.log("rows id ",row_id);
+>>>>>>> 5d6042b46e35a17c5d81679e4cc69a7bc815a2ad
             let popup=document.querySelector(".detail-order");
             console.log(popup)
             popup.classList.add("open");
@@ -340,12 +345,12 @@ function showSelectedValue(selected_option,order_id){
 }
 
 function findOrder(event){
-    let input_value=event.target.value;
+    let input_value= document.querySelector(".form-search-input").value;
     //search the order by MaHD or TenND
     //write query to select the order by MaHD or TenND
     //write the query to select order with the paramete TenND or MaHD
     let query_find_order=`
-    select CONCAT('DH',hoadon.MaHD) as MaHD,CONCAT(nguoidung.Ho, ' ',nguoidung.Ten) as TenND,ngaylap,tongtien,trangthai.chitiettt as trangthai
+    select CONCAT('',hoadon.MaHD) as MaHD,CONCAT(nguoidung.Ho, ' ',nguoidung.Ten) as TenND,ngaylap,tongtien,trangthai.chitiettt as trangthai
     from hoadon
     left join trangthai on hoadon.trangthai=trangthai.MaTT
     left join nguoidung on hoadon.MaND=nguoidung.MaND
@@ -363,7 +368,10 @@ function findOrder(event){
             currentpage: currentPagez,
         },
         success: function(data) {
-            console.log(data);
+            if (!data) {
+                alert("Không tìm thấy đơn hàng");
+                return;
+            }
             listOrder = data.result;
             showOrderTableAdmin();
             addEventButton();
@@ -385,21 +393,21 @@ function findOrder_category(){
     let category=Number(this.value);
     //write the querry select the orders by category
     let query_find_order_chuaxualy=`
-    select CONCAT('DH',hoadon.MaHD) as MaHD,CONCAT(nguoidung.Ho, ' ',nguoidung.Ten) as TenND,ngaylap,tongtien,trangthai.chitiettt as trangthai
+    select CONCAT('',hoadon.MaHD) as MaHD,CONCAT(nguoidung.Ho, ' ',nguoidung.Ten) as TenND,ngaylap,tongtien,trangthai.chitiettt as trangthai
     from hoadon
     left join trangthai on hoadon.trangthai=trangthai.MaTT
     left join nguoidung on hoadon.MaND=nguoidung.MaND
     where trangthai.MaTT=0`;
 
     let query_find_order_daxacnhan=`
-    select CONCAT('DH',hoadon.MaHD) as MaHD,CONCAT(nguoidung.Ho, ' ',nguoidung.Ten) as TenND,ngaylap,tongtien,trangthai.chitiettt as trangthai
+    select CONCAT('',hoadon.MaHD) as MaHD,CONCAT(nguoidung.Ho, ' ',nguoidung.Ten) as TenND,ngaylap,tongtien,trangthai.chitiettt as trangthai
     from hoadon
     left join trangthai on hoadon.trangthai=trangthai.MaTT
     left join nguoidung on hoadon.MaND=nguoidung.MaND
     where trangthai.MaTT>0`;
 
     let query_find_order_ALL=`
-    select CONCAT('DH',hoadon.MaHD) as MaHD,CONCAT(nguoidung.Ho, ' ',nguoidung.Ten) as TenND,ngaylap,tongtien,trangthai.chitiettt as trangthai
+    select CONCAT('',hoadon.MaHD) as MaHD,CONCAT(nguoidung.Ho, ' ',nguoidung.Ten) as TenND,ngaylap,tongtien,trangthai.chitiettt as trangthai
     from hoadon
     left join trangthai on hoadon.trangthai=trangthai.MaTT
     left join nguoidung on hoadon.MaND=nguoidung.MaND
@@ -430,6 +438,10 @@ function findOrder_category(){
             currentpage: currentPagez,
         },
         success: function(data) {
+            if (!data) {
+                alert("Không tìm thấy đơn hàng");
+                return;
+            }
             console.log(data);
             listOrder = data.result;
             showOrderTableAdmin();
@@ -461,7 +473,7 @@ function findOrder_time(){
     if(end_time==""){
        //write querry to select the order in the time start to now
           query_find_order_time=`
-        select CONCAT('DH',hoadon.MaHD) as MaHD,CONCAT(nguoidung.Ho, ' ',nguoidung.Ten) as TenND,ngaylap,tongtien,trangthai.chitiettt as trangthai
+        select CONCAT('',hoadon.MaHD) as MaHD,CONCAT(nguoidung.Ho, ' ',nguoidung.Ten) as TenND,ngaylap,tongtien,trangthai.chitiettt as trangthai
         from hoadon
         left join trangthai on hoadon.trangthai=trangthai.MaTT
         left join nguoidung on hoadon.MaND=nguoidung.MaND
@@ -472,7 +484,7 @@ function findOrder_time(){
     if(start_time==""){
         //write querry to select the order in the first day to end_time
         query_find_order_time=`
-        select CONCAT('DH',hoadon.MaHD) as MaHD,CONCAT(nguoidung.Ho, ' ',nguoidung.Ten) as TenND,ngaylap,tongtien,trangthai.chitiettt as trangthai
+        select CONCAT('',hoadon.MaHD) as MaHD,CONCAT(nguoidung.Ho, ' ',nguoidung.Ten) as TenND,ngaylap,tongtien,trangthai.chitiettt as trangthai
         from hoadon
         left join trangthai on hoadon.trangthai=trangthai.MaTT
         left join nguoidung on hoadon.MaND=nguoidung.MaND
@@ -483,7 +495,7 @@ function findOrder_time(){
 
     if(start_time==end_time){
         query_find_order_time=`
-        select CONCAT('DH',hoadon.MaHD) as MaHD,CONCAT(nguoidung.Ho, ' ',nguoidung.Ten) as TenND,ngaylap,tongtien,trangthai.chitiettt as trangthai
+        select CONCAT('',hoadon.MaHD) as MaHD,CONCAT(nguoidung.Ho, ' ',nguoidung.Ten) as TenND,ngaylap,tongtien,trangthai.chitiettt as trangthai
         from hoadon
         left join trangthai on hoadon.trangthai=trangthai.MaTT
         left join nguoidung on hoadon.MaND=nguoidung.MaND
@@ -492,7 +504,7 @@ function findOrder_time(){
 
     //write the query to select the order in the time range
     query_find_order_time=`
-    select CONCAT('DH',hoadon.MaHD) as MaHD,CONCAT(nguoidung.Ho, ' ',nguoidung.Ten) as TenND,ngaylap,tongtien,trangthai.chitiettt as trangthai
+    select CONCAT('',hoadon.MaHD) as MaHD,CONCAT(nguoidung.Ho, ' ',nguoidung.Ten) as TenND,ngaylap,tongtien,trangthai.chitiettt as trangthai
     from hoadon
     left join trangthai on hoadon.trangthai=trangthai.MaTT
     left join nguoidung on hoadon.MaND=nguoidung.MaND
@@ -509,6 +521,10 @@ function findOrder_time(){
             currentpage: currentPagez,
         },
         success: function(data) {
+            if (!data) {
+                alert("Không tìm thấy đơn hàng");
+                return;
+            }
             console.log(data);
             listOrder = data.result;
             showOrderTableAdmin();

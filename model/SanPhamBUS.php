@@ -71,7 +71,13 @@ class SanPhamBUS extends DB_business {
     }
 
     function update($sql) {
-        $result = $this->update($sql);
+        $result = $this->updatezzz($sql);
+        return $result;
+    }
+
+    function getAllCategory() {
+        $sql = "SELECT * FROM LoaiSanPham";
+        $result = $this->get_list($sql);
         return $result;
     }
 }

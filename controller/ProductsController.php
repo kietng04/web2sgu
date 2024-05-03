@@ -83,6 +83,9 @@ switch($_POST['request']) {
     case 'getListSizeDeProduct':
         getListSizeDeProduct();
         break;
+    case 'getAllCategory':
+        getAllCategory();
+        break;
 }
 }
 function login() {
@@ -101,6 +104,26 @@ function login() {
     die (json_encode(null));
     return 0;
 }
+<<<<<<< HEAD
+=======
+function loginStaff() { 
+    $username=$_POST['data_usernames'];
+    $password=$_POST['data_passs'];
+    $sql = "SELECT * FROM TaiKhoanNhanVien WHERE TaiKhoan='$username' AND MatKhau='$password'";
+    $result = (new NhanVienBus())->get_list($sql);
+        // create array include $result and null
+    $returnz = array('result' => $result, 'cart' => null);
+    if($result != false){
+        $_SESSION['currentUser']=$returnz;
+        die (json_encode($result)); 
+        
+        return 1;
+    }
+    die (json_encode(null));
+    return 0;
+
+}
+>>>>>>> fd8c7be5aa644919e78b77deb34aebaccf073fd3
 
 function signup() {
     $ho=$_POST['data_ho'];
@@ -241,6 +264,14 @@ function getAllSize() {
 function getListSizeDeProduct() {
     $id = $_POST['productID'];
     $result = (new SanPhamBUS())->getListSizeDeProduct($id);
+    if ($result != null) {
+        die (json_encode($result));
+    }
+    die (json_encode(null));
+}
+
+function getAllCategory() {
+    $result = (new SanPhamBUS())->getAllCategory();
     if ($result != null) {
         die (json_encode($result));
     }

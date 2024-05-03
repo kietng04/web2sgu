@@ -18,11 +18,13 @@
     <link rel="stylesheet" href="css/admin_styles1.css">
     <link rel="stylesheet" href="css/admin_styles.css">
     <link rel="stylesheet" href="css/loader.css">
+    <link rel="stylesheet" href="css/notification.css">
 </head>
 
 <body>
     <div class="loader"></div>
     <script src="js/loader.js"></script>
+    <ul class="notifications"></ul>
     <div class="container">
     <aside class="sidebar open">
             <!-- <div class="btnSidebar">
@@ -297,12 +299,17 @@
                         <input type="text" id="product-price" name="product-price" class="input">
 
                     </div>
+                    <div class="vertical item-44">
+                        <label for="product-price">Giá bán (VNĐ)</label>
+                        <input type="text" id="product-pricesell" name="product-price" class="input">
+
+                    </div>
                     <div class="vertical item-5">
                         <label for="product-quantity">Số lượng</label>
                         <input type="text" id="product-quantity" name="product-quantity" class="input">
                     </div>
                     <div class="vertical item-2">
-                        <button type="submit" class="btn-control-large">Sửa</button>
+                        <button type="submit" class="btn-control-large suapn">Sửa</button>
                     </div>
                     <div class="vertical item-3">
                         <button type="submit" class="btn-control-large item-3">Xoá</button>
@@ -318,7 +325,8 @@
                                 <td>Tên sản phẩm</td>
                                 <td>Kích thước</td>
                                 <td>Đế</td>
-                                <td>Đơn giá</td>
+                                <td>Giá nhập</td>
+                                <td>Giá bán</td>
                                 <td>Số lượng</td>
                              </tr>
                          </thead>
@@ -337,7 +345,7 @@
                     <input type="text" id="import-id" name="import-id" class="input">
                 </div>
                     <div class="total-price">
-                        <h2>Tổng tiền:  </h3>
+                        <h2>Tổng tiền:  </h2>
                         <p class="tongtienpn">0 VNĐ</p>
                     </div>
 
@@ -349,8 +357,11 @@
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="js/notificationEffect.js"></script>
     <script src="js/helper.js"></script>
     <script src="js/importproduct.js"></script>
+    <script src="js/helper.js"></script>
+
     <script>
         var addButtons = document.querySelectorAll('.add');
         var modal = document.querySelector('.modal.add-import');

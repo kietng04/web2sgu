@@ -346,13 +346,7 @@
                             <label for="attribute" class="form-label">Chọn thuộc tính</label>
                             <select name="attribute" id="chon-tt">
                                 
-                            </select>
-                            <label class="form-label">Giá nhập</label>
-                            <input id="gia-nhap" name="gia-nhap" type="text" placeholder="Nhập giá nhập"
-                                class="form-control">
-                            <label class="form-label">Giá bán</label>
-                            <input id="gia-ban" name="gia-ban" type="text" placeholder="Nhập giá bán"
-                                class="form-control">
+                        </select>
                             <button class="themthuoctinh">Thêm thuộc tính</button>
                             <span class="form-message"></span>
                         </div>
@@ -364,8 +358,6 @@
                                 <tr>
                                     <td>Size</td>
                                     <td>Đế</td>
-                                    <td>Giá nhập</td>
-                                    <td>Giá bán</td>
                                 </tr>
                             </thead>
                             <tbody class="rowTable">
@@ -635,7 +627,7 @@
 
 
         addButtons.addEventListener('click', function() {
-            uploadImg.src = "img/upload-image.png";
+            uploadImg.src = "images/pizzaimg/pizza_temp.jpg";
             modal.classList.add('open');
             titleModal.innerHTML = "THÊM MỚI SẢN PHẨM";
         });

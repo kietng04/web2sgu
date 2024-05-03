@@ -1,11 +1,13 @@
 var currentqueryz =
-  "SELECT sanpham.MaSP, TenSP, Mota, Img, Loai FROM `sanpham` WHERE TrangThai = 1";
-var currentRowqueryz = "SELECT COUNT(*) FROM `sanpham` WHERE TrangThai = 1";
+  'SELECT distinct sanpham.MaSP, TenSP, Mota, Img, Loai FROM sanpham, chitietsanpham WHERE sanpham.MaSP = chitietsanpham.MaSP and chitietsanpham.gianhap > 0 and sanpham.TrangThai = 1 and chitietsanpham.trangthai = 1'
+var currentRowqueryz =
+  'SELECT COUNT(distinct sanpham.masp)  FROM sanpham, chitietsanpham WHERE sanpham.MaSP = chitietsanpham.MaSP and chitietsanpham.gianhap > 0 and sanpham.TrangThai = 1 and chitietsanpham.trangthai = 1';
 var currentPagez = 1;
 const productSection = document.querySelector(".pro-collection");
 var html = "";
 var listProduct = [];
-
+var perPage = 8;
+var curProduct;
 loadDefaultProducts();
 loadSessionCart();
 
@@ -99,20 +101,9 @@ function toggleActive(clickedBtn, category) {
   clickedBtn.classList.add("--active");
 
   if (category == "all") {
-    currentqueryz = `SELECT sanpham.MaSP, TenSP, sanpham.Mota, Img, Loai, MaSize, MaVien, GiaTien
-        FROM sanpham, chitietsanpham
-        WHERE sanpham.MaSP = chitietsanpham.MaSP 
-        AND chitietsanpham.MaSize = 'S' 
-        AND chitietsanpham.MaVien = 'M' 
-        `;
+    currentqueryz = `SELECT distinct sanpham.MaSP, TenSP, Mota, Img, Loai FROM sanpham, chitietsanpham WHERE sanpham.MaSP = chitietsanpham.MaSP and chitietsanpham.gianhap > 0 and sanpham.TrangThai = 1 and chitietsanpham.trangthai = 1`;
   } else {
-    currentqueryz = `SELECT sanpham.MaSP, TenSP, sanpham.Mota, Img, Loai, MaSize, MaVien, GiaTien
-        FROM sanpham, chitietsanpham
-        WHERE sanpham.MaSP = chitietsanpham.MaSP 
-        AND chitietsanpham.MaSize = 'S' 
-        AND chitietsanpham.MaVien = 'M' 
-    AND sanpham.Loai = '${category}'
-    `;
+    currentqueryz = `SELECT distinct sanpham.MaSP, TenSP, Mota, Img, Loai FROM sanpham, chitietsanpham WHERE sanpham.MaSP = chitietsanpham.MaSP and chitietsanpham.gianhap > 0 and sanpham.TrangThai = 1 and chitietsanpham.trangthai = 1 and sanpham.loai = '${category}'`;
   }
 
   currentPagez = 1;

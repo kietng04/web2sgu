@@ -9,6 +9,8 @@ class ProductManagementController extends BaseController
         $this->render('admin_product');
     }
 }
+global $bussp;
+$bussp = new SanPhamBUS();
 
 if (isset($_POST['request'])) {
     switch ($_POST['request']) {
@@ -64,7 +66,9 @@ function uploadProduct() {
     // }
     
     if (isset($_FILES['up-hinh-anh'])) {
+        global $bussp;
         $file = $_FILES['up-hinh-anh'];
+        
         $uploadDir = '../images/pizzaimg/';
 
         // Tạo một tên file duy nhất
@@ -73,27 +77,26 @@ function uploadProduct() {
         // Di chuyển file đã tải lên vào thư mục tải lên
         if (move_uploaded_file($file['tmp_name'], $uploadFile)) {
             $uploadFile = './images/pizzaimg/' . basename($file['name']);
-            // them sp vao db
-            $sql = "INSERT INTO sanpham(MaSP, TenSP, Mota, Img, Loai) VALUES ('$masp', '$name', '$description', '$uploadFile', '$category')";
-            $result = (new SanPhamBUS())->insertz($sql);
-
-            if ($result) {
-                // add chitietsanpham
-                // convert to arrray $_POST['chitietsanpham'];
-                
-                $listchitiet = json_decode($_POST['chitietsanpham'], true);
-                foreach ($listchitiet as $item) {
-                    $sql = "INSERT INTO chitietsanpham(MaSP, MaSize, MaVien, GiaNhap, GiaTien, SoLuong) VALUES ('$masp', '{$item['masize']}', '{$item['made']}','{$item['gianhap']}' ,'{$item['giaban']}', 0)";
-                    $result = (new SanPhamBUS())->insertz($sql);
-                    if (!$result) {
-                        die (json_encode(array('status' => 'fail')));
-                    }
-                }
-                die (json_encode(array('status' => 'success')));
-            }
-                
         } else {
-            echo 'Possible file upload attack!';
+            $uploadFile = './images/pizzaimg/pizza_temp.jpg';
+        }
+        // them sp vao db
+        $sql = "INSERT INTO sanpham(MaSP, TenSP, Mota, Img, Loai) VALUES ('$masp', '$name', '$description', '$uploadFile', '$category')";
+        $result = $bussp->insertz($sql);
+
+        if ($result) {
+            // add chitietsanpham
+            // convert to arrray $_POST['chitietsanpham'];
+            
+            $listchitiet = json_decode($_POST['chitietsanpham'], true);
+            foreach ($listchitiet as $item) {
+                $sql = "INSERT INTO chitietsanpham(MaSP, MaSize, MaVien, GiaNhap, GiaTien, SoLuong) VALUES ('$masp', '{$item['masize']}', '{$item['made']}','0' ,'0', 0)";
+                $result = $bussp->insertz($sql);
+                if (!$result) {
+                    die (json_encode(array('status' => 'fail')));
+                }
+            }
+            die (json_encode(array('status' => 'success')));
         }
     }
 
@@ -104,6 +107,7 @@ function uploadProduct() {
 }
 
 function getProducts() {
+    global $bussp;
     $query = $_POST['currentquery'];
     // count(*) from query
     $countrow = "SELECT count(*) as total from ($query) as total";
@@ -113,7 +117,7 @@ function getProducts() {
     $from = ($currentpage - 1) * 8;
     $to = 8;
     $query = $query . " LIMIT $from, $to";
-    $result = (new SanPhamBUS())->get_list($query);
+    $result = $bussp->get_list($query);
     
 
     // return countrow and result
@@ -124,16 +128,37 @@ function getProducts() {
 }
 
 function getprod() {
+    global $bussp;
     $sql = "SELECT * FROM sanpham, chitietsanpham where sanpham.MaSP = chitietsanpham.MaSP and chitietsanpham.MaSize = 'S' and chitietsanpham.MaVien = 'V'";
-    return (new SanPhamBUS())->get_list($sql);
+    return $bussp->get_list($sql);
 }
 
 function deleteProduct() {
+    global $bussp;
     $masp = $_POST['masp'];
     $sql = "UPDATE sanpham SET TrangThai = 0 WHERE MaSP = '$masp'";
-    $result = (new SanPhamBUS())->update($sql);
+    $result = $bussp->update($sql);
     if ($result) {
-        die (json_encode(array('status' => 'success')));
+        // delete all chitietsanpham
+        deletechitietsp($masp);
+    }
+    // die (json_encode(array('status' => 'fail')));
+    // $masp = $_POST['masp'];
+    // $sql = "UPDATE sanpham SET TrangThai = 0 WHERE MaSP = '$masp'";
+    // $result = $bussp->update($sql);
+    // if ($result) {
+    //     // delete all chitietsanpham
+        
+    // }
+    // die (json_encode(array('status' => 'fail')));
+}
+
+function deletechitietsp($id) {
+    global $bussp;
+    $sql = "UPDATE chitietsanpham SET TrangThai = 0 WHERE MaSP = '$id'";
+    $result = $bussp->update($sql);
+    if ($result) {
+        die (json_encode(array('status' => 'successz1')));
     }
     die (json_encode(array('status' => 'fail')));
 }

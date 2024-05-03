@@ -2,7 +2,6 @@
 // require base controller
 require_once('BaseController.php');
 require_once(__DIR__ . '/../model/NguoiDungBUS.php');
-require_once(__DIR__ . '/../model/NhanVienBUS.php');
 require_once(__DIR__ . '/../model/SanPhamBUS.php');
 session_start();
 
@@ -18,16 +17,10 @@ class ProductsController extends BaseController
 
 if (isset($_POST['request'])) {
 switch($_POST['request']) {
-    case 'dangnhapnguoidung':
+    case 'dangnhap':
         if(isset($_POST['data_username']) && isset($_POST['data_pass'])){
-            loginUser();
+            login();
         }
-        break;
-    case 'dangnhapnhanvien':
-        if(isset($_POST['data_usernames']) && isset($_POST['data_passs'])){
-            loginStaff();
-        }
-        
         break;
     case 'dangky':
         if(isset($_POST['data_ho']) && isset($_POST['data_ten']) && isset($_POST['data_sdt']) && isset($_POST['data_email']) && isset($_POST['data_diachi']) && isset($_POST['data_newUser']) && isset($_POST['data_newPass'])){
@@ -92,10 +85,10 @@ switch($_POST['request']) {
         break;
 }
 }
-function loginUser() {
+function login() {
     $username=$_POST['data_username'];
 	$password=$_POST['data_pass'];
-    $sql = "SELECT * FROM TaiKhoanNguoiDung WHERE TaiKhoan='$username' AND MatKhau='$password'";
+    $sql = "SELECT * FROM nguoidung WHERE Email='$username' AND MatKhau='$password'";
     $result = (new NguoiDungBus())->get_list($sql);
     // create array include $result and null
     $returnz = array('result' => $result, 'cart' => null);
@@ -107,23 +100,6 @@ function loginUser() {
 
     die (json_encode(null));
     return 0;
-}
-function loginStaff() { 
-    $username=$_POST['data_usernames'];
-    $password=$_POST['data_passs'];
-    $sql = "SELECT * FROM TaiKhoanNhanVien WHERE TaiKhoan='$username' AND MatKhau='$password'";
-    $result = (new NhanVienBus())->get_list($sql);
-        // create array include $result and null
-    $returnz = array('result' => $result, 'cart' => null);
-    if($result != false){
-        $_SESSION['currentUser']=$returnz;
-        die (json_encode($result)); 
-        
-        return 1;
-    }
-    die (json_encode(null));
-    return 0;
-    alert("vao duoc loginstaff");
 }
 
 function signup() {
@@ -145,11 +121,12 @@ function signup() {
         "DiaChi" => $diachi,
         "TaiKhoan" =>$newUser,
         "MatKhau" => $newPass,
-
+        "MaQuyen" => 1,
+        "TrangThai" => 1
     ));
 
     // đăng nhập vào ngay
-    $sql = "SELECT * FROM TaiKhoanNguoiDung WHERE TaiKhoan='$newUser' AND MatKhau='$newPass'";
+    $sql = "SELECT * FROM nguoidung WHERE TaiKhoan='$newUser' AND MatKhau='$newPass' AND MaQuyen=1 AND TrangThai=1";
     $result = (new DB_driver())->get1row($sql);
 
 

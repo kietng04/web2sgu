@@ -16,44 +16,44 @@ addeventinputthemsp();
 addeventaddproduct();
 addeventthemthuoctinh();
 
-function showSizeTable() {
-  console.log("listSizeProduct", listSizeProduct);
-  var html = "";
-  var tblbodysize = document.querySelector("#show-size");
-  tblbodysize.innerHTML = "";
-  listSizeProduct.forEach(function (item) {
-    html += `<tr>
-    <td>${item.MaSize}</td>
-    <td>${item.TenSize}</td>
-    <td>${item.DinhLuongSize}</td>
-    <td>
-        <button class="btn-edit" value="${item.MaSize}"><i class="fa-regular fa-pen-to-square"></i></button>
-        <button class="btn-delete" value="${item.MaSize}"><i class="fa-solid fa-trash"></i></button>
-    </td>
-    `;
-  });
-  tblbodysize.innerHTML = html;
-}
+// function showSizeTable() {
+//   console.log("listSizeProduct", listSizeProduct);
+//   var html = "";
+//   var tblbodysize = document.querySelector("#show-size");
+//   tblbodysize.innerHTML = "";
+//   listSizeProduct.forEach(function (item) {
+//     html += `<tr>
+//     <td>${item.MaSize}</td>
+//     <td>${item.TenSize}</td>
+//     <td>${item.DinhLuongSize}</td>
+//     <td>
+//         <button class="btn-edit" value="${item.MaSize}"><i class="fa-regular fa-pen-to-square"></i></button>
+//         <button class="btn-delete" value="${item.MaSize}"><i class="fa-solid fa-trash"></i></button>
+//     </td>
+//     `;
+//   });
+//   tblbodysize.innerHTML = html;
+// }
 
-function showVienTable() {
-  console.log("listDeProduct", listDeProduct);
+// function showVienTable() {
+//   console.log("listDeProduct", listDeProduct);
 
-  var html = "";
-  var tblbodysize = document.querySelector("#show-vien");
-  tblbodysize.innerHTML = "";
-  listDeProduct.forEach(function (item) {
-    html += `<tr>
-    <td>${item.MaVien}</td>
-    <td>${item.TenVien}</td>
-    <td>${item.DinhLuongVien}</td>
-    <td>
-        <button class="btn-edit" value="${item.MaVien}"><i class="fa-regular fa-pen-to-square"></i></button>
-        <button class="btn-delete" value="${item.MaVien}"><i class="fa-solid fa-trash"></i></button>
-    </td>
-    `;
-  });
-  tblbodysize.innerHTML = html;
-}
+//   var html = "";
+//   var tblbodysize = document.querySelector("#show-vien");
+//   tblbodysize.innerHTML = "";
+//   listDeProduct.forEach(function (item) {
+//     html += `<tr>
+//     <td>${item.MaVien}</td>
+//     <td>${item.TenVien}</td>
+//     <td>${item.DinhLuongVien}</td>
+//     <td>
+//         <button class="btn-edit" value="${item.MaVien}"><i class="fa-regular fa-pen-to-square"></i></button>
+//         <button class="btn-delete" value="${item.MaVien}"><i class="fa-solid fa-trash"></i></button>
+//     </td>
+//     `;
+//   });
+//   tblbodysize.innerHTML = html;
+// }
 
 var listProduct;
 function loadTableProduct() {
@@ -109,9 +109,7 @@ function loadTableProduct() {
     },
   });
 }
-// setTimeout(() => {
-//   alert(listProduct)
-// }, 1000);
+
 function showProductTableAdmin() {
   var html = "";
   listProduct.forEach(function (item) {
@@ -311,7 +309,6 @@ function loadCombinationSizeAndCrust() {
     },
     success: function (data) {
       listDeProduct = data;
-
       $.ajax({
         url: "./controller/ProductsController.php",
         type: "POST",
@@ -322,7 +319,7 @@ function loadCombinationSizeAndCrust() {
         success: function (data) {
           listSizeProduct = data;
           // cua kiet
-          showSizeTable();
+          // showSizeTable();
 
           listDeLength = listDeProduct.length;
           var div = document.getElementById("chon-tt");
@@ -331,7 +328,7 @@ function loadCombinationSizeAndCrust() {
 
           var listCombination = [];
           var listIDCombination = [];
-          showVienTable();
+          // showVienTable();
           listSizeProduct.forEach(function (size) {
             listDeProduct.forEach(function (de) {
               listCombination.push(
@@ -495,90 +492,105 @@ function filltable() {
   rowTable.innerHTML = html;
 }
 
-function showThuocTinh() {
-  var tableSize = document.querySelector(".table.--size");
-  var tableDe = document.querySelector(".table.--vien");
-  var selectElement = document.getElementById("chonthuoctinh");
-  console.log(tableSize);
-  console.log(tableDe);
+// function showThuocTinh() {
+//   var tableSize = document.querySelector(".table.--size");
+//   var tableDe = document.querySelector(".table.--vien");
+//   var selectElement = document.getElementById("chonthuoctinh");
+//   console.log(tableSize);
+//   console.log(tableDe);
 
-  switch (selectElement.value) {
-    case "1": // Kích thước
-      tableSize.style.display = "block";
-      tableDe.style.display = "none";
-      break;
-    case "0": // Đế
-      tableSize.style.display = "none";
-      tableDe.style.display = "block";
-      break;
-    case "2": // Tất cả
-      tableSize.style.display = "block";
-      tableDe.style.display = "block";
-      break;
-  }
-}
+//   switch (selectElement.value) {
+//     case "1": // Kích thước
+//       tableSize.style.display = "block";
+//       tableDe.style.display = "none";
+//       break;
+//     case "0": // Đế
+//       tableSize.style.display = "none";
+//       tableDe.style.display = "block";
+//       break;
+//     case "2": // Tất cả
+//       tableSize.style.display = "block";
+//       tableDe.style.display = "block";
+//       break;
+//   }
+// }
 
 // V.Kiet: Add event for button add attribute
 
-document
-  .getElementById("btn-add-attribute")
-  .addEventListener("click", function () {
-    var modal = document.querySelector(".modal.signup");
-    modal.classList.add("open");
-  });
+// document
+//   .getElementById("btn-add-attribute")
+//   .addEventListener("click", function () {
+//     var modal = document.querySelector(".modal.signup");
+//     modal.classList.add("open");
+//   });
 
-var btnClose = document.querySelectorAll(".modal-close");
-btnClose.forEach(function (btn) {
-  btn.addEventListener("click", function () {
-    var modal = this.closest(".modal");
-    modal.classList.remove("open");
-  });
-});
+// var btnClose = document.querySelectorAll(".modal-close");
+// btnClose.forEach(function (btn) {
+//   btn.addEventListener("click", function () {
+//     var modal = this.closest(".modal");
+//     modal.classList.remove("open");
+//   });
+// });
+
+// function showThemThuocTinh() {
+//   var sizeForm = document.querySelector(".size-form");
+//   var deForm = document.querySelector(".de-form");
+//   var selectElement = document.getElementById("themthuoctinh");
+
+//   switch (selectElement.value) {
+//     case "0": // Kích thước
+//       sizeForm.style.display = "block";
+//       deForm.style.display = "none";
+   
+//       break;
+//     case "1": // Đế
+//       sizeForm.style.display = "none";
+//       deForm.style.display = "block";
+//       break;
+//   }
+// }
 
 
-function showThemThuocTinh() {
-  var sizeForm = document.querySelector(".size-form");
-  var deForm = document.querySelector(".de-form");
-  var selectElement = document.getElementById("themthuoctinh");
 
-  switch (selectElement.value) {
-    case "0": // Kích thước
-      sizeForm.style.display = "block";
-      deForm.style.display = "none";
-      var sizeSanPham = {
-        MaSize: document.getElementById("masize").value,
-        TenSize: document.getElementById("tensize").value,
-        DinhLuongSize: document.getElementById("dinhluongsize").value
-      }
 
-     addSizeSanPham(sizeSanPham)
-      break;
-    case "1": // Đế
-      sizeForm.style.display = "none";
-      deForm.style.display = "block";
-      break;
-  }
-}
+// var btnInsert = document.getElementById("btn-insert");
+// btnInsert.addEventListener("click", function (e) {
+//   e.preventDefault();
+//   alert("Thêm thành công");
+//   insertAttributeProduct();
+  
+// });
 
-function addSizeSanPham(sizeSanPham) {
-  $.ajax({
-    url: './controller/ProductManagementController.php', // URL API để thêm SizeSanPham
-    type: 'POST',
-    data: JSON.stringify(sizeSanPham),
-    contentType: 'application/json; charset=utf-8',
-    success: function (response) {
-      alert("Thêm thành công");
-      console.log(response);
-    },
-    error: function(error) {
-      console.error(error);
-    }
-  });
-}
+// function insertAttributeProduct() {
+//   var masize = document.getElementById("masize").value;
+//   var tensize = document.getElementById("tensize").value;
+//   var dinhluongsize = document.getElementById("dinhluongsize").value;
 
-var btnInsert = document.getElementById("btn-insert");
-btnInsert.addEventListener("click", function (e) {
-  // e.preventDefault();
-});
+//   var sizeSanPham = {
+//     masize: masize,
+//     tensize: tensize,
+//     dinhluongsize: dinhluongsize,
+//   };
+//   //ajax
+//   $.ajax({
+//     url: "./controller/ThuocTinhSanPhamController.php",
+//     type: "POST",
+//     dataType: "json",
+//     data: {
+//       request: "insertAttributeProduct",
+//       sizeSanPham: JSON.stringify(sizeSanPham),
+//     },
+//     success: function (data) {
+//       console.log(data);
+//       loadCombinationSizeAndCrust();
+//     },
+//   });
 
+   
+
+// }
+
+//ajax 
 //End V.Kiet: Add event for button add attribute
+
+// Kiet: Add event for button add attribute

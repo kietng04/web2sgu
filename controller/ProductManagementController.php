@@ -1,6 +1,7 @@
 <?php
 require_once('BaseController.php');
 require_once(__DIR__ . '/../model/SanPhamBUS.php');
+
 class ProductManagementController extends BaseController
 {
     public function index()
@@ -26,7 +27,6 @@ if (isset($_POST['request'])) {
 
 function uploadProduct() {
     $name = $_POST['tensp'];
-    
     $category = $_POST['loai'];
     $description = $_POST['mota'];
     $masp = $_POST['masp'];

@@ -17,6 +17,9 @@ class ProductAttributeController extends BaseController
 //     `DinhLuongSize` varchar(100) NOT NULL,
 //     primary key (MaSize)
 //   );
+
+
+
 function themSizeSanPham() {
     $MaSize = $_POST['MaSize'];
     $TenSize = $_POST['TenSize'];

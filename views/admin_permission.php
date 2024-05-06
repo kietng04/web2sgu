@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/admin_styles.css">
     <script src="https://kit.fontawesome.com/3dff50b2d8.js" crossorigin="anonymous"></script>
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -100,16 +100,18 @@
             <!-- Account  -->
             <div class="section active">
                 <div class="admin-control">
-                    <div class="admin-control-left">
-                        <select name="tinh-trang-user" id="tinh-trang-user" onchange="showUser()">
-                            <option value="2">Tất cả</option>
-                            <option value="1">Admin</option>
-                            <option value="0">Nhân viên</option>
-                        </select>
-                    </div>
-                    <div class="admin-control-right">
-                        <button class="btn-reset-order" onclick="cancelSearchUser()"><i
-                                class="fa-solid fa-rotate-right"></i></button>
+                    <div class="bor">
+                        <div class="admin-control-left">
+                            <select name="tinh-trang-user" id="tinh-trang-user" onchange="showUser()">
+                                <option value="2">Tất cả</option>
+                                <option value="1">Admin</option>
+                                <option value="0">Nhân viên</option>
+                            </select>
+                        </div>
+                        <div class="admin-control-right">
+                            <button class="btn-reset-order" onclick="cancelSearchUser()"><i
+                                    class="fa-solid fa-rotate-right"></i></button>
+                        </div>
                     </div>
                 </div>
                 <div class="table">
@@ -171,7 +173,17 @@
                 <div class="r-right">
                     <div class="modal-header">
                         <h2>PHÂN QUYỀN</h2>
-                        <span class="close">&times;</span>
+                        <div class="import-role">
+                            <div class="add">
+                                <i class="fa-solid fa-plus"></i>
+
+                            </div>
+                            <div class="cancel">
+                                <i class="fa-solid fa-ban"></i>
+
+                            </div>
+                            <span class="close">&times;</span>
+                        </div>
                     </div>
                     <div>
                         <table>
@@ -251,6 +263,39 @@
             document.getElementById('roleModal').style.display = 'none';
             document.querySelector('.dark-overlay').style.display = 'none';
         });
+    });
+
+    document.querySelector('.add').addEventListener('click', function() {
+        var newRow = document.createElement('tr');
+        var cells = ['<input type="text">', '<input type="checkbox">', '<input type="checkbox">',
+            '<input type="checkbox">', '<input type="checkbox">'
+        ];
+        for (var i = 0; i < cells.length; i++) {
+            var newCell = document.createElement('td');
+            newCell.innerHTML = cells[i];
+            newRow.appendChild(newCell);
+        }
+        document.querySelector('#roleModal table tbody').appendChild(newRow);
+    });
+
+    var selectedRow = null;
+
+    document.querySelectorAll('#roleModal table tbody tr').forEach(function(row) {
+        row.addEventListener('click', function() {
+            if (selectedRow) {
+                selectedRow.classList.remove('selected');
+            }
+            this.classList.add('selected');
+            selectedRow = this;
+        });
+    });
+    
+    document.querySelector('.cancel').addEventListener('click', function() {
+        // Delete the selected row, if any
+        if (selectedRow) {
+            selectedRow.remove();
+            selectedRow = null;
+        }
     });
     </script>
 </body>

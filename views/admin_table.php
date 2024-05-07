@@ -241,7 +241,7 @@
             </div>
         </div>
     </div>
-    <script>
+    <!-- <script>
     document.addEventListener('DOMContentLoaded', function() {
         var editButtons = document.querySelectorAll('.btn-edit');
         var closeButtons = document.querySelectorAll('.modal-close');
@@ -338,7 +338,7 @@
         });
 
     });
-    </script>
+    </script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/statistic.js"></script>

@@ -211,7 +211,7 @@
                 TRƯỚC KHI ĐĂNG NHẬP BẠN NHÉ!</p>
                 <!-- <div class="form-item --login --email "> -->
                 <div class="form-item --login">
-                    <label for="email">Email *</label>
+                    <label for="email">Tên Đăng Nhập *</label>
                     <input type="text" name="" id="taikhoan">
                     <p class="error"></p>
                 </div>
@@ -237,7 +237,7 @@
             <p class="heading__desc">ĐÂY LÀ KHU VỰC ĐĂNG NHẬP CHO NHÂN VIÊN<br>XIN HÃY TRỞ VỀ NẾU BẠN KHÔNG PHẢI NHÂN VIÊN</p>
                 <!-- <div class="form-item --login --email "> -->
                 <div class="form-item --logins">
-                <label for="email">Tên đăng nhập *</label>
+                <label for="email">Tên Đăng Nhập *</label>
                     <input type="text" name="" id="taikhoans">
                     <p class="error"></p>
                 </div>
@@ -258,7 +258,7 @@
                 
             </div>
             
-        <div class="login__switch">Bạn là người dùng? Ấn đây</div>
+        <div class="login__switch">Bạn là nhân viên? Ấn đây</div>
         <button class="btnX">
                 <img src="./images/iconClose.png">
         </button>
@@ -311,6 +311,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
         // Nếu có class --none, loại bỏ nó; nếu không, thêm vào
         if (isNone) {
+            loginSwitch.classList.add("hidden");
             userLogin.classList.add("hidden");
             setTimeout(() => {
                 userLogin.classList.add("none");
@@ -318,10 +319,13 @@ document.addEventListener("DOMContentLoaded", function() {
             }, 300);
             setTimeout(() => {
                 staffLogin.classList.remove("hidden");
+                loginSwitch.classList.remove("hidden");
+                loginSwitch.innerHTML = "Bạn là người dùng? Ấn đây";
             }, 600);
             
             
         } else {
+            loginSwitch.classList.add("hidden");
             staffLogin.classList.add("hidden");
             setTimeout(() => {
                 staffLogin.classList.add("none");
@@ -329,6 +333,8 @@ document.addEventListener("DOMContentLoaded", function() {
             }, 300);
             setTimeout(() => {
                 userLogin.classList.remove("hidden");
+                loginSwitch.classList.remove("hidden");
+                loginSwitch.innerHTML = "Bạn là nhân viên? Ấn đây";
             }, 600);
         }
     });

@@ -402,7 +402,72 @@ function addeventbutbtn() {
 
       success: function (data) {
         curProduct = data;
-        console.log(data);
+        $.ajax({
+          type: "POST",
+          url: "controller/ProductsController.php",
+          dataType: "json",
+          timeout: 1500, // sau 1.5 giây mà không phản hồi thì dừng => hiện lỗi
+          data: {
+            request: "getCurrentUser",
+          },
+          // data se bao gom user hientai va gio hang hientai
+          success: function (data) {
+            // hide load ico
+            if (curProduct.SoLuong == 0) {
+              createToast("error", "Sản phẩm đã hết hàng!");
+              return;
+            }
+            var html = '';
+            var cartdiv = document.querySelector(".list");
+            
+            if (data) {
+              data["cart"] == null ? (data["cart"] = []) : data["cart"];
+              // check current product in cart
+              if (findProductInCart(data["cart"], curProduct)) {
+                // increase quantity
+                data["cart"].forEach(function (item) {
+                  if (item["Product"].MaSP == curProduct.MaSP) {
+                    item["Quantity"] = parseInt(item["Quantity"]) + 1;
+                  }
+                });
+              } else {
+                // create arrray with 1 product and quantity
+                var cart = { Product: curProduct, Quantity: 1 };
+                data["cart"].push(cart);
+              }
+              data["cart"].forEach(function (item, index) {
+                html += `<div class="list__item data-index="${index}">
+                <div class="img">
+                <img src="${item["Product"].Img}" alt="">
+                </div>
+                <div class="content">
+                    <p class="title">${item["Product"].TenSP}</p>
+                    <p class="desc">Size: ${mapsize.get(
+                      item["Product"].MaSize
+                    )} - Đế: ${mapde.get(item["Product"].MaVien)}</p>
+                    <p class="price">${toVND(item["Product"].GiaTien)}</p>
+                </div>
+                
+                <div class="buttons_added">
+                <input class="minus is-form" type="button" value="-" onclick="decreasingNumber(this, ${index})">
+                <input class="input-qty" max="100" min="1" name="" type="number" value="${
+                  item["Quantity"]
+                }" oninput="addeventinput()">
+                <input class="plus is-form" type="button" value="+" onclick="increasingNumber(this, ${index})">
+                </div>
+                <i class="fa-solid fa-xmark" data-index="${index}" onclick="removeItemFromCart(this.getAttribute('data-index'))"></i>
+              </div>`;
+              });
+              cartdiv.innerHTML = html;
+              saveSessionCart(data["cart"]);
+            } else {
+              alert("Vui lòng đăng nhập để thêm vào giỏ hàng!");
+            }
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            console.log("AJAX error: " + textStatus + " : " + errorThrown);
+          },
+        }); 
       },
       error: function (jqXHR, textStatus, errorThrown) {
         console.log("AJAX error: " + textStatus + " : " + errorThrown);
@@ -410,72 +475,7 @@ function addeventbutbtn() {
     });
     // show load icon
     // ajax get current product
-    $.ajax({
-      type: "POST",
-      url: "controller/ProductsController.php",
-      dataType: "json",
-      timeout: 1500, // sau 1.5 giây mà không phản hồi thì dừng => hiện lỗi
-      data: {
-        request: "getCurrentUser",
-      },
-      // data se bao gom user hientai va gio hang hientai
-      success: function (data) {
-        // hide load ico
-        if (curProduct.SoLuong == 0) {
-          createToast("error", "Sản phẩm đã hết hàng!");
-          return;
-        }
-        var html = '';
-        var cartdiv = document.querySelector(".list");
-        
-        if (data) {
-          data["cart"] == null ? (data["cart"] = []) : data["cart"];
-          // check current product in cart
-          if (findProductInCart(data["cart"], curProduct)) {
-            // increase quantity
-            data["cart"].forEach(function (item) {
-              if (item["Product"].MaSP == curProduct.MaSP) {
-                item["Quantity"] = parseInt(item["Quantity"]) + 1;
-              }
-            });
-          } else {
-            // create arrray with 1 product and quantity
-            var cart = { Product: curProduct, Quantity: 1 };
-            data["cart"].push(cart);
-          }
-          data["cart"].forEach(function (item, index) {
-            html += `<div class="list__item data-index="${index}">
-            <div class="img">
-            <img src="${item["Product"].Img}" alt="">
-            </div>
-            <div class="content">
-                <p class="title">${item["Product"].TenSP}</p>
-                <p class="desc">Size: ${mapsize.get(
-                  item["Product"].MaSize
-                )} - Đế: ${mapde.get(item["Product"].MaVien)}</p>
-                <p class="price">${toVND(item["Product"].GiaTien)}</p>
-            </div>
-            
-            <div class="buttons_added">
-            <input class="minus is-form" type="button" value="-" onclick="decreasingNumber(this, ${index})">
-            <input class="input-qty" max="100" min="1" name="" type="number" value="${
-              item["Quantity"]
-            }" oninput="addeventinput()">
-            <input class="plus is-form" type="button" value="+" onclick="increasingNumber(this, ${index})">
-            </div>
-            <i class="fa-solid fa-xmark" data-index="${index}" onclick="removeItemFromCart(this.getAttribute('data-index'))"></i>
-          </div>`;
-          });
-          cartdiv.innerHTML = html;
-          saveSessionCart(data["cart"]);
-        } else {
-          alert("Vui lòng đăng nhập để thêm vào giỏ hàng!");
-        }
-      },
-      error: function (jqXHR, textStatus, errorThrown) {
-        console.log("AJAX error: " + textStatus + " : " + errorThrown);
-      },
-    });
+    
   });
 }
 

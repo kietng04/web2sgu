@@ -66,6 +66,12 @@
                             <div class="hidden-sidebar">Thống kê</div>
                         </a>
                     </li>
+                    <li class="sidebar-list-item tab-content">
+                        <a href="index.php?controller=PermissionController&action=index" class="sidebar-link">
+                            <div class="sidebar-icon"><i class="fa-solid fa-couch"></i></i></div>
+                            <div class="hidden-sidebar">Phân quyền</div>
+                        </a>
+                    </li>
                 </ul>
             </div>
             <div class="bottom-sidebar">
@@ -86,12 +92,6 @@
                         <a href="#" class="sidebar-link" id="logout-acc">
                             <div class="sidebar-icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></i></div>
                             <div class="hidden-sidebar">Đăng xuất</div>
-                        </a>
-                    </li>
-                    <li class="sidebar-list-item tab-content">
-                        <a href="index.php?controller=PermissionController&action=index" class="sidebar-link">
-                            <div class="sidebar-icon"><i class="fa-solid fa-couch"></i></i></div>
-                            <div class="hidden-sidebar">Phân quyền</div>
                         </a>
                     </li>
                 </ul>
@@ -124,11 +124,11 @@
                             <div>
                                 <label for="time-end">Đến</label>
                                 <input type="date" class="form-control-date" id="time-end-user" onchange="showUser()">
-                            </div>
+                            </div>.
                         </form>
                         <button class="btn-reset-order" onclick="cancelSearchUser()"><i
                                 class="fa-solid fa-rotate-right"></i></button>
-                        <button id="btn-add-user" class="btn-control-large" onclick="openCreateAccount()"><i
+                        <button id="btn-add-user" class="btn-control-large"><i
                                 class="fa-light fa-plus"></i> <span>Thêm khách hàng</span></button>
                     </div>
                 </div>
@@ -414,7 +414,7 @@
     </div>
 
 
-    <div class="modal signup">
+    <div class="modal signup open">
         <div class="modal-container">
             <h3 class="modal-container-title add-account-e" style="font-weight: 600; font-size:20px">THÊM KHÁCH HÀNG MỚI
             </h3>
@@ -457,6 +457,10 @@
                             class="form-control">
                         <span class="form-message-confirm-password form-message"></span>
                     </div>
+                    <select name="chonquyen" id="chonquyen" onchange="showUser()">
+                            <option value="0">Nhan vien</option>
+                            <option value="1">Khach hang</option>
+                        </select>
                     <div class="form-group edit-account-e">
                         <label for="" class="form-label">Trạng thái</label>
                         <input type="checkbox" id="user-status" class="switch-input">
@@ -483,12 +487,18 @@
         var modalSignup = document.querySelector('.signup');
         var editUserButtons = document.querySelectorAll('#edit-account');
         var addUserButtons = document.querySelectorAll('#btn-add-user');
-        var addUser = document.querySelector('#btn-add-user');
         var addUserTitle = document.querySelector('.add-account-e');
         var addSignupButton = document.querySelector('#signup-button');
         var updateSignupButton = document.querySelector('#btn-update-account');
 
         var statusUser = document.querySelectorAll('.form-group edit-account-e');
+        var addUser = document.querySelector('#btn-add-user');
+        addUser.addEventListener('click', function() {      
+            modalSignup.classList.add('open');
+            addUserTitle.innerHTML = "Thêm khách hàng mới";
+            updateSignupButton.innerHTML = `<i
+                            class="fa-regular fa-floppy-disk"></i> Lưu thông tin`;
+        });
         // tab for section
         const sidebars = document.querySelectorAll(".sidebar-list-item.tab-content");
         const sections = document.querySelectorAll(".section");
@@ -508,6 +518,8 @@
                 sidebar.classList.add("open");
             })
         }
+
+       
 
         editButtons.forEach(function(button) {
             button.addEventListener('click', function() {
@@ -556,15 +568,7 @@
             });
         });
 
-        addUserButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
-                updateSignupButton.innerHTML = ` <i class="fa-solid fa-user-plus"></i>
-                                        Thêm khách hàng `;
-                addUserTitle.innerHTML = "Thêm khách hàng mới";
-                modal.classList.remove('open');
-                modalSignup.classList.add('open');
-            });
-        });
+       
 
     });
     </script>

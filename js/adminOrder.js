@@ -291,7 +291,6 @@ function addEventButton() {
             // let row_id = row.querySelectorAll("td");
             let row_id=row.querySelectorAll("td")[0].innerText;
             console.log("rows id ",row_id);
-
             let popup=document.querySelector(".detail-order");
             console.log(popup)
             popup.classList.add("open");

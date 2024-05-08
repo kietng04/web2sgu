@@ -66,7 +66,9 @@
                     <div class="header__action-bell">
                         <i class="fa-solid fa-cart-shopping"></i>
                     </div>
-                    <a href="list-bill.php"><i class="fa-solid fa-file-invoice"></i></a>
+                    <div class="header__action-bell">
+                        <a href="index.php?controller=HistoryBillController&action=index"><i class="fa-solid fa-file-invoice"></i></a>
+                    </div>
                     <div class="header__action-member">
                         <div class="icon"><i class="fa-solid fa-circle-user"></i></div>
                         <p>THÀNH VIÊN</p>

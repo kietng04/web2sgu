@@ -137,18 +137,8 @@ function signup() {
 	$newUser=$_POST['data_newUser'];
 	$newPass=$_POST['data_newPass']; 
     $gioitinh=$_POST['data_gioitinh'];
-    $status = (new NguoiDungBUS())->add_new(array(
-        "MaND" => "",
-        "Ho" => $ho,
-        "Ten" => $ten,
-        "GioiTinh" => $gioitinh,
-        "SDT" => $sdt,
-        "Email" => $email,
-        "DiaChi" => $diachi,
-        "TaiKhoan" =>$newUser,
-        "MatKhau" => $newPass,
+    $insert_sql="INSERT INTO nguoidung  ,Ten,SDT,Email,DiaChi,TaiKhoan,MatKhau,GioiTinh) VALUES ('$ho','$ten','$sdt','$email','$diachi','$newUser','$newPass','$gioitinh')";
 
-    ));
 
     // đăng nhập vào ngay
     $sql = "SELECT * FROM TaiKhoanNguoiDung WHERE TaiKhoan='$newUser' AND MatKhau='$newPass'";

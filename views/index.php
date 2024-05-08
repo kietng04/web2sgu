@@ -188,50 +188,55 @@
         </div>
 
         <div class="popupLogin --none">
-
-    <div class="popupLogin__container">
-        <div class="popupLogin__img">
-            <img src="./images/loginbackground.jpg" alt="">
-        </div>
-        <div class="popupLogin__form user">
-            <h2 class="headingLogin">🍕🍕 WELCOME BACK!</h2>
-            <p class="heading__desc">NẾU BẠN CHƯA CÓ TÀI KHOẢN PIZZA HUT<br>HÃY ĐĂNG KÍ
-                TRƯỚC KHI ĐĂNG NHẬP BẠN NHÉ!</p>
-                <!-- <div class="form-item --login --email "> -->
-                <div class="form-item --login">
-                    <label for="email">Tên Đăng Nhập *</label>
-                    <input type="text" name="" id="taikhoan">
-                    <p class="error"></p>
-
+            <div class="popupLogin__container">
+                <div class="popupLogin__img">
+                    <img src="./images/loginbackground.jpg" alt="">
+                </div>
+                <div class="popupLogin__form user">
+                    <h2 class="headingLogin">🍕🍕 WELCOME BACK!</h2>
+                    <p class="heading__desc">NẾU BẠN CHƯA CÓ TÀI KHOẢN PIZZA HUT<br>HÃY ĐĂNG KÍ
+                        TRƯỚC KHI ĐĂNG NHẬP BẠN NHÉ!</p>
+                    <!-- <div class="form-item --login --email "> -->
+                    <div class="form-item --login">
+                        <label for="email">Email *</label>
+                        <input type="text" name="" id="taikhoan">
+                        <p class="error"></p>
+                    </div>
+                    <div class="form-item --login --password">
+                        <label for="email">Mật Khẩu *</label>
+                        <input type="Password" name="" id="matkhau">
+                        <p class="error"></p>
 
                     </div>
                     <!-- onclick="loginz()" -->
 
-           
-                <button class="btn dangnhapz"   >ĐĂNG NHẬP</button>
+                    <button class="btn dangnhapz">ĐĂNG NHẬP</button>
 
-                <div class="form-error">
-                <i class="fa-solid fa-circle-exclamation"></i>
-                <p>Email hoặc mật khẩu đăng nhập không hợp lệ. Vui lòng thử lại.</p>
-                </div>
+                    <div class="form-error">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        <p>Email hoặc mật khẩu đăng nhập không hợp lệ. Vui lòng thử lại.</p>
+                    </div>
 
-                <p class="register">Bạn chưa có tài khoản? <a href="index.php?controller=SignUpController&action=index">Đăng ký ngay</a> hoặc tìm hiểu thêm về <a href="">Điều khoản và Quyền lợi Thành viên</a></p>
-        </div>
-        <div class="popupLogin__form staff hidden none">
-            <h2 class="headingLogin">🍕🍕 WELCOME BACK!</h2>
-            <p class="heading__desc">ĐÂY LÀ KHU VỰC ĐĂNG NHẬP CHO NHÂN VIÊN<br>XIN HÃY TRỞ VỀ NẾU BẠN KHÔNG PHẢI NHÂN VIÊN</p>
-                <!-- <div class="form-item --login --email "> -->
-                <div class="form-item --logins">
-                <label for="email">Tên Đăng Nhập *</label>
-                    <input type="text" name="" id="taikhoans">
-                    <p class="error"></p>
+                    <p class="register">Bạn chưa có tài khoản? <a
+                            href="index.php?controller=SignUpController&action=index">Đăng ký ngay</a> hoặc tìm hiểu
+                        thêm về <a href="">Điều khoản và Quyền lợi Thành viên</a></p>
                 </div>
-                <div class="form-item --login --passwords">
-                    <label for="email">Mật Khẩu *</label>
-                    <input type="Password" name="" id="matkhaus">
-                    <p class="error"></p>
+                <div class="popupLogin__form staff hidden none">
+                    <h2 class="headingLogin">🍕🍕 WELCOME BACK!</h2>
+                    <p class="heading__desc">ĐÂY LÀ KHU VỰC ĐĂNG NHẬP CHO NHÂN VIÊN<br>XIN HÃY TRỞ VỀ NẾU BẠN KHÔNG PHẢI
+                        NHÂN VIÊN</p>
+                    <!-- <div class="form-item --login --email "> -->
+                    <div class="form-item --logins">
+                        <label for="email">Tên đăng nhập *</label>
+                        <input type="text" name="" id="taikhoans">
+                        <p class="error"></p>
+                    </div>
+                    <div class="form-item --login --passwords">
+                        <label for="email">Mật Khẩu *</label>
+                        <input type="Password" name="" id="matkhaus">
+                        <p class="error"></p>
 
-                </div>
+                    </div>
                     <!-- onclick="loginz()" -->
 
                     <button class="btn dangnhaps">ĐĂNG NHẬP</button>
@@ -243,124 +248,105 @@
 
                 </div>
 
-        
-        <div class="login__switch">Bạn là nhân viên? Ấn đây</div>
-        <button class="btnX">
-                <img src="./images/iconClose.png">
-        </button>
+                <div class="login__switch">Bạn là người dùng? Ấn đây</div>
+                <button class="btnX">
+                    <img src="./images/iconClose.png">
+                </button>
 
-    </div>  
-
-
-    </div>
-    <!-- <a href="index.php?controller=AdminIndexController&action=index">admin</a> -->
-
-    <script>
-    
-    
-document.addEventListener("DOMContentLoaded", function() {
-  // Lấy phần tử .popupLogin
-  var popupLogin = document.querySelector(".popupLogin");
-  var button = document.querySelector(".btn");
-  // Lấy phần tử .btnX
-  var closeButton = document.querySelector(".btnX");
-  // Lấy phần tử switch login
-  var loginSwitch = document.querySelector(".login__switch");
-  var staffLogin = document.querySelector(".popupLogin__form.staff");
-  var userLogin = document.querySelector(".popupLogin__form.user");
-
-  // Thêm sự kiện click cho .header__action-member
-  var headerActionMember = document.querySelector(".header__action-member");
-  headerActionMember.addEventListener("click", function() {
-    // Loại bỏ class --none từ phần tử .popupLogin
-    popupLogin.classList.remove("--none");
-  });
-
-  // Thêm sự kiện click cho nút đóng
-  closeButton.addEventListener("click", function() {
-    // Thêm lại class --none cho .popupLogin
-    popupLogin.classList.add("--none");
-  });
-
-  // Thêm sự kiện click cho phần tử cha .popupLogin
-  popupLogin.addEventListener("click", function(event) {
-    // Kiểm tra xem phần tử được nhấp vào có phải là phần tử cha popupLogin không
-    if (event.target === popupLogin) {
-      // Thêm lại class --none cho .popupLogin
-      popupLogin.classList.add("--none");
-    }
-  });
-  // Thêm sự kiện click cho loginSwitch
-    loginSwitch.addEventListener("click", function() {
-        // Kiểm tra xem phần tử .popupLogin__form.staff có class --none không
-        var isNone = staffLogin.classList.contains("none");
-    
-        // Nếu có class --none, loại bỏ nó; nếu không, thêm vào
-        if (isNone) {
-            loginSwitch.classList.add("hidden");
-            userLogin.classList.add("hidden");
-            setTimeout(() => {
-                userLogin.classList.add("none");
-                staffLogin.classList.remove("none");
-            }, 300);
-            setTimeout(() => {
-                staffLogin.classList.remove("hidden");
-                loginSwitch.classList.remove("hidden");
-                loginSwitch.innerHTML = "Bạn là người dùng? Ấn đây";
-            }, 600);
-            
-            
-        } else {
-            loginSwitch.classList.add("hidden");
-            staffLogin.classList.add("hidden");
-            setTimeout(() => {
-                staffLogin.classList.add("none");
-                userLogin.classList.remove("none");
-            }, 300);
-            setTimeout(() => {
-                userLogin.classList.remove("hidden");
-                loginSwitch.classList.remove("hidden");
-                loginSwitch.innerHTML = "Bạn là nhân viên? Ấn đây";
-            }, 600);
-        }
-    });
-
-  button.addEventListener("click", function() {
-    // Thêm lại class --none cho .popupLogin
-    popupLogin.classList.add("--none");
-  });
-});
+            </div>
 
 
-var dangnhapUserBtn = document.querySelector('.dangnhapz');
-    dangnhapUserBtn.addEventListener('click', function(){
-        var checkForm = true;
-        var formError = document.querySelector(".form-error");
-        var username = document.getElementById("taikhoan");
-        var usernameFormItem = document.querySelector(".form-item.--login");
-        var usernameError = document.querySelector(".form-item.--login .error");
-        var usernamePattern = /^.{3,}$/;
-        var password = document.getElementById("matkhau");
-        var passwordError = document.querySelector(".form-item.--login.--password .error");
-        var passwordFormItem = document.querySelector(".form-item.--login.--password");
-        var passwordPattern = /^.{3,}$/;
+        </div>
+        <!-- <a href="index.php?controller=AdminIndexController&action=index">admin</a> -->
+
+        <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Lấy phần tử .popupLogin
+            var popupLogin = document.querySelector(".popupLogin");
+            var button = document.querySelector(".btn");
+            // Lấy phần tử .btnX
+            var closeButton = document.querySelector(".btnX");
+            // Lấy phần tử switch login
+            var loginSwitch = document.querySelector(".login__switch");
+            var staffLogin = document.querySelector(".popupLogin__form.staff");
+            var userLogin = document.querySelector(".popupLogin__form.user");
+
+            // Thêm sự kiện click cho .header__action-member
+            var headerActionMember = document.querySelector(".header__action-member");
+            headerActionMember.addEventListener("click", function() {
+                // Loại bỏ class --none từ phần tử .popupLogin
+                popupLogin.classList.remove("--none");
+            });
+
+            // Thêm sự kiện click cho nút đóng
+            closeButton.addEventListener("click", function() {
+                // Thêm lại class --none cho .popupLogin
+                popupLogin.classList.add("--none");
+            });
+
+            // Thêm sự kiện click cho phần tử cha .popupLogin
+            popupLogin.addEventListener("click", function(event) {
+                // Kiểm tra xem phần tử được nhấp vào có phải là phần tử cha popupLogin không
+                if (event.target === popupLogin) {
+                    // Thêm lại class --none cho .popupLogin
+                    popupLogin.classList.add("--none");
+                }
+            });
+            // Thêm sự kiện click cho loginSwitch
+            loginSwitch.addEventListener("click", function() {
+                // Kiểm tra xem phần tử .popupLogin__form.staff có class --none không
+                var isNone = staffLogin.classList.contains("none");
+
+                // Nếu có class --none, loại bỏ nó; nếu không, thêm vào
+                if (isNone) {
+                    userLogin.classList.add("hidden");
+                    setTimeout(() => {
+                        userLogin.classList.add("none");
+                        staffLogin.classList.remove("none");
+                    }, 300);
+                    setTimeout(() => {
+                        staffLogin.classList.remove("hidden");
+                    }, 600);
 
 
-        if(username.value.trim() === "") {
-            usernameFormItem.classList.add("--error");
-            usernameError.innerHTML = "Vui lòng không để trống";
-            checkForm = false;
-        } else if(!usernamePattern.test(username.value)) {
-            usernameFormItem.classList.add("--error");
-            usernameError.innerHTML = "Tên đăng nhập không đúng định dạng";
-            checkForm = false;
-        } else {
-            usernameFormItem.classList.remove("--error");
-            usernameError.innerHTML = "";
-        }
-        username.addEventListener("input", function() {
-            if(!usernamePattern.test(username.value)) {
+                } else {
+                    staffLogin.classList.add("hidden");
+                    setTimeout(() => {
+                        staffLogin.classList.add("none");
+                        userLogin.classList.remove("none");
+                    }, 300);
+                    setTimeout(() => {
+                        userLogin.classList.remove("hidden");
+                    }, 600);
+                }
+            });
 
+            button.addEventListener("click", function() {
+                // Thêm lại class --none cho .popupLogin
+                popupLogin.classList.add("--none");
+            });
+        });
+
+
+        var dangnhapUserBtn = document.querySelector('.dangnhapz');
+        dangnhapUserBtn.addEventListener('click', function() {
+            var checkForm = true;
+            var formError = document.querySelector(".form-error");
+            var username = document.getElementById("taikhoan");
+            var usernameFormItem = document.querySelector(".form-item.--login");
+            var usernameError = document.querySelector(".form-item.--login .error");
+            var usernamePattern = /^.{3,}$/;
+            var password = document.getElementById("matkhau");
+            var passwordError = document.querySelector(".form-item.--login.--password .error");
+            var passwordFormItem = document.querySelector(".form-item.--login.--password");
+            var passwordPattern = /^.{3,}$/;
+
+
+            if (username.value.trim() === "") {
+                usernameFormItem.classList.add("--error");
+                usernameError.innerHTML = "Vui lòng không để trống";
+                checkForm = false;
+            } else if (!usernamePattern.test(username.value)) {
                 usernameFormItem.classList.add("--error");
                 usernameError.innerHTML = "Tên đăng nhập không đúng định dạng";
                 checkForm = false;

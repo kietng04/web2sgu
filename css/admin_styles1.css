@@ -1028,7 +1028,7 @@ label a {
 /* Detail Order */
 .admin-control {
   display: flex;
-  justify-content: left;
+  justify-content: space-between;
   margin-bottom: 20px;
   flex-wrap: wrap;
   align-items: center;
@@ -1039,6 +1039,10 @@ label a {
 }
 
 .admin-control-right {
+  display: flex;
+}
+
+.bor{
   display: flex;
 }
 
@@ -1422,9 +1426,40 @@ label a {
 }
 
 
+.import-role {
+  display: flex;
+  align-items: center;
+  margin: 10px 0 30px 0;
+  text-decoration: none;
+}
 
+.import-role .add {
+  margin-right: 30px;
+  font-size: 15px;
+  color: var(--black-light-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
 
+.import-role .add i {
+  background-color: green;
+  color: #fff;
+  padding: 5px 6px;
+  border-radius: 50%;
+}
+.import-role .cancel i {
+  background-color: red;
+  color: #fff;
+  padding: 5px 5px;
+  border-radius: 50%;
+}
 
+.import-role span {
+  margin-top: 10px;
+}
 
 .modal.add-import .modal-container {
   display: flex;
@@ -1584,9 +1619,15 @@ label a {
   align-items: center;
   font-size: larger;
   font-weight: bold;
-  margin-bottom: 20px;
   color:rgb(158, 0, 0);
-  text-decoration-line: underline;
+}
+
+.role-name span {
+  color: #b5292f;
+  font-size: 15px;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 .role-modal .close {
@@ -1594,6 +1635,7 @@ label a {
   float: right;
   font-size: 28px;
   font-weight: bold;
+  margin-top: 0px;
 }
 
 .role-modal .close:hover,
@@ -1642,4 +1684,49 @@ label a {
 }
 .r-right #title-role{
   text-align: left;
+}
+#roleModal table {
+  max-height: 300px; /* Adjust this value to your needs */
+  overflow-y: auto;
+  display: block;
+  margin-top: 10px;
+}
+
+#roleModal table tbody tr{
+  cursor: pointer;
+  padding: 10px;
+}
+
+#roleModal table tbody tr.selected {
+  background-color: #f0f0f0; /* Change this to your preferred color */
+}
+
+.admin-control1{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-control1 span{
+  font-size: 20px;
+  font-weight: bold;
+  color:#b5292f;
+  text-decoration: underline;
+}
+
+.admin-control1 span i{
+  background-color: #b5292f;
+  color: white;
+  border-radius: 5px;
+  padding: 10px 12px;
+  font-size: 15px;
+  border: none;
+  margin-right: 10px;
+}
+
+#role-name{
+  border: solid 1px #6d6d6d;
+  padding: 5px;
+  border-radius: 5px;
+  margin-left: 10px;
 }

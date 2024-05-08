@@ -151,8 +151,23 @@ function addEventProducts() {
           id: id,
         },
         success: function (data) {
+          var datatemp = data;
           console.log(data);
-          let setSize = new Set();
+          var from = document.querySelector('#min-price').value;
+          var to = document.querySelector('#max-price').value;
+
+          if (from && to) {
+            data = [];
+            console.log(data);
+            datatemp.forEach( function(item) {
+              if (parseFloat(item.GiaTien) >= from && parseFloat(item.GiaTien) <= to) {
+                data.push(item);
+              }
+         
+            })
+          }
+          console.log(data);
+          let setSize = new Set(); 
           let setVien = new Set();
           var sizearray = [];
           var sizevien = [];
@@ -180,6 +195,10 @@ function addEventProducts() {
             }
           });
           console.log(setSize);
+          if (data.length == 0) {
+            alert("Error");
+            return;
+          }
           var product = data;
           var html = `
                     <div class="popup__item">

@@ -395,6 +395,26 @@ INSERT INTO `ChiTietXuat` (`MaPX`, `MaSP`, `MaSize`, `MaVien`, `SoLuong`) VALUES
 (1, 'PBD', 'M', 'D', 10);
 
 
+CREATE TABLE `danhsachchucnang` (
+  `MaCN` varchar(25) NOT NULL,
+  `TenCN` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `TrangThai` int(11) DEFAULT 1,
+  primary key (MaCN)
+);
+
+INSERT INTO `danhsachchucnang` (`MaCN`, `TenCN`) VALUES
+('sanpham', 'Sản phẩm'),
+('nhaphang', 'Nhập hàng'),
+('xuathang', 'Xuất hàng'),
+('thongke', 'Thống kê'),
+('taikhoan', 'Tài khoản'),
+('phanquyen', 'Phân quyền');
 
 
+CREATE TABLE `chucnangnhomquyen` (
+  `MaQuyen` int(11) NOT NULL,
+  `MaCN` varchar(25) NOT NULL,
+  `hanhdong` varchar(100) COLLATE utf8_unicode_ci NOT NULL, 
+  primary key (MaQuyen, MaCN)
+);
 COMMIT;

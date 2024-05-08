@@ -99,18 +99,11 @@
         <main class="content">
             <!-- Account  -->
             <div class="section active">
-                <div class="admin-control">
-                    <div class="bor">
-                        <div class="admin-control-left">
-                            <select name="tinh-trang-user" id="tinh-trang-user" onchange="showUser()">
-                                <option value="2">Tất cả</option>
-                                <option value="1">Admin</option>
-                                <option value="0">Nhân viên</option>
-                            </select>
-                        </div>
-                        <div class="admin-control-right">
-                            <button class="btn-reset-order" onclick="cancelSearchUser()"><i
-                                    class="fa-solid fa-rotate-right"></i></button>
+                <div class="admin-control1">
+                    <span><i class="fa-solid fa-user-secret"></i>DANH SÁCH NHÓM QUYỀN</span>
+                    <div class="import-role">
+                        <div class="add">
+                            <i class="fa-solid fa-plus"></i>
                         </div>
                     </div>
                 </div>
@@ -118,39 +111,15 @@
                     <table width="100%">
                         <thead>
                             <tr>
-                                <td>STT</td>
-                                <td>Họ và tên</td>
-                                <td>Nhóm quyền</td>
-                                <td>Trạng thái</td>
+                                <td>Mã quyền</td>
+                                <td>Tên nhóm quyền</td>
                                 <td>Thao tác</td>
                             </tr>
                         </thead>
                         <tbody id="show-user">
                             <tr>
                                 <td>1</td>
-                                <td>Pham Van Kiet</td>
-                                <td><select id="role">
-                                        <option value="employee">Nhân viên</option>
-                                        <option value="admin">Admin</option>
-                                    </select>
-                                </td>
-                                <td><span class="status-complete">Hoạt động</span></td>
-                                <td class="control control-table">
-                                    <button class="btn-edit" id="edit-account"><i
-                                            class="fa-regular fa-pen-to-square"></i></button>
-                                    <button class="btn-delete" id="delete-account"><i
-                                            class="fa-solid fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Pham Van Kiet</td>
-                                <td><select id="role">
-                                        <option value="employee">Nhân viên</option>
-                                        <option value="admin">Admin</option>
-                                    </select>
-                                </td>
-                                <td><span class="status-complete">Hoạt động</span></td>
+                                <td>Thao tác toàn diện</td>
                                 <td class="control control-table">
                                     <button class="btn-edit" id="edit-account"><i
                                             class="fa-regular fa-pen-to-square"></i></button>
@@ -174,16 +143,12 @@
                     <div class="modal-header">
                         <h2>PHÂN QUYỀN</h2>
                         <div class="import-role">
-                            <div class="add">
-                                <i class="fa-solid fa-plus"></i>
-
-                            </div>
-                            <div class="cancel">
-                                <i class="fa-solid fa-ban"></i>
-
-                            </div>
                             <span class="close">&times;</span>
                         </div>
+                    </div>
+                    <div class="role-name">
+                        <span>Tên nhóm quyền: </span>
+                        <input type="text" name="role-name" id="role-name">
                     </div>
                     <div>
                         <table>
@@ -205,7 +170,7 @@
                                     <td><input type="checkbox"></td>
                                 </tr>
                                 <tr>
-                                    <td id="title-role">Quản lí khách hàng</td>
+                                    <td id="title-role">Quản lí tài khoản</td>
                                     <td><input type="checkbox"></td>
                                     <td><input type="checkbox"></td>
                                     <td><input type="checkbox"></td>
@@ -249,7 +214,7 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        var editButtons = document.querySelectorAll('.btn-edit');
+        var editButtons = document.querySelectorAll('.btn-edit, .add');
         editButtons.forEach(function(button) {
             button.addEventListener('click', function() {
                 document.getElementById('roleModal').style.display = 'block';
@@ -263,39 +228,6 @@
             document.getElementById('roleModal').style.display = 'none';
             document.querySelector('.dark-overlay').style.display = 'none';
         });
-    });
-
-    document.querySelector('.add').addEventListener('click', function() {
-        var newRow = document.createElement('tr');
-        var cells = ['<input type="text">', '<input type="checkbox">', '<input type="checkbox">',
-            '<input type="checkbox">', '<input type="checkbox">'
-        ];
-        for (var i = 0; i < cells.length; i++) {
-            var newCell = document.createElement('td');
-            newCell.innerHTML = cells[i];
-            newRow.appendChild(newCell);
-        }
-        document.querySelector('#roleModal table tbody').appendChild(newRow);
-    });
-
-    var selectedRow = null;
-
-    document.querySelectorAll('#roleModal table tbody tr').forEach(function(row) {
-        row.addEventListener('click', function() {
-            if (selectedRow) {
-                selectedRow.classList.remove('selected');
-            }
-            this.classList.add('selected');
-            selectedRow = this;
-        });
-    });
-    
-    document.querySelector('.cancel').addEventListener('click', function() {
-        // Delete the selected row, if any
-        if (selectedRow) {
-            selectedRow.remove();
-            selectedRow = null;
-        }
     });
     </script>
 </body>

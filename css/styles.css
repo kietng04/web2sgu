@@ -944,5 +944,7 @@ td {
 .form-item.--login.--error input {
   color: red;
 }
-
+.header__action-bell i{
+  color: #c8102e;
+}
 

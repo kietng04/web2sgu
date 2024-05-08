@@ -1441,6 +1441,7 @@ label a {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .import-role .add i {
@@ -1618,8 +1619,15 @@ label a {
   align-items: center;
   font-size: larger;
   font-weight: bold;
-  margin-bottom: 10px;
   color:rgb(158, 0, 0);
+}
+
+.role-name span {
+  color: #b5292f;
+  font-size: 15px;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 .role-modal .close {
@@ -1681,6 +1689,7 @@ label a {
   max-height: 300px; /* Adjust this value to your needs */
   overflow-y: auto;
   display: block;
+  margin-top: 10px;
 }
 
 #roleModal table tbody tr{
@@ -1690,4 +1699,34 @@ label a {
 
 #roleModal table tbody tr.selected {
   background-color: #f0f0f0; /* Change this to your preferred color */
+}
+
+.admin-control1{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-control1 span{
+  font-size: 20px;
+  font-weight: bold;
+  color:#b5292f;
+  text-decoration: underline;
+}
+
+.admin-control1 span i{
+  background-color: #b5292f;
+  color: white;
+  border-radius: 5px;
+  padding: 10px 12px;
+  font-size: 15px;
+  border: none;
+  margin-right: 10px;
+}
+
+#role-name{
+  border: solid 1px #6d6d6d;
+  padding: 5px;
+  border-radius: 5px;
+  margin-left: 10px;
 }

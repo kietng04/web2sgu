@@ -328,4 +328,14 @@ function hoadon_category_day($category_id,$start, $end){
     
 }
 
+function getTopProducts($query){
+  $result = mysqli_query($this->__conn,$query);
+  $data = [];
+  while ($row = mysqli_fetch_assoc($result)) {
+      $data[] = $row;
+  }
+  return $data;
+
+}
+
 }

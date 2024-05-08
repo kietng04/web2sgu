@@ -414,6 +414,7 @@ INSERT INTO `danhsachchucnang` (`MaCN`, `TenCN`) VALUES
 CREATE TABLE `chucnangnhomquyen` (
   `MaQuyen` int(11) NOT NULL,
   `MaCN` varchar(25) NOT NULL,
-  `hanhdong` varchar(100) COLLATE utf8_unicode_ci NOT NULL 
+  `hanhdong` varchar(100) COLLATE utf8_unicode_ci NOT NULL, 
+  primary key (MaQuyen, MaCN)
 );
 COMMIT;

@@ -328,6 +328,7 @@ CREATE TABLE `NhapSanPham` (
   `MaPN` int(11) NOT NULL,
   `MaNV` int(11) NOT NULL,
   `NgayNhap` datetime NOT NULL,
+  `DonGia` decimal(10,2) NOT NULL,
   primary key (MaPN)
 );
 
@@ -340,6 +341,8 @@ CREATE TABLE `ChiTietNhap` (
   `MaSize` varchar(100) NOT NULL,
   `MaVien` varchar(100) NOT NULL,
   `SoLuong` int(11) NOT NULL,
+  `GiaNhap` decimal(10,2) NOT NULL,
+  `GiaXuat` decimal(10,2) NOT NULL,
   primary key (MaPN, MaSP, MaSize, MaVien)
 );
 

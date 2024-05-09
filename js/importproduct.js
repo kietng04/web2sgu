@@ -219,6 +219,11 @@ function thempn(e) {
     var curdate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
     var curtime = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
     var date = curdate + ' ' + curtime;
+    // tinh sum gia nhap
+    sum = 0;
+    listCTPN.forEach(element => {
+        sum += parseInt(element.GiaNhap) * parseInt(element.SoLuong);
+    })
     $.ajax({
         url: './controller/ImportController.php',
         type: 'POST',
@@ -228,6 +233,7 @@ function thempn(e) {
             MaPN: document.querySelector('#import-id').value,
             listCTPN: listCTPN,
             date: date,
+            dongia: sum,
         },
         success: function(data) {
             console.log(data);
@@ -281,8 +287,8 @@ function addeventsuapn() {
             "SoLuong": soluong,
             "TenSize": document.querySelector('#product-item').options[document.querySelector('#product-item').selectedIndex].text.split(' - ')[0],
             "TenDe": document.querySelector('#product-item').options[document.querySelector('#product-item').selectedIndex].text.split(' - ')[1],
-            "GiaNhap": document.getElementById('product-price').value,
-            "GiaBan": document.getElementById('product-pricesell').value
+            "GiaNhap": parseDouble(document.getElementById('product-price').value),
+            "GiaBan": parseDouble(document.getElementById('product-pricesell').value)
         }
         loadTablepn();
     })

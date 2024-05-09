@@ -31,10 +31,12 @@ function themphieunhap() {
     $MaPN = $_POST['MaPN'];
     $listCTPN = $_POST['listCTPN'];
     $date = $_POST['date'];
+    $dongia = $_POST['dongia'];
     $data = [
         'MaPN' => $MaPN,
         'NgayNhap' => $date,
-        'MaNV' => $_SESSION['currentUser']['result'][0]['MaND']
+        'MaNV' => $_SESSION['currentUser']['result'][0]['MaND'],
+        'Dongia' => $dongia
     ];
     return (new PhieuNhapBUS())->add1phieunhap($data, $listCTPN);
 }

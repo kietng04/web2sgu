@@ -1462,8 +1462,7 @@ label a {
 }
 
 .modal.add-import .modal-container {
-  display: flex;
-  width: 1000px;
+  width: 80%;
   height: max-content;
   padding: 1%;
   padding-top: 3%;
@@ -1471,26 +1470,23 @@ label a {
 }
 .modal.modal.add-import h3 {
   position: absolute;
-  left: 15px;
+  left: 30px;
   top: 20px;
-  font-weight: 500;
+  font-weight: bold;
+  color: var(--red);
+  font-size: 20px;
 }
 
-.modal.add-import .modal-layout-one {
-  flex-direction: column;
-  width: 80%;
-  height: auto;
-}
 .modal.add-import .modal-layout-two {
   width: 20%;
   height: max-content;
   padding: 1%;
 }
 .modal.add-import .modal-layout-third {
-  width: 48%;
-  padding: 1%;
-  /* height: max-content; */
+  width: 50%;
+  padding: 10px;
 }
+
 .modal.add-import .modal-layout-four {
   display: flex;
   width: 100%;
@@ -1508,6 +1504,7 @@ label a {
   border-radius: 5px;
   outline: none;
   transition: border 0.3s linear;
+  margin-bottom: 10px;
 }
 
 .modal.add-import .vertical {
@@ -1522,9 +1519,11 @@ label a {
 .modal-layout-third.wrap {
   display: flex;
   flex-wrap: wrap;
-  
-  
 }
+.modal-layout-third.wrap label, .modal-layout-third.wrap span {
+  margin-bottom: 10px;
+}
+
 .modal-layout-third.wrap .item-1 {
   width: 100%;
   margin-bottom: 2%;
@@ -1533,6 +1532,9 @@ label a {
   width: 49%;
   margin-right: 1%;
   margin-bottom: 2%;
+}
+.modal-layout-third.wrap .item-2 select {
+  width: 200px;
 }
 .modal-layout-third.wrap .item-3 {
   width: 49%;
@@ -1545,12 +1547,17 @@ label a {
   margin-bottom: 2%;
 
 }
+.modal-layout-third.wrap .item-44 {
+  width: 69%;
+  margin-right: 1%;
+  margin-bottom: 2%;
+
+}
 .modal-layout-third.wrap .item-5 {
   width: 29%;
   margin-left: 1%;
   margin-bottom: 2%;
 }
-
 
 .modal.add-import table {
   display: block;
@@ -1562,7 +1569,7 @@ label a {
 }
 .modal.add-import thead td {
   position: sticky; 
-  top: 0; 
+  top: -5px; 
   width: 100%;
   font-size: 14px;
   text-transform: uppercase;
@@ -1576,7 +1583,7 @@ label a {
 
 .modal.add-import .modal-container .scroll-table{
   overflow: auto;
-  height: 200px;
+  height: 342px;
 }
 
 .modal.add-import .btn-control-large {

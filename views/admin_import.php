@@ -26,14 +26,13 @@
     <script src="js/loader.js"></script>
     <ul class="notifications"></ul>
     <div class="container">
-    <aside class="sidebar open">
+        <aside class="sidebar open">
             <!-- <div class="btnSidebar">
                 <i class="fa-solid fa-bars"></i>
             </div> -->
             <div class="top-sidebar">
                 <a href="#" class="channel-logo"><img src="img/logo-pizza.png" alt="Channel Logo"></a>
-                <div class="hidden-sidebar your-channel"><img src=""
-                        style="height: 30px;" alt="">
+                <div class="hidden-sidebar your-channel"><img src="" style="height: 30px;" alt="">
 
                 </div>
             </div>
@@ -128,16 +127,6 @@
                     <div class="import-info">
                         <form>
                             <div class="insert">
-                                <label for="nha_cung_cap">Nhà cung cấp:</label>
-                                <select id="nha_cung_cap" name="nha_cung_cap">
-                                    <option value="">Chọn nhà cung cấp</option>
-                                    <option value="1">Công ty A</option>
-                                    <option value="2">Công ty B</option>
-                                    <option value="3">Công ty C</option>
-                                </select>
-                            </div>
-                            <br>
-                            <div class="insert">
                                 <label for="nhan_vien_nhap">Nhân viên nhập:</label>
                                 <select id="nhan_vien_nhap" name="nhan_vien_nhap">
                                     <option value="">Chọn nhân viên</option>
@@ -146,26 +135,13 @@
                                     <option value="3">Lê Văn C</option>
                                 </select>
                             </div>
-                            <br>
                             <div class="insert">
                                 <label for="ngay_nhap_tu_ngay">Ngày nhập từ ngày:</label>
                                 <input type="date" id="ngay_nhap_tu_ngay" name="ngay_nhap_tu_ngay">
                             </div>
-                            <br>
                             <div class="insert">
                                 <label for="ngay_nhap_den_ngay">Đến ngày:</label>
                                 <input type="date" id="ngay_nhap_den_ngay" name="ngay_nhap_den_ngay">
-                            </div>
-                            <br>
-                            <div class="insert">
-                                <label for="tong_tien">Tổng tiền: </label>
-                                <input type="text" id="tong_tien" name="tong_tien" readonly>
-                            </div>
-                            <br>
-                            <div class="insert-btn">
-                                <div class="smtbtn">
-                                    <button type="submit">Gửi</button>
-                                </div>
                             </div>
                         </form>
                     </div>
@@ -173,12 +149,12 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th>STT</th>
-                                    <th>Mã phiếu nhập</th>
-                                    <th>Nhà cung cấp</th>
-                                    <th>Nhân viên nhập</th>
-                                    <th>Thời gian</th>
-                                    <th>Tổng tiền</th>
+                                    <td>STT</td>
+                                    <td>Mã phiếu nhập</td>
+                                    <td>Nhà cung cấp</td>
+                                    <td>Nhân viên nhập</td>
+                                    <td>Thời gian</td>
+                                    <td>Tổng tiền</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -231,16 +207,11 @@
     </div>
     <div class="modal add-import">
         <div class="modal-container">
-        <h3>CHỈNH SỬA SẢN PHẨM</h3>
+            <h3>CHỈNH SỬA SẢN PHẨM</h3>
             <button class="modal-close product-form"><i class="fa-solid fa-xmark"></i></i></button>
             <div class="modal-layout-one">
                 <div class="modal-layout-four">
                     <div class="modal-layout-third">
-                        <form action="" class="form-search">
-                                <span class="search-btn"><i class="fa-solid fa-magnifying-glass" onclick="searchProduct()"></i></i></span>
-                                <input id="form-search-product" type="text" class="form-search-input"
-                                    placeholder="Tìm kiếm tên món..." >
-                        </form>
                         <div class="scroll-table padding">
                             <table>
                                 <thead>
@@ -278,106 +249,106 @@
                         </div>
                     </div>
                     <div class="modal-layout-third wrap">
-                    <div class="vertical item-1">
-                        <span>Mã sản phẩm - Tên sản phẩm</span>
-                        <input type="text" id="product-name" class="input" placeholder="Chọn sản phẩm">
-                    </div>
-                    <div class="vertical item-2">                     
-                        <label for="product-size">Kích thước sản phẩm</label>
-                        <select id="product-item" name="product-size">
-                            <option value="">Chọn item</option>
-                            <option value="1">Size S</option>
-                            <option value="2">Size M</option>
-                            <option value="3">Size L</option>
-                        </select>
-                    </div>
-                    <div class="vertical item-3">
-            
-                    </div>
-                    <div class="vertical item-4">
-                        <label for="product-price">Giá nhập (VNĐ)</label>
-                        <input type="text" id="product-price" name="product-price" class="input">
+                        <div class="vertical item-1">
+                            <span>Mã sản phẩm - Tên sản phẩm</span>
+                            <input type="text" id="product-name" class="input" placeholder="Chọn sản phẩm">
+                        </div>
+                        <div class="vertical item-2">
+                            <label for="product-size">Kích thước sản phẩm</label>
+                            <select id="product-item" name="product-size">
+                                <option value="">Chọn item</option>
+                                <option value="1">Size S</option>
+                                <option value="2">Size M</option>
+                                <option value="3">Size L</option>
+                            </select>
+                        </div>
+                        <div class="vertical item-3">
+                            <label for="product-quantity">Số lượng</label>
+                            <input type="text" id="product-quantity" name="product-quantity" class="input">
+                        </div>
+                        <div class="vertical item-4">
+                            <label for="product-price">Giá nhập (VNĐ)</label>
+                            <input type="text" id="product-price" name="product-price" class="input">
 
-                    </div>
-                    <div class="vertical item-44">
-                        <label for="product-price">Giá bán (VNĐ)</label>
-                        <input type="text" id="product-pricesell" name="product-price" class="input">
+                        </div>
+                        <div class="vertical item-44">
+                            <label for="product-price">Giá bán (VNĐ)</label>
+                            <input type="text" id="product-pricesell" name="product-price" class="input">
 
-                    </div>
-                    <div class="vertical item-5">
-                        <label for="product-quantity">Số lượng</label>
-                        <input type="text" id="product-quantity" name="product-quantity" class="input">
-                    </div>
-                    <div class="vertical item-2">
-                        <button type="submit" class="btn-control-large suapn">Sửa</button>
-                    </div>
-                    <div class="vertical item-3">
-                        <button type="submit" class="btn-control-large item-3">Xoá</button>
-                    </div>
+                        </div>
+                        <div class="vertical item-5">
+
+                        </div>
+                        <div class="vertical item-2">
+                            <button type="submit" class="btn-control-large suapn">Sửa</button>
+                        </div>
+                        <div class="vertical item-3">
+                            <button type="submit" class="btn-control-large item-3">Xoá</button>
+                        </div>
                     </div>
                 </div>
-                
+
                 <div class="modal-layout-four scroll-table padding">
                     <table>
-                         <thead>
-                             <tr>
-                                 <td>Mã sản phẩm</td>
+                        <thead>
+                            <tr>
+                                <td>Mã sản phẩm</td>
                                 <td>Tên sản phẩm</td>
                                 <td>Kích thước</td>
                                 <td>Đế</td>
                                 <td>Giá nhập</td>
                                 <td>Giá bán</td>
                                 <td>Số lượng</td>
-                             </tr>
-                         </thead>
-                         <tbody class="rowtable">
+                            </tr>
+                        </thead>
+                        <tbody class="rowtable">
                         </tbody>
                     </table>
                 </div>
             </div>
-            
 
-            
+
+
 
             <div class="modal-layout-two">
                 <div class="vertical">
                     <span>Mã phiếu nhập:</span>
                     <input type="text" id="import-id" name="import-id" class="input">
                 </div>
-                    <div class="total-price">
-                        <h2>Tổng tiền:  </h2>
-                        <p class="tongtienpn">0 VNĐ</p>
-                    </div>
+                <div class="total-price">
+                    <h2>Tổng tiền: </h2>
+                    <p class="tongtienpn">0 VNĐ</p>
+                </div>
 
                 <button class="btn-control-large" onclick="thempn(event)">Thêm phiếu nhập</button>
             </div>
-            
-            
-    </div>
 
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="js/notificationEffect.js"></script>
-    <script src="js/helper.js"></script>
-    <script src="js/importproduct.js"></script>
-    <script src="js/helper.js"></script>
+        </div>
 
-    <script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="js/notificationEffect.js"></script>
+        <script src="js/helper.js"></script>
+        <script src="js/importproduct.js"></script>
+        <script src="js/helper.js"></script>
+
+        <script>
         var addButtons = document.querySelectorAll('.add');
         var modal = document.querySelector('.modal.add-import');
 
-        addButtons.forEach(function (addButton) {
-            addButton.addEventListener('click', function () {
+        addButtons.forEach(function(addButton) {
+            addButton.addEventListener('click', function() {
                 modal.classList.add('open');
             });
         });
         var closeButtons = document.querySelectorAll('.modal-close');
-        closeButtons.forEach(function (closeButton) {
-            closeButton.addEventListener('click', function () {
+        closeButtons.forEach(function(closeButton) {
+            closeButton.addEventListener('click', function() {
                 modal.classList.remove('open');
             });
         });
-    </script>
+        </script>
 </body>
 
 

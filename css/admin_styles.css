@@ -217,20 +217,20 @@ nav.close~.dashboard .top {
 }
 
 .import-info {
-  width: 350px;
-  height: auto;
   border-right: solid 1px var(--border-color);
   background-color: white;
   transition: var(--tran-05);
 }
 
 .import-info form {
-  margin: 20px auto;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .import-info .insert {
   margin-bottom: 20px;
   display: flex;
+  margin-right: 20px;
 }
 
 .import-info label {
@@ -247,39 +247,37 @@ nav.close~.dashboard .top {
   border-radius: 15px;
   background: var(--box1-color);
   color: var(--text-color);
+  margin-left: 10px;
 }
 
-.import-info .smtbtn {
-  display: flex;
-  justify-content: center;
-}
-
-.import-info .smtbtn button {
-  margin-top: 10px;
-  border: none;
-  background-color: rgba(254, 74, 74, 0.925);
-  color: #fff;
-  padding: 10px 10px;
-  border-radius: 15px;
-}
-.import-container{
-  display: flex;
-}
-.import-detail{
-  width: calc(100% - 310px);
-}
 .import-detail table {
   width: 100%;
-  color: var(--text-color);
+  overflow: auto;
+  background: #fff;
+  border-radius: 7px;
+}
+
+.import-detail table {
+  border-collapse: collapse;
+}
+
+.import-detail tr {
+  border-bottom: 1px solid var(--lighter-gray);
+}
+
+.import-detail thead td {
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: 500;
+  background: var(--lighter-gray);
+  padding: 15px;
+  padding: 15px;
   text-align: center;
+  white-space: nowrap;
 }
 
-.import-detail th,
-.import-detail td {
-  padding: 20px 5px;
-}
-
-tr.black {
-  background-color: rgb(159, 157, 157);
-  color: white; 
+.import-detail tbody tr td {
+  padding: 10px 15px;
+  text-align: center;
+  white-space: nowrap;
 }

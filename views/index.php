@@ -57,6 +57,9 @@
                     </form>
                 </div>
                 <div class="header__action">
+                    <div class="header__action-admin">
+                        <i class="fa fa-cog" aria-hidden="true"></i>
+                    </div>
                     <div class="header__action-location">
                         <i class="fa-solid fa-location-dot"></i>
                     </div>
@@ -70,6 +73,10 @@
                         <a href="index.php?controller=HistoryBillController&action=index"><i class="fa-solid fa-file-invoice"></i></a>
                     </div>
                     <div class="header__action-member">
+                        <div class="icon"><i class="fa-solid fa-circle-user"></i></div>
+                        <p>THÀNH VIÊN</p>
+                    </div>
+                    <div class="header__action-member chitietmember">
                         <div class="icon"><i class="fa-solid fa-circle-user"></i></div>
                         <p>THÀNH VIÊN</p>
                     </div>

@@ -44,6 +44,9 @@
   transition: 0.1s;
   border-radius: 2px;
 }
+.header .header__action .header__action-member.chitietmember{
+  display: none;
+}
 .header .header__action .header__action-member:hover {
   background-color: hwb(210 89% 11%);
 }
@@ -201,7 +204,7 @@
   padding: 24px 24px 8px 0px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 }
 .popup__iten-content h3 {
   display: inline;

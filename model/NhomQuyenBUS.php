@@ -40,4 +40,18 @@ class NhomQuyenBUS extends DB_business {
         $result = $this->get_list($sql);
         return $result;
     }
+
+    function delete1nhomquyen($manq) {
+        $sql = "DELETE FROM PhanQuyen WHERE MaQuyen = '$manq'";
+        $result = $this->updatezzz($sql);
+        if (!$result) {
+            die (json_encode(null));
+        }
+        $sql = "DELETE FROM chucnangnhomquyen WHERE MaQuyen = '$manq'";
+        $result = $this->updatezzz($sql);
+        if (!$result) {
+            die (json_encode(null));
+        }
+        die (json_encode(array('status' => 'success')));
+    }
 }

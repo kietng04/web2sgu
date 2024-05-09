@@ -23,14 +23,39 @@ function loadtablephanquyen() {
                 <td class="control control-table">
                     <button class="btn-edit" id="edit-account"><i
                             class="fa-regular fa-pen-to-square"></i></button>
-                    <button class="btn-delete" id="delete-account"><i
+                    <button class="btn-delete" id="delete-account" value="${element.MaQuyen}"><i
                             class="fa-solid fa-trash"></i></button>
                 </td>
             </tr>`
             })
             divtable.innerHTML = html;
+            addeventdelete();
         }
     })
+}
+
+function addeventdelete() {
+    var btns = document.querySelectorAll('.btn-delete');
+    btns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            var maquyen = btn.value;
+            $.ajax({
+                url: './controller/PermissionController.php',
+                type: 'POST',
+                data: {
+                    request: 'xoanhomquyen',
+                    maquyen: maquyen
+                },
+                success: function(data) {
+                    if (data) {
+                        alert('Xóa nhóm quyền thành công');
+                        loadtablephanquyen();
+                    }
+                }
+            })
+        })
+    })
+
 }
 
 function addeventthemnq() {

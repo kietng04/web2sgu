@@ -18,6 +18,10 @@ if (isset($_POST['request'])) {
         case 'loadnhomquyen':
             loadnhomquyen();
             break;
+        case 'xoanhomquyen':
+            xoanhomquyen();
+            break;
+        
     }
 }
 
@@ -31,5 +35,11 @@ function themnhomquyen() {
 
 function loadnhomquyen() {
     $result = (new NhomQuyenBUS())->getAllnhomquyen();
+    die(json_encode($result));
+}
+
+function xoanhomquyen() {
+    $manq = $_POST['maquyen'];
+    $result = (new NhomQuyenBUS())->delete1nhomquyen($manq);
     die(json_encode($result));
 }

@@ -30,6 +30,9 @@ if (isset($_POST['request'])) {
         case 'getDoanhThu_Loai_Ngay':
             getDoanhThu_Loai_Ngay();          
             break;
+        case 'getTopProducts':
+             getTOPProducts();
+            break;
     }
 }
 
@@ -73,3 +76,11 @@ function getDoanhThu_Loai_Ngay(){
     die (json_encode("khong tra ve "));
 }   
 
+function getTOPProducts(){
+    $query= $_POST['query'];
+    $result = (new HoaDonBUS())->getTopProducts($query);
+    if ($result != null) {
+        die (json_encode($result));
+    }
+    die (json_encode("khong tra ve "));
+}

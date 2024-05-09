@@ -287,9 +287,10 @@ function addEventButton() {
     document.querySelectorAll(".btn-detail").forEach(item => {
         item.addEventListener("click", function(e) {
             let row = e.target.parentElement.parentElement;
+            console.log("row: ",row);
             // let row_id = row.querySelectorAll("td");
             let row_id=row.querySelectorAll("td")[0].innerText;
-            console.log(row_id);
+            console.log("rows id ",row_id);
             let popup=document.querySelector(".detail-order");
             console.log(popup)
             popup.classList.add("open");

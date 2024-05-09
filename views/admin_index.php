@@ -79,7 +79,7 @@
 
                     <li class="sidebar-list-item user-logout">
                         <a href="/" class="sidebar-link">
-                            <div class="sidebar-icon"><i class="fa-solid fa-angles-left"></i></div>
+                            <div class="sidebar-icon"><a href="index.php?controller=ProductsnController&action=index"></a><i class="fa-solid fa-angles-left"></i></div>
                             <div class="hidden-sidebar">Trang chủ</div>
                         </a>
                     </li>

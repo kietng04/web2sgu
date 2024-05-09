@@ -94,8 +94,8 @@ INSERT INTO `NhanVien` (`MaNV`, `Ho`, `Ten`, `GioiTinh`, `SDT`, `Email`, `DiaChi
 
 CREATE TABLE `HoaDon` (
   `MaHD` int(11) NOT NULL AUTO_INCREMENT,
-  `MaND` int(11) NOT NULL,
-  `MaNV` int(11) NOT NULL,
+  `MaND` varchar(255) NOT NULL,
+  `MaNV` varchar(255) NOT NULL,
   `NgayLap` date NOT NULL,
   `TongTien` decimal(10,2) NOT NULL,
   `TrangThai` int(11) NOT NULL,

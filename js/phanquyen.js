@@ -1,7 +1,37 @@
 
-
+loadtablephanquyen();
 addeventthemnq();
 
+
+function loadtablephanquyen() {
+    // ajjax 
+    $.ajax({
+        url: './controller/PermissionController.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            request: 'loadnhomquyen'
+        },
+        success: function(data) {
+            console.log(data);
+            var html = "";
+            var divtable = document.querySelector('#show-user');
+            data.forEach(element => {
+                html += `<tr>
+                <td>${element.MaQuyen}</td>
+                <td>${element.TenNhomQuyen}</td>
+                <td class="control control-table">
+                    <button class="btn-edit" id="edit-account"><i
+                            class="fa-regular fa-pen-to-square"></i></button>
+                    <button class="btn-delete" id="delete-account"><i
+                            class="fa-solid fa-trash"></i></button>
+                </td>
+            </tr>`
+            })
+            divtable.innerHTML = html;
+        }
+    })
+}
 
 function addeventthemnq() {
     var themnq = document.querySelector('.themnhomquyen');
@@ -31,18 +61,20 @@ function addeventthemnq() {
             mapquyen.set(dschucnang[i], arraychucnang);
         }
 
-        // ajax
         $.ajax({
             url: './controller/PermissionController.php',
             type: 'POST',
             data: {
                 request: 'themnhomquyen',
                 tennq: tennq,
-                mapquyen: JSON.stringify([...mapquyen])
+                mapquyen: JSON.stringify(Object.fromEntries(mapquyen))
             },
             success: function(data) {
-                console.log(data);
-              
+                if (data) {
+                    alert('Thêm nhóm quyền thành công');
+                    document.querySelector('.dark-overlay').style.display = 'none';
+                    loadtablephanquyen();
+                }
             }
         })
     });

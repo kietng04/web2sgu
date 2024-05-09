@@ -15,7 +15,9 @@ if (isset($_POST['request'])) {
         case 'themnhomquyen':
             themnhomquyen();
             break;
-        
+        case 'loadnhomquyen':
+            loadnhomquyen();
+            break;
     }
 }
 
@@ -23,4 +25,11 @@ function themnhomquyen() {
     $tennq = $_POST['tennq'];
     $hashmapnhomquyen = json_decode($_POST['mapquyen'], true);  
     $result = (new NhomQuyenBUS())->add1nhomquyen($tennq, $hashmapnhomquyen);
+    die(json_encode($result));
+}
+
+
+function loadnhomquyen() {
+    $result = (new NhomQuyenBUS())->getAllnhomquyen();
+    die(json_encode($result));
 }

@@ -6,17 +6,13 @@ SET time_zone = "+00:00";
 USE `web2sgu`;
 
 CREATE TABLE `PhanQuyen` (
-  `MaQuyen` int(11) NOT NULL,
-  `ChiTietQuyen` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `MaQuyen` int(11) NOT NULL AUTO_INCREMENT,
+  `TenNhomQuyen` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   primary key (MaQuyen)
 );
 
-INSERT INTO `PhanQuyen` (`MaQuyen`, `ChiTietQuyen`) VALUES
-(1, 'Admin'),
-(2, 'Nhân viên sale'),
-(3, 'Nhân viên giao hàng'),
-(4, 'Nhân viên bán hàng'),
-(5, 'Nhân viên nấu ăn');
+
+
 
 CREATE TABLE `TrangThai` (
   `MaTT` int(11) NOT NULL,
@@ -418,6 +414,6 @@ CREATE TABLE `chucnangnhomquyen` (
   `MaQuyen` int(11) NOT NULL,
   `MaCN` varchar(25) NOT NULL,
   `hanhdong` varchar(100) COLLATE utf8_unicode_ci NOT NULL, 
-  primary key (MaQuyen, MaCN)
+  primary key (MaQuyen, MaCN, hanhdong)
 );
 COMMIT;

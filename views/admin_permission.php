@@ -119,7 +119,7 @@
                             </tr>
                         </thead>
                         <tbody id="show-user">
-                            <tr>
+                            <tr class="rowtable">
                                 <td>1</td>
                                 <td>Thao tác toàn diện</td>
                                 <td class="control control-table">

@@ -1038,8 +1038,42 @@ label a {
   flex: 1;
 }
 
+.admin-control-left .fillter-date {
+  margin-left: 20px;
+}
+
+.admin-control-left .fillter-date label, .admin-control-left .fillter-date input{
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+#chon-nam{
+  margin-top: 10px;
+}
+
+.admin-control-left .fillter-date button{
+  color: #fff;
+  background-color: var(--red);
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-top: 10px;
+}
+
 .admin-control-right {
   display: flex;
+  align-items: center;
+}
+
+.admin-control-right h2{
+  margin-right: 20px;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.admin-control-right label{
+  font-size: 18px;
+  color: var(--text-color);
 }
 
 .bor{
@@ -1594,7 +1628,7 @@ label a {
 
 .modal.add-import .modal-container .scroll-table{
   overflow: auto;
-  height: 300px;
+  height: 341.5px;
 }
 
 .modal.add-import .btn-control-large {
@@ -1627,7 +1661,7 @@ label a {
   margin: 7% auto;
   border: 1px solid #888;
   width: 70%;
-  height: 400px;
+  height: 500px;
   border-radius: 20px;
 }
 
@@ -1680,12 +1714,12 @@ label a {
 }
 
 .r-left{
-  width: 350px;
+  width: 400px;
   float: left;
 }
 
 .r-left img{
-  height: 399px;
+  height: 499px;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
   border-top-right-radius: 0px;
@@ -1703,6 +1737,22 @@ label a {
 .r-right #title-role{
   text-align: left;
 }
+
+.r-right .boc-button{
+  display: flex;
+  justify-content: right;
+}
+
+.r-right button{
+  background-color: #b5292f;
+  color: white;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-top: 30px;
+  display: flex;
+  justify-content: right;
+}
+
 #roleModal table {
   max-height: 300px; /* Adjust this value to your needs */
   overflow-y: auto;

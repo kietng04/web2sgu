@@ -75,6 +75,10 @@
                     <div class="header__action-member">
                         <div class="icon"><i class="fa-solid fa-circle-user"></i></div>
                         <p>THÀNH VIÊN</p>
+                        <div class="hover-menu">
+                            <a>Đăng nhập</a>
+                            <a>Profile</a>
+                        </div>
                     </div>
                     <div class="header__action-member chitietmember">
                         <div class="icon"><i class="fa-solid fa-circle-user"></i></div>

@@ -226,7 +226,7 @@ function hoadon_category_month($category_id,$year){
             FROM hoadon
             LEFT JOIN ChiTietHoaDon ON hoadon.MaHD = ChiTietHoaDon.MaHD
             LEFT JOIN SanPham ON ChiTietHoaDon.MaSP = SanPham.MaSP
-            LEFT JOIN loaisanpham ON sanpham.MaSP = loaisanpham.MaSP 
+            LEFT JOIN loaisanpham ON sanpham.Loai = loaisanpham.TenLoai 
             LEFT JOIN chitietsanpham ON chitiethoadon.MaSP = chitietsanpham.MaSP and chitiethoadon.MaSize=chitietsanpham.MaSize and chitiethoadon.MaVien=chitietsanpham.MaVien 
             where  loaisanpham.MaLoai = $category_id and YEAR(hoadon.NgayLap) = $year
             GROUP BY MONTH(hoadon.NgayLap)
@@ -311,7 +311,7 @@ function hoadon_category_day($category_id,$start, $end){
       FROM hoadon
       LEFT JOIN ChiTietHoaDon ON hoadon.MaHD = ChiTietHoaDon.MaHD
       LEFT JOIN SanPham ON ChiTietHoaDon.MaSP = SanPham.MaSP
-      LEFT JOIN loaisanpham ON sanpham.MaSP = loaisanpham.MaSP
+      LEFT JOIN loaisanpham ON sanpham.Loai = loaisanpham.TenLoai
         LEFT JOIN chitietsanpham ON chitiethoadon.masp = chitietsanpham.MaSP and chitiethoadon.MaSize=chitietsanpham.MaSize and chitiethoadon.MaVien=chitietsanpham.MaVien 
       where  loaisanpham.MaLoai = $category_id
       GROUP BY date(hoadon.NgayLap)
@@ -326,6 +326,16 @@ function hoadon_category_day($category_id,$start, $end){
     }
     return $data;
     
+}
+
+function getTopProducts($query){
+  $result = mysqli_query($this->__conn,$query);
+  $data = [];
+  while ($row = mysqli_fetch_assoc($result)) {
+      $data[] = $row;
+  }
+  return $data;
+
 }
 
 }

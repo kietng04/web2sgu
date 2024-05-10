@@ -6,17 +6,13 @@ SET time_zone = "+00:00";
 USE `web2sgu`;
 
 CREATE TABLE `PhanQuyen` (
-  `MaQuyen` int(11) NOT NULL,
-  `ChiTietQuyen` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `MaQuyen` int(11) NOT NULL AUTO_INCREMENT,
+  `TenNhomQuyen` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   primary key (MaQuyen)
 );
 
-INSERT INTO `PhanQuyen` (`MaQuyen`, `ChiTietQuyen`) VALUES
-(1, 'Admin'),
-(2, 'Nhân viên sale'),
-(3, 'Nhân viên giao hàng'),
-(4, 'Nhân viên bán hàng'),
-(5, 'Nhân viên nấu ăn');
+
+
 
 CREATE TABLE `TrangThai` (
   `MaTT` int(11) NOT NULL,
@@ -94,8 +90,8 @@ INSERT INTO `NhanVien` (`MaNV`, `Ho`, `Ten`, `GioiTinh`, `SDT`, `Email`, `DiaChi
 
 CREATE TABLE `HoaDon` (
   `MaHD` int(11) NOT NULL AUTO_INCREMENT,
-  `MaND` int(11) NOT NULL,
-  `MaNV` int(11) NOT NULL,
+  `MaND` varchar(255) NOT NULL,
+  `MaNV` varchar(255) NOT NULL,
   `NgayLap` date NOT NULL,
   `TongTien` decimal(10,2) NOT NULL,
   `TrangThai` int(11) NOT NULL,
@@ -330,6 +326,7 @@ CREATE TABLE `NhapSanPham` (
   `MaPN` int(11) NOT NULL,
   `MaNV` int(11) NOT NULL,
   `NgayNhap` datetime NOT NULL,
+  `DonGia` decimal(10,2) NOT NULL,
   primary key (MaPN)
 );
 
@@ -342,6 +339,8 @@ CREATE TABLE `ChiTietNhap` (
   `MaSize` varchar(100) NOT NULL,
   `MaVien` varchar(100) NOT NULL,
   `SoLuong` int(11) NOT NULL,
+  `GiaNhap` decimal(10,2) NOT NULL,
+  `GiaXuat` decimal(10,2) NOT NULL,
   primary key (MaPN, MaSP, MaSize, MaVien)
 );
 
@@ -397,6 +396,26 @@ INSERT INTO `ChiTietXuat` (`MaPX`, `MaSP`, `MaSize`, `MaVien`, `SoLuong`) VALUES
 (1, 'PBD', 'M', 'D', 10);
 
 
+CREATE TABLE `danhsachchucnang` (
+  `MaCN` varchar(25) NOT NULL,
+  `TenCN` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `TrangThai` int(11) DEFAULT 1,
+  primary key (MaCN)
+);
+
+INSERT INTO `danhsachchucnang` (`MaCN`, `TenCN`) VALUES
+('sanpham', 'Sản phẩm'),
+('nhaphang', 'Nhập hàng'),
+('xuathang', 'Xuất hàng'),
+('thongke', 'Thống kê'),
+('taikhoan', 'Tài khoản'),
+('phanquyen', 'Phân quyền');
 
 
+CREATE TABLE `chucnangnhomquyen` (
+  `MaQuyen` int(11) NOT NULL,
+  `MaCN` varchar(25) NOT NULL,
+  `hanhdong` varchar(100) COLLATE utf8_unicode_ci NOT NULL, 
+  primary key (MaQuyen, MaCN, hanhdong)
+);
 COMMIT;

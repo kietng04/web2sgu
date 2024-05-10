@@ -80,4 +80,5 @@ class SanPhamBUS extends DB_business {
         $result = $this->get_list($sql);
         return $result;
     }
+    
 }

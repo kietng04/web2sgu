@@ -286,14 +286,10 @@ function addEventButton() {
     document.querySelectorAll(".btn-detail").forEach(item => {
         item.addEventListener("click", function(e) {
             let row = e.target.parentElement.parentElement;
+            console.log("row: ",row);
             // let row_id = row.querySelectorAll("td");
-// <<<<<<< HEAD
             let row_id=row.querySelectorAll("td")[0].innerText;
-            console.log(row_id);
-// =======
-//             let row_id=row.querySelectorAll("td")[0].innerText.slice(2);
-//             console.log("rows id ",row_id);
-// >>>>>>> 5d6042b46e35a17c5d81679e4cc69a7bc815a2ad
+            console.log("rows id ",row_id);
             let popup=document.querySelector(".detail-order");
             console.log(popup)
             popup.classList.add("open");

@@ -94,11 +94,12 @@ switch($_POST['request']) {
 function login() {
     $username=$_POST['data_username'];
 	$password=$_POST['data_pass'];
-    $sql = "SELECT * FROM nguoidung WHERE Email='$username' AND MatKhau='$password'";
+    $sql = "SELECT * FROM TaiKhoanNguoiDung tk join NguoiDung nd on tk.MaND = nd.MaND WHERE tk.TaiKhoan='$username' AND tk.MatKhau='$password'";
     $result = (new NguoiDungBus())->get_list($sql);
     // create array include $result and null
     $returnz = array('result' => $result, 'cart' => null);
     if($result != false){
+        //get user real info
         $_SESSION['currentUser']=$returnz;
         die (json_encode($result)); 
         return 1;
@@ -134,19 +135,8 @@ function signup() {
 	$newUser=$_POST['data_newUser'];
 	$newPass=$_POST['data_newPass']; 
     $gioitinh=$_POST['data_gioitinh'];
-    $status = (new NguoiDungBUS())->add_new(array(
-        "MaND" => "",
-        "Ho" => $ho,
-        "Ten" => $ten,
-        "GioiTinh" => $gioitinh,
-        "SDT" => $sdt,
-        "Email" => $email,
-        "DiaChi" => $diachi,
-        "TaiKhoan" =>$newUser,
-        "MatKhau" => $newPass,
-        "MaQuyen" => 1,
-        "TrangThai" => 1
-    ));
+    $insert_sql="INSERT INTO nguoidung  ,Ten,SDT,Email,DiaChi,TaiKhoan,MatKhau,GioiTinh) VALUES ('$ho','$ten','$sdt','$email','$diachi','$newUser','$newPass','$gioitinh')";
+
 
     // đăng nhập vào ngay
     $sql = "SELECT * FROM nguoidung WHERE TaiKhoan='$newUser' AND MatKhau='$newPass' AND MaQuyen=1 AND TrangThai=1";

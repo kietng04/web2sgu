@@ -4,17 +4,18 @@
 
 // renderChart();
 loadDATAtoChart_inMonth(2020);
-
+loadDataTOPproducts(0,3);
 var year=2020;
-var phanloai=0;
-var phanloai_thoigian=0
-var start_date;
-var end_date;
-var sum_doanhthu=0;
+var phanloai=0; // phan loai khong la tat ca , ....
+var phanloai_thoigian=2 // 2 la thang , 1 la ngay 
+var start_date; // ngay bat dau 
+var end_date; // ngay ket thuc
+var sum_doanhthu=0; 
 var sum_loinhuan=0;
 var sum_products=0;
-
-;
+var isthang=0; //kiem tra co phai thang khong 
+var current_queryz_head="  WHERE hd.NgayLap BETWEEN '2024-01-01' AND '2024-12-31' GROUP BY sp.MaSP, sp.TenSP ORDER BY SUM(cthd.SoLuong) DESC LIMIT 1";
+var top_choice=3; // top 3 san pham ban chay nhat
 function renderChart() {
   var existingChart = Chart.getChart("myChart"); 
   if (existingChart) {
@@ -44,6 +45,92 @@ new Chart("myChart", {
 });
 }
 
+function renderTable(month,doanhthu,loinhuan){
+  let table=  $("#statistic_table")[0];
+  let table_tbody=table.getElementsByTagName('tbody')[0];
+  let html=[];
+  for(let i=0;i<month.length;i++){
+    html+=`<tr>
+    <td>${month[i]}</td>
+    <td>${doanhthu[i].toLocaleString('vi-VN', {style : 'currency', currency : 'VND'})}</td>
+    <td>${loinhuan[i].toLocaleString('vi-VN', {style : 'currency', currency : 'VND'})}</td>
+    </tr>`;
+  }
+  table_tbody.innerHTML=html;
+}
+
+
+function render_ranke_products_table(tensanpham,soluongbanra){
+  let table = $("#top_products_table")[0];
+  let table_tbody=table.getElementsByTagName('tbody')[0];
+  let html=[];
+  for(let i=0;i<tensanpham.length;i++){
+    html+=`<tr>
+    <td>${i+1}</td>
+    <td>${tensanpham[i]}</td>
+    <td>${soluongbanra[i]}</td>
+    </tr>`;
+  }
+  table_tbody.innerHTML=html;
+}
+
+function loadDataTOPproducts(isthang,top_choice){
+
+  let texth2=document.getElementsByTagName('h2')[0];
+  if(isthang==2){
+    texth2.innerText=`Top ${top_choice} sản phẩm bán chạy nhất trong khoảng thời gian từ ${start_date} đến ${end_date}`;
+  }
+  else if(isthang==1){
+    texth2.innerText=`Top ${top_choice} sản phẩm bán chạy nhất trong năm ${year}`;
+  }
+  else{
+    texth2.innerText=`Top ${top_choice} sản phẩm bán chạy nhất`;
+  }
+
+  var current_queryz_tail;
+  current_queryz_head="SELECT sp.MaSP as MaSP,sp.TenSP as TenSP,SUM(cthd.SoLuong) AS SoLuong FROM SanPham sp JOIN ChiTietHoaDon cthd ON sp.MaSP = cthd.MaSP JOIN HoaDon hd ON cthd.MaHD = hd.MaHD";
+
+  if(isthang==2){
+     current_queryz_tail=" WHERE hd.NgayLap BETWEEN '" +start_date +"' AND '"+end_date+"' GROUP BY sp.MaSP, sp.TenSP ORDER BY SUM(cthd.SoLuong) DESC LIMIT "+top_choice+"";
+  }
+  else if(isthang==1){
+    current_queryz_tail=" WHERE YEAR(hd.NgayLap)="+year+" GROUP BY sp.MaSP, sp.TenSP ORDER BY SUM(cthd.SoLuong) DESC LIMIT "+top_choice+"";
+  }
+  else{
+    current_queryz_tail=" GROUP BY sp.MaSP, sp.TenSP ORDER BY SUM(cthd.SoLuong) DESC LIMIT "+top_choice+"";
+  }
+
+  let current_queryz=current_queryz_head+current_queryz_tail;
+  console.log(current_queryz)
+  $.ajax({
+    url: './controller/AdminStatisticController.php',
+    type: 'POST',
+    dataType: 'json',
+    data:{
+      request: "getTopProducts",
+      query:current_queryz
+    },
+    success: function(data) {
+      console.log(data);
+        if(Array.isArray(data))
+        render_ranke_products_table(data.map(item=>item.TenSP),data.map(item=>item.SoLuong));
+        else{
+          let table = $("#top_products_table")[0];
+          let table_tbody=table.getElementsByTagName('tbody')[0];
+          table_tbody.innerHTML="\tkhông có sản phẩm để hiển thị";
+          
+        }
+      },
+    error: function(jqXHR, textStatus, errorThrown) {
+      console.log("Error: ", jqXHR.responseText); 
+      console.log("Status: ", textStatus);
+      console.log("Error: ", errorThrown);
+      alert("code nhu cc");
+    }
+  });
+}
+
+
 function loadDATAtoChart_inMonth(year){
   $.ajax({
     url: './controller/AdminStatisticController.php',
@@ -67,6 +154,7 @@ function loadDATAtoChart_inMonth(year){
         yValues_loinhuan=loinhuan;
         sum_loinhuan=loinhuan.reduce((a, b) => a + b, 0);
         renderChart();
+        renderTable(xValues,yValues,yValues_loinhuan);
         render_item_content();
     },
     error: function(jqXHR, textStatus, errorThrown) {
@@ -102,6 +190,7 @@ function loadDATAtoChart_inDay(date_start,date_end){
         console.table(xValues);
         console.table(yValues);
         renderChart();
+        renderTable(xValues,yValues,yValues_loinhuan);
         render_item_content();
     },
     error: function(jqXHR, textStatus, errorThrown) {
@@ -125,8 +214,12 @@ console.log(year_combobox);
     phanloai_thoigian=1;
     date_field.style.display="block";//correct syntax
     year_combobox.style.display="none";
+    isthang=2;
+    console.log(isthang)
   } 
   else if(date_type=="Tháng"){
+    isthang=1;
+    console.log(isthang)
     phanloai_thoigian=2;
     date_field.style.display="none";//
     year_combobox.style.display="block";
@@ -134,11 +227,16 @@ console.log(year_combobox);
     year=year_combobox.value;
     if(phanloai!=0){
     loadDATAtoChart_inMonth_category(phanloai,year);
+    loadDataTOPproducts(isthang,top_choice)
     }
-    else{loadDATAtoChart_inMonth(year);}
+    else{loadDATAtoChart_inMonth(year);
+      loadDataTOPproducts(isthang,top_choice)
+    }
   }); 
   }
   else{
+    isthang=0;
+    phanloai_thoigian=2;
     date_field.style.display="none";
     year_combobox.style.display="none";
   }    //
@@ -148,21 +246,28 @@ $('#thongke_action')[0].addEventListener('click', function(event) {
   event.preventDefault();
   let start_date_val = document.getElementById("time-start-tk").value;
   let end_date_val = document.getElementById("time-end-tk").value;
+  
   start_date=start_date_val;
   end_date=end_date_val;
   alert(`Phan Loai : ${phanloai},Start Date: ${start_date}, End Date: ${end_date}`);
-  if(phanloai!=0)
+  if(phanloai!=0){
   loadDATAtoChart_inDay_category(phanloai,start_date,end_date);
-  else
-  loadDATAtoChart_inDay(start_date,end_date);
+  loadDataTOPproducts(isthang,top_choice);
+  }
+  else{
+    loadDATAtoChart_inDay(start_date,end_date);
+    loadDataTOPproducts(isthang,top_choice);
+  }
+  
 });
 
 
 $('#the-loai-tk')[0].addEventListener('change', function(e) {
   let category=e.target.value;
   phanloai=category;
-  if(category==0){
-    alert("phan loai: ",phanloai,"nam hien tai:",year);
+  alert(`phan loai: ${phanloai} ,phan loai thoi gian: ${phanloai_thoigian}`);
+  if(phanloai==0){
+    alert(`phan loai: ${phanloai} ,nam hien tai: ${year}`);
     if(phanloai_thoigian==2){
       loadDATAtoChart_inMonth(year);
     }
@@ -201,6 +306,7 @@ function loadDATAtoChart_inMonth_category(category,year){
         yValues_loinhuan=loinhuan;
         sum_loinhuan=loinhuan.reduce((a, b) => a + b, 0);
         renderChart();
+        renderTable(xValues,yValues,yValues_loinhuan);
         render_item_content();
     },
     error: function(jqXHR, textStatus, errorThrown) {
@@ -236,6 +342,7 @@ function loadDATAtoChart_inDay_category(category,start_date,end_date){
         yValues_loinhuan=loinhuan;
         sum_loinhuan=loinhuan.reduce((a, b) => a + b, 0);
           renderChart();
+          renderTable(xValues,yValues,yValues_loinhuan);
           render_item_content();
         },
         error: function(jqXHR, textStatus, errorThrown) {
@@ -257,3 +364,10 @@ function render_item_content(){
   $("#profit-sale")[0].innerText=loinhuan;
   $("#products-sale")[0].innerText=sum_products;
 }   
+
+
+$('#top_products')[0].addEventListener('change', function(event) {
+  top_choice=event.target.value;
+  console.log(top_choice);
+  loadDataTOPproducts(isthang,top_choice);
+})

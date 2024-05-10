@@ -944,5 +944,10 @@ td {
 .form-item.--login.--error input {
   color: red;
 }
+.header__action-bell i{
+  color: #c8102e;
+}
 
-
+.header__action-member.chitietmember {
+  display: none;
+}

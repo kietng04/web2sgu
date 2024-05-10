@@ -48,6 +48,7 @@
                 <div class="header__action-bell">
                     <i class="fa-regular fa-bell"></i>
                 </div>
+                <i class="fa-solid fa-file-invoice"></i>
                 <div class="header__action-member">
                     <div class="icon"><i class="fa-solid fa-circle-user"></i></div>
                     <p>Thanh Vien</p>

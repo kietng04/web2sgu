@@ -144,6 +144,12 @@
                                 class="fa-solid fa-arrow-down-wide-short"></i></button>
                         <button class="btn-reset-order" onclick="thongKe(0)"><i
                                 class="fa-solid fa-rotate-right"></i></button>
+                        <label for="top_products">TOP SẢN PHẨM BÁN CHẠY</label>
+                        <select name="top_products" id="top_products">
+                            <option value="3">Top 3</option>
+                            <option value="5">Top 5</option>
+                            <option value="10">Top 10</option>
+                        </select>
                     </div>
                 </div>
                 <div class="order-statistical" id="order-statistical">
@@ -180,7 +186,52 @@
                 </div>
                     <canvas id="myChart" style="width:100%;max-height:500px"></canvas>
                 </div>
+            
+
+                <div class="table" id="statistic_table">
+                        <table width="100%">
+                            <thead>
+                                <tr     >
+                                    <td>THỜI GIAN</td>
+                                    <td>DOANH THU</td>
+                                    <td>LỢI NHUẬN</td>
+                                </tr>
+                            </thead>
+                            <tbody id="show-user">
+                                <tr >
+                                    <td>12</td>
+                                    <td>100.000</td>
+                                    <td>100.000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                </div> 
+
+                <h2 style="text-align:center;font-size:50px;margin-top:50px;margin-bottom:50px;"></h2>
+
+                <div class="table" id="top_products_table">
+                    <table width="100%">
+                        <thead>
+                            <tr>
+                                <td>RANK</td>                                
+                                <td>Sản phẩm</td>
+                                <td>Số lượng bán ra</td>
+                            </tr>
+                        </thead>
+                        <tbody id="show-user">
+                            <tr >
+                                <td>1</td>
+                                <td>Pizza</td>
+                                <td>10</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            
             </div>
+
+
+
         </main>
     </div>
 
@@ -240,8 +291,10 @@
                 </form>
             </div>
         </div>
+        
     </div>
-    <script>
+
+  <!-- <script>
     document.addEventListener('DOMContentLoaded', function() {
         var editButtons = document.querySelectorAll('.btn-edit');
         var closeButtons = document.querySelectorAll('.modal-close');
@@ -338,7 +391,7 @@
         });
 
     });
-    </script>
+    </script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/statistic.js"></script>

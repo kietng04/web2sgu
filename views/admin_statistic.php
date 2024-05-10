@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -15,4 +15,4 @@
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</html>
+</html> -->

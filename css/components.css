@@ -44,6 +44,9 @@
   transition: 0.1s;
   border-radius: 2px;
 }
+.header .header__action .header__action-member.chitietmember{
+  display: none;
+}
 .header .header__action .header__action-member:hover {
   background-color: hwb(210 89% 11%);
 }
@@ -201,7 +204,7 @@
   padding: 24px 24px 8px 0px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 }
 .popup__iten-content h3 {
   display: inline;
@@ -608,11 +611,17 @@
   color: green;
 }
 .popupLogin .login__switch {
+  opacity: 1;
   position: absolute;
   bottom: 10px;
   right: 10px;
   cursor: pointer;
   color: var(--color-red);
+  transition: opacity 0.3s ease;
+}
+
+.popupLogin .login__switch.hidden {
+  opacity: 0;
 }
 
 .form-error {

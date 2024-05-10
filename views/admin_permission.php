@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/admin_styles.css">
     <script src="https://kit.fontawesome.com/3dff50b2d8.js" crossorigin="anonymous"></script>
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="css/variables.css">
     <!-- <link rel="stylesheet" href="css/components.css"> -->
     <link rel="stylesheet" href="css/admin_styles1.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+   
 </head>
 
 <body>
@@ -99,56 +101,27 @@
         <main class="content">
             <!-- Account  -->
             <div class="section active">
-                <div class="admin-control">
-                    <div class="admin-control-left">
-                        <select name="tinh-trang-user" id="tinh-trang-user" onchange="showUser()">
-                            <option value="2">Tất cả</option>
-                            <option value="1">Admin</option>
-                            <option value="0">Nhân viên</option>
-                        </select>
-                    </div>
-                    <div class="admin-control-right">
-                        <button class="btn-reset-order" onclick="cancelSearchUser()"><i
-                                class="fa-solid fa-rotate-right"></i></button>
+                <div class="admin-control1">
+                    <span><i class="fa-solid fa-user-secret"></i>DANH SÁCH NHÓM QUYỀN</span>
+                    <div class="import-role">
+                        <div class="add">
+                            <i class="fa-solid fa-plus"></i>
+                        </div>
                     </div>
                 </div>
                 <div class="table">
                     <table width="100%">
                         <thead>
                             <tr>
-                                <td>STT</td>
-                                <td>Họ và tên</td>
-                                <td>Nhóm quyền</td>
-                                <td>Trạng thái</td>
+                                <td>Mã quyền</td>
+                                <td>Tên nhóm quyền</td>
                                 <td>Thao tác</td>
                             </tr>
                         </thead>
                         <tbody id="show-user">
-                            <tr>
+                            <tr class="rowtable">
                                 <td>1</td>
-                                <td>Pham Van Kiet</td>
-                                <td><select id="role">
-                                        <option value="employee">Nhân viên</option>
-                                        <option value="admin">Admin</option>
-                                    </select>
-                                </td>
-                                <td><span class="status-complete">Hoạt động</span></td>
-                                <td class="control control-table">
-                                    <button class="btn-edit" id="edit-account"><i
-                                            class="fa-regular fa-pen-to-square"></i></button>
-                                    <button class="btn-delete" id="delete-account"><i
-                                            class="fa-solid fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Pham Van Kiet</td>
-                                <td><select id="role">
-                                        <option value="employee">Nhân viên</option>
-                                        <option value="admin">Admin</option>
-                                    </select>
-                                </td>
-                                <td><span class="status-complete">Hoạt động</span></td>
+                                <td>Thao tác toàn diện</td>
                                 <td class="control control-table">
                                     <button class="btn-edit" id="edit-account"><i
                                             class="fa-regular fa-pen-to-square"></i></button>
@@ -171,7 +144,13 @@
                 <div class="r-right">
                     <div class="modal-header">
                         <h2>PHÂN QUYỀN</h2>
-                        <span class="close">&times;</span>
+                        <div class="import-role">
+                            <span class="close">&times;</span>
+                        </div>
+                    </div>
+                    <div class="role-name">
+                        <span>Tên nhóm quyền: </span>
+                        <input type="text" name="role-name" id="role-name">
                     </div>
                     <div>
                         <table>
@@ -187,48 +166,49 @@
                             <tbody>
                                 <tr>
                                     <td id="title-role">Quản lí sản phẩm</td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
                                 </tr>
                                 <tr>
-                                    <td id="title-role">Quản lí khách hàng</td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
+                                    <td id="title-role">Quản lí tài khoản</td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
                                 </tr>
                                 <tr>
                                     <td id="title-role">Quản lí đơn hàng</td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
                                 </tr>
                                 <tr>
                                     <td id="title-role">Quản lí nhập hàng</td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
                                 </tr>
                                 <tr>
                                     <td id="title-role">Phân quyền</td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
                                 </tr>
                                 <tr>
                                     <td id="title-role">Thống kê</td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox"class="cbcn"></td>
+                                    <td><input type="checkbox"class="cbcn"></td>
                                 </tr>
                             </tbody>
                         </table>
+                        <button class="themnhomquyen">Thêm nhóm quyền</button>
                     </div>
                 </div>
             </div>
@@ -237,7 +217,7 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        var editButtons = document.querySelectorAll('.btn-edit');
+        var editButtons = document.querySelectorAll('.btn-edit, .add');
         editButtons.forEach(function(button) {
             button.addEventListener('click', function() {
                 document.getElementById('roleModal').style.display = 'block';
@@ -253,6 +233,7 @@
         });
     });
     </script>
+     <script src="js/phanquyen.js"></script>
 </body>
 
 </html>

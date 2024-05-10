@@ -84,6 +84,8 @@ function loadTableProduct() {
     },
   });
 
+  // console.log("hehe: "+listProduct);
+
   $.ajax({
     url: "./controller/ProductManagementController.php",
     type: "POST",
@@ -134,6 +136,7 @@ function showProductTableAdmin() {
         </div>
    </div>`;
   });
+  if( document.querySelector("#show-product") == null) return 0;
   document.querySelector("#show-product").innerHTML = html;
   // var editButtons = document.querySelectorAll('.btn-edit');
   // console.log('editButtons', editButtons)
@@ -572,12 +575,13 @@ function filltable() {
 
 // }
 
-//ajax 
+//ajax
 //End V.Kiet: Add event for button add attribute
 
 // Kiet: Add event for button add attribute
 
 
+// hoc
 function loadcomcomboboxtheloai() {
     $.ajax({
         url: './controller/ProductsController.php',
@@ -587,13 +591,15 @@ function loadcomcomboboxtheloai() {
             request: 'getAllCategory',
         },
         success: function(data) {
-          console.log(data);
+         console.log(data); 
             var html = '<option>Tất cả</option>';
             data.forEach(function (item) {
                 html += `<option>${item.TenLoai}</option>`;
             });
             console.log(html);
-            document.getElementById('the-loai').innerHTML = html;
+          document.getElementById('the-loai').innerHTML = html;
         }
     });
 }
+
+

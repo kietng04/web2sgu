@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php include 'BackEnd/DB_business.php'; ?>
+
 
 <head>
     <meta charset="UTF-8">
@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="css/variables.css">
     <!-- <link rel="stylesheet" href="css/components.css"> -->
     <link rel="stylesheet" href="css/admin_styles1.css">
-    <link rel="stylesheet" href="css/loader.css">
+    <!-- <link rel="stylesheet" href="css/loader.css"> -->
 </head>     
 
 <body>
@@ -476,8 +476,10 @@
                     </div>
               
                     <!-- <button class="form-submit add-account-e" id="signup-button">Đăng ký</button> -->
-                    <button class="form-submit edit-account-e" id="btn-insert"><i
-                            class="fa-regular fa-floppy-disk"></i> Thêm size</button>
+                    <button class="form-submit edit-account-e" id="btnThemSize"><i
+                            class="fa-regular fa-floppy-disk" ></i> Thêm size</button>
+                            <button class="form-submit edit-account-e" id="btnSuaSize"><i
+                            class="fa-regular fa-floppy-disk" ></i> Sua size</button>
                 </form>
                 <form action="" class="de-form" style="display:none">
                     <div class="form-group">
@@ -500,15 +502,121 @@
                     <!-- <button class="form-submit add-account-e" id="signup-button">Đăng ký</button> -->
                     <button class="form-submit edit-account-e" id="btn-insert"><i
                             class="fa-regular fa-floppy-disk"></i> Thêm viền</button>
+                            <button class="form-submit edit-account-e" id="btnSuaSize"><i
+                            class="fa-regular fa-floppy-disk" ></i> Sua size</button>
                 </form>
             </div>
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="js/helper.js"></script>
-    <script src="js/adminproduct.js"></script>
+    <!-- <script src="js/helper.js"></script>
+    <script src="js/adminproduct.js"></script> -->
+    <script src="js/adminAttribute.js"></script>
+    
     <script>
-        
+        function showThuocTinh() {
+  var tableSize = document.querySelector(".table.--size");
+  var tableDe = document.querySelector(".table.--vien");
+  var selectElement = document.getElementById("chonthuoctinh");
+  console.log(tableSize);
+  console.log(tableDe);
+
+  switch (selectElement.value) {
+    case "1": // Kích thước
+      tableSize.style.display = "block";
+      tableDe.style.display = "none";
+      break;
+    case "0": // Đế
+      tableSize.style.display = "none";
+      tableDe.style.display = "block";
+      break;
+    case "2": // Tất cả
+      tableSize.style.display = "block";
+      tableDe.style.display = "block";
+      break;
+  }
+}
+
+// V.Kiet: Add event for button add attribute
+
+document.getElementById("btn-add-attribute")
+  .addEventListener("click", function () {
+    var modal = document.querySelector(".modal.signup");
+    modal.classList.add("open");
+    var btnThemSize = document.getElementById("btnThemSize");
+    var btnSuaSize = document.getElementById("btnSuaSize");
+    btnThemSize.style.display = "block";
+    btnSuaSize.style.display = "none";
+  });
+
+  
+
+
+var btnClose = document.querySelectorAll(".modal-close");
+btnClose.forEach(function (btn) {
+  btn.addEventListener("click", function () {
+    var modal = this.closest(".modal");
+    modal.classList.remove("open");
+  });
+});
+
+function showThemThuocTinh() {
+  var sizeForm = document.querySelector(".size-form");
+  var deForm = document.querySelector(".de-form");
+  var selectElement = document.getElementById("themthuoctinh");
+
+  switch (selectElement.value) {
+    case "0": // Kích thước
+      sizeForm.style.display = "block";
+      deForm.style.display = "none";
+   
+      break;
+    case "1": // Đế
+      sizeForm.style.display = "none";
+      deForm.style.display = "block";
+      break;
+  }
+}
+
+
+
+
+// var btnInsert = document.getElementById("btn-insert");
+// btnInsert.addEventListener("click", function (e) {
+//   e.preventDefault();
+//   alert("Thêm thành công");
+//   insertAttributeProduct();
+  
+// });
+
+// function insertAttributeProduct() {
+//   var masize = document.getElementById("masize").value;
+//   var tensize = document.getElementById("tensize").value;
+//   var dinhluongsize = document.getElementById("dinhluongsize").value;
+
+//   var sizeSanPham = {
+//     masize: masize,
+//     tensize: tensize,
+//     dinhluongsize: dinhluongsize,
+//   };
+//   //ajax
+//   $.ajax({
+//     url: "./controller/ThuocTinhSanPhamController.php",
+//     type: "POST",
+//     dataType: "json",
+//     data: {
+//       request: "insertAttributeProduct",
+//       sizeSanPham: JSON.stringify(sizeSanPham),
+//     },
+//     success: function (data) {
+//       console.log(data);
+//       loadCombinationSizeAndCrust();
+//     },
+//   });
+
+   
+
+
        
     </script>
 

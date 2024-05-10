@@ -105,7 +105,6 @@ class DB_driver {
         }
         return false;
     }
-<<<<<<< HEAD
 
     function execute($sql) {
         $this->connect();
@@ -115,9 +114,5 @@ class DB_driver {
         }
         return false;
     }
-=======
-   
-
-
->>>>>>> fd8c7be5aa644919e78b77deb34aebaccf073fd3
+    
 }

@@ -1,8 +1,11 @@
 <?php
 // require base controller
+
+
 require_once('BaseController.php');
 require_once(__DIR__ . '/../model/NguoiDungBUS.php');
 require_once(__DIR__ . '/../model/SanPhamBUS.php');
+
 session_start();
 
 class ProductsController extends BaseController
@@ -104,8 +107,6 @@ function login() {
     die (json_encode(null));
     return 0;
 }
-<<<<<<< HEAD
-=======
 function loginStaff() { 
     $username=$_POST['data_usernames'];
     $password=$_POST['data_passs'];
@@ -123,7 +124,6 @@ function loginStaff() {
     return 0;
 
 }
->>>>>>> fd8c7be5aa644919e78b77deb34aebaccf073fd3
 
 function signup() {
     $ho=$_POST['data_ho'];

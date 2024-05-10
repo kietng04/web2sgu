@@ -109,7 +109,6 @@ function uploadProduct() {
 function getProducts() {
     global $bussp;
     $query = $_POST['currentquery'];
-    // count(*) from query
     $countrow = "SELECT count(*) as total from ($query) as total";
     $rownum = (new DB_driver())->get1row($countrow);
     $currentpage = $_POST['currentpage'];

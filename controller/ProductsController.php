@@ -28,11 +28,6 @@ switch($_POST['request']) {
         }
         
         break;
-    case 'dangky':
-        if(isset($_POST['data_ho']) && isset($_POST['data_ten']) && isset($_POST['data_sdt']) && isset($_POST['data_email']) && isset($_POST['data_diachi']) && isset($_POST['data_newUser']) && isset($_POST['data_newPass'])){
-            signup();
-        }
-        break;
     case 'logout':
         if(isset($_SESSION['currentUser'])) {
             unset($_SESSION['currentUser']);

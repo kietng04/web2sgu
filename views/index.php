@@ -80,10 +80,6 @@
                             <a>Profile</a>
                         </div>
                     </div>
-                    <div class="header__action-member chitietmember">
-                        <div class="icon"><i class="fa-solid fa-circle-user"></i></div>
-                        <p>THÀNH VIÊN</p>
-                    </div>
                 </div>
             </header>
 
@@ -209,7 +205,7 @@
                         TRƯỚC KHI ĐĂNG NHẬP BẠN NHÉ!</p>
                     <!-- <div class="form-item --login --email "> -->
                     <div class="form-item --login">
-                        <label for="email">Email *</label>
+                        <label for="email">Tên Đăng Nhập *</label>
                         <input type="text" name="" id="taikhoan">
                         <p class="error"></p>
                     </div>
@@ -259,7 +255,7 @@
 
                 </div>
 
-                <div class="login__switch">Bạn là người dùng? Ấn đây</div>
+                <div class="login__switch">Bạn là nhân viên? Ấn đây</div>
                 <button class="btnX">
                     <img src="./images/iconClose.png">
                 </button>
@@ -310,6 +306,7 @@
 
                 // Nếu có class --none, loại bỏ nó; nếu không, thêm vào
                 if (isNone) {
+                    loginSwitch.classList.add("hidden");
                     userLogin.classList.add("hidden");
                     setTimeout(() => {
                         userLogin.classList.add("none");
@@ -317,10 +314,13 @@
                     }, 300);
                     setTimeout(() => {
                         staffLogin.classList.remove("hidden");
+                        loginSwitch.classList.remove("hidden");
+                        loginSwitch.innerHTML = "Bạn là khách hàng? Ấn đây";
                     }, 600);
 
 
                 } else {
+                    loginSwitch.classList.add("hidden");
                     staffLogin.classList.add("hidden");
                     setTimeout(() => {
                         staffLogin.classList.add("none");
@@ -328,6 +328,8 @@
                     }, 300);
                     setTimeout(() => {
                         userLogin.classList.remove("hidden");
+                        loginSwitch.classList.remove("hidden");
+                        loginSwitch.innerHTML = "Bạn là nhân viên? Ấn đây";
                     }, 600);
                 }
             });

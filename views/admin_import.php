@@ -149,15 +149,13 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <td>STT</td>
                                     <td>Mã phiếu nhập</td>
-                                    <td>Nhà cung cấp</td>
                                     <td>Nhân viên nhập</td>
-                                    <td>Thời gian</td>
                                     <td>Tổng tiền</td>
+                                    <td>Thời gian</td>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="rowtablePX">
                                 <tr>
                                     <td>1</td>
                                     <td>ABC123</td>

@@ -19,6 +19,8 @@ if (isset($_POST['request'])) {
         case 'themphieunhap':
             themphieunhap();
             break;
+        case 'getDSPhieuNhap':
+            getDSPhieuNhap();
     }
 }
 
@@ -41,3 +43,8 @@ function themphieunhap() {
     return (new PhieuNhapBUS())->add1phieunhap($data, $listCTPN);
 }
    
+
+function getDSPhieuNhap() {
+    $data = (new PhieuNhapBUS())->getDSPhieuNhap();
+    die(json_encode($data));
+}

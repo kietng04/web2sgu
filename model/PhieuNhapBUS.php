@@ -44,4 +44,10 @@ class PhieuNhapBUS extends DB_business {
             die (json_encode(array('status' => 'success')));
         }
     }   
+
+    function getDSPhieuNhap() {
+        $sql = "SELECT * FROM nhapsanpham where trangthai = 1 ORDER BY ngaynhap DESC";
+        $result = $this->get_list($sql);
+        die (json_encode($result));
+    }
 }

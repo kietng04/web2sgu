@@ -79,6 +79,7 @@ CREATE TABLE `NhanVien` (
   `Email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `DiaChi` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `PhanQuyen` int(11) NOT NULL,
+  `TrangThai` int(11) DEFAULT 1,
   primary key (MaNV)
 );
 
@@ -322,14 +323,13 @@ INSERT INTO `ChiTietSanPham` (`MaSP`, `MaSize`, `MaVien`, `GiaNhap` ,`GiaTien`) 
 
 CREATE TABLE `NhapSanPham` (
   `MaPN` int(11) NOT NULL,
-  `MaNV` int(11) NOT NULL,
+  `MaNV` varchar(255) NOT NULL,
   `NgayNhap` datetime NOT NULL,
   `DonGia` decimal(10,2) NOT NULL,
+  `trangthai` int(11) DEFAULT 1,
   primary key (MaPN)
 );
 
-INSERT INTO `NhapSanPham` (`MaPN`, `MaNV`, `NgayNhap`) VALUES
-(1, 1, '2020-12-12 12:00:00');
 
 CREATE TABLE `ChiTietNhap` (
   `MaPN` int(11) NOT NULL,

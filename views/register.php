@@ -67,10 +67,17 @@
             </div>
             <div class="scregister__form">
                 <div class="scregister__form-left ">
-                    <div class="form-item --register --name ">
-                        <label for="">Họ Tên *</label>
-                        <input type="text" name="" value="" class="name">
-                        <p class="error"></p>
+                    <div class="group">
+                        <div class="form-item --register --firstname">
+                            <label for="">Họ và tên đệm *</label>
+                            <input type="text" name="" value="" class="firstname">
+                            <p class="error"></p>
+                        </div>
+                        <div class="form-item --register --lastname">
+                            <label for="">Tên *</label>
+                            <input type="text" name="" value="" class="lastname">
+                            <p class="error"></p>
+                        </div>
                     </div>
                     <div class="group">
                     <div class="form-item  --register --sexial">
@@ -105,6 +112,11 @@
                    
                 </div>
                 <div class="scregister__form-right">
+                    <div class="form-item --register --username">
+                        <label for="">Tên đăng nhập *</label>
+                        <input type="text" name="" value="" class="tendangnhap">
+                        <p class="error"></p>
+                    </div>
                     <div class="form-item --register --password ">
                         <label for="">Mật khẩu *</label>
                         <input type="password" name="" value="" class="matkhau">
@@ -149,12 +161,12 @@
                 TRƯỚC KHI THANH TOÁN PIZZA NHÉ!</p>
                 <div class="form-item --login --error">
                     <label for="email">Email *</label>
-                    <input type="text" name="" id="">
+                    <input type="text" name="" id="abc">
                     <p class="error">Sai dinh dang email</p>
                 </div>
                 <div class="form-item --login">
                     <label for="email">Mật Khẩu *</label>
-                    <input type="Password" name="" id="">
+                    <input type="Password" name="" id="aaa">
                 </div>
                
                 <button class="btn">ĐĂNG NHẬP</button>

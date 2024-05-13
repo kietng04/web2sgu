@@ -320,33 +320,32 @@
 
                 <button class="btn-control-large" onclick="thempn(event)">Thêm phiếu nhập</button>
             </div>
-
-
         </div>
+    </div>
 
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script src="js/notificationEffect.js"></script>
-        <script src="js/helper.js"></script>
-        <script src="js/importproduct.js"></script>
-        <script src="js/helper.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="js/notificationEffect.js"></script>
+    <script src="js/helper.js"></script>
+    <script src="js/importproduct.js"></script>
+    <script src="js/helper.js"></script>
 
-        <script>
-        var addButtons = document.querySelectorAll('.add');
-        var modal = document.querySelector('.modal.add-import');
+    <script>
+    var addButtons = document.querySelectorAll('.add');
+    var modal = document.querySelector('.modal.add-import');
 
-        addButtons.forEach(function(addButton) {
-            addButton.addEventListener('click', function() {
-                modal.classList.add('open');
-            });
+    addButtons.forEach(function(addButton) {
+        addButton.addEventListener('click', function() {
+            modal.classList.add('open');
         });
-        var closeButtons = document.querySelectorAll('.modal-close');
-        closeButtons.forEach(function(closeButton) {
-            closeButton.addEventListener('click', function() {
-                modal.classList.remove('open');
-            });
+    });
+    var closeButtons = document.querySelectorAll('.modal-close');
+    closeButtons.forEach(function(closeButton) {
+        closeButton.addEventListener('click', function() {
+            modal.classList.remove('open');
         });
-        </script>
+    });
+    </script>
 </body>
 
 

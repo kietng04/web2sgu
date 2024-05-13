@@ -16,17 +16,16 @@
 </head>
 
 <body>
-<div class="loader"></div>
-<script src="js/loader.js"></script>
+    <div class="loader"></div>
+    <script src="js/loader.js"></script>
     <div class="container">
-    <aside class="sidebar open">
+        <aside class="sidebar open">
             <!-- <div class="btnSidebar">
                 <i class="fa-solid fa-bars"></i>
             </div> -->
             <div class="top-sidebar">
                 <a href="#" class="channel-logo"><img src="img/logo-pizza.png" alt="Channel Logo"></a>
-                <div class="hidden-sidebar your-channel"><img src=""
-                        style="height: 30px;" alt="">
+                <div class="hidden-sidebar your-channel"><img src="" style="height: 30px;" alt="">
                 </div>
             </div>
             <div class="middle-sidebar">
@@ -114,9 +113,10 @@
                     </div>
                     <div class="admin-control-center">
                         <form action="" class="form-search">
-                            <span class="search-btn"><i class="fa-solid fa-magnifying-glass" onclick="searchProduct()"></i></i></span>
+                            <span class="search-btn"><i class="fa-solid fa-magnifying-glass"
+                                    onclick="searchProduct()"></i></i></span>
                             <input id="form-search-product" type="text" class="form-search-input"
-                                placeholder="Tìm kiếm tên món..." >
+                                placeholder="Tìm kiếm tên món...">
                         </form>
                     </div>
                     <div class="admin-control-right">
@@ -271,7 +271,7 @@
 
                         </div>
                     </div> -->
-                </div> 
+                </div>
                 <div class="page-nav">
                     <ul class="page-nav-list">
                         <li class="page-nav-item active">
@@ -284,7 +284,7 @@
                             <a href="#">3</a>
                         </li>
                         <li class="page-nav-item ">
-                            <a href="#">4</a> 
+                            <a href="#">4</a>
                         </li>
                         <li class="page-nav-item ">
                             <a href="#">5</a>
@@ -339,13 +339,13 @@
                         <div class="form-group">
                             <label for="attribute" class="form-label">Chọn thuộc tính</label>
                             <select name="attribute" id="chon-tt">
-                                
-                        </select>
+
+                            </select>
                             <button class="themthuoctinh">Thêm thuộc tính</button>
                             <span class="form-message"></span>
                         </div>
                         <div class="wrapper-form-group">
-                            
+
                         </div>
                         <table>
                             <thead>
@@ -355,7 +355,7 @@
                                 </tr>
                             </thead>
                             <tbody class="rowTable">
-                            </tobdy>
+                                </tobdy>
                         </table>
                         <div class="form-group">
                             <label for="mo-ta" class="form-label">Mô tả</label>
@@ -581,8 +581,8 @@
         var addUserTitle = document.querySelector('.add-account-e');
         var addSignupButton = document.querySelector('#signup-button');
         var updateSignupButton = document.querySelector('#btn-update-account');
-       
-    
+
+
 
 
         var statusUser = document.querySelectorAll('.form-group edit-account-e');
@@ -609,7 +609,7 @@
         // console.log('editButtons', editButtons)
 
 
-        
+
 
         closeButtons.forEach(function(button) {
             button.addEventListener('click', function() {
@@ -653,6 +653,14 @@
             });
         });
 
+    });
+    document.querySelectorAll('.page-item').forEach(item => {
+        item.addEventListener('click', event => {
+            document.querySelectorAll('.page-item').forEach(item => {
+                item.classList.remove('--active');
+            });
+            event.currentTarget.classList.add('--active');
+        });
     });
     </script>
 

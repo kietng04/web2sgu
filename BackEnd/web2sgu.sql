@@ -65,7 +65,7 @@ CREATE TABLE `NguoiDung` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `NguoiDung` (`MaND`, `Ho`, `Ten`, `GioiTinh`, `SDT`, `Email`, `DiaChi`) VALUES
-('ND01', 'Nguyen The', 'Kiet', 'Nam', '0123456789', 'trungky@gmail.com', 'Dak Lag'),
+('ND01', 'Nguyen The', 'Kiet', 'Nam', '0123456789', 'abc@gmail.com', 'Dak Lag'),
 ('ND02', 'Nguyen The', 'Kien', 'Nam', '0123456789', 'bbn@gmail.com', 'Dak Lag'),
 ('ND03', 'Nguyen The', 'Khai', 'Nam', '0123456789', 'asd@gmail.com', 'Dak Lag');
 
@@ -115,48 +115,6 @@ CREATE TABLE `ChiTietHoaDon` (
 
 INSERT INTO `ChiTietHoaDon` (`MaHD`, `MaSP`, `MaSize`, `MaVien`, `Img`, `SoLuong`, `GiaTien`) VALUES
 (1, 1, 1, 1, '100000', 1, '100000');
-
-
-
-
-CREATE TABLE `DanhGia` (
-  `MaSP` int(11) NOT NULL,
-  `MaND` int(11) NOT NULL,
-  `SoSao` int(11) NOT NULL,
-  `BinhLuan` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `NgayDG` date NOT NULL,
-  primary key (MaSP, MaND)
-);
-
-INSERT INTO `DanhGia` (`MaSP`, `MaND`, `SoSao`, `BinhLuan`, `NgayDG`) VALUES
-(1, 1, 5, 'Rất ngon', '2020-12-12');
-
-
-
--- COUPON AND MEMBERSHIP DATABASE
-
-CREATE TABLE `KhuyenMai` (
-  `MaKM` int(11) NOT NULL,
-  `TenKM` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `SoTienGiam` decimal(10,2) NOT NULL,
-  `DieuKien` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  primary key (MaKM)
-);
-
-INSERT INTO `KhuyenMai` (`MaKM`, `TenKM`, `SoTienGiam`, `DieuKien`) VALUES
-(1, 'Giảm 10%', '10000', 'Kien Dep Trai');
-
-
-CREATE TABLE `Membership` (
-  `MaND` int(11) NOT NULL,
-  `SoDiemTichLuy` decimal(10,2) NOT NULL,
-  primary key (MaND)
-);
-
-INSERT INTO `Membership` (`MaND`, `SoDiemTichLuy`) VALUES
-(1, 1000);
-
-
 
 
 

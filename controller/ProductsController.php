@@ -87,6 +87,9 @@ switch($_POST['request']) {
     case 'getAllCategory':
         getAllCategory();
         break;
+    case 'updateInfo':
+        updateInfo();
+        break;
 }
 }
 function loginUser() {
@@ -258,6 +261,20 @@ function getListSizeDeProduct() {
 
 function getAllCategory() {
     $result = (new SanPhamBUS())->getAllCategory();
+    if ($result != null) {
+        die (json_encode($result));
+    }
+    die (json_encode(null));
+}
+
+function updateInfo() {
+    $id = $_POST['id'];
+    $ho = $_POST['ho'];
+    $ten = $_POST['ten'];
+    $sdt = $_POST['sdt'];
+    $email = $_POST['email'];
+    $diachi = $_POST['diachi'];
+    $result = (new NguoiDungBUS())->updateNguoiDung($id,$ho,$ten,$email,$diachi,$sdt);
     if ($result != null) {
         die (json_encode($result));
     }

@@ -70,15 +70,18 @@
                         <i class="fa-solid fa-cart-shopping"></i>
                     </div>
                     <div class="header__action-bell">
-                        <a href="index.php?controller=HistoryBillController&action=index"><i class="fa-solid fa-file-invoice"></i></a>
+                        <a href="index.php?controller=HistoryBillController&action=index"><i
+                                class="fa-solid fa-file-invoice"></i></a>
                     </div>
                     <div class="header__action-member">
                         <div class="icon"><i class="fa-solid fa-circle-user"></i></div>
                         <p>THÀNH VIÊN</p>
-                        <div class="hover-menu">
-                            <a>Đăng nhập</a>
-                            <a>Profile</a>
-                        </div>
+                    </div>
+                    <div class="hover-menu">
+                        <ul>
+                            <li class="login">LOGIN</li>
+                            <li class="view_profile">VIEW PROFILE</li>
+                        </ul>
                     </div>
                 </div>
             </header>
@@ -101,11 +104,11 @@
                         <input type="number" placeholder="tối thiểu" id="min-price" />
                         <span>đến</span>
                         <input type="number" placeholder="tối đa" id="max-price" />
-                        <button id="advanced-search-price-btn">
+                        <!-- <button id="advanced-search-price-btn">
                             <i class="fa-light fa-magnifying-glass-dollar"></i>
-                        </button>
+                        </button> -->
                     </div>
-                    <div class="advanced-search-control">
+                    <!-- <div class="advanced-search-control">
                         <button id="sort-ascending">
                             <i class="fa-regular fa-arrow-up-short-wide"></i>
                         </button>
@@ -118,7 +121,7 @@
                         <button onclick="closeSearchAdvanced()">
                             <i class="fa-light fa-xmark"></i>
                         </button>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 
@@ -264,9 +267,39 @@
 
 
         </div>
+
+        <div id="userModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Thông tin cá nhân</h2>
+                <form>
+                    <label for="first-name">Họ:</label>
+                    <input type="text" id="display_firstname" name="name" readonly>
+                    <label for="given-name">Tên:</label>
+                    <input type="text" id="display_lastname" name="name" readonly>
+                    <label for="email">Email:</label>
+                    <input type="email" id="display_email" name="email" readonly>
+                    <label for="phone">Số điện thoại:</label>
+                    <input type="tel" id="display_sdt" name="phone">
+                    <label for="address">Địa chỉ:</label>
+                    <input type="text" id="display_diachi" name="address">
+                    <button id="update-info">Cập nhật</button>
+                </form>
+            </div>
+        </div>
         <!-- <a href="index.php?controller=AdminIndexController&action=index">admin</a> -->
 
         <script>
+
+        document.querySelector('.header__action-member').addEventListener('click', function() {
+            var hoverMenu = document.querySelector('.hover-menu');
+            if (hoverMenu.style.display === 'none' || hoverMenu.style.display === '') {
+                hoverMenu.style.display = 'block';
+            } else {
+                hoverMenu.style.display = 'none';
+            }
+        });        
+
         document.addEventListener("DOMContentLoaded", function() {
             // Lấy phần tử .popupLogin
             var popupLogin = document.querySelector(".popupLogin");
@@ -279,16 +312,19 @@
             var userLogin = document.querySelector(".popupLogin__form.user");
 
             // Thêm sự kiện click cho .header__action-member
-            var headerActionMember = document.querySelector(".header__action-member");
+            var hoverMenu = document.querySelector('.hover-menu');
+            var headerActionMember = document.querySelector(".login");
             headerActionMember.addEventListener("click", function() {
                 // Loại bỏ class --none từ phần tử .popupLogin
                 popupLogin.classList.remove("--none");
+                hoverMenu.style.display = 'none';
             });
 
             // Thêm sự kiện click cho nút đóng
             closeButton.addEventListener("click", function() {
                 // Thêm lại class --none cho .popupLogin
                 popupLogin.classList.add("--none");
+                hoverMenu.style.display = 'none';
             });
 
             // Thêm sự kiện click cho phần tử cha .popupLogin
@@ -613,6 +649,27 @@
                     item.style.width = '';
                 });
             });
+        }
+
+        var modal = document.getElementById("userModal");
+        var view = document.querySelector(".view_profile");
+        var span = document.getElementsByClassName("close")[0];
+        var hoverMenu = document.querySelector('.hover-menu');
+
+        view.onclick = function() {
+            modal.style.display = "block";
+            hoverMenu.style.display = 'none';
+        }
+
+        span.onclick = function() {
+            modal.style.display = "none";
+            hoverMenu.style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
         }
         </script>
 

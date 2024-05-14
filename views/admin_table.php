@@ -202,7 +202,7 @@
                 </table>
             </div>
 
-            <h2 style="text-align:center;font-size:30px;margin-top:50px;margin-bottom:50px;text-transform: uppercase"></h2>
+            <h2 style="text-align:center;font-size:30px;margin-top:50px;margin-bottom:50px;text-transform:uppercase"></h2>
 
             <div class="table" id="top_products_table" style="margin-bottom: 50px;">
                 <table width="100%">

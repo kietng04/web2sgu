@@ -20,7 +20,7 @@ class ProductsController extends BaseController
 
 if (isset($_POST['request'])) {
 switch($_POST['request']) {
-    case 'dangnhap':
+    case 'dangnhapnguoidung':
         if(isset($_POST['data_username']) && isset($_POST['data_pass'])){
             login();
         }
@@ -142,7 +142,7 @@ function signup() {
     $insert_sql="INSERT INTO nguoidung ,Ten,SDT,Email,DiaChi,TaiKhoan,MatKhau,GioiTinh) VALUES ('$ho','$ten','$sdt','$email','$diachi','$newUser','$newPass','$gioitinh')";
 
 
-    $re = (new sanphamBUS)->updatezzz($insert_sql);
+    $result = (new sanphamBUS)->updatezzz($insert_sql);
 
 
     if($result != false){

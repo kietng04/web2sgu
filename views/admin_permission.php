@@ -14,7 +14,7 @@
     <!-- <link rel="stylesheet" href="css/components.css"> -->
     <link rel="stylesheet" href="css/admin_styles1.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-   
+
 </head>
 
 <body>
@@ -209,12 +209,14 @@
                                     <td id="title-role">Thống kê</td>
                                     <td><input type="checkbox" class="cbcn"></td>
                                     <td><input type="checkbox" class="cbcn"></td>
-                                    <td><input type="checkbox"class="cbcn"></td>
-                                    <td><input type="checkbox"class="cbcn"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
                                 </tr>
                             </tbody>
                         </table>
-                        <button class="themnhomquyen">Thêm nhóm quyền</button>
+                        <div class="boc-button">
+                            <button class="themnhomquyen">Thêm nhóm quyền</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -223,7 +225,23 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        var editButtons = document.querySelectorAll('.btn-edit, .add');
+        var editButtons = document.querySelectorAll('.add');
+        editButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                document.getElementById('roleModal').style.display = 'block';
+                document.querySelector('.dark-overlay').style.display = 'block';
+            });
+        });
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        var closeButton = document.querySelector('.close');
+        closeButton.addEventListener('click', function() {
+            document.getElementById('roleModal').style.display = 'none';
+            document.querySelector('.dark-overlay').style.display = 'none';
+        });
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        var editButtons = document.querySelectorAll('.btn-edit');
         editButtons.forEach(function(button) {
             button.addEventListener('click', function() {
                 document.getElementById('roleModal').style.display = 'block';
@@ -239,7 +257,7 @@
         });
     });
     </script>
-     <script src="js/phanquyen.js"></script>
+    <script src="js/phanquyen.js"></script>
 </body>
 
 </html>

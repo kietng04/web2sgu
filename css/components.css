@@ -201,7 +201,7 @@
 }
 .popup__iten-content {
   width: 669px;
-  padding: 24px 24px 8px 0px;
+  padding: 24px 24px 8px 30px;
   display: flex;
   flex-direction: column;
   /* justify-content: space-between; */
@@ -711,6 +711,9 @@
   align-items: center;
   justify-content: space-between;
   gap: 24px;
+  position: absolute;
+  bottom: 10px;
+  right: 50px;
 }
 .buttons_added {
   display: flex;

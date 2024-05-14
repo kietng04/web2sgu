@@ -90,6 +90,9 @@ switch($_POST['request']) {
     case 'getAllCategory':
         getAllCategory();
         break;
+    case 'updateInfo':
+        updateInfo();
+        break;
 }
 }
 function login() {
@@ -136,12 +139,10 @@ function signup() {
 	$newUser=$_POST['data_newUser'];
 	$newPass=$_POST['data_newPass']; 
     $gioitinh=$_POST['data_gioitinh'];
-    $insert_sql="INSERT INTO nguoidung  ,Ten,SDT,Email,DiaChi,TaiKhoan,MatKhau,GioiTinh) VALUES ('$ho','$ten','$sdt','$email','$diachi','$newUser','$newPass','$gioitinh')";
+    $insert_sql="INSERT INTO nguoidung ,Ten,SDT,Email,DiaChi,TaiKhoan,MatKhau,GioiTinh) VALUES ('$ho','$ten','$sdt','$email','$diachi','$newUser','$newPass','$gioitinh')";
 
 
-    // đăng nhập vào ngay
-    $sql = "SELECT * FROM nguoidung WHERE TaiKhoan='$newUser' AND MatKhau='$newPass' AND MaQuyen=1 AND TrangThai=1";
-    $result = (new DB_driver())->get1row($sql);
+    $re = (new sanphamBUS)->updatezzz($insert_sql);
 
 
     if($result != false){
@@ -263,6 +264,20 @@ function getListSizeDeProduct() {
 
 function getAllCategory() {
     $result = (new SanPhamBUS())->getAllCategory();
+    if ($result != null) {
+        die (json_encode($result));
+    }
+    die (json_encode(null));
+}
+
+function updateInfo() {
+    $id = $_POST['id'];
+    $ho = $_POST['ho'];
+    $ten = $_POST['ten'];
+    $sdt = $_POST['sdt'];
+    $email = $_POST['email'];
+    $diachi = $_POST['diachi'];
+    $result = (new NguoiDungBUS())->updateNguoiDung($id,$ho,$ten,$email,$diachi,$sdt);
     if ($result != null) {
         die (json_encode($result));
     }

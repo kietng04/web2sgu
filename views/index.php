@@ -80,6 +80,9 @@
                         <div class="icon"><i class="fa-solid fa-circle-user"></i></div>
                         <p>THÀNH VIÊN</p>
                     </div>
+                    <ul class="header-middle-right-menu"><li><a href="./admin.html"><i class="fa-solid fa-gear"></i> Quản lý cửa hàng</a></li><li><a href="javascript:;" onclick="myAccount()"><i class="fa-regular fa-circle-user"></i> Tài khoản của tôi</a></li>
+            <li><a href="javascript:;" onclick="orderHistory()"><i class="fa-solid fa-basket-shopping"></i> Đơn hàng đã mua</a></li>
+            <li class="border"><a id="logout" href="javascript:;"><i class="fa-solid fa-right-from-bracket"></i> Thoát tài khoản</a></li></ul>
                 </div>
             </header>
 

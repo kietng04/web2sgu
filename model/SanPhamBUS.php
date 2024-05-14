@@ -27,7 +27,7 @@ class SanPhamBUS extends DB_business {
     }
 
     function getAllCrust() {
-        $sql = "SELECT * FROM viensanpham";
+        $sql = "SELECT * FROM viensanpham where TrangThai = 1";
         $result = $this->get_list($sql);
         return $result;
     }
@@ -76,7 +76,7 @@ class SanPhamBUS extends DB_business {
     }
 
     function getAllCategory() {
-        $sql = "SELECT * FROM LoaiSanPham";
+        $sql = "SELECT * FROM LoaiSanPham WHERE TrangThai = 1";
         $result = $this->get_list($sql);
         return $result;
     }

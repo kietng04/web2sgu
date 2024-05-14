@@ -782,3 +782,45 @@
 .header.--noshadown {
   box-shadow: none;
 }
+
+.header__action-menber:hover{
+
+
+}.header-middle-right-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    border-radius: 5px;
+    background-color: white;
+    border: 1px solid rgb(239, 239, 239);
+    box-shadow: rgb(0 0 0 / 18%) 0px 6px 12px 0px;
+    min-width: 200px;
+    z-index: 2;
+    visibility: hidden;
+    /* transform: scale(0); */
+    transform: translateY(20px);
+    opacity: 0;
+    transition: visibility 0.3s, transform 0.4s, opacity 0.3s;
+    visibility: visible;
+    /* transform: scale(1); */
+    transform: translateY(0);
+    opacity: 1;
+}
+.header-middle-right-menu li a {
+  font-size: 14px;
+  display: inline-block;
+  padding: 8px 20px;
+  width: 100%;
+  cursor: pointer;
+  color: #000;
+}
+.header-middle-right-menu li a:hover {
+  background-color: var(--color-red);
+  color: white;
+}
+.header-middle-right-menu li a:hover i{
+  color: white;
+}
+.header-middle-right-menu li i{
+color: #000000;
+font-size: 14px;
+}

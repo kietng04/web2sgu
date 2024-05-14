@@ -46,6 +46,12 @@
                         </a>
                     </li>
                     <li class="sidebar-list-item tab-content">
+                        <a href="index.php?controller=ProductAttributeController&action=index" class="sidebar-link">
+                            <div class="sidebar-icon"><i class="fa-solid fa-chart-simple"></i></div>
+                            <div class="hidden-sidebar">Thuộc tính sản phẩm</div>
+                        </a>
+                    </li>
+                    <li class="sidebar-list-item tab-content">
                         <a href="index.php?controller=AccountManagementController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-users"></i></i></div>
                             <div class="hidden-sidebar">Tài khoản</div>

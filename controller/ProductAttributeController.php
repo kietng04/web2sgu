@@ -32,31 +32,51 @@ if (isset($_POST['request'])) {
         case 'xoasizesanpham':
             xoaSizeSanPham();
             break;
+        case 'themviensanpham':
+            themVienSanPham();
+            break;  
+            case 'suaviensanpham':
+                suaVienSanPham();
+                break;
+        case 'xoaviensanpham':
+            xoaVienSanPham();
+            break;
 
-       
+            case 'loadloaisanpham':
+                getAllLoaiSanPham();
+                break;
+       case 'themloaisanpham':
+            themLoaiSanPham();
+            break;
+            case 'sualoaisanpham':
+                suaLoaiSanPham();
+                break;
+            case 'xoaloaisanpham':
+                xoaLoaiSanPham();
+                break;
     }
 }
 
-function xoaSizeSanPham(){
-    $maSize = $_POST['masize'];
-    $sql = "UPDATE sizesanpham SET TrangThai = 0 WHERE MaSize = '$maSize'";
+function getALLLoaiSanPham(){
+    $result = (new SanPhamBUS())->getAllCategory();
+    if ($result != null) {
+        die (json_encode($result));
+    }
+    die (json_encode(null));
+}
+function themVienSanPham(){
+    $maVien = $_POST['mavien'];
+    $tenVien = $_POST['tenvien'];
+    $dinhLuongVien = $_POST['dinhluongvien'];
+    $sql = "INSERT INTO viensanpham(MaVien, TenVien, DinhLuongVien, TrangThai) VALUES ('$maVien', '$tenVien', '$dinhLuongVien', 1)";
     $result = (new SanPhamBUS())->insertz($sql);
     if($result){
         die (json_encode(true));
     }
     die (json_encode(false));
 }
-function suaSizeSanPham(){
-    $maSize = $_POST['masize'];
-    $tenSize = $_POST['tensize'];
-    $dinhLuongSize = $_POST['dinhluongsize'];
-    $sql = "UPDATE sizesanpham SET TenSize = '$tenSize', DinhLuongSize = '$dinhLuongSize' WHERE MaSize = '$maSize'";
-    $result = (new SanPhamBUS())->insertz($sql);
-    if($result){
-        die (json_encode(true));
-    }
-    die (json_encode(false));
-}
+
+
 function themSizeSanPham(){
     $maSize = $_POST['masize'];
     $tenSize = $_POST['tensize'];
@@ -68,6 +88,18 @@ function themSizeSanPham(){
     }
     die (json_encode(false));
 
+
+}
+
+function themLoaiSanPham(){
+    $maLoai = $_POST['maloai'];
+    $tenLoai = $_POST['tenloai'];
+    $sql = "INSERT INTO loaisanpham(MaLoai, TenLoai, TrangThai) VALUES ('$maLoai', '$tenLoai', 1)";
+    $result = (new SanPhamBUS())->insertz($sql);
+    if($result){
+        die (json_encode(true));
+    }
+    die (json_encode(false));
 
 }
 
@@ -87,14 +119,74 @@ function getAllVienSanPham(){
     die (json_encode(null));
 
 }
-// function themSizeSanPham() {
-//     $MaSize = $_POST['MaSize'];
-//     $TenSize = $_POST['TenSize'];
-//     $DinhLuongSize = $_POST['DinhLuongSize'];
-//     $sql = "INSERT INTO SizeSanPham(MaSize, TenSize, DinhLuongSize) VALUES ('$MaSize', '$TenSize', '$DinhLuongSize')";
-//     $result = (new SanPhamBUS())->insertz($sql);
-//     header('Location: index.php?controller=ProductAttributeController&action=index');
-// }
+
+
+function suaSizeSanPham(){
+    $maSize = $_POST['masize'];
+    $tenSize = $_POST['tensize'];
+    $dinhLuongSize = $_POST['dinhluongsize'];
+    $sql = "UPDATE sizesanpham SET TenSize = '$tenSize', DinhLuongSize = '$dinhLuongSize' WHERE MaSize = '$maSize'";
+    $result = (new SanPhamBUS())->insertz($sql);
+    if($result){
+        die (json_encode(true));
+    }
+    die (json_encode(false));
+}
+function suaVienSanPham(){
+    
+    $maVien = $_POST['mavien'];
+    $tenVien = $_POST['tenvien'];
+    $dinhLuongVien = $_POST['dinhluongvien'];
+    $sql = "UPDATE viensanpham SET TenVien = '$tenVien', DinhLuongVien = '$dinhLuongVien' WHERE MaVien = '$maVien'";
+    $result = (new SanPhamBUS())->insertz($sql);
+    if($result){
+        die (json_encode(true));
+    }
+}
+
+function suaLoaiSanPham(){
+    $maLoai = $_POST['maloai'];
+    $tenLoai = $_POST['tenloai'];
+    $sql = "UPDATE loaisanpham SET
+    TenLoai = '$tenLoai' WHERE MaLoai = '$maLoai'";
+    $result = (new SanPhamBUS())->insertz($sql);
+    if($result){
+        die (json_encode(true));
+    }
+    die (json_encode(false));
+}
+
+function xoaSizeSanPham(){
+    $maSize = $_POST['masize'];
+    $sql = "UPDATE sizesanpham SET TrangThai = 0 WHERE MaSize = '$maSize'";
+    $result = (new SanPhamBUS())->insertz($sql);
+    if($result){
+        die (json_encode(true));
+    }
+    die (json_encode(false));
+}
+
+function xoaVienSanPham(){
+    $maVien = $_POST['mavien'];
+    $sql = "UPDATE viensanpham SET TrangThai = 0 WHERE MaVien = '$maVien'";
+    $result = (new SanPhamBUS())->insertz($sql);
+    if($result){
+        die (json_encode(true));
+    }
+    die (json_encode(false));
+
+}
+
+function xoaLoaiSanPham(){
+    $maLoai = $_POST['maloai'];
+    $sql = "UPDATE loaisanpham SET TrangThai = 0 WHERE MaLoai = '$maLoai'";
+    $result = (new SanPhamBUS())->insertz($sql);
+    if($result){
+        die (json_encode(true));
+    }
+    die (json_encode(false));
+
+}
 
 function layThongTinSize() {
     $MaSize = $_POST['MaSize'];
@@ -105,3 +197,11 @@ function layThongTinSize() {
 
 
 
+// function themSizeSanPham() {
+//     $MaSize = $_POST['MaSize'];
+//     $TenSize = $_POST['TenSize'];
+//     $DinhLuongSize = $_POST['DinhLuongSize'];
+//     $sql = "INSERT INTO SizeSanPham(MaSize, TenSize, DinhLuongSize) VALUES ('$MaSize', '$TenSize', '$DinhLuongSize')";
+//     $result = (new SanPhamBUS())->insertz($sql);
+//     header('Location: index.php?controller=ProductAttributeController&action=index');
+// }

@@ -45,6 +45,12 @@
                         </a>
                     </li>
                     <li class="sidebar-list-item tab-content">
+                        <a href="index.php?controller=ProductAttributeController&action=index" class="sidebar-link">
+                            <div class="sidebar-icon"><i class="fa-solid fa-chart-simple"></i></div>
+                            <div class="hidden-sidebar">Thuộc tính sản phẩm</div>
+                        </a>
+                    </li>
+                    <li class="sidebar-list-item tab-content">
                         <a href="index.php?controller=AccountManagementController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-users"></i></i></div>
                             <div class="hidden-sidebar">Tài khoản</div>
@@ -68,10 +74,11 @@
                             <div class="hidden-sidebar">Thống kê</div>
                         </a>
                     </li>
-                    <li class="sidebar-list-item tab-content active">
-                        <a href="index.php?controller=ProductAttributeController&action=index" class="sidebar-link">
-                            <div class="sidebar-icon"><i class="fa-solid fa-chart-simple"></i></div>
-                            <div class="hidden-sidebar">Thuộc tính sản phẩm</div>
+                   
+                    <li class="sidebar-list-item tab-content">
+                        <a href="index.php?controller=PermissionController&action=index" class="sidebar-link">
+                            <div class="sidebar-icon"><i class="fa-solid fa-couch"></i></i></div>
+                            <div class="hidden-sidebar">Phân quyền</div>
                         </a>
                     </li>
                 </ul>
@@ -105,9 +112,10 @@
                 <div class="admin-control">
                     <div class="admin-control-left">
                         <select name="chonthuoctinh" id="chonthuoctinh" onchange="showThuocTinh()">
-                            <option value="2">Tất cả</option>
-                            <option value="1">Kích thước</option>
-                            <option value="0">Viền </option>
+                            <option class="optionthem" value="0">Tất cả</option>
+                            <option class="optionthem"value="1">Kích thước</option>
+                            <option class="optionthem" value="2">Viền </option>
+                            <option class="optionthem" value="3">Loại</option>
                         </select>
                     </div>
                     <div class="admin-control-center">
@@ -217,6 +225,49 @@
                                 <td class="control control-table">
                                     <button class="btn-edit" id="edit-account"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></button>
                                     <button class="btn-delete" id="delete-account"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table --loai">
+                    <table width="100%">
+                        <thead>
+                            <tr>
+                                <td>Mã loại</td>
+                                <td>Tên loại</td>                                <!-- <td>Liên hệ</td>
+                                <td>Email</td>
+                                <td>Dia chi</td>
+                                <td>Ngày tham gia</td>
+                                <td>Tình trạng</td>
+                                <td></td> -->
+                            </tr>
+                        </thead>
+                        <tbody id="show-loai">
+                            <tr>
+                                <td>1</td>
+                                <td>Gà</td>
+                
+                                <td class="control control-table">
+                                    <button class="btn-edit" id="btn-sua-loai"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></button>
+                                    <button class="btn-delete" id="btn-xoa-loai"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Bò</td>
+                     
+                                <td class="control control-table">
+                                    <button class="btn-edit" id="btn-sua-loai"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></button>
+                                    <button class="btn-delete" id="btn-xoa-loai"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Heo</td>
+                                <td class="control control-table">
+                                    <button class="btn-edit" id="btn-sua-loai"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></button>
+                                    <button class="btn-delete" id="btn-xoa-loai"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -456,6 +507,7 @@
             <select name="themthuoctinh" id="themthuoctinh" onchange="showThemThuocTinh()"  style="margin-left: 0px; width: 360px; margin-top: 10px;">
                 <option value="0" selected>Kích thước</option>
                 <option value="1">Viền </option>
+                <option value="2">Loại</option>
             </select>
                 <form action="" class="size-form">
                     <div class="form-group">
@@ -479,12 +531,12 @@
                     <button class="form-submit edit-account-e" id="btnThemSize"><i
                             class="fa-regular fa-floppy-disk" ></i> Thêm size</button>
                             <button class="form-submit edit-account-e" id="btnSuaSize"><i
-                            class="fa-regular fa-floppy-disk" ></i> Sua size</button>
+                            class="fa-regular fa-floppy-disk" ></i> Sửa size</button>
                 </form>
                 <form action="" class="de-form" style="display:none">
                     <div class="form-group">
-                        <label for="fullname" class="form-label">Nhập mã viền:</label>
-                        <input id="fullname" name="fullname" type="text" placeholder="VD: M"
+                        <label for="mavien" class="form-label">Nhập mã viền:</label>
+                        <input id="mavien" name="mavien" type="text" placeholder="VD: M"
                             class="form-control">
                         <span class="form-message-name form-message"></span>
                     </div>
@@ -494,16 +546,35 @@
                         <span class="form-message-email form-message"></span>
                     </div>
                     <div class="form-group">
-                        <label for="dlvien" class="form-label">Nhập định lượng viền:</label>
-                        <input id="dlvien" name="dlvien" type="text" placeholder="VD: Độ dày 0.3cm" class="form-control">
+                        <label for="dinhluongvien" class="form-label">Nhập định lượng viền:</label>
+                        <input id="dinhluongvien" name="dinhluongvien" type="text" placeholder="VD: Độ dày 0.3cm" class="form-control">
                         <span class="form-message-email form-message"></span>
                     </div>
               
                     <!-- <button class="form-submit add-account-e" id="signup-button">Đăng ký</button> -->
-                    <button class="form-submit edit-account-e" id="btn-insert"><i
+                    <button class="form-submit edit-account-e" id="btnThemVien"><i
                             class="fa-regular fa-floppy-disk"></i> Thêm viền</button>
-                            <button class="form-submit edit-account-e" id="btnSuaSize"><i
-                            class="fa-regular fa-floppy-disk" ></i> Sua size</button>
+                            <button class="form-submit edit-account-e" id="btnSuaVien"><i
+                            class="fa-regular fa-floppy-disk" ></i> Sửa Viền</button>
+                </form>
+                <form action="" class="loai-form" style="display:none">
+                    <div class="form-group">
+                        <label for="maloai" class="form-label">Mã loại:</label>
+                        <input id="maloai" name="maloai" type="text" placeholder="VD: 10"
+                            class="form-control">
+                        <span class="form-message-name form-message"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="tenloai" class="form-label">Nhập tên loại:</label>
+                        <input id="tenloai" name="tenloai" type="text" placeholder="VD: HẢI SẢN" class="form-control">
+                        <span class="form-message-email form-message"></span>
+                    </div>
+              
+                    <!-- <button class="form-submit add-account-e" id="signup-button">Đăng ký</button> -->
+                    <button class="form-submit edit-account-e" id="btnThemLoai"><i
+                            class="fa-regular fa-floppy-disk"></i> Thêm loại</button>
+                            <button class="form-submit edit-account-e" id="btnSuaLoai" style="display:none"><i
+                            class="fa-regular fa-floppy-disk" ></i> Sửa loại</button>
                 </form>
             </div>
         </div>
@@ -517,39 +588,37 @@
         function showThuocTinh() {
   var tableSize = document.querySelector(".table.--size");
   var tableDe = document.querySelector(".table.--vien");
+  var tableLoai = document.querySelector(".table.--loai");
   var selectElement = document.getElementById("chonthuoctinh");
   console.log(tableSize);
   console.log(tableDe);
 
   switch (selectElement.value) {
+    case "0": // Tất cả
+      tableSize.style.display = "block";
+      tableDe.style.display = "block";
+        tableLoai.style.display = "block";
+      break;
     case "1": // Kích thước
       tableSize.style.display = "block";
       tableDe.style.display = "none";
+        tableLoai.style.display = "none";
       break;
-    case "0": // Đế
+    case "2": // Đế
       tableSize.style.display = "none";
       tableDe.style.display = "block";
+        tableLoai.style.display = "none";
       break;
-    case "2": // Tất cả
-      tableSize.style.display = "block";
-      tableDe.style.display = "block";
-      break;
+      case "3": // Loại
+        tableSize.style.display = "none";
+        tableDe.style.display = "none";
+        tableLoai.style.display = "block";
+      
+   
   }
 }
 
 // V.Kiet: Add event for button add attribute
-
-document.getElementById("btn-add-attribute")
-  .addEventListener("click", function () {
-    var modal = document.querySelector(".modal.signup");
-    modal.classList.add("open");
-    var btnThemSize = document.getElementById("btnThemSize");
-    var btnSuaSize = document.getElementById("btnSuaSize");
-    btnThemSize.style.display = "block";
-    btnSuaSize.style.display = "none";
-  });
-
-  
 
 
 var btnClose = document.querySelectorAll(".modal-close");
@@ -560,23 +629,6 @@ btnClose.forEach(function (btn) {
   });
 });
 
-function showThemThuocTinh() {
-  var sizeForm = document.querySelector(".size-form");
-  var deForm = document.querySelector(".de-form");
-  var selectElement = document.getElementById("themthuoctinh");
-
-  switch (selectElement.value) {
-    case "0": // Kích thước
-      sizeForm.style.display = "block";
-      deForm.style.display = "none";
-   
-      break;
-    case "1": // Đế
-      sizeForm.style.display = "none";
-      deForm.style.display = "block";
-      break;
-  }
-}
 
 
 

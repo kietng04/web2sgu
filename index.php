@@ -18,7 +18,7 @@ require_once('./Backend/DB_driver.php');
 	}
 //  else {
 // 	$controller = 'ProductsController';
-// 	$action = 'index';
+// 	$action = 'index';pz
 // }
 require_once('routes.php');
 

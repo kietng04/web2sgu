@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="css/variables.css">
     <!-- <link rel="stylesheet" href="css/components.css"> -->
     <link rel="stylesheet" href="css/admin_styles1.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+   
 </head>
 
 <body>
@@ -117,7 +119,7 @@
                             </tr>
                         </thead>
                         <tbody id="show-user">
-                            <tr>
+                            <tr class="rowtable">
                                 <td>1</td>
                                 <td>Thao tác toàn diện</td>
                                 <td class="control control-table">
@@ -164,48 +166,49 @@
                             <tbody>
                                 <tr>
                                     <td id="title-role">Quản lí sản phẩm</td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
                                 </tr>
                                 <tr>
                                     <td id="title-role">Quản lí tài khoản</td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
                                 </tr>
                                 <tr>
                                     <td id="title-role">Quản lí đơn hàng</td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
                                 </tr>
                                 <tr>
                                     <td id="title-role">Quản lí nhập hàng</td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
                                 </tr>
                                 <tr>
                                     <td id="title-role">Phân quyền</td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
                                 </tr>
                                 <tr>
                                     <td id="title-role">Thống kê</td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox" class="cbcn"></td>
+                                    <td><input type="checkbox"class="cbcn"></td>
+                                    <td><input type="checkbox"class="cbcn"></td>
                                 </tr>
                             </tbody>
                         </table>
+                        <button class="themnhomquyen">Thêm nhóm quyền</button>
                     </div>
                 </div>
             </div>
@@ -230,6 +233,7 @@
         });
     });
     </script>
+     <script src="js/phanquyen.js"></script>
 </body>
 
 </html>

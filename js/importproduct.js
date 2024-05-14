@@ -2,6 +2,7 @@ loadProductPN();
 addeventThempn();
 loadmaphieunhap();
 addeventsuapn();
+addeventxoapn();
 var curProduct;
 var listDeProduct = [];
 var listDeLength = 0;
@@ -218,6 +219,11 @@ function thempn(e) {
     var curdate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
     var curtime = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
     var date = curdate + ' ' + curtime;
+    // tinh sum gia nhap
+    sum = 0;
+    listCTPN.forEach(element => {
+        sum += parseInt(element.GiaNhap) * parseInt(element.SoLuong);
+    })
     $.ajax({
         url: './controller/ImportController.php',
         type: 'POST',
@@ -227,6 +233,7 @@ function thempn(e) {
             MaPN: document.querySelector('#import-id').value,
             listCTPN: listCTPN,
             date: date,
+            dongia: sum,
         },
         success: function(data) {
             console.log(data);
@@ -247,6 +254,71 @@ function addeventsuapn() {
             createToast('error', 'Vui lòng chọn sản phẩm cần sửa!');
             return;
         }    
+        // sua
+        var index;
+        document.querySelectorAll('.rowdetail').forEach((element, i) => {
+            if (element.classList.contains('black')) {
+                index = i;
+            }
+        })
+
+        var masp = document.querySelector('#product-name').value.split(' - ')[0];
+        var tensp = document.querySelector('#product-name').value.split(' - ')[1]
+        var masize = document.querySelector('#product-item').value[0];
+        var made = document.querySelector('#product-item').value[1];
+        var soluong = document.querySelector('#product-quantity').value;
+        var giaban = document.querySelector('#product-pricesell').value;
+        var gianhap = document.querySelector('#product-price').value;
+        if (masp == '' || masize == '' || made == '' || soluong == '') {
+            createToast('error', 'Vui lòng nhập đủ thông tin phiếu nhập!');
+            return;
+        }
+
+        if (parseFloat(gianhap) >= parseFloat(giaban)) {
+            createToast('error', 'Giá nhập phải nhỏ hơn giá bán!');
+            return;
+        }
+
+        listCTPN[index] = {
+            "MaSP": masp,
+            "TenSP": tensp,
+            "MaSize": masize,
+            "MaDe": made,
+            "SoLuong": soluong,
+            "TenSize": document.querySelector('#product-item').options[document.querySelector('#product-item').selectedIndex].text.split(' - ')[0],
+            "TenDe": document.querySelector('#product-item').options[document.querySelector('#product-item').selectedIndex].text.split(' - ')[1],
+            "GiaNhap": parseDouble(document.getElementById('product-price').value),
+            "GiaBan": parseDouble(document.getElementById('product-pricesell').value)
+        }
+        loadTablepn();
     })
 
+}
+
+
+
+function addeventxoapn() {
+    document.querySelector('.btn-control-large.item-3').addEventListener('click', function(e) {
+        e.preventDefault();
+        var flag = 0;
+        document.querySelectorAll('.rowdetail').forEach(element => {
+            if (element.classList.contains('black')) {
+                flag = 1;
+            }
+        })
+        if (flag == 0) {
+            createToast('error', 'Vui lòng chọn sản phẩm cần xóa!');
+            return;
+        }
+        var index;
+        document.querySelectorAll('.rowdetail').forEach((element, i) => {
+            if (element.classList.contains('black')) {
+                index = i;
+            }
+        })
+        sum -= parseInt(listCTPN[index].GiaNhap) * parseInt(listCTPN[index].SoLuong);
+        document.querySelector('.tongtienpn').innerHTML = toVND(sum);
+        listCTPN.splice(index, 1);
+        loadTablepn();
+    })
 }

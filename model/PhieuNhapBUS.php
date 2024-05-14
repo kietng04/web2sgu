@@ -18,7 +18,8 @@ class PhieuNhapBUS extends DB_business {
         $ngaynhap = $data['NgayNhap'];
         $manv = $data['MaNV'];
         $mapn = $data['MaPN'];
-        $sql = "INSERT INTO nhapsanpham (mapn,manv,ngaynhap) VALUES ('$mapn','$manv','$ngaynhap')";
+        $dongia = $data['Dongia'];
+        $sql = "INSERT INTO nhapsanpham (mapn,manv,ngaynhap, dongia) VALUES ('$mapn','$manv','$ngaynhap', '$dongia')";
         $result = $this->insertz($sql);
         if ($result) {
             foreach ($listCTPN as $ctpn) {
@@ -26,13 +27,15 @@ class PhieuNhapBUS extends DB_business {
                 $soluong = $ctpn['SoLuong'];
                 $Masize = $ctpn['MaSize'];
                 $Mavien = $ctpn['MaDe'];
-                $sql = "INSERT INTO chitietnhap (mapn,masp,masize,mavien,soluong) VALUES ('$mapn','$masp','$Masize','$Mavien','$soluong')";
+                $gianhap = $ctpn['GiaNhap'];
+                $giaxuat = $ctpn['GiaBan'];
+                $sql = "INSERT INTO chitietnhap (mapn,masp,masize,mavien,soluong, gianhap, giaxuat) VALUES ('$mapn','$masp','$Masize','$Mavien','$soluong', '$gianhap', '$giaxuat')";
                 $result = $this->insertz($sql);
                 if (!$result) {
                     
                     die (json_encode(array('status' => 'fail')));
                 }
-                $sql = "UPDATE chitietsanpham SET soluong = soluong + $soluong WHERE masp = '$masp' AND masize = '$Masize' AND mavien = '$Mavien'";
+                $sql = "UPDATE chitietsanpham SET soluong = soluong + $soluong, gianhap = $gianhap, giatien = $giaxuat WHERE masp = '$masp' AND masize = '$Masize' AND mavien = '$Mavien'";
                 $result = $this->updatezzz($sql);
                 if (!$result) {
                     die (json_encode(array('status' => 'fail khi them ctsp')));

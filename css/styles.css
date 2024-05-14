@@ -948,3 +948,6 @@ td {
   color: #c8102e;
 }
 
+.header__action-member.chitietmember {
+  display: none;
+}

@@ -20,6 +20,7 @@ class DB_driver {
             mysqli_query($this->__conn, "SET character_set_results = 'utf8', character_set_client = 'utf8', character_set_database = 'utf8', character_set_server = 'utf8'");
             mysqli_query($this->__conn, "set names 'utf8'");
             mysqli_set_charset($this->__conn, "utf8");
+            return $this->__conn;
         }
     }
 

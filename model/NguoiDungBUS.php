@@ -26,4 +26,12 @@ class NguoiDungBUS extends DB_business {
         return $nextId;
     }
 
+    function updateNguoiDung($mand,$ho,$ten,$email,$diachi,$sodienthoai){
+        $sql = "UPDATE nguoidung SET Ho='$ho', Ten='$ten', Email='$email ', DiaChi='$diachi', SDT='$sodienthoai' WHERE MaND='$mand'";
+        $sql2="UPDATE taikhoannguoidung SET TaiKhoan='$email' WHERE MaND='$mand'";
+        $result1 = mysqli_query($this->__conn, $sql);
+        $result2 = mysqli_query($this->__conn, $sql2);
+        return $result1 && $result2;
+    }
+
 }

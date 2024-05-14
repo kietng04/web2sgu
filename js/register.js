@@ -1,9 +1,15 @@
 document.querySelector(".dangkybtn").addEventListener("click", function () {
   var checkDone = true;
-  var name = document.querySelector(".name");
-  var nameFormItem = document.querySelector(".form-item.--register.--name");
-  var nameError = nameFormItem.querySelector(
-    ".form-item.--register.--name .error"
+  var firstname = document.querySelector(".firstname");
+  var firstnameFormItem = document.querySelector(".form-item.--register.--firstname");
+  var firstnameError = firstnameFormItem.querySelector(
+    ".form-item.--register.--firstname .error"
+  );
+
+  var lastname = document.querySelector(".lastname");
+  var lastnameFormItem = document.querySelector(".form-item.--register.--lastname");
+  var lastnameError = lastnameFormItem.querySelector(
+    ".form-item.--register.--lastname .error"
   );
 
   var sdt = document.querySelector(".sdt");
@@ -45,30 +51,57 @@ document.querySelector(".dangkybtn").addEventListener("click", function () {
   );
   var boxdongy = document.querySelector(".form-check .dongy");
 
+  var userfirstname = document.querySelector(".tendangnhap");
   //validate form
 
-  if (name.value.trim() === "") {
-    nameFormItem.classList.add("--error");
-    nameError.innerText = "Yêu cầu nhập Tên";
+  if (firstname.value.trim() === "") {
+    firstnameFormItem.classList.add("--error");
+    firstnameError.innerText = "Yêu cầu nhập Họ";
     checkDone = false;
-  } else if (name.value.length < 3) {
-    nameFormItem.classList.add("--error");
-    nameError.innerText = "Tên phải có ít nhất 3 ký tự";
+  } else if (firstname.value.length < 3) {
+    firstnameFormItem.classList.add("--error");
+    firstnameError.innerText = "Họ phải có ít nhất 3 ký tự";
     checkDone = false;
   } else {
-      nameFormItem.classList.remove("--error");
-      nameError.innerText = "";
+      firstnameFormItem.classList.remove("--error");
+      firstnameError.innerText = "";
     }
-  name.addEventListener("input", function () {
-    if (name.value.length < 3) {
-      nameFormItem.classList.add("--error");
-      nameError.innerText = "Ten phai co it nhat 3 ky tu";
+  firstname.addEventListener("input", function () {
+    if (firstname.value.length < 3) {
+      firstnameFormItem.classList.add("--error");
+      firstnameError.innerText = "Họ phải có ít nhất 3 ký tự";
       checkDone = false;
     } else {
-      nameFormItem.classList.remove("--error");
-      nameError.innerText = "";
+      firstnameFormItem.classList.remove("--error");
+      firstnameError.innerText = "";
     }
   });
+
+  // Kiểm tra tên
+  if (lastname.value.trim() === "") {
+    lastnameFormItem.classList.add("--error");
+    lastnameError.innerText = "Yêu cầu nhập Tên";
+    checkDone = false;
+  } else if (lastname.value.length < 3) {
+    lastnameFormItem.classList.add("--error");
+    lastnameError.innerText = "Tên phải có ít nhất 3 ký tự";
+    checkDone = false;
+  } else {
+      lastnameFormItem.classList.remove("--error");
+      lastnameError.innerText = "";
+    }
+  lastname.addEventListener("input", function () {
+    if (lastname.value.length < 3) {
+      lastnameFormItem.classList.add("--error");
+      lastnameError.innerText = "Tên phải có ít nhất 3 ký tự";
+      checkDone = false;
+    }
+    else {
+      lastnameFormItem.classList.remove("--error");
+      lastnameError.innerText = "";
+    }
+  });
+  
 
   // Kiểm tra số điện thoại
   if (sdt.value.trim() === "") {
@@ -196,7 +229,9 @@ document.querySelector(".dangkybtn").addEventListener("click", function () {
   } else {
     alert(
       "Đăng ký thành công !" +
-        name.value +
+        firstname.value +
+        " " +
+        lastname.value +
         " " +
         gioitinh +
         " " +
@@ -211,23 +246,64 @@ document.querySelector(".dangkybtn").addEventListener("click", function () {
         cfpassword.value +
         " "
     );
-    name.value = "";
+    signuptosql();
+    firstname.value = "";
+    lastname.value = "";
     sdt.value = "";
     email.value = "";
     diachi.value = "";
     password.value = "";
     cfpassword.value = "";
     boxdongy.checked = false;
-
     return true;
   }
+  
+});
+
+function signuptosql() {
+
+  var firstname = document.querySelector(".firstname").value;
+  var lastname = document.querySelector(".lastname").value;
+  var sdt = document.querySelector(".sdt").value;
+  var email = document.querySelector(".email").value;
+  var diachi = document.querySelector(".diachi").value;
+  var gioitinh = document.querySelector("#cbgioitinh").value;
+  var username = document.querySelector(".tendangnhap").value;
+  var password = document.querySelector(".matkhau").value;
+
+  $.ajax({
+    url: "./controller/SignUpController.php",
+    type: "POST",
+    dataType: "json",
+    data: {
+      request: "dangky",
+      firstname: firstname,
+      lastname: lastname,
+      email: email,
+      password: password,
+      gioitinh: gioitinh,
+      sdt: sdt,
+      diachi: diachi,
+      username: username,
+    },
+    success: function (data) {
+      if (data) {
+        console.log(data);
+      }
+    },
+  });
+  return false;
+}
+
+  
+
   // ajax register
   //   $.ajax({
   //       url: './controller/SignUpController.php',
   //       type: 'POST',
   //       data: {
   //           request: 'dangky',
-  //           name: name,
+  //           firstname: firstname,
   //           email: email,
   //           password: password,
   //           gioitinh: gioitinh,
@@ -239,5 +315,10 @@ document.querySelector(".dangkybtn").addEventListener("click", function () {
   //               alert("thành công");
   //           }
   //       }
+
   //   })
-});
+  //   return false;
+  // });
+
+
+

@@ -25,10 +25,11 @@ switch($_POST['request']) {
             login();
         }
         break;
-    case 'dangky':
-        if(isset($_POST['data_ho']) && isset($_POST['data_ten']) && isset($_POST['data_sdt']) && isset($_POST['data_email']) && isset($_POST['data_diachi']) && isset($_POST['data_newUser']) && isset($_POST['data_newPass'])){
-            signup();
+    case 'dangnhapnhanvien':
+        if(isset($_POST['data_usernames']) && isset($_POST['data_passs'])){
+            loginStaff();
         }
+        
         break;
     case 'logout':
         if(isset($_SESSION['currentUser'])) {

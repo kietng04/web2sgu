@@ -112,11 +112,11 @@
                         <form action="" class="form-search">
                             <span class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></span>
                             <input id="form-search-user" type="text" class="form-search-input"
-                                placeholder="Tìm kiếm khách hàng..." oninput="showUser()">
+                                placeholder="Tìm kiếm khách hàng..." >
                         </form>
                     </div>
                     <div class="admin-control-right">
-                        <form action="" class="fillter-date">
+                        <!-- <form action="" class="fillter-date">
                             <div>
                                 <label for="time-start">Từ</label>
                                 <input type="date" class="form-control-date" id="time-start-user" onchange="showUser()">
@@ -125,9 +125,9 @@
                                 <label for="time-end">Đến</label>
                                 <input type="date" class="form-control-date" id="time-end-user" onchange="showUser()">
                             </div>.
-                        </form>
-                        <button class="btn-reset-order" onclick="cancelSearchUser()"><i
-                                class="fa-solid fa-rotate-right"></i></button>
+                        </form>-->
+                        <button class="btn-reset-order" onclick="loadUser()"><i
+                                class="fa-solid fa-rotate-right"></i></button> 
                         <button id="btn-add-user" class="btn-control-large"><i
                                 class="fa-light fa-plus"></i> <span>Thêm khách hàng</span></button>
                     </div>
@@ -140,10 +140,9 @@
                                 <td>Họ và tên</td>
                                 <td>Liên hệ</td>
                                 <td>Email</td>
-                                <td>Dia chi</td>
-                                <td>Ngày tham gia</td>
-                                <td>Tình trạng</td>
-                                <td></td>
+                                <td>Địa Chỉ</td>
+                                <td>Trạng Thái</td>
+                                <td>Hoạt Động</td>
                             </tr>
                         </thead>
                         <tbody id="show-user">
@@ -202,12 +201,12 @@
 
     <!-- Modal them hoa chinh sua san pham -->
     <div class="modal add-product">
-        <div class="modal-container">
-            <h3 class="modal-container-title edit-product-e">CHỈNH SỬA SẢN PHẨM</h3>
-            <button class="modal-close product-form"><i class="fa-solid fa-xmark"></i></i></button>
+        <div class="modal-container" style="overflow-y:auto;">
+            <h3 class="modal-container-title edit-product-e">CHỈNH SỬA TÀI KHOẢN</h3>
+            <button class="modal-close product-form" id="edit_close_btn"><i class="fa-solid fa-xmark"></i></i></button>
             <div class="modal-content">
                 <form action="" class="add-product-form">
-                    <div class="modal-content-left">
+                    <!-- <div class="modal-content-left">
                         <img src="img/pizza-1.png" alt="" class="upload-image-preview">
                         <div class="form-group file">
                             <label for="up-hinh-anh" class="form-label-file"><i
@@ -215,61 +214,45 @@
                             <input accept="image/jpeg, image/png, image/jpg" id="up-hinh-anh" name="up-hinh-anh"
                                 type="file" class="form-control" onchange="uploadImage(this)">
                         </div>
-                    </div>
+                    </div> -->
                     <div class="modal-content-right">
                         <div class="form-group">
-                            <label for="ten-mon" class="form-label">Tên món</label>
-                            <input id="ten-mon" name="ten-mon" type="text" placeholder="Nhập tên món"
+                            <label for="ten-mon" class="form-label">TÊN TÀI KHOẢN</label>
+                            <input id="ten-mon" name="ten-mon" type="text" placeholder=""
                                 class="form-control">
-                            <span class="form-message"></span>
+                            <span class="form-message form-message-name-edit"></span>
                         </div>
                         <div class="form-group">
-                            <label for="category" class="form-label">Chọn món</label>
-                            <select name="category" id="chon-mon">
-                                <option>Pizza Bò</option>
-                                <option>Pizza Gà</option>
-                                <option>Pizza Hải Sản</option>
-                                <option>Món Phụ</option>
-                                <option>Nước uống</option>
+                            <label for="category" class="form-label">Chọn quyền</label>
+                            <select name="category" id="chon-mon" style="width:400px;">
+                                <option value="1">Admin</option>
+                                <option value="2">Nhân Viên Sale</option>
+                                <option value="3">Nhân Viên Giao Hàng</option>
+                                <option value="4">Nhân Viên Bán Hàng</option>
+                                <option value="5">Nhân Viên Nấu Ăn</option>
                             </select>
-                            <span class="form-message"></span>
+                            <span class="form-message form-message-edit"></span>
                         </div>
-                        <div class="wrapper-form-group">
-                            <div class="form-group">
-                                <label for="category" class="form-label">Chọn Đế</label>
-                                <select name="category" id="chon-de">
-                                    <option>Mỏng</option>
-                                    <option>Vừa</option>
-                                    <option>Dày</option>
-                                </select>
-                                <span class="form-message"></span>
-                            </div>
-                            <div class="form-group">
-                                <label for="category" class="form-label">Chọn Kích Cỡ</label>
-                                <select name="category" id="chon-co">
-                                    <option>Nhỏ</option>
-                                    <option>Vừa</option>
-                                    <option>Lớn</option>
-                                </select>
-                                <span class="form-message"></span>
-                            </div>
+                        
+                        <div class="form-group">
+                            <span id="ma_tai_khoan"></span>
                         </div>
                         <div class="form-group">
-                            <label for="gia-moi" class="form-label">Giá bán</label>
-                            <input id="gia-moi" name="gia-moi" type="text" placeholder="Nhập giá bán"
+                            <label for="gia-moi" class="form-label">Liên Hệ: </label>
+                            <input id="gia-moi" name="gia-moi" type="text" placeholder=""
                                 class="form-control">
-                            <span class="form-message"></span>
+                            <span class="form-message form-message-phone-edit"></span>
                         </div>
                         <div class="form-group">
-                            <label for="so-luong" class="form-label">Số lượng </label>
-                            <input id="so-luong" name="so-luong" type="number" placeholder="Nhập số lượng"
+                            <label for="so-luong" class="form-label">Email </label>
+                            <input id="so-luong" name="so-luong" type="text" placeholder=""
                                 class="form-control">
-                            <span class="form-message"></span>
+                            <span class="form-message form-message-email-edit"></span>
                         </div>
                         <div class="form-group">
-                            <label for="mo-ta" class="form-label">Mô tả</label>
-                            <textarea class="product-desc" id="mo-ta" placeholder="Nhập mô tả món ăn..."></textarea>
-                            <span class="form-message"></span>
+                            <label for="mo-ta" class="form-label">Địa chỉ</label>
+                            <textarea class="product-desc" id="mo-ta" placeholder=""></textarea>
+                            <span class="form-message form-message-address-edit"></span>
                         </div>
                         <button class="form-submit btn-update-product-form edit-product-e" id="update-product-button">
                             <i class="fa-solid fa-pen"></i>
@@ -415,12 +398,12 @@
 
 
     <div class="modal signup open">
-        <div class="modal-container">
+        <div class="modal-container" style="overflow-y:auto;">
             <h3 class="modal-container-title add-account-e" style="font-weight: 600; font-size:20px">THÊM KHÁCH HÀNG MỚI
             </h3>
             <!-- <h3 class="modal-container-title edit-account-e" style="font-weight: 600; font-size:20px">CHỈNH SỬA THÔNG
                 TIN</h3> -->
-            <button class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+            <button class="modal-close" id="close_addform"><i class="fa-solid fa-xmark"></i></button>
             <div class="form-content sign-up">
                 <form action="" class="signup-form">
                     <div class="form-group">
@@ -443,7 +426,7 @@
                     <div class="form-group">
                         <label for="address" class="form-label">Địa chỉ</label>
                         <input id="address" name="address" type="text" placeholder="Nhập Địa chỉ" class="form-control">
-                        <span class="form-message-email form-message"></span>
+                        <span class="form-message-address form-message"></span>
                     </div>
                     <div class="form-group">
                         <label for="password" class="form-label">Mật khẩu</label>
@@ -457,14 +440,18 @@
                             class="form-control">
                         <span class="form-message-confirm-password form-message"></span>
                     </div>
-                    <select name="chonquyen" id="chonquyen" onchange="showUser()">
-                            <option value="0">Nhan vien</option>
-                            <option value="1">Khach hang</option>
+                    <div style="display:flex;">
+                        <select name="chonquyen" id="chonquyen">
+                                <option value="0">Nhan vien</option>
+                                <option value="1">Khach hang</option>
+                            </select>
+                        <select name="phanquyen" id="phanquyen" style="margin-bottom:10px;display:block;">
+                            <option value="1">Admin</option>
+                            <option value="2">Nhân Viên Sale</option>
+                            <option value="3">Nhân Viên Giao Hàng</option>
+                            <option value="4">Nhân Viên Bán Hàng</option>
+                            <option value="5">Nhân Viên Nấu Ăn</option>
                         </select>
-                    <div class="form-group edit-account-e">
-                        <label for="" class="form-label">Trạng thái</label>
-                        <input type="checkbox" id="user-status" class="switch-input">
-                        <label for="user-status" class="switch"></label>
                     </div>
                     <!-- <button class="form-submit add-account-e" id="signup-button">Đăng ký</button> -->
                     <button class="form-submit edit-account-e" id="btn-update-account"><i
@@ -511,13 +498,13 @@
             };
         }
 
-        const closeBtn = document.querySelectorAll('.section');
-        console.log(closeBtn[0])
-        for (let i = 0; i < closeBtn.length; i++) {
-            closeBtn[i].addEventListener('click', (e) => {
-                sidebar.classList.add("open");
-            })
-        }
+        // const closeBtn = document.querySelectorAll('.section');
+        // console.log(closeBtn[0])
+        // for (let i = 0; i < closeBtn.length; i++) {
+        //     closeBtn[i].addEventListener('click', (e) => {
+        //         sidebars.classList.add("open");
+        //     })
+        // }
 
        
 
@@ -538,18 +525,18 @@
             });
         });
 
-        updateButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
-                modal.classList.remove('open');
-            });
-        });
+        // updateButtons.forEach(function(button) {
+        //     button.addEventListener('click', function() {
+        //         modal.classList.remove('open');
+        //     });
+        // });
 
-        addButtons.addEventListener('click', function() {
-            uploadImg.src = "img/upload-image.png";
-            modal.classList.add('open');
-            titleModal.innerHTML = "THÊM MỚI SẢN PHẨM";
+        // addButtons.addEventListener('click', function() {
+        //     uploadImg.src = "img/upload-image.png";
+        //     modal.classList.add('open');
+        //     titleModal.innerHTML = "THÊM MỚI SẢN PHẨM";
 
-        });
+        // });
 
         detailButtons.forEach(function(button) {
             button.addEventListener('click', function() {
@@ -572,7 +559,8 @@
 
     });
     </script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js/adminAccount.js"></script>
 </body>
 
 </html>

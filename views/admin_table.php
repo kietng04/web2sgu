@@ -109,41 +109,36 @@
                             <option value="4" name="4">Pizza Heo</option>
                             <option value="3" name="3">Pizza Hải Sản</option>
                         </select>
-                    </div>
-                    
-                    <div class="admin-control-right ">
-                        <select name="chon-khoang-thoigian" id="chon-khoang-thoigian" style="width:200px;" onchange="date_chosen()">
+                        <select name="chon-khoang-thoigian" id="chon-khoang-thoigian" style="width:200px;"
+                            onchange="date_chosen()">
                             <option>Khoản Thời Gian</option>
                             <option>Ngày</option>
                             <option>Tháng</option>
-                            
+
                         </select>
-                        <div style="display:flex;">
-                        <select name="chon_nam" id="chon-nam" style="display:none;" >
-                            <option>2020</option>
-                            <option>2021</option>
-                            <option>2022</option>
-                            <option>2023</option>
-                            <option>2024</option>
-                        </select>
-                        <form action="" class="fillter-date" style="display:none;top:40px;">
-                            <div>
-                                <label for="time-start">Từ</label>
-                                <input type="date" class="form-control-date" id="time-start-tk" >
-                            </div>
-                            <div>
-                                <label for="time-end">Đến</label>
-                                <input type="date" class="form-control-date" id="time-end-tk" >
-                            </div>
-                            <button id="thongke_action">Thống kê</button>
-                        </form>
+                        <div>
+                            <select name="chon_nam" id="chon-nam" style="display:none;">
+                                <option>2020</option>
+                                <option>2021</option>
+                                <option>2022</option>
+                                <option>2023</option>
+                                <option>2024</option>
+                            </select>
+                            <form action="" class="fillter-date" style="display:none;top:40px;">
+                                <div>
+                                    <label for="time-start">Từ</label>
+                                    <input type="date" class="form-control-date" id="time-start-tk">
+                                </div>
+                                <div>
+                                    <label for="time-end">Đến</label>
+                                    <input type="date" class="form-control-date" id="time-end-tk">
+                                </div>
+                                <button id="thongke_action">Thống kê</button>
+                            </form>
                         </div>
-                        <button class="btn-reset-order" onclick="thongKe(1)"><i
-                                class="fa-solid fa-arrow-up-short-wide"></i></button>
-                        <button class="btn-reset-order" onclick="thongKe(2)"><i
-                                class="fa-solid fa-arrow-down-wide-short"></i></button>
-                        <button class="btn-reset-order" onclick="thongKe(0)"><i
-                                class="fa-solid fa-rotate-right"></i></button>
+                    </div>
+
+                    <div class="admin-control-right ">
                         <label for="top_products">TOP SẢN PHẨM BÁN CHẠY</label>
                         <select name="top_products" id="top_products">
                             <option value="3">Top 3</option>
@@ -163,7 +158,7 @@
                             <i class="fa-solid fa-hand-holding-dollar"></i>
                         </div>
                     </div>
-                    
+
                     <div class="order-statistical-item">
                         <div class="order-statistical-item-content">
                             <p class="order-statistical-item-content-desc">Lợi nhuận</p>
@@ -184,55 +179,55 @@
                         </div>
                     </div>
                 </div>
-                    <canvas id="myChart" style="width:100%;max-height:500px"></canvas>
-                </div>
-            
-
-                <div class="table" id="statistic_table">
-                        <table width="100%">
-                            <thead>
-                                <tr     >
-                                    <td>THỜI GIAN</td>
-                                    <td>DOANH THU</td>
-                                    <td>LỢI NHUẬN</td>
-                                </tr>
-                            </thead>
-                            <tbody id="show-user">
-                                <tr >
-                                    <td>12</td>
-                                    <td>100.000</td>
-                                    <td>100.000</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                </div> 
-
-                <h2 style="text-align:center;font-size:50px;margin-top:50px;margin-bottom:50px;"></h2>
-
-                <div class="table" id="top_products_table">
-                    <table width="100%">
-                        <thead>
-                            <tr>
-                                <td>RANK</td>                                
-                                <td>Sản phẩm</td>
-                                <td>Số lượng bán ra</td>
-                            </tr>
-                        </thead>
-                        <tbody id="show-user">
-                            <tr >
-                                <td>1</td>
-                                <td>Pizza</td>
-                                <td>10</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            
+                <canvas id="myChart" style="width:100%;max-height:500px"></canvas>
             </div>
 
 
+            <div class="table" id="statistic_table">
+                <table width="100%">
+                    <thead>
+                        <tr>
+                            <td>THỜI GIAN</td>
+                            <td>DOANH THU</td>
+                            <td>LỢI NHUẬN</td>
+                        </tr>
+                    </thead>
+                    <tbody id="show-user">
+                        <tr>
+                            <td>12</td>
+                            <td>100.000</td>
+                            <td>100.000</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-        </main>
+            <h2 style="text-align:center;font-size:30px;margin-top:50px;margin-bottom:50px;text-transform:uppercase"></h2>
+
+            <div class="table" id="top_products_table" style="margin-bottom: 50px;">
+                <table width="100%">
+                    <thead>
+                        <tr>
+                            <td>RANK</td>
+                            <td>Sản phẩm</td>
+                            <td>Số lượng bán ra</td>
+                        </tr>
+                    </thead>
+                    <tbody id="show-user">
+                        <tr>
+                            <td>1</td>
+                            <td>Pizza</td>
+                            <td>10</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+    </div>
+
+
+
+    </main>
     </div>
 
 
@@ -291,10 +286,10 @@
                 </form>
             </div>
         </div>
-        
+
     </div>
 
-  <!-- <script>
+    <!-- <script>
     document.addEventListener('DOMContentLoaded', function() {
         var editButtons = document.querySelectorAll('.btn-edit');
         var closeButtons = document.querySelectorAll('.modal-close');

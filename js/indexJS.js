@@ -210,7 +210,7 @@ function addEventProducts() {
                         ${data[0].TenSP}
                     </h3>
                     <p class="desc">
-                        ${data[0].Mota}q
+                        ${data[0].Mota}
                     </p>
                     <div class="box">
                         <div class="box__item --none">

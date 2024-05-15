@@ -338,4 +338,13 @@ function getTopProducts($query){
 
 }
 
+function get_list($query){
+    $result = mysqli_query($this->__conn,$query);
+    $data = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $data[] = $row;
+    }
+    return $data;
+}
+
 }

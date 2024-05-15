@@ -272,7 +272,13 @@ function validate_form(fullname_input,phone,email,address,password,confirmPasswo
         email_message.innerText = "Email không hợp lệ";
         isValidate=false;
     }
-    else{email_message.innerText = "";}
+    else{
+        if(email==backup_data.find(user=>user.Email==email)?.Email){
+            email_message.innerText = "Email đã tồn tại";
+            isValidate=false;
+        }
+        else email_message.innerText = "";
+    }
     }else{email_message.innerText = "Email không được để trống";isValidate=false;}
     //kiểm tra địa chỉ
     if(address!=""){
@@ -282,17 +288,15 @@ function validate_form(fullname_input,phone,email,address,password,confirmPasswo
     }else{address_message.innerText = "";}
     }else{address_message.innerText = "Địa chỉ không được để trống";isValidate=false;}
     //kiểm tra mật khẩu
+    if(form_type!='edit'){
     if(password!=""){
     if(password.length<6){
         password_message.innerText = "Mật khẩu phải có ít nhất 6 ký tự";
         isValidate=false;
     }else{
         //kiểm tra email đã tồn tại chưa
-        if(email==backup_data.find(user=>user.Email==email)?.Email){
-            email_message.innerText = "Email đã tồn tại";
-            isValidate=false;
-        }
-        else password_message.innerText = "";}
+        
+        password_message.innerText = "";}
     }else{password_message.innerText = "Mật khẩu không được để trống";isValidate=false;}
     if(password!=confirmPassword){
         confirmPassword_message.innerText = "Mật khẩu xác nhận không khớp";
@@ -301,6 +305,7 @@ function validate_form(fullname_input,phone,email,address,password,confirmPasswo
     else{
         confirmPassword_message.innerText = "";
     }
+}
     return isValidate;
 }
 //tìm kiếm:

@@ -5,12 +5,13 @@ tìm kiếm đơn hàng trong khoảng thời gian
 Hưng*/
 
 let currentqueryz=`
-select CONCAT('',hoadon.MaHD) as MaHD,CONCAT(nguoidung.Ho, ' ',nguoidung.Ten) as TenND,ngaylap,tongtien,trangthai.chitiettt as trangthai 
+select CONCAT('',hoadon.MaHD) as MaHD,nguoidung.MaND,CONCAT(nguoidung.Ho, ' ',nguoidung.Ten) as TenND,ngaylap,tongtien,trangthai.chitiettt as trangthai 
 from hoadon
 left join trangthai on hoadon.trangthai=trangthai.MaTT
 left join nguoidung on hoadon.MaND=nguoidung.MaND
 
 `;
+//CAST(SUBSTRING(nguoidung.MaND, 3) AS INT)
 let currentRowqueryz="select count(*) from hoadon";
 let currentPagez=1;
 var perPage=4;

@@ -5,7 +5,8 @@
 require_once('BaseController.php');
 require_once(__DIR__ . '/../model/NguoiDungBUS.php');
 require_once(__DIR__ . '/../model/SanPhamBUS.php');
-
+require_once(__DIR__ . '/../model/NhanVienBUS.php');
+require_once(__DIR__ . '/../model/NhomQuyenBUS.php');
 session_start();
 
 class ProductsController extends BaseController
@@ -93,11 +94,72 @@ switch($_POST['request']) {
     case 'updateInfo':
         updateInfo();
         break;
+
+        case 'getThongTinNhanVienByMANV'://Kiet
+            
+            getThongTinNhanVienByMANV();
+            break;
+            case 'getALLChucNangNhomQuyenByMaQuyen'://Kiet
+                getALLChucNangNhomQuyenByMaQuyen();
+                break;
+       case 'getAllThongTinNhanVienSS':
+        getAllThongTinNhanVienSS();
+            break;
+        case 'getAllChucNangNhomQuyenByMaPhanQuyen':
+            getAllChucNangNhomQuyenByMaPhanQuyen();
+            break;
 }
 }
+//Kiet
+function getAllThongTinNhanVienSS(){
+    $id = $_SESSION['currentUser']['result'][0]['MaNV'];
+    $sql = "SELECT * FROM nhanvien WHERE MaNV = '$id'";
+    $result = (new NhanVienBUS())->get_list($sql);
+    if($result != false){
+        die (json_encode($result)); 
+        return 1;
+    }
+    
+}
+function getAllChucNangNhomQuyenByMaPhanQuyen(){
+    $maquyen = $_POST['ma_quyen'];
+    $sql = "SELECT * FROM chucnangnhomquyen WHERE MaQuyen = '$maquyen'";
+    $result = (new NhomQuyenBUS())->get_list($sql);
+    if($result != false){
+        die (json_encode($result)); 
+        return 1;
+    }
+
+
+}
+
+function getThongTinNhanVienByMANV(){
+    $manv = $_POST['id'];
+    $sql = "SELECT * FROM nhanvien WHERE MaNV = '$manv'";
+    $result = (new NhanVienBUS())->get_list($sql);
+    if($result != false){
+        die (json_encode($result)); 
+        return 1;
+    }
+}
+function getALLChucNangNhomQuyenByMaQuyen(){
+    $maquyen = $_POST['id'];
+    $sql = "SELECT * FROM chucnangnhomquyen WHERE MaQuyen = '$maquyen'";
+    $result = (new NhomQuyenBUS())->get_list($sql);
+    if($result != false){
+        die (json_encode($result)); 
+        return 1;
+    }
+
+}
+
+//end Kiet
 function login() {
     $username=$_POST['data_username'];
 	$password=$_POST['data_pass'];
+
+    
+
     $sql = "SELECT * FROM TaiKhoanNguoiDung tk join NguoiDung nd on tk.MaND = nd.MaND WHERE tk.TaiKhoan='$username' AND tk.MatKhau='$password'";
     $result = (new NguoiDungBus())->get_list($sql);
     // create array include $result and null
@@ -115,14 +177,13 @@ function login() {
 function loginStaff() { 
     $username=$_POST['data_usernames'];
     $password=$_POST['data_passs'];
-    $sql = "SELECT * FROM TaiKhoanNhanVien WHERE TaiKhoan='$username' AND MatKhau='$password'";
+    $sql = "SELECT * FROM taikhoannhanvien WHERE TaiKhoan='$username' AND MatKhau='$password'";
     $result = (new NhanVienBus())->get_list($sql);
         // create array include $result and null
     $returnz = array('result' => $result, 'cart' => null);
     if($result != false){
         $_SESSION['currentUser']=$returnz;
         die (json_encode($result)); 
-        
         return 1;
     }
     die (json_encode(null));

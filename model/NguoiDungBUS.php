@@ -34,4 +34,6 @@ class NguoiDungBUS extends DB_business {
         return $result1 && $result2;
     }
 
+  
+
 }

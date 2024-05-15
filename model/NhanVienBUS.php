@@ -12,5 +12,11 @@ class NhanVienBUS extends DB_business {
     {
        return parent::add_new($data);
     }
+
+    function getThongTinNhanViensql(){
+        $sql = "SELECT * FROM TaiKhoanNhanVien";
+        $result = $this->get_list($sql);
+        return $result;
+    }
     
 }

@@ -16,6 +16,7 @@ var sum_products = 0;
 var isthang = 0; //kiem tra co phai thang khong 
 var current_queryz_head = "  WHERE hd.NgayLap BETWEEN '2024-01-01' AND '2024-12-31' GROUP BY sp.MaSP, sp.TenSP ORDER BY SUM(cthd.SoLuong) DESC LIMIT 1";
 var top_choice = 3; // top 3 san pham ban chay nhat
+
 function renderChart() {
   var existingChart = Chart.getChart("myChart");
   if (existingChart) {

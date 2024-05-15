@@ -2,6 +2,9 @@ var categoryz = [];
 var currentPage = 1;
 var listProduct = null;
 var perPage = 8;
+var currentID;
+var ma_quyen;
+
 
 function loginz() {
   var a = document.querySelector("#taikhoan").value;
@@ -35,10 +38,12 @@ function loginz() {
   });
 }
 
+
+//vkiet
 function logins() {
   var a = document.querySelector('#taikhoans').value;
   var b = document.querySelector('#matkhaus').value;
-
+alert("a: " + a + " b: " + b);
   $.ajax({
     url: "./controller/ProductsController.php",
     type: "post",
@@ -51,6 +56,7 @@ function logins() {
     },
     success: function (result) {
       if (result != null) {
+       
         alert("Đăng nhập thành công!");
         document.querySelector('.popupLogin').classList.add('--none');
         // Update userModal with the result
@@ -60,13 +66,24 @@ function logins() {
         document.querySelector('#display_email').value = result[0].Email;
         document.querySelector('#display_sdt').value = result[0].SDT;
         document.querySelector('#display_diachi').value = result[0].DiaChi;
+        alert("currentID Nhan vien: " + currentID);
+        getThongTinNhanVienByMANV()
 
       } else {
         alert("Tên đăng nhập hoặc mật khẩu không đúng!");
       }
     },
+    error: function(jqXHR, textStatus, errorThrown) {
+      console.log("Error: ", jqXHR.responseText);
+      console.log("Status: ", textStatus);
+      console.log("Error: ", errorThrown);
+      alert("code nhu cc");
+    }
   });
 }
+
+
+
 
 
 function login(
@@ -104,7 +121,7 @@ function login(
     },
   });
 }
-var currentID;
+
 function updateInfo() {
   var ho = document.getElementById("display_firstname").value;
   var ten = document.getElementById("display_lastname").value;
@@ -128,6 +145,7 @@ function updateInfo() {
     },
     success: function (result) {
       if (result != null) {
+        console.log('currentID ND :>> ', currentID);
         alert("Cập nhật thông tin thành công!");
       } else {
         alert("Cập nhật thông tin thất bại!");
@@ -142,12 +160,16 @@ function updateInfo() {
   });
 }
 
+
 var btn_updateinfo = document.querySelector("#update-info");
 console.log(btn_updateinfo);
 btn_updateinfo.addEventListener('click', function (e) {
   e.preventDefault();
   updateInfo();
+  alert("Cập nhật thông tin thành công!" + currentID);
+
 });
+
 
 function updateUI() {
   getCurrentUser((data) => {
@@ -810,3 +832,89 @@ function removeloader(toast) {
   const loader = document.querySelector(".loader");
   loader.classList.add("loader-hidden");
 }
+
+// function getThongTinNhanVienByMANV() {
+//   $.ajax({
+//     url: "./controller/ProductsController.php",
+//     type: "post",
+//     dataType: "json",
+//     timeout: 1500,
+//     data: {
+//       request: "getThongTinNhanVienByMANV",
+//       id: currentID,
+//     },
+//     success: function (result) {
+//       if (result != null) {
+//         alert("Lấy thông tin nhân viên thành công!");
+//         console.log('result ND :>> ', result);       
+//         ma_quyen = result[0].PhanQuyen;
+//         console.log('ma_quyen :>> ', ma_quyen);
+//         getALLChucNangNhomQuyenByMaQuyen();
+      
+//       } else {
+//         alert("Lỗi khi lấy thông tin nhân viên!");
+//       }
+//     },
+//     error: function (jqXHR, textStatus, errorThrown) {
+//       console.log("Error: ", jqXHR.responseText);
+//       console.log("Status: ", textStatus);
+//       console.log("Error: ", errorThrown);
+//       alert("code nhu cc");
+//     }
+//   });
+// }
+
+
+// function getALLChucNangNhomQuyenByMaQuyen() {
+//   $.ajax({
+//     url: "./controller/ProductsController.php",
+//     type: "post",
+//     dataType: "json",
+//     timeout: 1500,
+//     data: {
+//       request: "getALLChucNangNhomQuyenByMaQuyen",
+//       id: ma_quyen,
+//     },
+//     success: function (result) {
+//       if (result != null) {
+//         alert("Lấy thông tin chức năng nhóm quyền thành công!");
+//         console.log('allchucnangnhomquyen :>> ', result);
+//         list_chucnangnhomquyen = result;
+//         console.log('list_chucnangnhomquyen :>> ', list_chucnangnhomquyen);
+//         hienThiChucNangByMaQuyen();
+//       } else {
+//         alert("Lỗi khi lấy thông tin chức năng nhóm quyền!");
+//       }
+//     },
+//     error: function (jqXHR, textStatus, errorThrown) {
+//       console.log("Error: ", jqXHR.responseText);
+//       console.log("Status: ", textStatus);
+//       console.log("Error: ", errorThrown);
+//       alert("code nhu cc");
+//     }
+//   });
+// }
+// function hienThiChucNangByMaQuyen() {
+//   alert("hien thi chuc nang by ma quyen");
+  
+//   var btn_add_product = document.getElementById('btn-add-product');
+//   var btn_edit_product = document.getElementById('btn-edit-product');
+//   var btn_delete_product = document.getElementById('btn-delete-product');
+//   btn_add_product.display = 'none';
+//   btn_edit_product.display = 'none';
+//   btn_delete_product.display = 'none';
+//   console.log('btn_add_product :>> ', btn_add_product);
+// //   list_chucnangnhomquyen.forEach(function (item) {
+// //     if (item.MaCN == 'sanpham' && item.hanhdong == 'create') {
+// //       btn_add_product.style.display = 'block';
+// //     }
+// //     // if (item.MaCN == 'sanpham' && item.hanhdong == 'update') {
+// //     //   btn_edit_product.style.display = 'block';
+// //     // }
+// //     // if (item.MaCN == 'sanpham' && item.hanhdong == 'delete') {
+// //     //   btn_delete_product.style.display = 'block';
+// //     // }
+  
+// //   }
+// // ,);
+// }

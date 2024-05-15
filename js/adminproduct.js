@@ -9,52 +9,125 @@ var listDeLength = 0;
 var curAttribute = new Map();
 var totalPage = 0;
 var flag = 0;
-
 loadTableProduct();
 loadCombinationSizeAndCrust();
 addeventinputthemsp();
 addeventaddproduct();
 addeventthemthuoctinh();
 loadcomcomboboxtheloai();
+getThongTinNhanVien();
 
-// function showSizeTable() {
-//   console.log("listSizeProduct", listSizeProduct);
-//   var html = "";
-//   var tblbodysize = document.querySelector("#show-size");
-//   tblbodysize.innerHTML = "";
-//   listSizeProduct.forEach(function (item) {
-//     html += `<tr>
-//     <td>${item.MaSize}</td>
-//     <td>${item.TenSize}</td>
-//     <td>${item.DinhLuongSize}</td>
-//     <td>
-//         <button class="btn-edit" value="${item.MaSize}"><i class="fa-regular fa-pen-to-square"></i></button>
-//         <button class="btn-delete" value="${item.MaSize}"><i class="fa-solid fa-trash"></i></button>
-//     </td>
-//     `;
-//   });
-//   tblbodysize.innerHTML = html;
-// }
 
-// function showVienTable() {
-//   console.log("listDeProduct", listDeProduct);
+function getAllThongTinNhanVienSS() {
+  $.ajax({
+    url: "./controller/ProductsController.php",
+    type: "post",
+    dataType: "json",
+    timeout: 1500,
+    data: {
+      request: "getAllThongTinNhanVienSS",
+    },
+    success: function (result) {
+      if (result != null) {
+        alert("Lay nhan vien thanh cong oke!");
+        ma_quyen = result[0].PhanQuyen;
+        console.log('result nhan vien :>> ', result);
+        console.log('ma_quyen :>> ', ma_quyen);
+        getAllChucNangNhomQuyenByMaPhanQuyen()
+      } else {
+        alert("Lỗi khi lấy thông tin người dùng!");
+      }
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log("Error: ", jqXHR.responseText);
+      console.log("Status: ", textStatus);
+      console.log("Error: ", errorThrown);
+      alert("code nhu cc");
+    }
+  });
+}
+var list_chucnangnhomquyen;
+function getAllChucNangNhomQuyenByMaPhanQuyen() {
+  $.ajax({
+    url: "./controller/ProductsController.php",
+    type: "post",
+    dataType: "json",
+    timeout: 1500,
+    data: {
+      request: "getAllChucNangNhomQuyenByMaPhanQuyen",
+      ma_quyen: ma_quyen
+    },
+    success: function (result) {
+      if (result != null) {
+        alert("Lay chuc nang nhom quyen thanh cong oke!");
+        list_chucnangnhomquyen = result;
+        console.log('list_chucnangnhomquyen :>> ', list_chucnangnhomquyen);
+        hienThiChucNangNhomQuyen()
+      } else {
+        alert("Lỗi khi lấy thông tin chức năng nhóm quyền!");
+      }
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log("Error: ", jqXHR.responseText);
+      console.log("Status: ", textStatus);
+      console.log("Error: ", errorThrown);
+      alert("code nhu cc");
+    }
+  });
+}
 
-//   var html = "";
-//   var tblbodysize = document.querySelector("#show-vien");
-//   tblbodysize.innerHTML = "";
-//   listDeProduct.forEach(function (item) {
-//     html += `<tr>
-//     <td>${item.MaVien}</td>
-//     <td>${item.TenVien}</td>
-//     <td>${item.DinhLuongVien}</td>
-//     <td>
-//         <button class="btn-edit" value="${item.MaVien}"><i class="fa-regular fa-pen-to-square"></i></button>
-//         <button class="btn-delete" value="${item.MaVien}"><i class="fa-solid fa-trash"></i></button>
-//     </td>
-//     `;
-//   });
-//   tblbodysize.innerHTML = html;
-// }
+// 0
+// : 
+// {MaQuyen: '1', MaCN: 'sanpham', hanhdong: 'create'}
+// 1
+// : 
+// {MaQuyen: '1', MaCN: 'sanpham', hanhdong: 'delete'}
+// 2
+// : 
+// {MaQuyen: '1', MaCN: 'sanpham', hanhdong: 'update'}
+// 3
+// : 
+// {MaQuyen: '1', MaCN: 'sanpham', hanhdong: 'view'}
+function hienThiChucNangNhomQuyen() {
+  var btn_add_product = document.querySelectorAll('#btn-add-product');
+  var btn_edit_product = document.querySelectorAll('#btn-edit-product');
+  var btn_delete_product = document.querySelectorAll('#btn-delete-product');
+  btn_add_product.forEach(function (btn) {
+    btn.style.display = 'none';
+  }
+  );
+  btn_edit_product.forEach(function (btn) {
+    btn.style.display = 'none';
+  }
+  );
+  btn_delete_product.forEach(function (btn) {
+    btn.style.display = 'none';
+  }
+  );
+  list_chucnangnhomquyen.forEach(function (item) {
+    if (item.MaCN=="sanpham" && item.hanhdong == 'create') {
+      btn_add_product.forEach(function (btn) {
+        btn.style.display = 'block';
+      }
+      );
+    }
+    if (item.MaCN=="sanpham" && item.hanhdong == 'update') {
+      btn_edit_product.forEach(function (btn) {
+        btn.style.display = 'block';
+      }
+      );
+    }
+    if (item.MaCN=="sanpham" && item.hanhdong == 'delete') {
+      btn_delete_product.forEach(function (btn) {
+        btn.style.display = 'block';
+      }
+      );
+    }
+  }
+  );
+  alert("hien thi chuc nang nhom quyen");
+  
+}
 
 var listProduct;
 function loadTableProduct() {
@@ -79,6 +152,7 @@ function loadTableProduct() {
       totalPage = row / perPage;
       totalPage = Math.ceil(totalPage);
       showProductTableAdmin();
+      getAllThongTinNhanVienSS()
       renderPagAdmin(totalPage, currentPagez);
       addeventdelete();
     },
@@ -107,11 +181,17 @@ function loadTableProduct() {
       totalPage = row / perPage;
       totalPage = Math.ceil(totalPage);
       showProductTableAdmin();
+      //tai sao khong display none khi goi?
+
+      // hienThiChucNangByMaQuyen()
+      // console.log('list_chucnangnhomquyen :>> ', list_chucnangnhomquyen);
+
       renderPagAdmin(totalPage, currentPagez);
       addeventdelete();
     },
   });
 }
+
 
 function showProductTableAdmin() {
   var html = "";
@@ -129,14 +209,14 @@ function showProductTableAdmin() {
            <div class="list-right">
                <div class="list-control">
                    <div class="list-tool">
-                       <button class="btn-edit" onclick="prepared()"><i class="fa-regular fa-pen-to-square"></i></button>
-                       <button class="btn-delete" value="${item.MaSP}"><i class="fa-solid fa-trash"></i></button>
+                       <button class="btn-edit" id="btn-edit-product" onclick="prepared()"><i class="fa-regular fa-pen-to-square"></i></button>
+                       <button class="btn-delete" id="btn-delete-product" value="${item.MaSP}"><i class="fa-solid fa-trash"></i></button>
                    </div>
                </div>
         </div>
    </div>`;
   });
-  if( document.querySelector("#show-product") == null) return 0;
+  if (document.querySelector("#show-product") == null) return 0;
   document.querySelector("#show-product").innerHTML = html;
   // var editButtons = document.querySelectorAll('.btn-edit');
   // console.log('editButtons', editButtons)
@@ -286,8 +366,7 @@ function searchProduct() {
 }
 
 function resetInput() {
-  currentqueryz =
-    'SELECT * FROM `sanpham` WHERE  sanpham.TrangThai = 1 ';
+  currentqueryz = "SELECT * FROM `sanpham` WHERE  sanpham.TrangThai = 1 ";
   currentPagez = 1;
   document.getElementById("the-loai").value = "Tất cả";
   loadTableProduct();
@@ -342,7 +421,6 @@ function loadCombinationSizeAndCrust() {
       });
     },
   });
-
 }
 
 function addeventaddproduct() {
@@ -376,30 +454,29 @@ function addeventaddproduct() {
     formData.append("masp", masp);
 
     var fileField = document.querySelector('input[type="file"]');
-    formData.append('up-hinh-anh', fileField.files[0]);
-        // traverse curAttribute
-        var chitietsanpham = [];
-        curAttribute.forEach(function (value, key) {
-            chitietsanpham.push({
-                masize: key[0],
-                made: key[1],
-            });
-        });
-        formData.append('chitietsanpham', JSON.stringify(chitietsanpham));
-        
-        $.ajax({
-            url: './controller/ProductManagementController.php',
-            type: 'POST',
-            dataType: 'json',
-            data: formData,
-            processData: false,
-            contentType: false, 
-            success: function(data) {
-                console.log(data);
-            }
-        });
-        
+    formData.append("up-hinh-anh", fileField.files[0]);
+    // traverse curAttribute
+    var chitietsanpham = [];
+    curAttribute.forEach(function (value, key) {
+      chitietsanpham.push({
+        masize: key[0],
+        made: key[1],
+      });
     });
+    formData.append("chitietsanpham", JSON.stringify(chitietsanpham));
+
+    $.ajax({
+      url: "./controller/ProductManagementController.php",
+      type: "POST",
+      dataType: "json",
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function (data) {
+        console.log(data);
+      },
+    });
+  });
 }
 
 function checkregrex() {
@@ -438,30 +515,26 @@ function clearmsg() {
 }
 
 function addeventthemthuoctinh() {
-    var btn = document.querySelector('.themthuoctinh');
-    btn.addEventListener('click', function() {
-        var thuoctinh = document.querySelector('#chon-tt').value;
-        var tentt = document.querySelector('#chon-tt');
-        // get text of option
-        var tentt = tentt.options[tentt.selectedIndex].text;
-        tentt = tentt.replace("Size: ", "");
-        tentt = tentt.replace(" - ", "-");
+  var btn = document.querySelector(".themthuoctinh");
+  btn.addEventListener("click", function () {
+    var thuoctinh = document.querySelector("#chon-tt").value;
+    var tentt = document.querySelector("#chon-tt");
+    // get text of option
+    var tentt = tentt.options[tentt.selectedIndex].text;
+    tentt = tentt.replace("Size: ", "");
+    tentt = tentt.replace(" - ", "-");
 
-
-        if (curAttribute.has(thuoctinh)) {
-            alert('Thuộc tính đã tồn tại');
-            return 0;
-        }
-        else {
-            curAttribute.set(thuoctinh, 
-                {
-                    tensize: tentt.split('-')[0],
-                    tende: tentt.split('-')[1]
-                }
-            );
-        }
-        filltable();
-    });
+    if (curAttribute.has(thuoctinh)) {
+      alert("Thuộc tính đã tồn tại");
+      return 0;
+    } else {
+      curAttribute.set(thuoctinh, {
+        tensize: tentt.split("-")[0],
+        tende: tentt.split("-")[1],
+      });
+    }
+    filltable();
+  });
 }
 
 function filltable() {
@@ -526,7 +599,7 @@ function filltable() {
 //     case "0": // Kích thước
 //       sizeForm.style.display = "block";
 //       deForm.style.display = "none";
-   
+
 //       break;
 //     case "1": // Đế
 //       sizeForm.style.display = "none";
@@ -535,15 +608,12 @@ function filltable() {
 //   }
 // }
 
-
-
-
 // var btnInsert = document.getElementById("btn-insert");
 // btnInsert.addEventListener("click", function (e) {
 //   e.preventDefault();
 //   alert("Thêm thành công");
 //   insertAttributeProduct();
-  
+
 // });
 
 // function insertAttributeProduct() {
@@ -571,8 +641,6 @@ function filltable() {
 //     },
 //   });
 
-   
-
 // }
 
 //ajax
@@ -580,26 +648,39 @@ function filltable() {
 
 // Kiet: Add event for button add attribute
 
-
 // hoc
 function loadcomcomboboxtheloai() {
-    $.ajax({
-        url: './controller/ProductsController.php',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            request: 'getAllCategory',
-        },
-        success: function(data) {
-         console.log(data); 
-            var html = '<option>Tất cả</option>';
-            data.forEach(function (item) {
-                html += `<option>${item.TenLoai}</option>`;
-            });
-            console.log(html);
-          document.getElementById('the-loai').innerHTML = html;
-        }
-    });
+  $.ajax({
+    url: "./controller/ProductsController.php",
+    type: "POST",
+    dataType: "json",
+    data: {
+      request: "getAllCategory",
+    },
+    success: function (data) {
+      console.log(data);
+      var html = "<option>Tất cả</option>";
+      data.forEach(function (item) {
+        html += `<option>${item.TenLoai}</option>`;
+      });
+      console.log(html);
+      document.getElementById("the-loai").innerHTML = html;
+    },
+  });
 }
 
-
+// lay thong tin nhan vien
+function getThongTinNhanVien() {
+  $.ajax({
+    url: "./controller/PermissionController.php",
+    type: "POST",
+    dataType: "json",
+    data: {
+      request: "getThongTinNhanVien",
+    },
+    success: function (data) {
+      alert("Nhan vien");
+      console.log(data);
+    },
+  });
+}

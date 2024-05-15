@@ -54,4 +54,9 @@ class NhomQuyenBUS extends DB_business {
         }
         die (json_encode(array('status' => 'success')));
     }
+    function layMaQuyenSessionPhp() {
+        $result = $_SESSION['currentUser']['result'][0]['MaQuyen'];
+        return $result;
+    }
 }
+

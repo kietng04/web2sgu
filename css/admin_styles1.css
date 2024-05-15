@@ -1798,3 +1798,7 @@ label a {
   border-radius: 5px;
   margin-left: 10px;
 }
+
+.black {
+  background-color: rgb(169, 168, 168);
+}

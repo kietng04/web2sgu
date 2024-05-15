@@ -108,6 +108,16 @@ switch($_POST['request']) {
         case 'getAllChucNangNhomQuyenByMaPhanQuyen':
             getAllChucNangNhomQuyenByMaPhanQuyen();
             break;
+    case 'checkQuantity':
+        checkQuantity();
+        break;
+    case 'logout':
+        if(isset($_SESSION['currentUser'])) {
+            unset($_SESSION['currentUser']);
+            die (json_encode(true));
+        }
+        die (json_encode(false));
+        break;
 }
 }
 //Kiet
@@ -343,4 +353,10 @@ function updateInfo() {
         die (json_encode($result));
     }
     die (json_encode(null));
+}
+
+function checkQuantity() {
+    $listorder = $_POST['listorder'];
+    $result = (new SanPhamBUS())->checkQuantity();
+    die (json_encode($result));
 }

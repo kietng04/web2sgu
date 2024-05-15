@@ -15,7 +15,30 @@ addeventinputthemsp();
 addeventaddproduct();
 addeventthemthuoctinh();
 loadcomcomboboxtheloai();
-getThongTinNhanVien();
+addmasizedevaomap();
+var mapsize =  new Map();
+var mapde = new Map();
+function addmasizedevaomap() {
+  $.ajax({
+    url: './controller/ProductManagementController.php',
+    type: 'POST',
+    dataType: 'json',
+    data: {
+        request: 'getMapSizeDe',
+    },
+    success: function(data) {
+      console.log(data);
+      data['sizes'].forEach(function (item) {
+        mapsize.set(item.MaSize, item.TenSize);
+      })
+      data['viens'].forEach(function (item) {
+        mapde.set(item.MaVien, item.TenVien);
+      })
+
+    }
+  });
+
+}getThongTinNhanVien();
 
 
 function getAllThongTinNhanVienSS() {
@@ -129,6 +152,8 @@ function hienThiChucNangNhomQuyen() {
   
 }
 
+
+
 var listProduct;
 function loadTableProduct() {
   $.ajax({
@@ -155,6 +180,7 @@ function loadTableProduct() {
       getAllThongTinNhanVienSS()
       renderPagAdmin(totalPage, currentPagez);
       addeventdelete();
+      // addeventedit();
     },
   });
 
@@ -209,8 +235,8 @@ function showProductTableAdmin() {
            <div class="list-right">
                <div class="list-control">
                    <div class="list-tool">
-                       <button class="btn-edit" id="btn-edit-product" onclick="prepared()"><i class="fa-regular fa-pen-to-square"></i></button>
-                       <button class="btn-delete" id="btn-delete-product" value="${item.MaSP}"><i class="fa-solid fa-trash"></i></button>
+                       <button class="btn-edit" value="${item.MaSP}" onclick="prepared(this.value)"><i class="fa-regular fa-pen-to-square"></i></button>
+                       <button class="btn-delete" value="${item.MaSP}"><i class="fa-solid fa-trash"></i></button>
                    </div>
                </div>
         </div>
@@ -221,7 +247,7 @@ function showProductTableAdmin() {
   // var editButtons = document.querySelectorAll('.btn-edit');
   // console.log('editButtons', editButtons)
 }
-function prepared() {
+function prepared(masp) {
   var titleModal = document.querySelector(".modal-container-title");
   var modal = document.querySelector(".add-product");
   var uploadImg = document.querySelector(".upload-image-preview");
@@ -229,7 +255,41 @@ function prepared() {
   uploadImg.src = "img/pizza-1.png";
   modal.classList.add("open");
   titleModal.innerHTML = "CHỈNH SỬA SẢN PHẨM";
+
+  $.ajax({
+    url: "./controller/ProductManagementController.php",
+    type: "POST",
+    dataType: "json",
+    data: {
+      request: "getproductbyid",
+      masp: masp,
+    },
+    success: function (data) {
+      console.log(data);
+      document.querySelector("#masanpham").value = data[0].MaSP;
+      document.querySelector("#masanpham").disabled = true;
+      document.querySelector("#ten-mon").value = data[0].TenSP;
+      document.querySelector("#chon-loai").value = data[0].Loai;
+      document.querySelector("#mo-ta").value = data[0].Mota;
+      // load size and crust gia nhap xuat
+      var html = "";
+      data.forEach(function (item) {
+        html += `<tr>
+        <td>${mapsize.get(item.MaSize)}</td>
+        <td>${mapde.get(item.MaVien)}</td>
+        <td>${toVND(item.GiaNhap)}</td>
+        <td>${toVND(item.GiaTien)}</td>
+        <td>${item.SoLuong}</td>
+        <td><i class="fa-solid fa-trash" onclick="deleteRow(this)"></i></td>
+        </tr>`;
+      })
+      document.querySelector(".rowTable").innerHTML = html;
+      // load hinh anh
+      document.querySelector(".modal-content-left img").src = data[0].Img;
+    },
+  });
 }
+
 function renderPagAdmin(totalPage, currentPage) {
   if (totalPage < 2) totalPage = 0;
   var html = "";
@@ -326,7 +386,6 @@ function addeventdelete() {
           masp: masp,
         },
         success: function (data) {
-          console.log(data);
           loadTableProduct();
         },
       });
@@ -393,7 +452,7 @@ function loadCombinationSizeAndCrust() {
           listSizeProduct = data;
           listDeLength = listDeProduct.length;
           var div = document.getElementById("chon-tt");
-          console.log(div);
+
           var html = ``;
 
           var listCombination = [];
@@ -430,7 +489,6 @@ function addeventaddproduct() {
     clearmsg();
     if (checkregrex().result == false) {
       var resultMsg = checkregrex().resultMsg;
-      console.log(resultMsg);
       var msgdiv = document.querySelectorAll(".form-message");
 
       for (var i = 0; i < resultMsg.length; i++) {
@@ -454,29 +512,30 @@ function addeventaddproduct() {
     formData.append("masp", masp);
 
     var fileField = document.querySelector('input[type="file"]');
-    formData.append("up-hinh-anh", fileField.files[0]);
-    // traverse curAttribute
-    var chitietsanpham = [];
-    curAttribute.forEach(function (value, key) {
-      chitietsanpham.push({
-        masize: key[0],
-        made: key[1],
-      });
+    formData.append('up-hinh-anh', fileField.files[0]);
+        // traverse curAttribute
+        var chitietsanpham = [];
+        curAttribute.forEach(function (value, key) {
+            chitietsanpham.push({
+                masize: key[0],
+                made: key[1],
+            });
+        });
+        formData.append('chitietsanpham', JSON.stringify(chitietsanpham));
+        
+        $.ajax({
+            url: './controller/ProductManagementController.php',
+            type: 'POST',
+            dataType: 'json',
+            data: formData,
+            processData: false,
+            contentType: false, 
+            success: function(data) {
+           
+            }
+        });
+        
     });
-    formData.append("chitietsanpham", JSON.stringify(chitietsanpham));
-
-    $.ajax({
-      url: "./controller/ProductManagementController.php",
-      type: "POST",
-      dataType: "json",
-      data: formData,
-      processData: false,
-      contentType: false,
-      success: function (data) {
-        console.log(data);
-      },
-    });
-  });
 }
 
 function checkregrex() {
@@ -650,37 +709,21 @@ function filltable() {
 
 // hoc
 function loadcomcomboboxtheloai() {
-  $.ajax({
-    url: "./controller/ProductsController.php",
-    type: "POST",
-    dataType: "json",
-    data: {
-      request: "getAllCategory",
-    },
-    success: function (data) {
-      console.log(data);
-      var html = "<option>Tất cả</option>";
-      data.forEach(function (item) {
-        html += `<option>${item.TenLoai}</option>`;
-      });
-      console.log(html);
-      document.getElementById("the-loai").innerHTML = html;
-    },
-  });
-}
+    $.ajax({
+        url: './controller/ProductsController.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            request: 'getAllCategory',
+        },
+        success: function(data) {
 
-// lay thong tin nhan vien
-function getThongTinNhanVien() {
-  $.ajax({
-    url: "./controller/PermissionController.php",
-    type: "POST",
-    dataType: "json",
-    data: {
-      request: "getThongTinNhanVien",
-    },
-    success: function (data) {
-      alert("Nhan vien");
-      console.log(data);
-    },
-  });
+            var html = '<option>Tất cả</option>';
+            data.forEach(function (item) {
+                html += `<option>${item.TenLoai}</option>`;
+            });
+   
+          document.getElementById('the-loai').innerHTML = html;
+        }
+    });
 }

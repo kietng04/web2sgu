@@ -93,11 +93,11 @@
   }
   
   /*======= bill detail =======*/
-  .container-bill{
+  .container-bill {
     width: 700px;
-    left: 20%;
-    top: 2%;
-    transition: translate(-50%,-50%);
+    left: 50%;
+    top: 5%;
+    transform: translateX(-50%);
     background: white;
     padding: 20px 20px;
     border-radius: 25px;

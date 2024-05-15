@@ -21,6 +21,12 @@ if (isset($_POST['request'])) {
             break;
         case 'getDSPhieuNhap':
             getDSPhieuNhap();
+        case 'getPhieuxuattheomanv':
+            getPhieuxuattheomanv();
+            break;
+        case 'timkiemnangcao':
+            timkiemnangcao();
+            break;
     }
 }
 
@@ -37,7 +43,7 @@ function themphieunhap() {
     $data = [
         'MaPN' => $MaPN,
         'NgayNhap' => $date,
-        'MaNV' => $_SESSION['currentUser']['result'][0]['MaND'],
+        'MaNV' => $_SESSION['currentUser']['result'][0]['MaNV'],
         'Dongia' => $dongia
     ];
     return (new PhieuNhapBUS())->add1phieunhap($data, $listCTPN);
@@ -47,4 +53,18 @@ function themphieunhap() {
 function getDSPhieuNhap() {
     $data = (new PhieuNhapBUS())->getDSPhieuNhap();
     die(json_encode($data));
+}
+
+function getPhieuxuattheomanv() {
+    $data = (new PhieuNhapBUS())->getPhieuxuattheomanv();
+    die(json_encode($data));
+}
+
+function timkiemnangcao() {
+    $manv = $_POST['manv'];
+    $ngaybatdau = $_POST['ngaybd'];
+    $ngayketthuc = $_POST['ngaykt'];
+    $giatu = $_POST['giafrom'];
+    $giaden = $_POST['giato'];
+    $data = (new PhieuNhapBUS())->timkiemnangcao($manv, $ngaybatdau, $ngayketthuc, $giatu, $giaden);
 }

@@ -153,14 +153,20 @@ function addEventProducts() {
         success: function (data) {
           var datatemp = data;
           console.log(data);
+
           var from = document.querySelector('#min-price').value;
           var to = document.querySelector('#max-price').value;
+          // if from and to is empty then from is 0 and to is max value
+          if (from == "") from = 0;
+          if (to == "") to = 1000000000;
 
+          if (from != "") from = from + "000";
+          if (to != "") to = to + "000";
+          
           if (from && to) {
             data = [];
-            console.log(data);
             datatemp.forEach( function(item) {
-              if (parseFloat(item.GiaTien) >= from && parseFloat(item.GiaTien) <= to) {
+              if (parseFloat(item.GiaTien) >= parseFloat(from) && parseFloat(item.GiaTien) <= parseFloat(to)) {
                 data.push(item);
               }
          
@@ -194,9 +200,9 @@ function addEventProducts() {
               sizevien.push(obj2);
             }
           });
-          console.log(setSize);
+
           if (data.length == 0) {
-            alert("Error");
+            alert("Errors");
             return;
           }
           var product = data;
@@ -411,9 +417,9 @@ function livesearch(input, category, min, max) {
 
   // Tạo câu truy vấn với biến input
   currentqueryz =
-    "SELECT sanpham.MaSP, TenSP, Mota, Img, Loai, MaSize, MaVien, GiaTien FROM `sanpham` left join `chitietsanpham` on `sanpham`.masp=`chitietsanpham`.masp left join `loaisanpham` on chitietsanpham.masp=loaisanpham.masp WHERE sanpham.TenSP LIKE '%" +
+    "SELECT sanpham.MaSP, TenSP, Mota, Img, Loai, MaSize, MaVien, GiaTien FROM `sanpham` left join `chitietsanpham` on `sanpham`.masp=`chitietsanpham`.masp left join `loaisanpham` on chitietsanpham.masp=loaisanpham.maloai WHERE sanpham.TenSP LIKE '%" +
     input +
-    "%' and (chitietsanpham.MASIZE='S' AND chitietsanpham.MAVIEN='M') ";
+    "%' ";
   let category_id = 0;
 
   if (min + max != 0) {
@@ -443,7 +449,6 @@ function livesearch(input, category, min, max) {
   }
   currentPagez = 1;
   console.log(currentPagez, currentqueryz);
-
   $.ajax({
     url: "./controller/ProductsController.php",
     type: "post",

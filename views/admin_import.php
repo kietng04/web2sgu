@@ -112,6 +112,10 @@
                         <i class="fa-solid fa-box"></i>
                         <span class="text"> Nhập hàng </span>
                     </div>
+                    <form action="" class="form-search">
+                            <span class="search-btn"><i class="fa-solid fa-magnifying-glass" onclick="searchProduct()" aria-hidden="true"></i></span>
+                            <input id="form-search-product" type="text" class="form-search-input" placeholder="Tìm kiếm theo mã phiếu nhập...">
+                    </form>
                     <div class="import-function">
                         <div class="add">
                             <i class="fa-solid fa-plus"></i>
@@ -136,13 +140,22 @@
                                 </select>
                             </div>
                             <div class="insert">
-                                <label for="ngay_nhap_tu_ngay">Ngày nhập từ ngày:</label>
+                                <label for="ngay_nhap_tu_ngay">Từ ngày:</label>
                                 <input type="date" id="ngay_nhap_tu_ngay" name="ngay_nhap_tu_ngay">
                             </div>
                             <div class="insert">
                                 <label for="ngay_nhap_den_ngay">Đến ngày:</label>
                                 <input type="date" id="ngay_nhap_den_ngay" name="ngay_nhap_den_ngay">
                             </div>
+                            <div class="insert">
+                                <label for="giatu" class="">Giá từ: </label>
+                                <input type="text" class="giatu">
+                            </div>
+                            <div class="insert">
+                                <label for="giaden" class="" >Giá đến: </label>
+                                <input type="text" class="giaden">
+                            </div>
+                            <button type="submit" class="btn-control-large timkiemnangcao">Tìm kiếm</button>
                         </form>
                     </div>
                     <div class="import-detail">
@@ -328,7 +341,7 @@
     <script src="js/notificationEffect.js"></script>
     <script src="js/helper.js"></script>
     <script src="js/importproduct.js"></script>
-    <script src="js/helper.js"></script>
+   
 
     <script>
     var addButtons = document.querySelectorAll('.add');

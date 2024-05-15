@@ -22,11 +22,22 @@ switch($_POST['request']) {
             getNVtheoMaNV();
         }
         break;
+    case 'getDSNV':
+        getDSNV();
+        break;
+    case 'getNVtheoMaNV':
+        getNVtheoMaNV();
+        break;
 }
 }
 
 function getNVtheoMaNV() {
     $manv = $_POST['manv'];
-    $data = (new NhanVienBUS())->getNVtheoMaNVien();
+    $data = (new NhanVienBUS())->getNVtheoMaNVienz();
+    die(json_encode($data));
+}
+
+function getDSNV() {
+    $data = (new NhanVienBUS())->getDSNV();
     die(json_encode($data));
 }

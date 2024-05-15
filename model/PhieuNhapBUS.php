@@ -46,7 +46,33 @@ class PhieuNhapBUS extends DB_business {
     }   
 
     function getDSPhieuNhap() {
-        $sql = "SELECT * FROM nhapsanpham where trangthai = 1 ORDER BY ngaynhap DESC";
+        $sql = "SELECT * FROM nhapsanpham, nhanvien where nhapsanpham.manv = nhanvien.manv and nhapsanpham.trangthai = 1 ORDER BY ngaynhap DESC";
+        $result = $this->get_list($sql);
+        die (json_encode($result));
+    }
+
+    function getPhieuxuattheomanv() {
+        $manv = $_POST['manv'];
+        $sql = '';
+        if ($manv == '') $sql = "SELECT * FROM nhapsanpham, nhanvien WHERE nhapsanpham.manv = nhanvien.manv ORDER BY nhapsanpham.ngaynhap DESC";
+        else $sql = "SELECT * FROM nhapsanpham, nhanvien WHERE nhapsanpham.manv = nhanvien.manv and nhanvien.manv = '$manv' ORDER BY nhapsanpham.ngaynhap DESC";
+        $result = $this->get_list($sql);
+        die (json_encode($result));
+    }
+
+    function timkiemnangcao($manv, $ngaybatdau, $ngayketthuc, $giatu, $giaden) {
+        $sql = "SELECT * FROM nhapsanpham, nhanvien where";
+        if ($manv == '') $sql .= " nhapsanpham.manv = nhanvien.manv";
+        else $sql .= " nhapsanpham.manv = nhanvien.manv and nhanvien.manv = '$manv'";
+
+        if ($ngaybatdau != '' && $ngayketthuc != '') $sql .= " and DATE(nhapsanpham.ngaynhap) >= '$ngaybatdau' and DATE(nhapsanpham.ngaynhap) <= '$ngayketthuc'";
+        else if ($ngaybatdau != '') $sql .= " and DATE(nhapsanpham.ngaynhap) >= '$ngaybatdau'";
+        else if ($ngayketthuc != '') $sql .= " and DATE(nhapsanpham.ngaynhap) <= '$ngayketthuc'";
+
+        if ($giatu != '' && $giaden != '') $sql .= " and nhapsanpham.dongia >= $giatu and nhapsanpham.dongia <= $giaden";
+        else if ($giatu != '') $sql .= " and nhapsanpham.dongia >= $giatu";
+        else if ($giaden != '') $sql .= " and nhapsanpham.dongia <= $giaden";
+
         $result = $this->get_list($sql);
         die (json_encode($result));
     }

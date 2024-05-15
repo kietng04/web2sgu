@@ -4,6 +4,8 @@ addeventThempn();
 loadmaphieunhap();
 addeventsuapn();
 addeventxoapn();
+loadcomboboxnhanvien();
+addeventtimkiemnangcao();
 var curProduct;
 var listDeProduct = [];
 var listDeLength = 0;
@@ -11,7 +13,7 @@ var listSizeProduct = [];
 var listproduct = [];
 var listCTPN = [];
 var sum = 0;
-getNhanVientheomanv('NV01');
+
 function loadProductPN() {
     $.ajax({
         url: "./controller/ProductsController.php",
@@ -42,20 +44,21 @@ function loaddsphieunhap() {
         url: './controller/ImportController.php',
         type: 'POST',
         dataType: 'json',
-
         data: {
             request: 'getDSPhieuNhap'
             
         },
         success: function(data) {
+            console.log(data);
+       
             var div = document.querySelector('.rowtablePX');
             var html = '';  
             data.forEach(element => {
-                var tennv = 
                 html += `<tr value="${element.MaPN}">
-                            <td>${element.MaPN}</td>
+                <td>${element.MaPN}</td>
+                            <td>${element.Ho + "  " + element.Ten}</td>
+                            <td>${toVND(element.DonGia)}</td>
                             <td>${element.NgayNhap}</td>
-                            <td>${element.TongTien}</td>
                         </tr>`
             })
             div.innerHTML = html;
@@ -65,9 +68,9 @@ function loaddsphieunhap() {
 
 }
 
-function getNhanVientheomanv(manv) {
+function getTenNhanVientheomanv(manv) {
     // ajax
-
+    let tennv = "á";
     $.ajax({
         url: './controller/StaffManagementController.php',
         type: 'POST',
@@ -77,9 +80,11 @@ function getNhanVientheomanv(manv) {
             manv: manv
         },
         success: function(data) {
-             console.log(data);
+            console.log(data[0].Ho + ' ' + data[0].Ten);
+             tennv = data[0].Ho + ' ' + data[0].Ten;
         }
     })
+    return tennv;
 }
 
 function addeventClick() {
@@ -233,7 +238,7 @@ function loadTablepn() {
         sum += parseFloat(element.GiaNhap) * parseFloat(element.SoLuong);
     })
     document.querySelector('.tongtienpn').innerHTML = toVND(sum);
-    alert(sum);
+
     addeventclickdetail();
 }
 
@@ -421,5 +426,68 @@ function addeventxoapn() {
         document.querySelector('.tongtienpn').innerHTML = toVND(sum);
         listCTPN.splice(index, 1);
         loadTablepn();
+    })
+}
+
+function loadcomboboxnhanvien() {
+    $.ajax({
+        url: './controller/StaffManagementController.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            request: 'getDSNV'
+        },
+        success: function(data) {
+           var html = "<option value=''>Chọn nhân viên</option>";
+           data.forEach(element => {
+               html += `<option value="${element.MaNV}">${element.Ho + ' ' + element.Ten}</option>`
+           })
+           document.querySelector('#nhan_vien_nhap').innerHTML = html;
+        }
+    })
+
+}
+
+function loaddsphieunhapz(data) {
+    var div = document.querySelector('.rowtablePX');
+    var html = '';  
+    data.forEach(element => {
+        html += `<tr value="${element.MaPN}">
+        <td>${element.MaPN}</td>
+                    <td>${element.Ho + "  " + element.Ten}</td>
+                    <td>${toVND(element.DonGia)}</td>
+                    <td>${element.NgayNhap}</td>
+                </tr>`
+    })
+ 
+    div.innerHTML = html;
+    addeventclickdetail();  
+}
+
+function addeventtimkiemnangcao() {
+    document.querySelector('.timkiemnangcao').addEventListener('click', function(e) {
+        e.preventDefault();
+        var manv = document.querySelector('#nhan_vien_nhap').value;
+        var ngaybd = document.querySelector('#ngay_nhap_tu_ngay').value;
+        var ngaykt = document.querySelector('#ngay_nhap_den_ngay').value;
+        var giafrom = document.querySelector('.giatu').value;
+        var giato = document.querySelector('.giaden').value;
+        $.ajax({
+            url: './controller/ImportController.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                request: 'timkiemnangcao',
+                manv: manv,
+                ngaybd: ngaybd,
+                ngaykt: ngaykt,
+                giafrom: giafrom,
+                giato: giato
+            },
+            success: function(data) {
+                loaddsphieunhapz(data);
+            },
+        })
+            
     })
 }

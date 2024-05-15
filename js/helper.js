@@ -352,6 +352,17 @@ function filterCategory(category) {
 
 function showProducts() {
   var html = "";
+  // remove duplicate
+  for (var i = 0; i < listProduct.length; i++) {
+    for (var j = i + 1; j < listProduct.length; j++) {
+      if (listProduct[i].MaSP == listProduct[j].MaSP) {
+        listProduct.splice(j, 1);
+        j--;
+      }
+    }
+  }
+  console.log(listProduct);
+
   listProduct.forEach(function (item) {
     html += `<div class="scproducts__list-item" value="${item.MaSP}">
      <div class="top">

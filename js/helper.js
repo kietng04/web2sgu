@@ -144,11 +144,11 @@ function updateInfo() {
 }
 
 var btn_updateinfo = document.querySelector("#update-info");
-console.log(btn_updateinfo);
-btn_updateinfo.addEventListener('click', function (e) {
-  e.preventDefault();
-  updateInfo();
-});
+if (btn_updateinfo != null) {
+  btn_updateinfo.addEventListener("click", function () {
+    updateInfo();
+  });
+}
 
 function updateUI() {
   getCurrentUser((data) => {

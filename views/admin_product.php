@@ -359,6 +359,7 @@
                                 <tr>
                                     <td>Size</td>
                                     <td>Đế</td>
+                                    <td>Xóa</td>
                                 </tr>
                             </thead>
                             <tbody class="rowTable">

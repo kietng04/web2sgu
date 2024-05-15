@@ -5,7 +5,7 @@
 require_once('BaseController.php');
 require_once(__DIR__ . '/../model/NguoiDungBUS.php');
 require_once(__DIR__ . '/../model/SanPhamBUS.php');
-
+require_once(__DIR__ . '/../model/NhanVienBUS.php');
 session_start();
 
 class ProductsController extends BaseController
@@ -92,6 +92,16 @@ switch($_POST['request']) {
         break;
     case 'updateInfo':
         updateInfo();
+        break;
+    case 'checkQuantity':
+        checkQuantity();
+        break;
+    case 'logout':
+        if(isset($_SESSION['currentUser'])) {
+            unset($_SESSION['currentUser']);
+            die (json_encode(true));
+        }
+        die (json_encode(false));
         break;
 }
 }
@@ -282,4 +292,10 @@ function updateInfo() {
         die (json_encode($result));
     }
     die (json_encode(null));
+}
+
+function checkQuantity() {
+    $listorder = $_POST['listorder'];
+    $result = (new SanPhamBUS())->checkQuantity();
+    die (json_encode($result));
 }

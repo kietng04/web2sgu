@@ -10,7 +10,67 @@ var perPage = 8;
 var curProduct;
 loadDefaultProducts();
 loadSessionCart();
+addeventclickxeminfo();
+addeventthanhtoan();
 
+function addeventthanhtoan() {
+  var payment = document.querySelector(".payment__btn");
+  payment.addEventListener("click", function () {
+    // get current user
+    $.ajax({
+      url: "./controller/ProductsController.php",
+      type: "post",
+      dataType: "json",
+      timeout: 1500,
+      data: {
+        request: "getCurrentUser",
+      },
+      success: function (data) {
+        if (!data) {
+          createToast("error", "Bạn cần đăng nhập để thực hiện thanh toán");  
+          return;
+        }
+        
+        if (!data.cart) {
+          createToast("error", "Bạn chưa chọn sản phẩm nào");  
+          return;
+        }
+        var listorder = data.cart;
+        // ajax check xem co san pham nao vuot qua so luong ton kho khong
+        $.ajax({
+          url: "./controller/ProductsController.php",
+          type: "post",
+          dataType: "json",
+          timeout: 1500,
+          data: {
+            request: "checkQuantity",
+            listorder: listorder
+          },
+          success: function (data) {
+            if (data.status == "fail") {
+              createToast("error", data.message);
+              return;
+            }
+   
+            window.location.href = "./index.php?controller=PaymentController&action=index";
+          },
+          error: function (httpRequest, textStatus, errorThrown) {
+            console.log("HTTP Request Failed");
+            console.log("jqXHR:", httpRequest);
+            console.log("textStatus:", textStatus);
+            console.log("errorThrown:", errorThrown);
+          },
+        });
+      },
+      error: function () {
+        alert("2sad");
+      },
+    });
+    // check xem co san pham nao vuot qua so luong ton kho khong
+    
+    })
+
+}
 
 function loadDefaultProducts() {
   activeloader();
@@ -162,7 +222,7 @@ function addEventProducts() {
 
           if (from != "") from = from + "000";
           if (to != "") to = to + "000";
-          
+
           if (from && to) {
             data = [];
             datatemp.forEach( function(item) {
@@ -172,7 +232,7 @@ function addEventProducts() {
          
             })
           }
-          console.log(data);
+
           let setSize = new Set(); 
           let setVien = new Set();
           var sizearray = [];
@@ -376,7 +436,7 @@ function addeventchuyensizevade(listDetail) {
       );
     }
   }
-
+  console.log(map);
   size.forEach(function (item) {
     item.addEventListener("click", function () {
       document.querySelector(".popup .btn.--add").style.backgroundColor =
@@ -385,7 +445,13 @@ function addeventchuyensizevade(listDetail) {
       var de = document.querySelector(".box__item.--de.--active p").innerText;
       var price = map.get(size + " " + de);
       // if price is NaN
-      if (!price) alert("Price is NaN");
+      if (!price) {
+        //disable button
+        document.querySelector(".popup .btn.--add").style.backgroundColor =
+          "#ccc";
+        // disabled = true;
+        document.querySelector(".popup .btn.--add").disabled = true;
+      }
       document.querySelector(".popup .btn.--add p:nth-child(2)").innerText =
         toVND(price);
     });

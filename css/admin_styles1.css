@@ -869,7 +869,7 @@ tbody tr td {
 }
 
 .modal.add-product .modal-container {
-  width: 800px;
+  width: 1109px;
   padding-bottom: 20px;
 }
 
@@ -971,12 +971,13 @@ input[type="file"] {
 }
 
 .upload-image-preview {
-  width: 350px;
+  width: 500px;
   border-radius: 5px;
   position: relative;
   transform: translateX(-50%);
   left: 50%;
-  margin-top: 20px;
+  margin-top: 50px;
+
 }
 
 .add-product-form {

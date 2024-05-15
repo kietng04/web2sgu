@@ -32,15 +32,12 @@ class DB_driver {
 
     function insert($table, $data) {
         $this->connect();
-
         $field_list = "";
         $value_list = "";
-
         foreach($data as $key => $value) {
             $field_list .= ",$key";
             $value_list .= ",'" . mysqli_escape_string($this->__conn, $value) . "'";
         }
-
         $sql = 'INSERT INTO ' . $table . '(' . trim($field_list, ',') . ') VALUES (' . trim($value_list, ',') . ')';
         $result = mysqli_query($this->__conn, $sql);
         if ($result) {
@@ -106,7 +103,14 @@ class DB_driver {
         }
         return false;
     }
-   
 
-
+    function execute($sql) {
+        $this->connect();
+        $result = mysqli_query($this->__conn, $sql);
+        if ($result) {
+            return "success";
+        }
+        return false;
+    }
+    
 }

@@ -8,7 +8,6 @@ class AdminStatisticController extends BaseController
     {
         $this->render('admin_table');
     }
-
     //doanh thu là sum all hóa đơn
 
 }

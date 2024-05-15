@@ -1,6 +1,6 @@
 <?php
 require_once(__DIR__ . '/../BackEnd/DB_business.php');
-class SanPhamBUS extends DB_business {
+class ThuocTinhBUS extends DB_business {
     function __construct()
     {
         $this->setTable("pizza");
@@ -27,7 +27,7 @@ class SanPhamBUS extends DB_business {
     }
 
     function getAllCrust() {
-        $sql = "SELECT * FROM viensanpham where TrangThai = 1";
+        $sql = "SELECT * FROM viensanpham";
         $result = $this->get_list($sql);
         return $result;
     }
@@ -59,7 +59,7 @@ class SanPhamBUS extends DB_business {
     }
 
     function getAllSize() {
-        $sql = "SELECT * FROM sizesanpham where TrangThai = 1";
+        $sql = "SELECT * FROM sizesanpham";
         $result = $this->get_list($sql);
         return $result;
     }
@@ -76,9 +76,13 @@ class SanPhamBUS extends DB_business {
     }
 
     function getAllCategory() {
-        $sql = "SELECT * FROM LoaiSanPham WHERE TrangThai = 1";
+        $sql = "SELECT * FROM LoaiSanPham";
         $result = $this->get_list($sql);
         return $result;
     }
-    
+
+    function get_list($sql) {
+        $result = $this->get_list($sql);
+        return $result;
+    }
 }

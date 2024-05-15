@@ -1,10 +1,13 @@
 <?php
 // require base controller
+
+
 require_once('BaseController.php');
 require_once(__DIR__ . '/../model/NguoiDungBUS.php');
-require_once(__DIR__ . '/../model/NhanVienBUS.php');
 require_once(__DIR__ . '/../model/SanPhamBUS.php');
+
 session_start();
+
 class ProductsController extends BaseController
 {
 	public function index()
@@ -19,7 +22,7 @@ if (isset($_POST['request'])) {
 switch($_POST['request']) {
     case 'dangnhapnguoidung':
         if(isset($_POST['data_username']) && isset($_POST['data_pass'])){
-            loginUser();
+            login();
         }
         break;
     case 'dangnhapnhanvien':
@@ -87,9 +90,12 @@ switch($_POST['request']) {
     case 'getAllCategory':
         getAllCategory();
         break;
+    case 'updateInfo':
+        updateInfo();
+        break;
 }
 }
-function loginUser() {
+function login() {
     $username=$_POST['data_username'];
 	$password=$_POST['data_pass'];
     $sql = "SELECT * FROM TaiKhoanNguoiDung tk join NguoiDung nd on tk.MaND = nd.MaND WHERE tk.TaiKhoan='$username' AND tk.MatKhau='$password'";
@@ -133,12 +139,10 @@ function signup() {
 	$newUser=$_POST['data_newUser'];
 	$newPass=$_POST['data_newPass']; 
     $gioitinh=$_POST['data_gioitinh'];
-    $insert_sql="INSERT INTO nguoidung  ,Ten,SDT,Email,DiaChi,TaiKhoan,MatKhau,GioiTinh) VALUES ('$ho','$ten','$sdt','$email','$diachi','$newUser','$newPass','$gioitinh')";
+    $insert_sql="INSERT INTO nguoidung ,Ten,SDT,Email,DiaChi,TaiKhoan,MatKhau,GioiTinh) VALUES ('$ho','$ten','$sdt','$email','$diachi','$newUser','$newPass','$gioitinh')";
 
 
-    // đăng nhập vào ngay
-    $sql = "SELECT * FROM TaiKhoanNguoiDung WHERE TaiKhoan='$newUser' AND MatKhau='$newPass'";
-    $result = (new DB_driver())->get1row($sql);
+    $result = (new sanphamBUS)->updatezzz($insert_sql);
 
 
     if($result != false){
@@ -260,6 +264,20 @@ function getListSizeDeProduct() {
 
 function getAllCategory() {
     $result = (new SanPhamBUS())->getAllCategory();
+    if ($result != null) {
+        die (json_encode($result));
+    }
+    die (json_encode(null));
+}
+
+function updateInfo() {
+    $id = $_POST['id'];
+    $ho = $_POST['ho'];
+    $ten = $_POST['ten'];
+    $sdt = $_POST['sdt'];
+    $email = $_POST['email'];
+    $diachi = $_POST['diachi'];
+    $result = (new NguoiDungBUS())->updateNguoiDung($id,$ho,$ten,$email,$diachi,$sdt);
     if ($result != null) {
         die (json_encode($result));
     }

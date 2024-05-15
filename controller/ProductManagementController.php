@@ -1,6 +1,7 @@
 <?php
 require_once('BaseController.php');
 require_once(__DIR__ . '/../model/SanPhamBUS.php');
+
 class ProductManagementController extends BaseController
 {
     public function index()
@@ -28,7 +29,6 @@ if (isset($_POST['request'])) {
 
 function uploadProduct() {
     $name = $_POST['tensp'];
-    
     $category = $_POST['loai'];
     $description = $_POST['mota'];
     $masp = $_POST['masp'];
@@ -109,7 +109,6 @@ function uploadProduct() {
 function getProducts() {
     global $bussp;
     $query = $_POST['currentquery'];
-    // count(*) from query
     $countrow = "SELECT count(*) as total from ($query) as total";
     $rownum = (new DB_driver())->get1row($countrow);
     $currentpage = $_POST['currentpage'];

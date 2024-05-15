@@ -21,14 +21,20 @@ function loginz() {
       if (result != null) {
         alert("Đăng nhập thành công!");
         document.querySelector(".popupLogin").classList.add("--none");
-        return 1;
+        // Update userModal with the result
+        currentID = result[0].MaND;
+        document.querySelector('#display_firstname').value = result[0].Ho;
+        document.querySelector('#display_lastname').value = result[0].Ten;
+        document.querySelector('#display_email').value = result[0].Email;
+        document.querySelector('#display_sdt').value = result[0].SDT;
+        document.querySelector('#display_diachi').value = result[0].DiaChi;
       } else {
         alert("Tên đăng nhập hoặc mật khẩu không đúng!");
-        return 0;
       }
     },
   });
 }
+
 function logins() {
   var a = document.querySelector('#taikhoans').value;
   var b = document.querySelector('#matkhaus').value;
@@ -47,15 +53,21 @@ function logins() {
       if (result != null) {
         alert("Đăng nhập thành công!");
         document.querySelector('.popupLogin').classList.add('--none');
-        return 1;
+        // Update userModal with the result
+        currentID = result[0].MaNV;
+        document.querySelector('#display_firstname').value = result[0].Ho;
+        document.querySelector('#display_lastname').value = result[0].Ten;
+        document.querySelector('#display_email').value = result[0].Email;
+        document.querySelector('#display_sdt').value = result[0].SDT;
+        document.querySelector('#display_diachi').value = result[0].DiaChi;
+
       } else {
         alert("Tên đăng nhập hoặc mật khẩu không đúng!");
-        return 0;
       }
     },
   });
-
 }
+
 
 function login(
   e,
@@ -92,6 +104,50 @@ function login(
     },
   });
 }
+var currentID;
+function updateInfo() {
+  var ho = document.getElementById("display_firstname").value;
+  var ten = document.getElementById("display_lastname").value;
+  var email = document.getElementById("display_email").value;
+  var sdt = document.getElementById("display_sdt").value;
+  var diachi = document.getElementById("display_diachi").value;
+
+  $.ajax({
+    url: "./controller/ProductsController.php",
+    type: "post",
+    dataType: "json",
+    timeout: 1500,
+    data: {
+      request: "updateInfo",
+      id: currentID,
+      ho: ho,
+      ten: ten,
+      email: email,
+      sdt: sdt,
+      diachi: diachi,
+    },
+    success: function (result) {
+      if (result != null) {
+        alert("Cập nhật thông tin thành công!");
+      } else {
+        alert("Cập nhật thông tin thất bại!");
+      }
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      console.log("Error: ", jqXHR.responseText); 
+      console.log("Status: ", textStatus);
+      console.log("Error: ", errorThrown);
+      alert("code nhu cc");
+    }
+  });
+}
+
+var btn_updateinfo = document.querySelector("#update-info");
+console.log(btn_updateinfo);
+btn_updateinfo.addEventListener('click', function (e) {
+  e.preventDefault();
+  updateInfo();
+});
 
 function updateUI() {
   getCurrentUser((data) => {
@@ -148,6 +204,7 @@ function initlize() {
       });
     });
 }
+
 
 function signup(e) {
   e.preventDefault();
@@ -430,7 +487,7 @@ function addeventbutbtn() {
             }
             var html = '';
             var cartdiv = document.querySelector(".list");
-            
+
             if (data) {
               data["cart"] == null ? (data["cart"] = []) : data["cart"];
               // check current product in cart
@@ -454,16 +511,15 @@ function addeventbutbtn() {
                 <div class="content">
                     <p class="title">${item["Product"].TenSP}</p>
                     <p class="desc">Size: ${mapsize.get(
-                      item["Product"].MaSize
-                    )} - Đế: ${mapde.get(item["Product"].MaVien)}</p>
+                  item["Product"].MaSize
+                )} - Đế: ${mapde.get(item["Product"].MaVien)}</p>
                     <p class="price">${toVND(item["Product"].GiaTien)}</p>
                 </div>
                 
                 <div class="buttons_added">
                 <input class="minus is-form" type="button" value="-" onclick="decreasingNumber(this, ${index})">
-                <input class="input-qty" max="100" min="1" name="" type="number" value="${
-                  item["Quantity"]
-                }" oninput="addeventinput()">
+                <input class="input-qty" max="100" min="1" name="" type="number" value="${item["Quantity"]
+                  }" oninput="addeventinput()">
                 <input class="plus is-form" type="button" value="+" onclick="increasingNumber(this, ${index})">
                 </div>
                 <i class="fa-solid fa-xmark" data-index="${index}" onclick="removeItemFromCart(this.getAttribute('data-index'))"></i>
@@ -478,7 +534,7 @@ function addeventbutbtn() {
           error: function (jqXHR, textStatus, errorThrown) {
             console.log("AJAX error: " + textStatus + " : " + errorThrown);
           },
-        }); 
+        });
       },
       error: function (jqXHR, textStatus, errorThrown) {
         console.log("AJAX error: " + textStatus + " : " + errorThrown);
@@ -486,7 +542,7 @@ function addeventbutbtn() {
     });
     // show load icon
     // ajax get current product
-    
+
   });
 }
 
@@ -520,24 +576,24 @@ function saveSessionCart(value) {
 }
 
 if (document.querySelector('.btnCloseAllCart') != null) {
-document.querySelector('.btnCloseAllCart').addEventListener('click', function () {
-  $.ajax({
-    type: "POST",
-    url: "controller/ProductsController.php",
-    dataType: "json",
-    timeout: 1500,
-    data: {
-      request: "getCurrentUser",
-    },
-    success: (data) => {
-      data['cart'] = [];
-      var cartdiv = document.querySelector(".list");
-      cartdiv.innerHTML = '';
-      document.querySelector('.totalPrice').innerHTML = '';
-      saveSessionCart(data['cart']);
-    },
+  document.querySelector('.btnCloseAllCart').addEventListener('click', function () {
+    $.ajax({
+      type: "POST",
+      url: "controller/ProductsController.php",
+      dataType: "json",
+      timeout: 1500,
+      data: {
+        request: "getCurrentUser",
+      },
+      success: (data) => {
+        data['cart'] = [];
+        var cartdiv = document.querySelector(".list");
+        cartdiv.innerHTML = '';
+        document.querySelector('.totalPrice').innerHTML = '';
+        saveSessionCart(data['cart']);
+      },
+    });
   });
-});
 }
 
 function loadSessionCart() {
@@ -573,15 +629,14 @@ function loadSessionCart() {
           <div class="content">
               <p class="title">${item["Product"].TenSP}</p>
               <p class="desc">Đế: ${mapsize.get(
-                item["Product"].MaSize
-              )}, Size: ${mapde.get(item["Product"].MaVien)}</p>
+          item["Product"].MaSize
+        )}, Size: ${mapde.get(item["Product"].MaVien)}</p>
               <p class="price">${toVND(item["Product"].GiaTien)}</p>
           </div>
           <div class="buttons_added">
             <input class="minus is-form" type="button" value="-" onclick="decreasingNumber(this, ${index})">
-            <input class="input-qty" max="100" min="1" name="" type="number" value="${
-              item["Quantity"]
-            }" oninput="addeventinput()">
+            <input class="input-qty" max="100" min="1" name="" type="number" value="${item["Quantity"]
+          }" oninput="addeventinput()">
             <input class="plus is-form" type="button" value="+" onclick="increasingNumber(this,  ${index})">
             </div>
             <i class="fa-solid fa-xmark" data-index="${index}" onclick="removeItemFromCart(this.getAttribute('data-index'))"></i>
@@ -595,16 +650,28 @@ function loadSessionCart() {
 }
 
 let alertShownz = false;
+let alertShownInvalid = false;
 
 function addeventinput() {
   let inputFields = document.querySelectorAll(".input-qty");
   inputFields.forEach((inputField, index) => {
     inputField.addEventListener("input", (event) => {
       let inputValue = event.target.value;
+      if (!Number.isInteger(Number(inputValue)) || Number(inputValue) <= 0) {
+        if (!alertShownInvalid) {
+          alert("Vui lòng nhập số nguyên dương lớn hơn 0!");
+          alertShownInvalid = true;
+          inputField.value = 1;
+        }
+        return;
+      } else {
+        alertShownInvalid = false;
+      }
       if (inputValue > 100) {
         if (!alertShownz) {
           alert("Số lượng vượt quá giới hạn!");
           alertShownz = true;
+          inputField.value = 100;
         }
         return;
       } else {

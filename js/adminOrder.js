@@ -17,7 +17,8 @@ let currentPagez=1;
 var perPage=4;
 //do du lieu tu db
 let showorder_wrapper=document.querySelector("#showOrder");
-var listOrder;
+var listOrder=[];
+var backup_data=[];
 let order_id=0;
 loadTableOrder();
 function loadTableOrder() { 
@@ -33,6 +34,7 @@ function loadTableOrder() {
         success: function(data) {
             console.table(data.result);
             listOrder = data.result;
+            backup_data=data.result;
             var totalPage = data.countrow / perPage;
             showOrderTableAdmin();
             addEventButton();
@@ -99,20 +101,17 @@ function transform_into_maVien(maVien){
 function convert_status(status){
     var detail_status;
     switch(status){
-        case 0:
-            detail_status='Chưa xử lí';
-            break;
         case 1:
-            detail_status='Đã xác nhận';
+            detail_status='Đã xác minh';
             break;
         case 2:
-            detail_status='Đang giao hàng';
+            detail_status='Chưa xác minh';
             break;
         case 3:
-            detail_status='Đã giao hàng';
+            detail_status='Bị hạn chế';
             break;
         case 4:
-            detail_status='Đã hủy';
+            detail_status='Bị khóa';
             break;
 
     }
@@ -244,11 +243,10 @@ function show_bottom_detail(order_id,bottom_container){
             </div>
             <div class="modal-detail-bottom-right" >
                 <select id="statusSelect" style="appearance:none;text-align:center;border:1px;" onchange="showSelectedValue(this,${order_id})">
-                    <option value="0">Chưa xử lí</option>
-                    <option value="1">Đã xác nhận</option>
-                    <option value="2">Đang giao hàng</option>
-                    <option value="3">Đã giao hàng</option>
-                    <option value="4">Đã hủy</option>
+                    <option value="1">Đã xác minh</option>
+                    <option value="2">Chưa xác minh</option>
+                    <option value="3">Bị hạn chế</option>
+                    <option value="4">Bị khóa</option>
                 </select>
             </div>
             `;
@@ -344,169 +342,172 @@ function showSelectedValue(selected_option,order_id){
 
 function findOrder(event){
     let input_value= document.querySelector(".form-search-input").value;
-    //search the order by MaHD or TenND
-    //write query to select the order by MaHD or TenND
-    //write the query to select order with the paramete TenND or MaHD
-    let query_find_order=`
-    select CONCAT('',hoadon.MaHD) as MaHD,CONCAT(nguoidung.Ho, ' ',nguoidung.Ten) as TenND,ngaylap,tongtien,trangthai.chitiettt as trangthai
-    from hoadon
-    left join trangthai on hoadon.trangthai=trangthai.MaTT
-    left join nguoidung on hoadon.MaND=nguoidung.MaND
-    where hoadon.MaHD like '${input_value}' or CONCAT(nguoidung.Ho, ' ',nguoidung.Ten) like '%${input_value}%'`;
-    //write the query to count the row
+    searching(input_value);
     
-    //send the query to the server
-    $.ajax({
-        url: "./controller/BillManagementController.php",
-        type: 'POST',
-        dataType: 'json',
-        data:{
-            request: 'find_order',
-            currentquery: query_find_order,
-            currentpage: currentPagez,
-        },
-        success: function(data) {
-            if (!data) {
-                alert("Không tìm thấy đơn hàng");
-                return;
-            }
-            listOrder = data.result;
-            showOrderTableAdmin();
-            addEventButton();
-            close();
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log("Error: ", jqXHR.responseText); 
-            console.log("Status: ", textStatus);
-            console.log("Error: ", errorThrown);
-            alert("code nhu cc");
-        }
-    });
     
 }
+
+document.querySelector("#form-search-order").addEventListener("keydown",function(e){
+    if(e.key=="Enter"){
+        e.preventDefault();
+        findOrder(e);
+    }
+})
+
+
+function validate_maHD(search_value){
+    if (search_value.toLowerCase().startsWith('dh')) {
+      search_value = search_value.substring(2);
+  } else if (search_value.toLowerCase().startsWith('đơn hàng ')) {
+      search_value = search_value.substring(9);
+    }
+    else if (search_value.toLowerCase().startsWith('đh')) {
+        search_value = search_value.substring(2);
+    }
+    else if (search_value.toLowerCase().startsWith('mã đơn')) {
+        search_value = search_value.substring(7);
+    }
+    else if(search_value.toLowerCase().startsWith('mã ')){
+        search_value = search_value.substring(3);
+    }
+    else if(search_value.toLowerCase().startsWith('mã đơn hàng ')){
+        search_value = search_value.substring(12);
+    }
+    else if(search_value.toLowerCase().startsWith('mã đh')){
+        search_value = search_value.substring(5);   
+    }
+    else if(search_value.toLowerCase().startsWith('đơn ')){
+        search_value = search_value.substring(4);
+    }
+
+        if (!isNaN(search_value) && parseInt(search_value) < 0) {
+    return false;
+}
+
+// Kiểm tra xem search_value có chứa ký tự đặc biệt không
+const format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+if(format.test(search_value)){
+    return false;
+}
+    return search_value;
+  }
+  
+  function search_validate(taikhoan, search_value) {
+    //tôi muốn search phải ko có kí tự đặc biệt, ko số âm thì return false
+    if(parseInt(search_value)<0){
+        return false;
+    }
+
+    if (taikhoan.MaHD == parseInt(validate_maHD(search_value))) {
+      return true;
+    }
+      
+    if (taikhoan.ngaylap.toLowerCase().includes(search_value)) {
+      return true;
+    }
+    
+    if(taikhoan.TenND.toLowerCase().includes(search_value)){
+        return true;
+    }
+    if (taikhoan.trangthai.toLowerCase().includes(search_value)) {
+      return true;
+    }
+    if (taikhoan.tongtien.toLowerCase().includes(search_value)) {
+      return true;
+    }
+    return false;
+  }
+  
+  
+  function searching(search_value){
+    let search_value_lwr=search_value.toLowerCase();
+    let search_list=[];
+    for(let i=0;i<listOrder.length;i++){
+        let taikhoan=listOrder[i];
+        if(search_validate(taikhoan,search_value_lwr)){
+            search_list.push(taikhoan);
+        }
+    }
+    listOrder=search_list;
+    console.log(listOrder);
+    
+    showOrderTableAdmin();
+    addEventButton();
+    removeloader();
+    close();
+    listOrder=backup_data;
+  }
+
+
+
+
 
 
 
 function findOrder_category(){
     let category=Number(this.value);
+    var search_list=[];
     //write the querry select the orders by category
-    let query_find_order_chuaxualy=`
-    select CONCAT('',hoadon.MaHD) as MaHD,CONCAT(nguoidung.Ho, ' ',nguoidung.Ten) as TenND,ngaylap,tongtien,trangthai.chitiettt as trangthai
-    from hoadon
-    left join trangthai on hoadon.trangthai=trangthai.MaTT
-    left join nguoidung on hoadon.MaND=nguoidung.MaND
-    where trangthai.MaTT=0`;
-
-    let query_find_order_daxacnhan=`
-    select CONCAT('',hoadon.MaHD) as MaHD,CONCAT(nguoidung.Ho, ' ',nguoidung.Ten) as TenND,ngaylap,tongtien,trangthai.chitiettt as trangthai
-    from hoadon
-    left join trangthai on hoadon.trangthai=trangthai.MaTT
-    left join nguoidung on hoadon.MaND=nguoidung.MaND
-    where trangthai.MaTT>0`;
-
-    let query_find_order_ALL=`
-    select CONCAT('',hoadon.MaHD) as MaHD,CONCAT(nguoidung.Ho, ' ',nguoidung.Ten) as TenND,ngaylap,tongtien,trangthai.chitiettt as trangthai
-    from hoadon
-    left join trangthai on hoadon.trangthai=trangthai.MaTT
-    left join nguoidung on hoadon.MaND=nguoidung.MaND
-    `;
-    var query_find_order;
-    switch (category) {
-        case 0:
-            query_find_order=query_find_order_chuaxualy;    
-            
-            break;
-        case 1:
-            query_find_order=query_find_order_daxacnhan;
-            
-            break;
-        case 2:
-            query_find_order=query_find_order_ALL;
-            
-            break;
-    }
-    console.log(category,query_find_order)
-    $.ajax({
-        url: "./controller/BillManagementController.php",
-        type: 'POST',
-        dataType: 'json',
-        data:{
-            request: 'find_order',
-            currentquery: query_find_order,
-            currentpage: currentPagez,
-        },
-        success: function(data) {
-            if (!data) {
-                alert("Không tìm thấy đơn hàng");
-                return;
+    if(category==0){loadTableOrder();return;}
+    else{
+        let convert_category=convert_status(category);
+        for(let i=0;i<listOrder.length;i++){
+            if(listOrder[i].trangthai==convert_category){
+                search_list.push(listOrder[i]);
             }
-            console.log(data);
-            listOrder = data.result;
-            showOrderTableAdmin();
-            addEventButton();
-            close();
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log("Error: ", jqXHR.responseText); 
-            console.log("Status: ", textStatus);
-            console.log("Error: ", errorThrown);
-            alert("code nhu cc");
         }
-    });
+        listOrder=search_list;
+        showOrderTableAdmin();
+        addEventButton();
+        close();
+        listOrder=backup_data;
+    }
 }
-
 
 
 //write the function to find the order in the time range
 function findOrder_time(){
     let start_time=document.querySelector("#time-start").value;
     let end_time=document.querySelector("#time-end").value;
+    //thêm ' ' vào start_time và end_time
+    start_time="'"+start_time+"'";
+    end_time="'"+end_time+"'";
+    console.log(new Date(end_time).getTime());   
     //if the start time is greater than the end time
+    console.log(start_time,end_time);   
     var query_find_order_time;
-    if(start_time>end_time){
-        alert("Thời gian không hợp lệ");
-        return;
-    }
     //if end_time is undefined
-    if(end_time==""){
+    if(isNaN(new Date(end_time).getTime())){
+        console.log("end_time is undefined");
        //write querry to select the order in the time start to now
-          query_find_order_time=`
-        select CONCAT('',hoadon.MaHD) as MaHD,CONCAT(nguoidung.Ho, ' ',nguoidung.Ten) as TenND,ngaylap,tongtien,trangthai.chitiettt as trangthai
-        from hoadon
-        left join trangthai on hoadon.trangthai=trangthai.MaTT
-        left join nguoidung on hoadon.MaND=nguoidung.MaND
-        where ngaylap between '${start_time}' and now()`;
-
+        end_time="now()";
     }
     //if start_time is undefined
-    if(start_time==""){
+    if(isNaN(new Date(start_time).getTime())){
         //write querry to select the order in the first day to end_time
+        console.log("start_time is undefined")
+        start_time="2021-01-01";
+    }
+    if(new Date(start_time).getTime()==new Date(end_time).getTime()){
         query_find_order_time=`
         select CONCAT('',hoadon.MaHD) as MaHD,CONCAT(nguoidung.Ho, ' ',nguoidung.Ten) as TenND,ngaylap,tongtien,trangthai.chitiettt as trangthai
         from hoadon
         left join trangthai on hoadon.trangthai=trangthai.MaTT
         left join nguoidung on hoadon.MaND=nguoidung.MaND
-        where ngaylap between '2021-01-01' and '${end_time}'`;
-
+        where ngaylap=${start_time}`;
     }
-    
-
-    if(start_time==end_time){
-        query_find_order_time=`
-        select CONCAT('',hoadon.MaHD) as MaHD,CONCAT(nguoidung.Ho, ' ',nguoidung.Ten) as TenND,ngaylap,tongtien,trangthai.chitiettt as trangthai
-        from hoadon
-        left join trangthai on hoadon.trangthai=trangthai.MaTT
-        left join nguoidung on hoadon.MaND=nguoidung.MaND
-        where ngaylap='${start_time}'`;
+    else if(new Date(start_time).getTime()>new Date(end_time).getTime()){
+        alert("Ngày bắt đầu không thể lớn hơn ngày kết thúc");
+        return;
     }
-
     //write the query to select the order in the time range
+    else{
     query_find_order_time=`
     select CONCAT('',hoadon.MaHD) as MaHD,CONCAT(nguoidung.Ho, ' ',nguoidung.Ten) as TenND,ngaylap,tongtien,trangthai.chitiettt as trangthai
     from hoadon
     left join trangthai on hoadon.trangthai=trangthai.MaTT
     left join nguoidung on hoadon.MaND=nguoidung.MaND
-    where ngaylap between '${start_time}' and '${end_time}'`;
+    where ngaylap between ${start_time} and ${end_time}`;}
     console.log(query_find_order_time);
     //send the query to the server
     $.ajax({

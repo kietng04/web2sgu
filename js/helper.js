@@ -220,7 +220,7 @@ if (btn_updateinfo != null) {
 
     var phoneRegex = /^0\d{9}$/;
     if (!phoneRegex.test(phone)) {
-      alert("Số điện thoại phải bắt đầu bằng 09 và có 10 chữ số.");
+      alert("Số điện thoại phải bắt đầu bằng 0 và có 10 chữ số.");
     } else if (address.length <= 6) {
       alert("Địa chỉ phải có nhiều hơn 7 ký tự.");
     } else {

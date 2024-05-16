@@ -182,6 +182,7 @@ function showProductTableAdmin() {
 }
 function prepared(masp) {
   curAttribute.clear();
+  clearmsg();
   var titleModal = document.querySelector(".modal-container-title");
   var modal = document.querySelector(".add-product");
   var uploadImg = document.querySelector(".upload-image-preview");
@@ -611,7 +612,9 @@ function addeventthemthuoctinh() {
         var tentt = tentt.options[tentt.selectedIndex].text;
         tentt = tentt.replace("Size: ", "");
         tentt = tentt.replace(" - ", "-");
+        // neu gia nhap hoac gia xuat ko phai la so
 
+        // số lượng phải lớn hơn 0
 
         if (curAttribute.has(thuoctinh)) {
           console.log(curAttribute);

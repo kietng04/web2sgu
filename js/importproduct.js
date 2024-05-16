@@ -12,8 +12,9 @@ var listDeLength = 0;
 var listSizeProduct = [];
 var listproduct = [];
 var listCTPN = [];
+var listItem = [];
 var sum = 0;
-
+var mapsizedegia = new Map();
 function loadProductPN() {
     $.ajax({
         url: "./controller/ProductsController.php",
@@ -91,6 +92,7 @@ function addeventClick() {
     var clickbtnlist = document.querySelectorAll('.productClicked');
     clickbtnlist.forEach(element => {
         element.addEventListener('click', function() {
+            listItem = [];
             document.querySelectorAll('.rowdetail').forEach(element => {
                 element.classList.remove('black');
             })
@@ -119,21 +121,38 @@ function addeventClick() {
                     productID: productID
                 },
                 success: function(data) {
-                    var listItem = [];
+                    console.log(data);
+                    
                     data.forEach(element => {
                         listItem.push({
                             "MaSize" : element.MaSize,
                             "MaDe": element.MaVien,
                             "TenSize" : element.TenSize,
                             "TenDe" : element.TenVien,
+                            "GiaNhap": element.GiaNhap,
+                            "GiaBan": element.GiaTien
                         })
                             
                     })
+                    addeventonchangecombobox();
                     var html = '';
                     listItem.forEach(element => {
                         html += `<option value="${element.MaSize + element.MaDe}">${element.TenSize} - ${element.TenDe}</option>`
                     })
                     combobox.innerHTML = html;
+                    // get selected combobox and load gia nhap gia xuat
+                   
+                    var comboboxz = document.querySelector('#product-item');
+                    listItem.forEach(element => {
+                        console.log("es")
+                        if (element.MaSize + element.MaDe == comboboxz.value) {
+                            document.querySelector('#product-price').value = element.GiaNhap;
+                            document.querySelector('#product-pricesell').value = element.GiaBan;
+                            // dissabled
+                            document.querySelector('#product-price').disabled = true;
+                            document.querySelector('#product-pricesell').disabled = true;
+                        }
+                    })
                 }
             });
             document.querySelector('#product-price').value = '';
@@ -141,6 +160,25 @@ function addeventClick() {
             document.querySelector('#product-quantity').value = '';
         })
     })
+}
+
+function addeventonchangecombobox() {
+    var combobox = document.querySelector('#product-item');
+    combobox.addEventListener('change', function() {
+        // traverse list item and get price
+        listItem.forEach(element => {
+            console.log(element)
+            if (element.MaSize + element.MaDe == combobox.value) {
+
+                document.querySelector('#product-price').value = element.GiaNhap;
+                document.querySelector('#product-pricesell').value = element.GiaBan;
+                // dissabled
+                document.querySelector('#product-price').disabled = true;
+                document.querySelector('#product-pricesell').disabled = true;
+            }
+        })
+    })
+
 }
 
 function addeventThempn() {
@@ -187,7 +225,11 @@ function addeventThempn() {
             createToast('error', 'Số lượng phải là số nguyên dương!');
             return;
         }
-        
+        // gias nhap va gia ban phai > 0
+        if (parseFloat(gianhap) <= 0 || parseFloat(giaban) <= 0) {
+            createToast('error', 'Giá nhập và giá bán phải lớn hơn 0!');
+            return;
+        }
         // check xem sản phẩm đã tồn tại trong list chưa
         var flag = 0;
         listCTPN.forEach(element => {
@@ -266,6 +308,8 @@ function addeventclickdetail() {
             document.querySelector('#product-price').value = listCTPN[index].GiaNhap;
             document.querySelector('#product-pricesell').value = listCTPN[index].GiaBan;
             document.querySelector('#product-quantity').value = listCTPN[index].SoLuong;
+
+   
         })
     })
 }
@@ -311,7 +355,12 @@ function thempn(e) {
             dongia: sum
         },
         success: function(data) {
-            console.log(data);
+            if (data) {
+                createToast('success', 'Thêm phiếu nhập thành công!');
+                //remove claass open
+
+                document.querySelector('.modal.add-import').classList.remove('open');
+            }
         }
     })
 }

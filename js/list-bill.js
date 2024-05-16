@@ -58,7 +58,7 @@ function renderTable() {
   console.log(data);  
   var html = "";
   // traverse data
-  data.slice(data.length-4,data.length).reverse().forEach((element) => {
+  data.slice(data.length - 4,data.length).reverse().forEach((element) => {
     html += `<tr>
     <td>${element.MaHD}</td>
     <td>${element.NgayLap}</td>`;
@@ -82,6 +82,7 @@ function renderTable() {
     }
     html += `<td>${toVND(element.TongTien)}</td>
     <td><button class="show-detail" value="${element.MaHD}">Xem chi tiết</button></td>
+    <td><button class="delete-bill" style="background-color: #c8102e; color: white; padding: 10px; border-radius: 50%; cursor: pointer;"><i class="fa-solid fa-trash"></i></button></td>
     </tr>`;
   })
   document.querySelector('.rowtable').innerHTML = html;
@@ -116,6 +117,7 @@ function loadtablez(data) {
     }
     html += `<td>${toVND(element.TongTien)}</td>
             <td><button class="show-detail" value="${element.MaHD}">Xem chi tiết</button></td>
+            <td><button class="delete-bill"><i class="fa-solid fa-trash"></i></button></td>
         </tr>`;
   })
   document.querySelector('.rowtable').innerHTML = html;

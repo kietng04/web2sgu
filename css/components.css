@@ -786,10 +786,7 @@
   box-shadow: none;
 }
 
-.header__action-menber:hover{
-
-
-}.header-middle-right-menu {
+.header-middle-right-menu {
     position: absolute;
     top: calc(100% + 10px);
     border-radius: 5px;

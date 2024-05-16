@@ -108,6 +108,7 @@
         <div class="dark-overlay hide">
             <section class="product-list">
                 <h2>Sản phẩm</h2>
+                <i class="fa-solid fa-xmark close-bg"></i>
                 <table>
                     <thead>
                         <tr>

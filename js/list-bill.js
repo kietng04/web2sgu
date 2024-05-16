@@ -25,6 +25,27 @@ var backup_data = [];
 
 loadtable();
 
+
+function huydonhang(mahd) {
+  $.ajax({
+    url: './controller/HistoryBillController.php',
+    type: 'POST',
+    data: {
+      request: 'deleteBill',
+      mahd: mahd
+    },
+    success: function(data) {
+      console.log(data);
+      loadtable();
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      console.log("Error: ", jqXHR.responseText); 
+      console.log("Status: ", textStatus);
+      console.log("Error: ", errorThrown);
+      alert("code nhu cc");
+    }
+  })
+}
 // load lich su don hang
 function loadtable() {
 $.ajax({  
@@ -82,7 +103,7 @@ function renderTable() {
     }
     html += `<td>${toVND(element.TongTien)}</td>
     <td><button class="show-detail" value="${element.MaHD}">Xem chi tiết</button></td>
-    <td><button class="delete-bill" style="background-color: #c8102e; color: white; padding: 10px; border-radius: 50%; cursor: pointer;"><i class="fa-solid fa-trash"></i></button></td>
+    <td><button class="delete-bill" onclick="huydonhang(${element.MaHD})" style="background-color: #c8102e; color: white; padding: 10px; border-radius: 50%; cursor: pointer;"><i class="fa-solid fa-trash"></i></button></td>
     </tr>`;
   })
   document.querySelector('.rowtable').innerHTML = html;

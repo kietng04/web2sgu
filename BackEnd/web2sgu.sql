@@ -99,8 +99,7 @@ CREATE TABLE `HoaDon` (
   primary key (MaHD)
 );
 
-INSERT INTO `HoaDon` (`MaHD`, `MaND`, `MaNv`, `NgayLap`, `TongTien`, `TrangThai`) VALUES
-(1, 1, 2, '2020-12-12', '100000', 1);
+
 
 CREATE TABLE `ChiTietHoaDon` (
   `MaHD` int(11) NOT NULL,
@@ -110,11 +109,12 @@ CREATE TABLE `ChiTietHoaDon` (
   `Img` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `SoLuong` int(11) NOT NULL,
   `GiaTien` decimal(10,2) NOT NULL,
+  `TrangThai` int(11) DEFAULT 1,
   primary key (MaHD, MaSP, MaSize, MaVien)
 );
 
-INSERT INTO `ChiTietHoaDon` (`MaHD`, `MaSP`, `MaSize`, `MaVien`, `Img`, `SoLuong`, `GiaTien`) VALUES
-(1, 1, 1, 1, '100000', 1, '100000');
+
+
 
 
 
@@ -192,7 +192,7 @@ CREATE TABLE `ChiTietSanPham`(
   `MaVien` varchar(100) NOT NULL,
   `GiaNhap` DECIMAL(10, 2) NOT NULL,
   `GiaTien` DECIMAL(10, 2) NOT NULL,
-  `SoLuong` int(11) NOT NULL,
+  `SoLuong` int(11) DEFAULT 100,
   `TrangThai` int(11) DEFAULT 1,
   primary key (MaSP, MaSize, MaVien)
 );

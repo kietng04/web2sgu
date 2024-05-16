@@ -76,10 +76,32 @@ class NguoiDungBUS extends DB_business {
         return $result1 && $result2;
     }
 
+    function updateNhanVien($manv,$ho,$ten,$email,$diachi,$sodienthoai) {
+        $sql = "UPDATE nhanvien SET Ho='$ho', Ten='$ten', Email='$email ', DiaChi='$diachi', SDT='$sodienthoai' WHERE MaNV='$manv'";
+        $sql2="UPDATE taikhoannhanvien SET TaiKhoan='$email' WHERE MaNV='$manv'";
+        $result1 = mysqli_query($this->__conn, $sql);
+        $result2 = mysqli_query($this->__conn, $sql2);
+        return $result1 && $result2;
+    }
+
     function updateStatus($mand,$status){
         $sql = "UPDATE taikhoannguoidung SET TrangThai=$status WHERE MaND='$mand'";
         $result = mysqli_query($this->__conn, $sql);
         return $result;
 
     }
+
+    public function nextUserId() {
+
+        $query = "SELECT COUNT(MaND) AS max_id FROM NguoiDung";
+        $result = mysqli_query($this->__conn, $query);
+        $row = mysqli_fetch_assoc($result);
+        $maxId = $row['max_id'];
+
+
+        $nextId = intval($maxId) + 1;
+
+        return $nextId;
+    }
+
 }

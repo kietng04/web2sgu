@@ -54,8 +54,8 @@ class NhanVienBUS extends DB_business {
         return mysqli_fetch_assoc($result);
     }
 
-    function updateNhanVien($manv,$ho,$ten,$email,$Diachi,$sodienthoai,$phanquyen){
-        $sql = "UPDATE nhanvien SET Ho='$ho',Ten='$ten',Email='$email',DiaChi='$Diachi',SDT='$sodienthoai',PhanQuyen=$phanquyen WHERE MaNV='$manv'";
+    function updateNhanVien($manv,$ho,$ten,$email,$Diachi,$sodienthoai){
+        $sql = "UPDATE nhanvien SET Ho='$ho',Ten='$ten',Email='$email',DiaChi='$Diachi',SDT='$sodienthoai' WHERE MaNV='$manv'";
         $sql2="UPDATE taikhoannhanvien SET TaiKhoan='$email' WHERE MaNV='$manv'";
         $result = mysqli_query($this->__conn, $sql);
         $result2 = mysqli_query($this->__conn, $sql2);

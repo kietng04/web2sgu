@@ -316,6 +316,7 @@ function close(){
 function showSelectedValue(selected_option,order_id){
     let selected_value=selected_option.value;
     //update trangthai
+    alert(selected_value);
     $.ajax({
         url: "./controller/BillManagementController.php",
         type: 'POST',

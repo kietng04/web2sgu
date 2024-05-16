@@ -107,7 +107,7 @@ function loadDefaultProducts() {
 }
 
 function renderPag(totalPage) {
-  if (totalPage < 1) totalPage = 0;
+  if (totalPage < 2) totalPage = 0;
   var html = "";
   for (var i = 1; i <= totalPage; i++) {
     if (i == 1) {
@@ -498,7 +498,7 @@ function livesearch(input, category, min, max, name) {
   if (min + max != 0) {
     currentqueryz +=
       "and chitietsanpham.giatien between " + min + "000 and " + max + "000";
-  }
+  } 
 // CURRENTQUERY += groupby masp
   if (category != "Tất cả") {
     switch (category) {
@@ -518,7 +518,8 @@ function livesearch(input, category, min, max, name) {
         category_id = 5;
         break;
     }
-    currentqueryz += " and loaisanpham.maloai= " + category_id + "";
+
+   
   }
   currentqueryz += " group by sanpham.TenSP";
   currentqueryz += (name == "A-Z") ? " ASC" : " DESC";

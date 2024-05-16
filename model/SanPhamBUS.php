@@ -80,7 +80,11 @@ class SanPhamBUS extends DB_business {
         $result = $this->get_list($sql);
         return $result;
     }
-    
+    function getNumber_of_Type_OF_Products(){
+        $sql = "SELECT  COUNT(MaSP) as SoLuong FROM sanpham where TrangThai = 1";
+        $result = $this->get_list($sql);
+        return $result;
+    }
     function checkQuantity() {
         $listorder = $_POST['listorder'];
         $sql = "SELECT * FROM chitietsanpham";

@@ -347,10 +347,8 @@ function get_list($query){
     return $data;
 }
 
-    function deleteBill() {
-        $mahd = $_POST['mahd'];
-        // set trangthai = 0 in table hoadon
-        $sql = "UPDATE hoadon SET TrangThai = 0 WHERE MaHD = '$mahd'";
+    function deleteBill($mahd) {
+        $sql = "UPDATE hoadon SET TrangThai = 4 WHERE MaHD = '$mahd'";
         $result = $this->updatezzz($sql);
     }
 }

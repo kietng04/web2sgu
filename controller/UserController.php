@@ -61,12 +61,13 @@ function addAccount_nguoidung_taikhoannguoidung() {
     $Diachi = $_POST['address'];
     $sodienthoai = $_POST['phone'];
     $password= $_POST['password'];
+    $username = $_POST['username'];
     $trangthai=1;
 
     // create array key value
     
     $result1 = (new NguoiDungBUS())->insertNguoiDung($MaND,$ho,$ten,$email,$Diachi,$sodienthoai);
-    $result2 = (new NguoiDungBUS())->insertTaiKhoanNguoiDung($MaND,$email,$password,$trangthai);
+    $result2 = (new NguoiDungBUS())->insertTaiKhoanNguoiDung($MaND,$username,$password,$trangthai);
 
     die (json_encode(array('result1' => $result1, 'result2' => $result2)));
 }

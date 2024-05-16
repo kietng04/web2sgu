@@ -89,7 +89,7 @@ class DB_driver {
         $this->connect();
         $result = mysqli_query($this->__conn, $sql);
         if ($result) {
-            return "success";
+            return true;
         }
         return false;
     }
@@ -98,7 +98,7 @@ class DB_driver {
         $this->connect();
         $result = mysqli_query($this->__conn, $sql);
 
-        if ($result) {
+        if ($result != null) {
             return true;
         }
         return false;

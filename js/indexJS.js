@@ -107,7 +107,7 @@ function loadDefaultProducts() {
 }
 
 function renderPag(totalPage) {
-  if (totalPage < 1) totalPage = 0;
+  if (totalPage < 2) totalPage = 0;
   var html = "";
   for (var i = 1; i <= totalPage; i++) {
     if (i == 1) {
@@ -518,9 +518,11 @@ function livesearch(input, category, min, max) {
         category_id = 5;
         break;
     }
-    currentqueryz += " and loaisanpham.maloai= " + category_id + "";
-    currentqueryz += " order by sanpham.MaSP";  
+
+   
   }
+  currentqueryz += " and loaisanpham.maloai= " + category_id + "";
+  currentqueryz += " group by sanpham.MaSP"; 
   currentPagez = 1;
   console.log(currentPagez, currentqueryz);
   $.ajax({

@@ -25,6 +25,27 @@ if (isset($_POST['request'])) {
                 die(json_encode($result));
             }
             break;
+        case 'checksdt':
+            if (isset($_POST['sdt'])) {
+                $sdt = $_POST['sdt'];
+                $result = checkSDT($busttnd, $sdt);
+                die(json_encode($result));
+            }
+            break;
+        case 'checkusername':
+            if (isset($_POST['username'])) {
+                $username = $_POST['username'];
+                $result = checkUsername($bustk, $username);
+                die(json_encode($result));
+            }
+            break;
+        case 'checkgmail':
+            if (isset($_POST['email'])) {
+                $email = $_POST['email'];
+                $result = checkEmail($busttnd, $email);
+                die(json_encode($result));
+            }
+            break;
     }
 }
 
@@ -49,4 +70,24 @@ function signup($bustk, $busttnd) {
  
     return $resultTK;
 }
+
+function checkSDT($busttnd, $sdt) {
+    $sql = "SELECT * FROM NguoiDung WHERE SDT = '$sdt'";
+    $result = $busttnd->get_list($sql);
+    return $result;
+}
+
+function checkUsername($bustk, $username) {
+    $sql = "SELECT * FROM TaiKhoanNguoiDung WHERE TaiKhoan = '$username'";
+    $result = $bustk->get_list($sql);
+    return $result;
+}
+
+function checkEmail($busttnd, $email) {
+    $sql = "SELECT * FROM NguoiDung WHERE Email = '$email'";
+    $result = $busttnd->get_list($sql);
+    return $result;
+}
+
+
 ?>

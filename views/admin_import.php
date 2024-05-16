@@ -3,12 +3,11 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="../css/admin_styles.css">
     <script src="https://kit.fontawesome.com/3dff50b2d8.js" crossorigin="anonymous"></script>
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -17,28 +16,22 @@
     <!-- <link rel="stylesheet" href="../css/components.css"> -->
     <link rel="stylesheet" href="css/admin_styles1.css">
     <link rel="stylesheet" href="css/admin_styles.css">
-    <link rel="stylesheet" href="css/loader.css">
-    <link rel="stylesheet" href="css/notification.css">
 </head>
-
 <body>
-    <div class="loader"></div>
-    <script src="js/loader.js"></script>
-    <ul class="notifications"></ul>
     <div class="container">
-        <aside class="sidebar open">
+    <aside class="sidebar open">
             <!-- <div class="btnSidebar">
                 <i class="fa-solid fa-bars"></i>
             </div> -->
             <div class="top-sidebar">
                 <a href="#" class="channel-logo"><img src="img/logo-pizza.png" alt="Channel Logo"></a>
-                <div class="hidden-sidebar your-channel"><img src="" style="height: 30px;" alt="">
-
+                <div class="hidden-sidebar your-channel"><img src=""
+                        style="height: 30px;" alt="">
                 </div>
             </div>
             <div class="middle-sidebar">
                 <ul class="sidebar-list">
-                    <li class="sidebar-list-item tab-content ">
+                    <li class="sidebar-list-item tab-content active">
                         <a href="index.php?controller=AdminIndexController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-house"></i></div>
                             <div class="hidden-sidebar">Trang tổng quan</div>
@@ -48,12 +41,6 @@
                         <a href="index.php?controller=ProductManagementController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-pizza-slice"></i></i></div>
                             <div class="hidden-sidebar">Sản phẩm</div>
-                        </a>
-                    </li>
-                    <li class="sidebar-list-item tab-content">
-                        <a href="index.php?controller=ProductAttributeController&action=index" class="sidebar-link">
-                            <div class="sidebar-icon"><i class="fa-solid fa-chart-simple"></i></div>
-                            <div class="hidden-sidebar">Thuộc tính sản phẩm</div>
                         </a>
                     </li>
                     <li class="sidebar-list-item tab-content">
@@ -68,7 +55,7 @@
                             <div class="hidden-sidebar">Đơn hàng</div>
                         </a>
                     </li>
-                    <li class="sidebar-list-item tab-content active">
+                    <li class="sidebar-list-item tab-content">
                         <a href="index.php?controller=ImportController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-file-import"></i></div>
                             <div class="hidden-sidebar">Nhập hàng</div>
@@ -78,12 +65,6 @@
                         <a href="index.php?controller=AdminStatisticController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-chart-simple"></i></div>
                             <div class="hidden-sidebar">Thống kê</div>
-                        </a>
-                    </li>
-                    <li class="sidebar-list-item tab-content">
-                        <a href="index.php?controller=PermissionController&action=index" class="sidebar-link">
-                            <div class="sidebar-icon"><i class="fa-solid fa-couch"></i></i></div>
-                            <div class="hidden-sidebar">Phân quyền</div>
                         </a>
                     </li>
                 </ul>
@@ -232,122 +213,72 @@
     </div>
     <div class="modal add-import">
         <div class="modal-container">
-            <h3>CHỈNH SỬA SẢN PHẨM</h3>
-            <button class="modal-close product-form"><i class="fa-solid fa-xmark"></i></i></button>
-            <div class="modal-layout-one">
-                <div class="modal-layout-four">
-                    <div class="modal-layout-third">
-                        <div class="scroll-table padding">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <td>Mã sản phẩm</td>
-                                        <td>Tên sản phẩm</td>
-                                    </tr>
-                                </thead>
-                                <tbody class="product-list">
-                                    <tr>
-                                        <td>SP001</td>
-                                        <td>Bánh pizza hải sản</td>
-                                    </tr>
-                                    <tr>
-                                        <td>SP002</td>
-                                        <td>Bánh pizza thịt bò</td>
-                                    </tr>
-                                    <tr>
-                                        <td>SP003</td>
-                                        <td>Bánh pizza thịt gà</td>
-                                    </tr>
-                                    <tr>
-                                        <td>SP004</td>
-                                        <td>Bánh pizza thịt heo</td>
-                                    </tr>
-                                    <tr>
-                                        <td>SP005</td>
-                                        <td>Bánh pizza thịt cừu</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="vertical item-1">
-                            <button type="submit" class="addphieunhap btn-control-large">Thêm</button>
-                        </div>
-                    </div>
-                    <div class="modal-layout-third wrap">
-                        <div class="vertical item-1">
-                            <span>Mã sản phẩm - Tên sản phẩm</span>
-                            <input type="text" id="product-name" class="input" placeholder="Chọn sản phẩm">
-                        </div>
-                        <div class="vertical item-2">
-                            <label for="product-size">Kích thước sản phẩm</label>
-                            <select id="product-item" name="product-size">
-                                <option value="">Chọn item</option>
-                                <option value="1">Size S</option>
-                                <option value="2">Size M</option>
-                                <option value="3">Size L</option>
-                            </select>
-                        </div>
-                        <div class="vertical item-3">
-                            <label for="product-quantity">Số lượng</label>
-                            <input type="text" id="product-quantity" name="product-quantity" class="input">
-                        </div>
-                        <div class="vertical item-4">
-                            <label for="product-price">Giá nhập (VNĐ)</label>
-                            <input type="text" id="product-price" name="product-price" class="input">
+            <form action="">
+                <label for="search">Tìm kiếm:</label>
+                <input type="text" class="search"> <button type="submit">Tìm</button>
+                <table>
+                    <tr>
+                        <td>Mã sản phẩm</td>
+                        <td>Tên sản phẩm</td>
+                        <td>Số lượng</td>
+                    </tr>
+                </table>
+            </form>
+            <form action="">
+                <label for="product-name">Mã sản phẩm - Tên sản phẩm</label>
+                <input type="text" id="product-name" name="product-name">
+                <label for="product-size">Kích thước sản phẩm</label>
+                <select id="product-size" name="product-size">
+                    <option value="">Chọn kích thước</option>
+                    <option value="1">Size S</option>
+                    <option value="2">Size M</option>
+                    <option value="3">Size L</option>
+                </select>
+                <label for="product-crust">Đế sản phẩm</label>
+                <select id="product-crust" name="product-crust">
+                    <option value="">Chọn đế</option>
+                    <option value="1">Đế mỏng</option>
+                    <option value="2">Đế vừa</option>
+                    <option value="3">Đế dày</option>
+                </select>
+                <label for="product-price">Giá nhập (VNĐ)</label>
+                <input type="text" id="product-price" name="product-price">
+                <label for="import-method">Phương thức nhập</label>
+                <select id="import-method" name="import-method">
+                    <option value="">Chọn phương thức</option>
+                    <option value="1">Nhập mới</option>
+                    <option value="2">Nhập thêm</option>
+                </select>
+                <label for="product-quantity">Số lượng</label>
+                <input type="text" id="product-quantity" name="product-quantity">
+                <button type="submit">Thêm</button>
 
-                        </div>
-                        <div class="vertical item-44">
-                            <label for="product-price">Giá bán (VNĐ)</label>
-                            <input type="text" id="product-pricesell" name="product-price" class="input">
+            </form>
+            <form action="">
+                <table>
+                    <tr>
+                        <td>STT</td>
+                        <td>Mã sản phẩm</td>
+                        <td>Tên sản phẩm</td>
+                        <td>Kích thước</td>
+                        <td>Đế</td>
+                        <td>Loại</td>
+                        <td>Đơn giá</td>
+                        <td>Số lượng</td>
+                    </tr>
+                </table>
+            </form>
 
-                        </div>
-                        <div class="vertical item-5">
-
-                        </div>
-                        <div class="vertical item-2">
-                            <button type="submit" class="btn-control-large suapn">Sửa</button>
-                        </div>
-                        <div class="vertical item-3">
-                            <button type="submit" class="btn-control-large item-3">Xoá</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-layout-four scroll-table padding">
-                    <table>
-                        <thead>
-                            <tr>
-                                <td>Mã sản phẩm</td>
-                                <td>Tên sản phẩm</td>
-                                <td>Kích thước</td>
-                                <td>Đế</td>
-                                <td>Giá nhập</td>
-                                <td>Giá bán</td>
-                                <td>Số lượng</td>
-                            </tr>
-                        </thead>
-                        <tbody class="rowtable">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-
-
-
-            <div class="modal-layout-two">
-                <div class="vertical">
-                    <span>Mã phiếu nhập:</span>
-                    <input type="text" id="import-id" name="import-id" class="input">
-                </div>
-                <div class="total-price">
-                    <h2>Tổng tiền: </h2>
-                    <p class="tongtienpn">0 VNĐ</p>
-                </div>
-
-                <button class="btn-control-large" onclick="thempn(event)">Thêm phiếu nhập</button>
-            </div>
-        </div>
+            <form action="">
+                <label for="import-id">Mã phiếu nhập:</label>
+                <input type="text" id="import-id" name="import-id">
+                <label for="import-staff">Nhân viên nhập:</label>
+                <input type="text" id="import-staff" name="import-staff">
+                <label for="import-date">Ngày nhập:</label>
+                <input type="date" id="import-date" name="import-date">
+                <button>gửi</button>
+            </form>
+            
     </div>
 
 
@@ -358,20 +289,14 @@
 
 
     <script>
-    var addButtons = document.querySelectorAll('.add');
-    var modal = document.querySelector('.modal.add-import');
+        var addButtons = document.querySelectorAll('.add');
+        var modal = document.querySelector('.modal.add-import');
 
-    addButtons.forEach(function(addButton) {
-        addButton.addEventListener('click', function() {
-            modal.classList.add('open');
+        addButtons.forEach(function (addButton) {
+            addButton.addEventListener('click', function () {
+                modal.classList.add('open');
+            });
         });
-    });
-    var closeButtons = document.querySelectorAll('.modal-close');
-    closeButtons.forEach(function(closeButton) {
-        closeButton.addEventListener('click', function() {
-            modal.classList.remove('open');
-        });
-    });
     </script>
 </body>
 

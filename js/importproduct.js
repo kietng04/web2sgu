@@ -12,7 +12,148 @@ var listDeLength = 0;
 var listSizeProduct = [];
 var listproduct = [];
 var listCTPN = [];
+var listItem = [];
 var sum = 0;
+var ma_phieu_nhap;
+
+var mapsize = new Map();
+var mapde = new Map();
+
+
+function getAllThongTinNhanVienSS() {
+  $.ajax({
+    url: "./controller/ProductsController.php",
+    type: "post",
+    dataType: "json",
+    timeout: 1500,
+    data: {
+      request: "getAllThongTinNhanVienSS",
+    },
+    success: function (result) {
+      if (result != null) {
+        alert("Lay nhan vien thanh cong oke!");
+        ma_quyen = result[0].PhanQuyen;
+        console.log("result nhan vien :>> ", result);
+        console.log("ma_quyen :>> ", ma_quyen);
+        getAllChucNangNhomQuyenByMaPhanQuyen();
+      } else {
+        alert("Lỗi khi lấy thông tin người dùng!");
+      }
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log("Error: ", jqXHR.responseText);
+      console.log("Status: ", textStatus);
+      console.log("Error: ", errorThrown);
+      alert("code nhu cczzz");
+    },
+  });
+}
+var list_chucnangnhomquyen;
+function getAllChucNangNhomQuyenByMaPhanQuyen() {
+  $.ajax({
+    url: "./controller/ProductsController.php",
+    type: "post",
+    dataType: "json",
+    timeout: 1500,
+    data: {
+      request: "getAllChucNangNhomQuyenByMaPhanQuyen",
+      ma_quyen: ma_quyen,
+    },
+    success: function (result) {
+      if (result != null) {
+        alert("Lay chuc nang nhom quyen thanh cong oke!");
+        list_chucnangnhomquyen = result;
+        console.log("list_chucnangnhomquyen :>> ", list_chucnangnhomquyen);
+        hienThiChucNangNhomQuyen();
+      } else {
+        alert("Lỗi khi lấy thông tin chức năng nhóm quyền!");
+      }
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log("Error: ", jqXHR.responseText);
+      console.log("Status: ", textStatus);
+      console.log("Error: ", errorThrown);
+      alert("code nhu cc");
+    },
+  });
+}
+
+function hienThiChucNangNhomQuyen() {
+  var btn_add_product = document.querySelector(".add");
+  // var btn_edit_product = document.querySelectorAll(".btn-edit");
+  var btn_delete_product = document.querySelector(".cancel");
+  var btn_detail_product = document.querySelectorAll(".btn-detail");
+  btn_add_product.style.display = "none";
+  // btn_edit_product.forEach(function (btn) {
+  //   btn.style.display = "none";
+  // });
+  btn_delete_product.style.display = "none";
+  btn_detail_product.forEach(function (btn) {
+    btn.style.display = "none";
+  });
+  list_chucnangnhomquyen.forEach(function (item) {
+    if (item.MaCN == "nhaphang" && item.hanhdong == "create") {
+      
+      btn_add_product.style.display = "inline-block";
+    }
+    if (item.MaCN == "nhaphang" && item.hanhdong == "delete") {
+     
+      btn_delete_product.style.display = "inline-block";
+    }
+    if (item.MaCN == "nhaphang" && item.hanhdong == "view") {
+      btn_detail_product.forEach(function (btn) {
+        btn.style.display = "inline-block";
+      });
+    }
+  });
+  alert("hien thi chuc nang nhom quyen");
+}
+
+
+addmasizedevaomap();
+function addmasizedevaomap() {
+  $.ajax({
+    url: "./controller/ProductManagementController.php",
+    type: "POST",
+    dataType: "json",
+    data: {
+      request: "getMapSizeDe",
+    },
+    success: function (data) {
+      data["sizes"].forEach(function (item) {
+        mapsize.set(item.MaSize, item.TenSize);
+      });
+      data["viens"].forEach(function (item) {
+        mapde.set(item.MaVien, item.TenVien);
+      });
+      console.log("mapsize :>> ", mapsize);
+      console.log("mapde :>> ", mapde);
+    },
+  });
+}
+
+var btn_close = document.querySelector(".modal-close-order");
+btn_close.addEventListener("click", function () {
+  var modal_detail = document.querySelector(".modal.detail-order");
+  modal_detail.classList.remove("open");
+});
+
+function xemChiTietPhieuNhap() {
+  var btn_xem_chi_tiet_phieu_nhap =
+    document.querySelectorAll("#xem-phieu-nhap");
+  console.log("btn_xem_chi_tiet_phieu_nhap :>> ", btn_xem_chi_tiet_phieu_nhap);
+  btn_xem_chi_tiet_phieu_nhap.forEach((element) => {
+    element.addEventListener("click", function () {
+      alert("click");
+      var modal_detail = document.querySelector(".modal.detail-order");
+      modal_detail.classList.add("open");
+      var index = element.parentElement.parentElement.getAttribute("value");
+      console.log("index :>> ", index);
+      ma_phieu_nhap = index;
+      getInfoChiTietPhieuNhapByMaPN();
+    });
+  });
+}
 
 function loadProductPN() {
     $.ajax({
@@ -59,13 +200,83 @@ function loaddsphieunhap() {
                             <td>${element.Ho + "  " + element.Ten}</td>
                             <td>${toVND(element.DonGia)}</td>
                             <td>${element.NgayNhap}</td>
-                        </tr>`
-            })
-            div.innerHTML = html;
-            addeventclickdetail();  
-        }
-    })
+                            <td class="control">
+                            <button class="btn-detail" id="xem-phieu-nhap"><i class="fa-regular fa-eye"></i> Chi tiết</button>
+                          </td>
+                        </tr>`;
+      });
+      div.innerHTML = html;
+      addeventclickdetail();
+      xemChiTietPhieuNhap();
+    },
+  });
+}
+function getTenSanPhamByMaSP(masp) {}
 
+function getInfoChiTietPhieuNhapByMaPN() {
+  $.ajax({
+    url: "./controller/ImportController.php",
+    type: "POST",
+    dataType: "json",
+    data: {
+      request: "getInfoChiTietPhieuNhapByMaPN",
+      MaPN: ma_phieu_nhap,
+    },
+    success: function (data) {
+      console.log("chitietphieunhap :>> ", data);
+      var tittle = document.querySelector(".modal-container-title");
+      tittle.innerHTML = "Chi tiết phiếu nhập " + ma_phieu_nhap;
+      var div = document.querySelector(".order-item-group");
+      var html = "";
+      data.forEach((item) => {
+        $.ajax({
+          url: "./controller/ProductsController.php",
+          type: "POST",
+          dataType: "json",
+          data: {
+            request: "getTenSanPhamByMaSP",
+            id: item.MaSP,
+          },
+          success: function (data) {
+            var ten_size = mapsize.get(item.MaSize);
+            var ten_de = mapde.get(item.MaVien);
+            var tensp;
+            tensp = data[0].TenSP;
+            console.log("tensp :>> ", tensp);
+            html += `    <div class="order-product">
+        <div class="order-product-left">
+          
+            <div class="order-product-info">
+                <h4>${tensp}</h4>
+                <p class="order-product-note"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i> Kích cỡ:
+                    ${ten_size}; Viền:${ten_de}
+                </p>
+                <p class="order-product-quantity">SỐ LƯỢNG: ${item.SoLuong}</p>
+                <p>
+                </p>
+            </div>
+        </div>
+        <div class="order-product-right">
+            <div class="order-product-price" >
+               Giá nhập:<span class="order-product-current-price">${item.GiaNhap}đ</span>
+            </div>
+            <div class="order-product-price">
+            Giá xuất:<span class="order-product-current-price">${item.GiaXuat}đ</span>
+            </div>
+        </div>
+    </div> `;
+            div.innerHTML = html;
+          },
+          error: function () {
+            alert("del duoc roi oniichan");
+          },
+        });
+      });
+    },
+    error: function () {
+      alert("del duoc roi oniichan");
+    },
+  });
 }
 
 function getTenNhanVientheomanv(manv) {
@@ -91,6 +302,7 @@ function addeventClick() {
     var clickbtnlist = document.querySelectorAll('.productClicked');
     clickbtnlist.forEach(element => {
         element.addEventListener('click', function() {
+            listItem = [];
             document.querySelectorAll('.rowdetail').forEach(element => {
                 element.classList.remove('black');
             })
@@ -119,21 +331,38 @@ function addeventClick() {
                     productID: productID
                 },
                 success: function(data) {
-                    var listItem = [];
+                    console.log(data);
+                    
                     data.forEach(element => {
                         listItem.push({
                             "MaSize" : element.MaSize,
                             "MaDe": element.MaVien,
                             "TenSize" : element.TenSize,
                             "TenDe" : element.TenVien,
+                            "GiaNhap": element.GiaNhap,
+                            "GiaBan": element.GiaTien
                         })
                             
                     })
+                    addeventonchangecombobox();
                     var html = '';
                     listItem.forEach(element => {
                         html += `<option value="${element.MaSize + element.MaDe}">${element.TenSize} - ${element.TenDe}</option>`
                     })
                     combobox.innerHTML = html;
+                    // get selected combobox and load gia nhap gia xuat
+                   
+                    var comboboxz = document.querySelector('#product-item');
+                    listItem.forEach(element => {
+                        console.log("es")
+                        if (element.MaSize + element.MaDe == comboboxz.value) {
+                            document.querySelector('#product-price').value = element.GiaNhap;
+                            document.querySelector('#product-pricesell').value = element.GiaBan;
+                            // dissabled
+                            document.querySelector('#product-price').disabled = true;
+                            document.querySelector('#product-pricesell').disabled = true;
+                        }
+                    })
                 }
             });
             document.querySelector('#product-price').value = '';
@@ -141,6 +370,25 @@ function addeventClick() {
             document.querySelector('#product-quantity').value = '';
         })
     })
+}
+
+function addeventonchangecombobox() {
+    var combobox = document.querySelector('#product-item');
+    combobox.addEventListener('change', function() {
+        // traverse list item and get price
+        listItem.forEach(element => {
+            console.log(element)
+            if (element.MaSize + element.MaDe == combobox.value) {
+
+                document.querySelector('#product-price').value = element.GiaNhap;
+                document.querySelector('#product-pricesell').value = element.GiaBan;
+                // dissabled
+                document.querySelector('#product-price').disabled = true;
+                document.querySelector('#product-pricesell').disabled = true;
+            }
+        })
+    })
+
 }
 
 function addeventThempn() {
@@ -187,7 +435,11 @@ function addeventThempn() {
             createToast('error', 'Số lượng phải là số nguyên dương!');
             return;
         }
-        
+        // gias nhap va gia ban phai > 0
+        if (parseFloat(gianhap) <= 0 || parseFloat(giaban) <= 0) {
+            createToast('error', 'Giá nhập và giá bán phải lớn hơn 0!');
+            return;
+        }
         // check xem sản phẩm đã tồn tại trong list chưa
         var flag = 0;
         listCTPN.forEach(element => {
@@ -266,6 +518,8 @@ function addeventclickdetail() {
             document.querySelector('#product-price').value = listCTPN[index].GiaNhap;
             document.querySelector('#product-pricesell').value = listCTPN[index].GiaBan;
             document.querySelector('#product-quantity').value = listCTPN[index].SoLuong;
+
+   
         })
     })
 }
@@ -311,7 +565,12 @@ function thempn(e) {
             dongia: sum
         },
         success: function(data) {
-            console.log(data);
+            if (data) {
+                createToast('success', 'Thêm phiếu nhập thành công!');
+                //remove claass open
+
+                document.querySelector('.modal.add-import').classList.remove('open');
+            }
         }
     })
 }

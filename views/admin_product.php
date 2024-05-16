@@ -12,12 +12,15 @@
     <link rel="stylesheet" href="css/variables.css">
     <!-- <link rel="stylesheet" href="css/components.css"> -->
     <link rel="stylesheet" href="css/admin_styles1.css">
+ 
     <link rel="stylesheet" href="css/loader.css">
+    <link rel="stylesheet" href="css/notification.css">
 </head>
 
 <body>
     <div class="loader"></div>
     <script src="js/loader.js"></script>
+    <ul class="notifications"></ul>
     <div class="container">
         <aside class="sidebar open">
             <!-- <div class="btnSidebar">
@@ -584,6 +587,7 @@
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="js/notificationEffect.js"></script>
     <script src="js/helper.js"></script>
     <script src="js/adminproduct.js"></script>
     <script>

@@ -27,8 +27,13 @@ if (isset($_POST['request'])) {
         case 'timkiemnangcao':
             timkiemnangcao();
             break;
+            case 'getInfoChiTietPhieuNhapByMaPN':
+                getInfoChiTietPhieuNhapByMaPN();
+                break;
     }
 }
+
+
 
 function getMaPNnew() {
     $data = (new PhieuNhapBUS())->getMaPNnew();
@@ -67,4 +72,54 @@ function timkiemnangcao() {
     $giatu = $_POST['giafrom'];
     $giaden = $_POST['giato'];
     $data = (new PhieuNhapBUS())->timkiemnangcao($manv, $ngaybatdau, $ngayketthuc, $giatu, $giaden);
+}
+
+// MaPN	
+// MaSP	
+// MaSize	
+// MaVien	
+// SoLuong	
+// GiaNhap	
+// GiaXuat	
+	
+// Sửa Sửa
+// Chép Chép
+// Xóa bỏ Xóa bỏ
+// 1
+// PBBQ
+// L
+// D
+// 10
+// 0.00
+// 0.00
+	
+// Sửa Sửa
+// Chép Chép
+// Xóa bỏ Xóa bỏ
+// 1
+// PBBQ
+// L
+// M
+// 10
+// 0.00
+// 0.00
+	
+// Sửa Sửa
+// Chép Chép
+// Xóa bỏ Xóa bỏ
+// 1
+// PBBQ
+// L
+// V
+// 10
+// 0.00
+// 0.00
+
+function getInfoChiTietPhieuNhapByMaPN() {
+    $MaPN = $_POST['MaPN'];
+    $sql = "SELECT * FROM chitietnhap WHERE MaPN = '$MaPN'";
+    $data = (new PhieuNhapBUS())->get_list($sql);
+    die(json_encode($data));
+    
+
 }

@@ -58,7 +58,10 @@
                 </div>
                 <div class="header__action">
                     <div class="header__action-admin">
+                        <a href="index.php?controller=AdminIndexController&action=index">
                         <i class="fa fa-cog" aria-hidden="true"></i>
+                        </a>
+                        
                     </div>
                     <div class="header__action-location">
                         <i class="fa-solid fa-location-dot"></i>
@@ -531,8 +534,11 @@
 
 
             if (checkForm) {
+
                 // alert("Đăng nhập thành công!" + email.value + " " + password.value);
                 logins(username.value, password.value);
+            alert('staff');
+
                 formError.style.display = "none";
                 // email.value = "";
                 // password.value = "";

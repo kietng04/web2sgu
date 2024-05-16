@@ -17,12 +17,19 @@ addeventaddproduct();
 addeventthemthuoctinh();
 loadcomcomboboxtheloai();
 addmasizedevaomap();
+addeventthemsp();
 var mapsize =  new Map();
 var mapde = new Map();
 var decodemapsize = new Map();
 var decodemapde = new Map();
 //traverse rowtable and add to curAttribute
 
+function addeventthemsp() {
+  document.querySelector('#btn-add-product').addEventListener('click', function() {
+    curAttribute.clear();
+   document.querySelector('#masanpham').disabled = false;
+  })
+}
 function addmasizedevaomap() {
   $.ajax({
     url: './controller/ProductManagementController.php',
@@ -162,7 +169,7 @@ function showProductTableAdmin() {
                <div class="list-control">
                    <div class="list-tool">
                        <button class="btn-edit" value="${item.MaSP}" onclick="prepared(this.value)"><i class="fa-regular fa-pen-to-square"></i></button>
-                       <button class="btn-delete" value="${item.MaSP}"><i class="fa-solid fa-trash"></i></button>
+                       <button class="btn-delete" value="${item.MaSP}">x</button>
                    </div>
                </div>
         </div>
@@ -174,7 +181,7 @@ function showProductTableAdmin() {
   // console.log('editButtons', editButtons)
 }
 function prepared(masp) {
-
+  curAttribute.clear();
   var titleModal = document.querySelector(".modal-container-title");
   var modal = document.querySelector(".add-product");
   var uploadImg = document.querySelector(".upload-image-preview");
@@ -205,15 +212,18 @@ function prepared(masp) {
       // load size and crust gia nhap xuat
       var html = "";
       data.forEach(function (item) {
+        var key = item.MaSize + item.MaVien;
         html += `<tr>
         <td>${mapsize.get(item.MaSize)}</td>
         <td>${mapde.get(item.MaVien)}</td>
         <td>${toVND(item.GiaNhap)}</td>
         <td>${toVND(item.GiaTien)}</td>
         <td>${item.SoLuong}</td>
-        <td><i class="fa-solid fa-trash" onclick="deleteRow(this)"></i></td>
+        <td><i class="fa-solid fa-trash" onclick="deleteRow('${key}')"></i></td>
         </tr>`;
-        
+        if (item.MaSize == null) {
+          html = "";
+        }
 
         var masize = item.MaSize;
         var made = item.MaVien
@@ -227,8 +237,8 @@ function prepared(masp) {
           {
             tensize: mapsize.get(item.MaSize),
             tende: mapde.get(item.MaVien),
-            gianhap: gianhap,
-            giaxuat: giaxuat,
+            gianhap: parseFloat(gianhap),
+            giaxuat: parseFloat(giaxuat),
             soluong: 0
           }
         );
@@ -333,7 +343,9 @@ function addeventdelete() {
   btns.forEach(function (btn) {
     btn.addEventListener("click", function (ev) {
       var masp = ev.target.getAttribute("value");
-      alert(masp);
+      // option pane
+      var r = confirm("Bạn có chắc chắn muốn xóa sản phẩm này?");
+      if (r == false) return 0;
       $.ajax({
         url: "./controller/ProductManagementController.php",
         type: "POST",
@@ -343,6 +355,7 @@ function addeventdelete() {
           masp: masp,
         },
         success: function (data) {
+          console.log(data);
           loadTableProduct();
         },
       });
@@ -449,6 +462,7 @@ function addeventaddproduct() {
       editproduct();
       return;
     }
+    curAttribute = new Map();
     clearmsg();
     if (checkregrex().result == false) {
       var resultMsg = checkregrex().resultMsg;
@@ -509,9 +523,9 @@ function editproduct() {
   var tensp = document.getElementById("ten-mon").value;
   var loai = document.getElementById("chon-loai").value;
   var mota = document.getElementById("mo-ta").value;
-
+  
   var formData = new FormData(document.querySelector(".add-product-form"));
-
+  console.log(curAttribute);
   formData.append("request", "editProduct");
   formData.append("tensp", tensp);
   formData.append("loai", loai);
@@ -533,8 +547,7 @@ function editproduct() {
   })
 
   
-  console.log(chitietsanpham);
-  return;
+
   formData.append('chitietsanpham', JSON.stringify(chitietsanpham));
 
   $.ajax({
@@ -545,7 +558,12 @@ function editproduct() {
     processData: false,
     contentType: false,
     success: function(data) {
-      console.log(data);
+      if (data) {
+        createToast("success", "Sửa sản phẩm thành công");
+        var modal = document.querySelector('.add-product');
+        modal.classList.remove('open');
+        loadTableProduct();
+      }
     }
   });
 }
@@ -598,16 +616,21 @@ function addeventthemthuoctinh() {
         if (curAttribute.has(thuoctinh)) {
           console.log(curAttribute);
 
-            alert('Thuộc tính đã tồn tại');
+            createToast("error", "Thuộc tính đã tồn tại");
             return 0;
         }
         else {
+          var gianhapz = document.querySelector('#gia-nhap').value;
+          var giaxuatz = document.querySelector('#gia-xuat').value;
+          if (gianhapz == "") gianhapz = 0;
+          if (giaxuatz == "") giaxuatz = 0;
+
             curAttribute.set(thuoctinh, 
                 {
                     tensize: tentt.split('-')[0],
                     tende: tentt.split('-')[1],
-                    gianhap: document.querySelector('#gia-nhap').value,
-                    giaxuat: document.querySelector('#gia-xuat').value,
+                    gianhap: gianhapz,
+                    giaxuat: giaxuatz,
                     soluong: 0
                 }
             );
@@ -627,13 +650,14 @@ function filltable() {
     var decodede = decodemapde.get(value.tende);
     var decodesize = decodemapsize.get(value.tensize);
     decodesizede = decodesize + "-" + decodede;
+    var keyz = value.MaSize + value.MaVien;
     html += `<tr>
         <td>${value.tensize}</td>
         <td>${value.tende}</td>
         <td>${toVND(value.gianhap)}</td>
         <td>${toVND(value.giaxuat)}</td>
         <td>${value.soluong}</td>
-        <td><i class="fa-solid fa-trash" onclick="deleteRow(this)"></i></td>
+        <td><i class="fa-solid fa-trash" onclick="deleteRow('${key}')"></i></td>
         </tr>`;
   });
   rowTable.innerHTML = html;
@@ -762,6 +786,12 @@ function loadcomcomboboxtheloai() {
           document.getElementById('the-loai').innerHTML = html;
         }
     });
+}
+
+function deleteRow(key) {
+    curAttribute.delete(key);
+    console.log(curAttribute);
+    filltable();
 }
 
 

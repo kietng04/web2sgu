@@ -772,11 +772,13 @@ function loadSessionCart() {
         document.querySelector(".login").innerHTML = "Đăng xuất";
         document.querySelector(".view_profile").style.display = "block";
         adminbtn();
+        billbtn();
       }
       else {
         document.querySelector(".thanhvien").innerHTML = "KHÁCH";
         document.querySelector(".login").innerHTML = "Đăng nhập";
         document.querySelector(".view_profile").style.display = "none";
+        nonbillbtn();
       }
 
       removeloader();
@@ -1081,4 +1083,16 @@ function adminbtn() {
   else {
     document.querySelector('.header__action-admin').classList.add('--none');
   }
+}
+
+function billbtn() {
+  document.querySelector('.header__action-bell.bill').removeAttribute('onclick');
+  document.querySelector('.header__action-bell.bill').addEventListener('click', function () {
+    window.location.href = 'index.php?controller=HistoryBillController&action=index';
+  });
+}
+
+function nonbillbtn() {
+  document.querySelector('.header__action-bell.bill').setAttribute('onclick', 'alert(\'Vui lòng đăng nhập để vô lịch sử đặt hàng!\')');
+    
 }

@@ -735,13 +735,13 @@ td {
 /*===== product-list =====*/
 .scbox .product-list {
   width: auto;
-  height: 400px;
+  height: fit-content;
   overflow-y: auto;
   border: solid 1px rgb(210, 210, 210);
   border-radius: 15px;
   padding: 10px 10px;
   background: rgb(255, 255, 255);
-  position: absolute;
+  position: relative;
   z-index: 201;
 }
 
@@ -773,11 +773,11 @@ td {
 }
 
 .scbox .product-list .close {
-  background: #008000;
-  padding: 7px 7px;
-  color: #fff;
-  border-radius: 5px;
+  position: absolute;
   cursor: pointer;
+  right: 15px;
+  top: 15px;
+  font-size: 15px;
 }
 
 .scbox .product-list h2 {

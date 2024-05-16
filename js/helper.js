@@ -36,6 +36,7 @@ function loginz() {
         document.querySelector("#display_sdt").value = result[0].SDT;
         document.querySelector("#display_diachi").value = result[0].DiaChi;
         loadSessionCart();
+        
       } else {
         alert("Tên đăng nhập hoặc mật khẩu không đúng!");
       }
@@ -738,7 +739,9 @@ function loadSessionCart() {
         ).toUpperCase();
         document.querySelector(".login").innerHTML = "Đăng xuất";
         document.querySelector(".view_profile").style.display = "block";
-      } else {
+        adminbtn();
+      }
+      else {
         document.querySelector(".thanhvien").innerHTML = "KHÁCH";
         document.querySelector(".login").innerHTML = "Đăng nhập";
         document.querySelector(".view_profile").style.display = "none";
@@ -1037,4 +1040,13 @@ function addeventclickxeminfo() {
         },
       });
     });
+}
+
+function adminbtn() {
+    if (currentID.includes("NV")) {
+      document.querySelector('.header__action-admin').classList.remove('--none');
+    }
+    else {
+      document.querySelector('.header__action-admin').classList.add('--none');
+    }
 }

@@ -134,10 +134,9 @@ function loadtablephanquyen() {
             </tr>`;
       });
       divtable.innerHTML = html;
-
+      nhanSuaPhanQuyen();
       getAllThongTinNhanVienSS();
       addeventdelete();
-      nhanSuaPhanQuyen();
     },
   });
 }
@@ -285,12 +284,8 @@ function nhansuanhomquyen() {
   var btnsuanhomquyen = document.querySelector("#suanhomquyen");
   btnsuanhomquyen.addEventListener("click", function () {
     // alert(ma_quyen_khi_tac_dong)
-    var role_name = document.querySelector("#role-name");
-    role_name.value = ma_quyen_khi_tac_dong;
     xoaChucNangNhomQuyenByMaQuyen();
     updateChucNangNhomQuyenByMaQuyen();
-    
-
   }
   );
 }
@@ -309,8 +304,11 @@ function updateChucNangNhomQuyenByMaQuyen() {
       if (list_checkbox[i * 4 + j].checked) {
         var ma_cn = data_chuc_nang[i];
         var hanhdong = data_hanh_dong[j];
-        // alert("ma_quyen :>> " + ma_quyen + " ma_cn :>> " + ma_cn + " hanhdong :>> " + hanhdong);
+        console.log("ma_quyen :>> " + ma_quyen + " ma_cn :>> " + ma_cn + " hanhdong :>> " + hanhdong);
         themChucNangNhomQuyen(ma_quyen, ma_cn, hanhdong);
+      }
+      else {
+        console.log("khong check");
       }
     }
   }
@@ -344,28 +342,13 @@ function xoaChucNangNhomQuyenByMaQuyen() {
       console.log("Error: ", jqXHR.responseText);
       console.log("Status: ", textStatus);
       console.log("Error: ", errorThrown);
-      // alert("code nhu cc o xoa");
+      alert("code nhu cc o xoa");
     },
   });
 
 }
 
 
-function themChucNangNhomQuyenbyMaQuyen() {
-  var data_chuc_nang = ["sanpham", "taikhoan", "donhang", "nhaphang", "phanquyen", "thongke"];
-  var data_hanh_dong = [ "view","create", "update", "delete"];
-  var ma_quyen = ma_quyen_khi_tac_dong;
-
-  
-  var list_checkbox = document.querySelectorAll(".cbcn");
-  list_checkbox.forEach(function (item) {
-    if (item[0].checked) {
-      var ma_cn = data_chuc_nang[0];
-      var hanhdong = data_hanh_dong[0];
-      themChucNangNhomQuyen(ma_quyen, ma_cn, hanhdong);
-    }
-  });
-}
 function themChucNangNhomQuyen(ma_quyen, ma_cn, hanhdong) {
   $.ajax({
     url: "./controller/PermissionController.php",

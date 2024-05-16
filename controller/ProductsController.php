@@ -151,6 +151,7 @@ function getAllChucNangNhomQuyenByMaPhanQuyen(){
     $maquyen = $_POST['ma_quyen'];
     $sql = "SELECT * FROM chucnangnhomquyen WHERE MaQuyen = '$maquyen'";
     $result = (new NhomQuyenBUS())->get_list($sql);
+
     if($result != false){
         die (json_encode($result)); 
         return 1;

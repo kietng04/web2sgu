@@ -80,7 +80,7 @@ function logins() {
       console.log("Error: ", jqXHR.responseText);
       console.log("Status: ", textStatus);
       console.log("Error: ", errorThrown);
-      alert("code nhu cc");
+      // alert("code nhu cc");
     },
   });
 }
@@ -203,7 +203,7 @@ function updateInfo() {
           console.log("Error: ", jqXHR.responseText);
           console.log("Status: ", textStatus);
           console.log("Error: ", errorThrown);
-          alert("code nhu cc");
+          // alert("code nhu cc");
         },
       });
     },
@@ -258,7 +258,7 @@ if (btn_updateinfo != null) {
           console.log("Error: ", jqXHR.responseText);
           console.log("Status: ", textStatus);
           console.log("Error: ", errorThrown);
-          alert("code nhu cc");
+          // alert("code nhu cc");
         }
       });
     }

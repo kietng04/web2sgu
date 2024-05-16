@@ -17,7 +17,7 @@ function loadsizesanpham() {
     },
     success: function (data) {
       console.log(data);
-      alert("okeeee");
+      // alert("okeeee");
       var html = "";
       data.forEach(function (item) {
         html += `   <tr>
@@ -48,7 +48,7 @@ function loadviensanpham() {
     },
     success: function (data) {
       console.log(data);
-      alert("oke222");
+      // alert("oke222");
       var html = "";
       data.forEach(function (item) {
         html += `   <tr>
@@ -101,7 +101,7 @@ function loadloaisanpham() {
 
 var btnSuaSize = "";
 function nhanSuaSize() {
-  alert("aa");
+  // alert("aa");
   btnSuaSize = document.getElementsByClassName("btn-edit size");
   [...btnSuaSize].forEach(function (item) {
     item.addEventListener("click", function () {
@@ -169,7 +169,7 @@ function suaLoaiSanPham() {
     },
     success: function (data) {
       console.log(data);
-      alert("oke");
+      // alert("oke");
       loadloaisanpham();
     },
   });
@@ -184,7 +184,7 @@ function nhanXoaSize() {
     item.addEventListener("click", function () {
       if(!confirm("Bạn có chắc chắn muốn xóa size nay không?")) return;
       var masize = item.parentElement.parentElement.children[0].textContent;
-      alert("okeeeeee");
+      // alert("okeeeeee");
       $.ajax({
         url: "./controller/ProductAttributeController.php",
         type: "POST",
@@ -269,7 +269,7 @@ function suaSizeSanPham() {
     },
     success: function (data) {
       console.log(data);
-      alert("oke");
+      // alert("oke");
       loadsizesanpham();
     },
   });
@@ -302,7 +302,7 @@ function themSizeSanPham() {
     },
     success: function (data) {
       console.log(data);
-      alert("oke");
+      // alert("oke");
       loadsizesanpham();
     },
     error: function (data) {
@@ -350,7 +350,7 @@ function themLoaiSanPham() {
     },
     success: function (data) {
       console.log(data);
-      alert("oke");
+      // alert("oke");
       loadloaisanpham();
     },
     error: function (data) {
@@ -380,7 +380,7 @@ function themVienSanPham() {
     },
     success: function (data) {
       console.log(data);
-      alert("oke");
+      // alert("oke");
       loadviensanpham();
     },
     error: function (data) {
@@ -482,7 +482,7 @@ function suaVienSanPham() {
     },
     success: function (data) {
       console.log(data);
-      alert("oke");
+      // alert("oke");
       loadviensanpham();
     },
   });

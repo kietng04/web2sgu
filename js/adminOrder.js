@@ -47,7 +47,7 @@ function getAllThongTinNhanVienSS() {
         console.log("Error: ", jqXHR.responseText);
         console.log("Status: ", textStatus);
         console.log("Error: ", errorThrown);
-        alert("code nhu cczzz");
+        // alert("code nhu cczzz");
       },
     });
   }
@@ -76,7 +76,7 @@ function getAllThongTinNhanVienSS() {
         console.log("Error: ", jqXHR.responseText);
         console.log("Status: ", textStatus);
         console.log("Error: ", errorThrown);
-        alert("code nhu cc");
+        // alert("code nhu cc");
       },
     });
   }
@@ -150,7 +150,7 @@ function loadTableOrder() {
             
         },
         error: function() {
-            alert("code ngu vl");
+            // alert("code ngu vl");
         }
     });
 }
@@ -277,7 +277,7 @@ function showOrderTableDetailAdmin(order_id,popup){
             console.log("Error: ", jqXHR.responseText); 
             console.log("Status: ", textStatus);
             console.log("Error: ", errorThrown);
-            alert("code nhu cc");
+            // alert("code nhu cc");
         }
     });
 }
@@ -327,7 +327,7 @@ function show_right_detail(order_id,right_container){
             console.log("Error: ", jqXHR.responseText); 
             console.log("Status: ", textStatus);
             console.log("Error: ", errorThrown);
-            alert("code nhu cc");
+            // alert("code nhu cc");
         }
 })
 }
@@ -368,7 +368,7 @@ function show_bottom_detail(order_id,bottom_container){
             console.log("Error: ", jqXHR.responseText); 
             console.log("Status: ", textStatus);
             console.log("Error: ", errorThrown);
-            alert("code nhu cc");
+            // alert("code nhu cc");
         }
     });
 }
@@ -449,7 +449,7 @@ function showSelectedValue(selected_option,order_id){
             console.log("Error: ", jqXHR.responseText); 
             console.log("Status: ", textStatus);
             console.log("Error: ", errorThrown);
-            alert("code nhu cc");
+            // alert("code nhu cc");
         }
     });
 }
@@ -648,7 +648,7 @@ function findOrder_time(){
             console.log("Error: ", jqXHR.responseText); 
             console.log("Status: ", textStatus);
             console.log("Error: ", errorThrown);
-            alert("code nhu cc");
+            // alert("code nhu cc");
         }
     });
 }

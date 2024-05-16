@@ -44,7 +44,7 @@ function getAllThongTinNhanVienSS() {
       console.log("Error: ", jqXHR.responseText);
       console.log("Status: ", textStatus);
       console.log("Error: ", errorThrown);
-      alert("code nhu cczzz");
+    //   alert("code nhu cczzz");
     },
   });
 }
@@ -73,7 +73,7 @@ function getAllChucNangNhomQuyenByMaPhanQuyen() {
       console.log("Error: ", jqXHR.responseText);
       console.log("Status: ", textStatus);
       console.log("Error: ", errorThrown);
-      alert("code nhu cc");
+    //   alert("code nhu cc");
     },
   });
 }
@@ -268,13 +268,13 @@ function getInfoChiTietPhieuNhapByMaPN() {
             div.innerHTML = html;
           },
           error: function () {
-            alert("del duoc roi oniichan");
+            // alert("del duoc roi oniichan");
           },
         });
       });
     },
     error: function () {
-      alert("del duoc roi oniichan");
+    //   alert("del duoc roi oniichan");
     },
   });
 }

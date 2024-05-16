@@ -42,7 +42,7 @@ function huydonhang(mahd) {
       console.log("Error: ", jqXHR.responseText); 
       console.log("Status: ", textStatus);
       console.log("Error: ", errorThrown);
-      alert("code nhu cc");
+      // alert("code nhu cc");
     }
   })
 }
@@ -192,7 +192,7 @@ function ajaxrow(page, currentpage) {
       loadtablez(data);
     },
     error: function () {
-      alert("del duoc roi oniichan");
+      // alert("del duoc roi oniichan");
     },
   });
   console.log(length)
@@ -260,7 +260,7 @@ function loadcustomer_detail(mand){
       console.log("Error: ", jqXHR.responseText); 
       console.log("Status: ", textStatus);
       console.log("Error: ", errorThrown);
-      alert("code nhu cc");
+      // alert("code nhu cc");
     }
   })
 
@@ -303,7 +303,7 @@ function loadDetailBill(mahd) {
       console.log("Error: ", jqXHR.responseText); 
       console.log("Status: ", textStatus);
       console.log("Error: ", errorThrown);
-      alert("code nhu cc");
+      // alert("code nhu cc");
     }
 
   })

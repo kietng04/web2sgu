@@ -69,7 +69,7 @@ function addeventthanhtoan() {
         });
       },
       error: function () {
-        alert("2sad");
+        // alert("2sad");
       },
     });
     // check xem co san pham nao vuot qua so luong ton kho khong
@@ -101,7 +101,7 @@ function loadDefaultProducts() {
     },
     //fail
     error: function () {
-      alert("2sad");
+      // alert("2sad");
     },
   });
 }
@@ -193,7 +193,7 @@ function toggleActive(clickedBtn, category) {
     },
     //fail
     error: function () {
-      alert("2sad");
+      // alert("2sad");
     },
   });
 }

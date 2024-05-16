@@ -543,7 +543,7 @@
 
                 // alert("Đăng nhập thành công!" + email.value + " " + password.value);
                 logins(username.value, password.value);
-            alert('staff');
+            // alert('staff');
 
                 formError.style.display = "none";
                 // email.value = "";

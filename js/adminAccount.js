@@ -27,7 +27,7 @@ function getAllThongTinNhanVienSS() {
         console.log("Error: ", jqXHR.responseText);
         console.log("Status: ", textStatus);
         console.log("Error: ", errorThrown);
-        alert("code nhu cczzz");
+        // alert("code nhu cczzz");
       },
     });
   }
@@ -56,7 +56,7 @@ function getAllThongTinNhanVienSS() {
         console.log("Error: ", jqXHR.responseText);
         console.log("Status: ", textStatus);
         console.log("Error: ", errorThrown);
-        alert("code nhu cc");
+        // alert("code nhu cc");
       },
     });
   }
@@ -597,7 +597,7 @@ function getPhanQuyen(manv,select_phanquyen){
             console.log("Error: ", jqXHR.responseText); 
             console.log("Status: ", textStatus);
             console.log("Error: ", errorThrown);
-            alert("code nhu cc");
+            // alert("code nhu cc");
           }
     })
 }
@@ -623,7 +623,7 @@ function loadUser(){
             console.log("Error: ", jqXHR.responseText); 
             console.log("Status: ", textStatus);
             console.log("Error: ", errorThrown);
-            alert("code nhu cc");
+            // alert("code nhu cc");
           }
     })
 
@@ -662,7 +662,7 @@ if(phanquyen==1){
             console.log("Error: ", jqXHR.responseText); 
             console.log("Status: ", textStatus);
             console.log("Error: ", errorThrown);
-            alert("code nhu cc");
+            // alert("code nhu cc");
           }
     })
 }
@@ -696,7 +696,7 @@ else{
             console.log("Error: ", jqXHR.responseText); 
             console.log("Status: ", textStatus);
             console.log("Error: ", errorThrown);
-            alert("code nhu cc");
+            // alert("code nhu cc");
           }
     })
 
@@ -724,7 +724,7 @@ function deleteAccount(Account_id){
             console.log("Error: ", jqXHR.responseText); 
             console.log("Status: ", textStatus);
             console.log("Error: ", errorThrown);
-            alert("code nhu cc");
+            // alert("code nhu cc");
           }
     })
 }
@@ -756,7 +756,7 @@ function editAccount(matk,ho,ten,phone_edit,email_edit,address_edit,phanquyen_ed
             console.log("Error: ", jqXHR.responseText); 
             console.log("Status: ", textStatus);
             console.log("Error: ", errorThrown);
-            alert("code nhu cc");
+            // alert("code nhu cc");
           }
     })
     }
@@ -783,7 +783,7 @@ function editAccount(matk,ho,ten,phone_edit,email_edit,address_edit,phanquyen_ed
                 console.log("Error: ", jqXHR.responseText); 
                 console.log("Status: ", textStatus);
                 console.log("Error: ", errorThrown);
-                alert("code nhu cc");
+                // alert("code nhu cc");
               }
         })
     }
@@ -809,7 +809,7 @@ function changeStatus(Account_id, trangthai){
             console.log("Error: ", jqXHR.responseText); 
             console.log("Status: ", textStatus);
             console.log("Error: ", errorThrown);
-            alert("code nhu cc");
+            // alert("code nhu cc");
           }
     })
 }
@@ -864,7 +864,7 @@ function getPhanQuyen(){
             console.log("Error: ", jqXHR.responseText); 
             console.log("Status: ", textStatus);
             console.log("Error: ", errorThrown);
-            alert("code nhu cc");
+            // alert("code nhu cc");
           }
     })
 }

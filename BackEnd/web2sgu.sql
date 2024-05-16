@@ -377,3 +377,10 @@ CREATE TABLE `chucnangnhomquyen` (
   primary key (MaQuyen, MaCN, hanhdong)
 );
 COMMIT;
+
+
+ALTER TABLE taikhoannguoidung
+ADD COLUMN TrangThaiXoa int(11) DEFAULT 1;
+
+ALTER TABLE taikhoannhanvien
+ADD COLUMN TrangThaiXoa int(11) DEFAULT 1;

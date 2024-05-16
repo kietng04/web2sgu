@@ -36,14 +36,16 @@ class NguoiDungBUS extends DB_business {
 
     function loadAll(){
         $sql = "
-        SELECT nhanvien.Ten,nhanvien.Ho,nhanvien.MaNV,nhanvien.SDT,nhanvien.Email,nhanvien.DiaChi,taikhoannhanvien.TrangThai
+        SELECT nhanvien.Ten,nhanvien.Ho,nhanvien.MaNV,nhanvien.SDT,nhanvien.Email,nhanvien.DiaChi,taikhoannhanvien.TrangThai,taikhoannhanvien.TrangThaiXoa as Xoa
         FROM nhanvien
         LEFT join taikhoannhanvien on nhanvien.MaNV=taikhoannhanvien.MaNV
+        WHERE taikhoannhanvien.TrangThaiXoa=1
               UNION ALL
         SELECT  
-        nguoidung.Ten ,nguoidung.Ho, nguoidung.MaND ,nguoidung.SDT,nguoidung.Email,nguoidung.DiaChi,taikhoannguoidung.TrangThai nguoidung 
+        nguoidung.Ten ,nguoidung.Ho, nguoidung.MaND ,nguoidung.SDT,nguoidung.Email,nguoidung.DiaChi,taikhoannguoidung.TrangThai,taikhoannguoidung.TrangThaiXoa as Xoa
         FROM nguoidung
         LEFT JOIN taikhoannguoidung on nguoidung.MaND=taikhoannguoidung.MaND
+        WHERE taikhoannguoidung.TrangThaiXoa=1
         ";
         $result = mysqli_query($this->__conn, $sql);
         $data = [];
@@ -56,15 +58,12 @@ class NguoiDungBUS extends DB_business {
 
     function deleteNguoiDung($mand){
         // Delete from taikhoannguoidung
-        $sql1 = "DELETE FROM taikhoannguoidung WHERE MaND = '$mand'";
+        $sql1 = "UPDATE taikhoannguoidung SET TrangThaiXoa=0 WHERE MaND='$mand'";
         $result1 = mysqli_query($this->__conn, $sql1);
 
-        // Delete from nguoidung
-        $sql2 = "DELETE FROM nguoidung WHERE MaND = '$mand'";
-        $result2 = mysqli_query($this->__conn, $sql2);
 
         // Return true if both queries were successful
-        return $result1 && $result2;
+        return $result1;
     }
 
 

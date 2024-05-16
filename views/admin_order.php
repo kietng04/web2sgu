@@ -113,14 +113,18 @@
                 <div class="admin-control">
                     <div class="admin-control-left">
                         <select name="tinh-trang" id="tinh-trang" onchange="findOrder_category.bind(this)()">
-                            <option value="2">Tất cả</option>
-                            <option value="1">Đã xử lý</option>
-                            <option value="0">Chưa xử lý</option>
+                            <option value="0">Tất cả</option>
+                            <option value="1">Đã xác minh</option>
+                            <option value="2">Chưa xác minn</option>
+                            <option value="3">Bị hạn chế</option>
+                            <option value="4">Bị khóa</option>
+                            
+                            
                         </select>
                     </div>
                     <div class="admin-control-center">
                         <form action="" class="form-search">
-                            <span class="search-btn" onclick="findOrder(event)"><i class="fa-solid fa-magnifying-glass"></i></span>
+                            <span class="search-btn" onclick="findOrder(event)" onkeydown="findOrder(event)"><i class="fa-solid fa-magnifying-glass"></i></span>
                             <input id="form-search-order" type="text" class="form-search-input"
                                 placeholder="Tìm kiếm mã đơn, khách hàng...">
                         </form>
@@ -137,7 +141,7 @@
                             </div>
                         </form>
                         <button class="btn-reset-order" onclick="findOrder_time()"><i class="fa-solid fa-magnifying-glass"></i></button>
-                        <button class="btn-reset-order" onclick="cancelSearchOrder()"><i
+                        <button class="btn-reset-order" onclick="loadTableOrder()"><i
                                 class="fa-solid fa-rotate-right"></i></button>
                         
                     </div>

@@ -373,73 +373,7 @@
                             </div>
                         </div>
                     </div> 
-                
-                    <div class="order-product">
-                        <div class="order-product-left">
-                          
-                            <div class="order-product-info">
-                                <h4>undefined</h4>
-                                <p class="order-product-note"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i> Kích cỡ:
-                                    Lớn; Đế:Dày
-                                </p>
-                                <p class="order-product-quantity">SỐ LƯỢNG: undefined</p>
-                                <p>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="order-product-right">
-                            <div class="order-product-price">
-                               Giá nhập:<span class="order-product-current-price">NaN&nbsp;₫</span>
-                            </div>
-                            <div class="order-product-price">
-                            Giá xuất:<span class="order-product-current-price">NaN&nbsp;₫</span>
-                            </div>
-                        </div>
-                    </div> 
-                    <div class="order-product">
-                        <div class="order-product-left">
-                          
-                            <div class="order-product-info">
-                                <h4>undefined</h4>
-                                <p class="order-product-note"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i> Kích cỡ:
-                                    Lớn; Đế:Dày
-                                </p>
-                                <p class="order-product-quantity">SỐ LƯỢNG: undefined</p>
-                                <p>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="order-product-right">
-                            <div class="order-product-price">
-                               Giá nhập:<span class="order-product-current-price" id="gianhap">NaN&nbsp;₫</span>
-                            </div>
-                            <div class="order-product-price">
-                            Giá xuất:<span class="order-product-current-price"  id="giaxuat">NaN&nbsp;₫</span>
-                            </div>
-                        </div>
-                    </div> 
-                    <div class="order-product">
-                        <div class="order-product-left">
-                          
-                            <div class="order-product-info">
-                                <h4>undefined</h4>
-                                <p class="order-product-note"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i> Kích cỡ:
-                                    Lớn; Đế:Dày
-                                </p>
-                                <p class="order-product-quantity">SỐ LƯỢNG: undefined</p>
-                                <p>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="order-product-right">
-                            <div class="order-product-price">
-                               Giá nhập:<span class="order-product-current-price">NaN&nbsp;₫</span>
-                            </div>
-                            <div class="order-product-price">
-                            Giá xuất:<span class="order-product-current-price">NaN&nbsp;₫</span>
-                            </div>
-                        </div>
-                    </div> 
+
     </div>
                 </div>
             </div>

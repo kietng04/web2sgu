@@ -58,5 +58,54 @@ class NhomQuyenBUS extends DB_business {
         $result = $_SESSION['currentUser']['result'][0]['MaQuyen'];
         return $result;
     }
+    function loadchucnangnhomquyen(){
+        $manq = $_POST['maquyen'];
+        $sql = "SELECT * FROM chucnangnhomquyen WHERE MaQuyen = '$manq'";
+        $result = $this->get_list($sql);
+        die(json_encode($result));
+    }
+
+    function update1nhomquyen($manq, $tennq, $hashmapnhomquyen) {
+        $sql = "UPDATE PhanQuyen SET TenNhomQuyen = '$tennq' WHERE MaQuyen = '$manq'";
+        $result = $this->updatezzz($sql);
+        if (!$result) {
+            die (json_encode(null));
+        }
+        $sql = "DELETE FROM chucnangnhomquyen WHERE MaQuyen = '$manq'";
+        $result = $this->updatezzz($sql);
+        if (!$result) {
+            die (json_encode(null));
+        }
+        foreach ($hashmapnhomquyen as $key => $values) {
+            $arraychucnang = $values;
+            foreach ($arraychucnang as $key2 => $value) {
+                $sql = "INSERT INTO chucnangnhomquyen (MaQuyen, MaCN, hanhdong) VALUES ('$manq', '$key', '$value')";
+                $result = $this->insertz($sql);
+                if (!$result) {
+                    die (json_encode(null));
+                }
+            }
+        }
+        die (json_encode(array('status' => 'success')));
+
+    }
+
+    function xoaChucNangNhomQuyenByMaQuyen(){
+        $manq = $_POST['ma_quyen'];
+        $sql = "DELETE FROM chucnangnhomquyen WHERE MaQuyen = '$manq'";
+        $result = $this->updatezzz($sql);
+        die(json_encode($result));
+
+    }
+ function themChucNangNhomQuyen(){
+        $manq = $_POST['ma_quyen'];
+        $machucnang = $_POST['ma_cn'];
+        $hanhdong = $_POST['hanhdong'];
+        $sql = "INSERT INTO chucnangnhomquyen (MaQuyen, MaCN, hanhdong) VALUES ('$manq', '$machucnang', '$hanhdong')";
+        $result = $this->insertz($sql);
+        die(json_encode($result));
+ }
+   
+   
 }
 

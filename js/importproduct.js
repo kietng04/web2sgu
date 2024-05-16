@@ -6,6 +6,7 @@ addeventsuapn();
 addeventxoapn();
 loadcomboboxnhanvien();
 addeventtimkiemnangcao();
+
 var curProduct;
 var listDeProduct = [];
 var listDeLength = 0;
@@ -14,6 +15,30 @@ var listproduct = [];
 var listCTPN = [];
 var sum = 0;
 var ma_phieu_nhap;
+
+var mapsize = new Map();
+var mapde = new Map();
+addmasizedevaomap();
+function addmasizedevaomap() {
+  $.ajax({
+    url: "./controller/ProductManagementController.php",
+    type: "POST",
+    dataType: "json",
+    data: {
+      request: "getMapSizeDe",
+    },
+    success: function (data) {
+      data["sizes"].forEach(function (item) {
+        mapsize.set(item.MaSize, item.TenSize);
+      });
+      data["viens"].forEach(function (item) {
+        mapde.set(item.MaVien, item.TenVien);
+      });
+      console.log("mapsize :>> ", mapsize);
+      console.log("mapde :>> ", mapde);
+    },
+  });
+}
 
 var btn_close = document.querySelector(".modal-close-order");
 btn_close.addEventListener("click", function () {
@@ -29,11 +54,11 @@ function xemChiTietPhieuNhap() {
     element.addEventListener("click", function () {
       alert("click");
       var modal_detail = document.querySelector(".modal.detail-order");
-        modal_detail.classList.add("open");
-        var index = element.parentElement.parentElement.getAttribute("value");
-        console.log('index :>> ', index);
-        ma_phieu_nhap = index;
-        getInfoChiTietPhieuNhapByMaPN();
+      modal_detail.classList.add("open");
+      var index = element.parentElement.parentElement.getAttribute("value");
+      console.log("index :>> ", index);
+      ma_phieu_nhap = index;
+      getInfoChiTietPhieuNhapByMaPN();
     });
   });
 }
@@ -92,6 +117,7 @@ function loaddsphieunhap() {
     },
   });
 }
+function getTenSanPhamByMaSP(masp) {}
 
 function getInfoChiTietPhieuNhapByMaPN() {
   $.ajax({
@@ -103,15 +129,59 @@ function getInfoChiTietPhieuNhapByMaPN() {
       MaPN: ma_phieu_nhap,
     },
     success: function (data) {
-        console.log('chitietphieunhap :>> ', data);
-        var tittle = document.querySelector(".modal-container-title");
-        tittle.innerHTML = "Chi tiết phiếu nhập " + ma_phieu_nhap;
-      },
-      error: function () {
-        
+      console.log("chitietphieunhap :>> ", data);
+      var tittle = document.querySelector(".modal-container-title");
+      tittle.innerHTML = "Chi tiết phiếu nhập " + ma_phieu_nhap;
+      var div = document.querySelector(".order-item-group");
+      var html = "";
+      data.forEach((item) => {
+        $.ajax({
+          url: "./controller/ProductsController.php",
+          type: "POST",
+          dataType: "json",
+          data: {
+            request: "getTenSanPhamByMaSP",
+            id: item.MaSP,
+          },
+          success: function (data) {
+            var ten_size = mapsize.get(item.MaSize);
+            var ten_de = mapde.get(item.MaVien);
+            var tensp;
+            tensp = data[0].TenSP;
+            console.log("tensp :>> ", tensp);
+            html += `    <div class="order-product">
+        <div class="order-product-left">
+          
+            <div class="order-product-info">
+                <h4>${tensp}</h4>
+                <p class="order-product-note"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i> Kích cỡ:
+                    ${ten_size}; Viền:${ten_de}
+                </p>
+                <p class="order-product-quantity">SỐ LƯỢNG: ${item.SoLuong}</p>
+                <p>
+                </p>
+            </div>
+        </div>
+        <div class="order-product-right">
+            <div class="order-product-price" >
+               Giá nhập:<span class="order-product-current-price">${item.GiaNhap}đ</span>
+            </div>
+            <div class="order-product-price">
+            Giá xuất:<span class="order-product-current-price">${item.GiaXuat}đ</span>
+            </div>
+        </div>
+    </div> `;
+            div.innerHTML = html;
+          },
+          error: function () {
+            alert("del duoc roi oniichan");
+          },
+        });
+      });
+    },
+    error: function () {
       alert("del duoc roi oniichan");
-    }
-    
+    },
   });
 }
 

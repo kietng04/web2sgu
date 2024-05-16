@@ -118,9 +118,22 @@ switch($_POST['request']) {
         }
         die (json_encode(false));
         break;
+        case 'getTenSanPhamByMaSP':
+            getTenSanPhamByMaSP();
+            break;
 }
 }
 //Kiet
+
+function getTenSanPhamByMaSP(){
+    $masp = $_POST['id'];
+    $sql = "SELECT TenSP FROM sanpham WHERE MaSP = '$masp'";
+    $result = (new SanPhamBUS())->get_list($sql);
+    if($result != false){
+        die (json_encode($result)); 
+        return 1;
+    }
+}
 function getAllThongTinNhanVienSS(){
     $id = $_SESSION['currentUser']['result'][0]['MaNV'];
     $sql = "SELECT * FROM nhanvien WHERE MaNV = '$id'";

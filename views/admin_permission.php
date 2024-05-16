@@ -57,7 +57,7 @@
                     </li>
                     <li class="sidebar-list-item tab-content">
                         <a href="index.php?controller=BillManagementController&action=index" class="sidebar-link">
-                            <div class="sidebar-icon"><i class="fa-solid fa-box-open"></i></div>
+                            <div class="sidebar-icon"><i class="fa-solid fa-boxjs/phanquyen.js-open"></i></div>
                             <div class="hidden-sidebar">Đơn hàng</div>
                         </a>
                     </li>
@@ -216,6 +216,9 @@
                         </table>
                         <div class="boc-button">
                             <button class="themnhomquyen">Thêm nhóm quyền</button>
+                        </div>
+                        <div class="boc-button">
+                            <button class="suanhomquyen" id="suanhomquyen">Sửa nhóm quyền</button>
                         </div>
                     </div>
                 </div>

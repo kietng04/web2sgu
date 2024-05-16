@@ -81,5 +81,12 @@ function getNVtheoMaNVienz() {
         $data = $this->get_list($sql);
         die(json_encode($data));
     }
+
+    function getThongTinNhanViensql(){
+        $manv = $_POST['manv'];
+        $sql = "SELECT * FROM nhanvien WHERE MaNV = '$manv'";
+        $data = $this->get_list($sql);
+        die(json_encode($data));
+    }
 }
 

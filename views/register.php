@@ -28,6 +28,8 @@
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/loader.css">
+    <link rel="stylesheet" href="css/notification.css">
 
 
 </head>
@@ -41,17 +43,17 @@
                 <img src="img/logo-pizza.png" alt="logo">
             </a>
         </div>
-        <div class="header__action">
-            <div class="header__action-location">
-                <i class="fa-solid fa-location-dot"></i>
-            </div>
-            <div class="header__action-bell">
-                <i class="fa-regular fa-bell"></i>
-            </div>
+        <div class="header__action">    
             <div class="header__action-member">
                 <div class="icon"><i class="fa-solid fa-circle-user"></i></div>
-                <p>Thanh Vien</p>
+                <p>THÀNH VIÊN</p>
             </div>
+            <div class="hover-menu">
+                        <ul>
+                            <li class="login">LOGIN</li>
+                            <li class="view_profile">VIEW PROFILE</li>
+                        </ul>
+                    </div>
         </div>
     </header>
 
@@ -145,61 +147,189 @@
                     <button class="btn dangkybtn" type="submit">ĐĂNG KÝ</button>
             </div>
         </div>
-        
     </div>
    
-    </div>
+
 
     <div class="popupLogin --none">
-    <div class="popupLogin__container">
-        <div class="popupLogin__img">
-            <img src="../images/loginbackground.jpg" alt="">
+            <div class="popupLogin__container">
+                <div class="popupLogin__img">
+                    <img src="./images/loginbackground.jpg" alt="">
+                </div>
+                <div class="popupLogin__form user">
+                    <h2 class="headingLogin">🍕🍕 WELCOME BACK!</h2>
+                    <p class="heading__desc">NẾU BẠN CHƯA CÓ TÀI KHOẢN PIZZA HUT<br>HÃY ĐĂNG KÍ
+                        TRƯỚC KHI ĐĂNG NHẬP BẠN NHÉ!</p>
+                    <!-- <div class="form-item --login --email "> -->
+                    <div class="form-item --login">
+                        <label for="email">Tên Đăng Nhập *</label>
+                        <input type="text" name="" id="taikhoan">
+                        <p class="error"></p>
+                    </div>
+                    <div class="form-item --login --password">
+                        <label for="email">Mật Khẩu *</label>
+                        <input type="Password" name="" id="matkhau">
+                        <p class="error"></p>
+
+                    </div>
+                    <!-- onclick="loginz()" -->
+
+                    <button class="btn dangnhapz">ĐĂNG NHẬP</button>
+
+                    <div class="form-error">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        <p>Email hoặc mật khẩu đăng nhập không hợp lệ. Vui lòng thử lại.</p>
+                    </div>
+
+                    <p class="register">Bạn chưa có tài khoản? <a
+                            href="index.php?controller=SignUpController&action=index">Đăng ký ngay</a> hoặc tìm hiểu
+                        thêm về <a href="">Điều khoản và Quyền lợi Thành viên</a></p>
+                </div>
+                <div class="popupLogin__form staff hidden none">
+                    <h2 class="headingLogin">🍕🍕 WELCOME BACK!</h2>
+                    <p class="heading__desc">ĐÂY LÀ KHU VỰC ĐĂNG NHẬP CHO NHÂN VIÊN<br>XIN HÃY TRỞ VỀ NẾU BẠN KHÔNG PHẢI
+                        NHÂN VIÊN</p>
+                    <!-- <div class="form-item --login --email "> -->
+                    <div class="form-item --logins">
+                        <label for="email">Tên đăng nhập *</label>
+                        <input type="text" name="" id="taikhoans">
+                        <p class="error"></p>
+                    </div>
+                    <div class="form-item --login --passwords">
+                        <label for="email">Mật Khẩu *</label>
+                        <input type="Password" name="" id="matkhaus">
+                        <p class="error"></p>
+
+                    </div>
+                    <!-- onclick="loginz()" -->
+
+                    <button class="btn dangnhaps">ĐĂNG NHẬP</button>
+
+                    <div class="form-error">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        <p>Tên đăng nhập hoặc mật khẩu đăng nhập không hợp lệ. Vui lòng thử lại.</p>
+                    </div>
+
+                </div>
+
+                <div class="login__switch">Bạn là nhân viên? Ấn đây</div>
+                <button class="btnX">
+                    <img src="./images/iconClose.png">
+                </button>
+
+            </div>
+    </div>
+
+        <div id="userModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Thông tin cá nhân</h2>
+                <form>
+                    <label for="first-name">Họ:</label>
+                    <input type="text" id="display_firstname" name="name" readonly>
+                    <label for="given-name">Tên:</label>
+                    <input type="text" id="display_lastname" name="name" readonly>
+                    <label for="email">Email:</label>
+                    <input type="email" id="display_email" name="email" readonly>
+                    <label for="phone">Số điện thoại:</label>
+                    <input type="tel" id="display_sdt" name="phone">
+                    <label for="address">Địa chỉ:</label>
+                    <input type="text" id="display_diachi" name="address">
+                    <button id="update-info">Cập nhật</button>
+                </form>
+            </div>
         </div>
-        <div class="popupLogin__form">
-            <h2 class="headingLogin">🍕🍕 WELCOME BACK!</h2>
-            <p class="heading__desc">NEU BẠN ĐÃ LÀ THÀNH VIÊN PIZZA HUT<br>HAY ĐĂNG NHẬP
-                TRƯỚC KHI THANH TOÁN PIZZA NHÉ!</p>
-                <div class="form-item --login --error">
-                    <label for="email">Email *</label>
-                    <input type="text" name="" id="abc">
-                    <p class="error">Sai dinh dang email</p>
-                </div>
-                <div class="form-item --login">
-                    <label for="email">Mật Khẩu *</label>
-                    <input type="Password" name="" id="aaa">
-                </div>
-               
-                <button class="btn">ĐĂNG NHẬP</button>
-
-                <div class="form-error">
-                <i class="fa-solid fa-circle-exclamation"></i>
-                <p>Email hoặc mật khẩu đăng nhập không hợp lệ. Vui lòng thử lại.</p>
-                </div>
-
-                <p class="register">Bạn chưa có tài khoản? <a href="">Đăng ký ngay</a> hoặc tìm hiểu thêm về <a href="">Điều khoản và Quyền lợi Thành viên</a></p>
-        </div>
-
-        <button class="btnX">
-                <img src="../images/iconClose.png" alt="">
-        </button>
-
-    </div>  
 </main>
 <script>
 
 document.addEventListener("DOMContentLoaded", function() {
-  // Lấy phần tử .popupLogin
-  var popupLogin = document.querySelector(".popupLogin");
-  var button = document.querySelector(".btn");
-  // Lấy phần tử .btnX
-  var closeButton = document.querySelector(".btnX");
+    // Lấy phần tử .popupLogin
+    var popupLogin = document.querySelector(".popupLogin");
+    var button = document.querySelector(".btn");
+    // Lấy phần tử .btnX
+    var closeButton = document.querySelector(".btnX");
 
-  // Thêm sự kiện click cho .header__action-member
-  var headerActionMember = document.querySelector(".header__action-member");
-  headerActionMember.addEventListener("click", function() {
-    // Loại bỏ class --none từ phần tử .popupLogin
-    popupLogin.classList.remove("--none");
-  });
+    // Thêm sự kiện click cho .header__action-member
+    document.querySelector('.header__action-member').addEventListener('click', function() {
+            var hoverMenu = document.querySelector('.hover-menu');
+            if (hoverMenu.style.display === 'none' || hoverMenu.style.display === '') {
+                hoverMenu.style.display = 'block';
+            } else {
+                hoverMenu.style.display = 'none';
+            }
+    }); 
+
+    var headerActionMember = document.querySelector(".login");
+        headerActionMember.addEventListener("click", function() {
+            // Loại bỏ class --none từ phần tử .popupLogin
+            popupLogin.classList.remove("--none");
+            hoverMenu.style.display = 'none';
+    });
+
+    var modal = document.getElementById("userModal");
+    var view = document.querySelector(".view_profile");
+    var span = document.getElementsByClassName("close")[0];
+    var hoverMenu = document.querySelector('.hover-menu');
+
+    view.onclick = function() {
+        modal.style.display = "block";
+        hoverMenu.style.display = 'none';
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+        hoverMenu.style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    var loginSwitch = document.querySelector(".login__switch");
+    var userLogin = document.querySelector(".popupLogin__form.user");
+    var staffLogin = document.querySelector(".popupLogin__form.staff");
+    loginSwitch.addEventListener("click", function() {
+                // Kiểm tra xem phần tử .popupLogin__form.staff có class --none không
+                var isNone = staffLogin.classList.contains("none");
+
+                // Nếu có class --none, loại bỏ nó; nếu không, thêm vào
+                if (isNone) {
+                    loginSwitch.classList.add("hidden");
+                    userLogin.classList.add("hidden");
+                    setTimeout(() => {
+                        userLogin.classList.add("none");
+                        staffLogin.classList.remove("none");
+                    }, 300);
+                    setTimeout(() => {
+                        staffLogin.classList.remove("hidden");
+                        loginSwitch.classList.remove("hidden");
+                        loginSwitch.innerHTML = "Bạn là khách hàng? Ấn đây";
+                    }, 600);
+
+
+                } else {
+                    loginSwitch.classList.add("hidden");
+                    staffLogin.classList.add("hidden");
+                    setTimeout(() => {
+                        staffLogin.classList.add("none");
+                        userLogin.classList.remove("none");
+                    }, 300);
+                    setTimeout(() => {
+                        userLogin.classList.remove("hidden");
+                        loginSwitch.classList.remove("hidden");
+                        loginSwitch.innerHTML = "Bạn là nhân viên? Ấn đây";
+                    }, 600);
+                }
+            });
+
+            button.addEventListener("click", function() {
+                // Thêm lại class --none cho .popupLogin
+                popupLogin.classList.add("--none");
+            });
+
+    
+
 
   // Thêm sự kiện click cho nút đóng
   closeButton.addEventListener("click", function() {
@@ -222,11 +352,161 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 
+var dangnhapUserBtn = document.querySelector('.dangnhapz');
+        dangnhapUserBtn.addEventListener('click', function() {
+            var checkForm = true;
+            var formError = document.querySelector(".form-error");
+            var username = document.getElementById("taikhoan");
+            var usernameFormItem = document.querySelector(".form-item.--login");
+            var usernameError = document.querySelector(".form-item.--login .error");
+            var usernamePattern = /^.{3,}$/;
+            var password = document.getElementById("matkhau");
+            var passwordError = document.querySelector(".form-item.--login.--password .error");
+            var passwordFormItem = document.querySelector(".form-item.--login.--password");
+            var passwordPattern = /^.{3,}$/;
+
+
+            if (username.value.trim() === "") {
+                usernameFormItem.classList.add("--error");
+                usernameError.innerHTML = "Vui lòng không để trống";
+                checkForm = false;
+            } else if (!usernamePattern.test(username.value)) {
+                usernameFormItem.classList.add("--error");
+                usernameError.innerHTML = "Tên đăng nhập không đúng định dạng";
+                checkForm = false;
+            } else {
+                usernameFormItem.classList.remove("--error");
+                usernameError.innerHTML = "";
+            }
+            username.addEventListener("input", function() {
+                if (!usernamePattern.test(username.value)) {
+                    usernameFormItem.classList.add("--error");
+                    usernameError.innerHTML = "Tên đăng nhập không đúng định dạng";
+                    checkForm = false;
+                } else {
+                    usernameFormItem.classList.remove("--error");
+                    usernameError.innerHTML = "";
+                }
+            });
+
+            if (password.value.trim() === "") {
+                passwordFormItem.classList.add("--error");
+                passwordError.innerHTML = "Vui lòng không để trống";
+                checkForm = false;
+            } else if (!passwordPattern.test(password.value)) {
+                passwordFormItem.classList.add("--error");
+                passwordError.innerHTML = "Mật khẩu phải chứa ít nhất 3 ký tự";
+                checkForm = false;
+            } else {
+                passwordFormItem.classList.remove("--error");
+                passwordError.innerHTML = "";
+            }
+            password.addEventListener("input", function() {
+                if (!passwordPattern.test(password.value)) {
+                    passwordFormItem.classList.add("--error");
+                    passwordError.innerHTML = "Mật khẩu phải chứa ít nhất 3 ký tự";
+                    checkForm = false;
+                } else {
+                    passwordFormItem.classList.remove("--error");
+                    passwordError.innerHTML = "";
+                }
+            });
+
+            if (checkForm) {
+                // alert("Đăng nhập thành công!" + email.value + " " + password.value);
+                loginz(username.value, password.value);
+                formError.style.display = "none";
+                // email.value = "";
+                // password.value = "";
+            } else {
+                formError.style.display = "flex";
+            }
+
+
+        })
+
+        var dangnhapStaffBtn = document.querySelector('.dangnhaps');
+        dangnhapStaffBtn.addEventListener('click', function() {
+
+            var checkForm = true;
+            var formError = document.querySelector(".form-error");
+            var username = document.getElementById("taikhoans");
+            var usernameFormItem = document.querySelector(".form-item.--logins");
+            var usernameError = document.querySelector(".form-item.--logins .error");
+            var usernamePattern = /^.{3,}$/;
+            var password = document.getElementById("matkhaus");
+            var passwordError = document.querySelector(".form-item.--login.--passwords .error");
+            var passwordFormItem = document.querySelector(".form-item.--login.--passwords");
+            var passwordPattern = /^.{3,}$/;
+
+
+            if (username.value.trim() === "") {
+                usernameFormItem.classList.add("--error");
+                usernameError.innerHTML = "Vui lòng không để trống";
+                checkForm = false;
+            } else if (!usernamePattern.test(username.value)) {
+                usernameFormItem.classList.add("--error");
+                usernameError.innerHTML = "Tên đăng nhập không đúng định dạng";
+                checkForm = false;
+            } else {
+                usernameFormItem.classList.remove("--error");
+                usernameError.innerHTML = "";
+            }
+            username.addEventListener("input", function() {
+                if (!usernamePattern.test(username.value)) {
+                    usernameFormItem.classList.add("--error");
+                    usernameError.innerHTML = "Tên đăng nhập không đúng định dạng";
+                    checkForm = false;
+                } else {
+                    usernameFormItem.classList.remove("--error");
+                    usernameError.innerHTML = "";
+                }
+            });
+
+            if (password.value.trim() === "") {
+                passwordFormItem.classList.add("--error");
+                passwordError.innerHTML = "Vui lòng không để trống";
+                checkForm = false;
+            } else if (!passwordPattern.test(password.value)) {
+                passwordFormItem.classList.add("--error");
+                passwordError.innerHTML = "Mật khẩu phải chứa ít nhất 3 ký tự";
+                checkForm = false;
+            } else {
+                passwordFormItem.classList.remove("--error");
+                passwordError.innerHTML = "";
+            }
+            password.addEventListener("input", function() {
+                if (!passwordPattern.test(password.value)) {
+                    passwordFormItem.classList.add("--error");
+                    passwordError.innerHTML = "Mật khẩu phải chứa ít nhất 3 ký tự";
+                    checkForm = false;
+                } else {
+                    passwordFormItem.classList.remove("--error");
+                    passwordError.innerHTML = "";
+                }
+            });
+
+
+            if (checkForm) {
+                // alert("Đăng nhập thành công!" + email.value + " " + password.value);
+                logins(username.value, password.value);
+                formError.style.display = "none";
+                // email.value = "";
+                // password.value = "";
+            } else {
+                formError.style.display = "flex";
+            }
+        });
+        </script>
 </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="js/register.js"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="js/notificationEffect.js"></script>
+        <script src="js/script.js"></script>
+        <script src="js/helper.js"></script>
+        <script src="js/indexJS.js"></script>
 </body>
 
 </html>

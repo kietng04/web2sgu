@@ -204,9 +204,22 @@ function updateInfo() {
 
 var btn_updateinfo = document.querySelector("#update-info");
 if (btn_updateinfo != null) {
-  btn_updateinfo.addEventListener("click", function (e) {
-    e.preventDefault();
-    updateInfo();
+  btn_updateinfo.addEventListener("click", function (event) {
+    // Ngăn chặn hành động mặc định của sự kiện
+    event.preventDefault();
+
+    var phone = document.querySelector('#display_sdt').value;
+    var address = document.querySelector('#display_diachi').value;
+
+    var phoneRegex = /^0\d{9}$/;
+    if (!phoneRegex.test(phone)) {
+      alert('Số điện thoại phải bắt đầu bằng 09 và có 10 chữ số.');
+    } else if (address.length <= 6) {
+      alert('Địa chỉ phải có nhiều hơn 7 ký tự.');
+    } else {
+      // Nếu tất cả các điều kiện đều đúng, thực hiện cập nhật thông tin
+      updateInfo();
+    }
   });
 }
 
@@ -738,7 +751,7 @@ function addeventinput() {
         if (!alertShownInvalid) {
           alert("Vui lòng nhập số nguyên dương lớn hơn 0!");
           alertShownInvalid = true;
-          inputField.value = 1;
+          return inputField.value = 1;
         }
         return;
       } else {

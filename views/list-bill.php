@@ -76,6 +76,7 @@
                             <th>Trạng thái</th>
                             <th>Tổng tiền</th>
                             <th>Chi tiết</th>
+                            <th>Hủy đơn</th>
                         </tr>
                     </thead>
                     <tbody class="rowtable">

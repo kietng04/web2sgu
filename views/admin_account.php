@@ -231,12 +231,10 @@
                         </div>
                         <div class="form-group">
                             <label for="category" class="form-label">Chọn quyền</label>
-                            <select name="category" id="chon-mon" style="width:100%;">
-                                <option value="1">Admin</option>
-                                <option value="2">Nhân Viên Sale</option>
-                                <option value="3">Nhân Viên Giao Hàng</option>
-                                <option value="4">Nhân Viên Bán Hàng</option>
-                                <option value="5">Nhân Viên Nấu Ăn</option>
+
+                            <select name="category" class="chon_quyen_edit" id="chon-mon" style="width:400px;">
+                                
+
                             </select>
                             <span class="form-message form-message-edit"></span>
                         </div>
@@ -405,20 +403,24 @@
 
 
     <div class="modal signup">
-        <div class="modal-container" style="overflow-y:auto;">
+        <div class="modal-container" style="overflow-y:auto;width:700px;">
             <h3 class="modal-container-title add-account-e" style="font-weight: 600; font-size:20px">THÊM KHÁCH HÀNG MỚI
             </h3>
             <!-- <h3 class="modal-container-title edit-account-e" style="font-weight: 600; font-size:20px">CHỈNH SỬA THÔNG
                 TIN</h3> -->
             <button class="modal-close" id="close_addform"><i class="fa-solid fa-xmark"></i></button>
             <div class="form-content sign-up">
+                
                 <form action="" class="signup-form">
-                    <div class="form-group">
+                <div style="display:flex;gap:20px;">
+                <div class="left_addAccount">
+                <div class="form-group">
                         <label for="fullname" class="form-label">Tên đầy đủ</label>
                         <input id="fullname" name="fullname" type="text" placeholder="VD: Pham Van Kiet"
                             class="form-control">
                         <span class="form-message-name form-message"></span>
                     </div>
+    
                     <div class="form-group">
                         <label for="phone" class="form-label">Số điện thoại</label>
                         <input id="phone" name="phone" type="text" placeholder="Nhập số điện thoại"
@@ -434,6 +436,15 @@
                         <label for="address" class="form-label">Địa chỉ</label>
                         <input id="address" name="address" type="text" placeholder="Nhập Địa chỉ" class="form-control">
                         <span class="form-message-address form-message"></span>
+                    </div>
+                    </div>
+                    <div class="right-addAccount">
+    
+                    <div class="form-group">
+                        <label for="username" class="form-label">Tên đăng nhập</label>
+                        <input id="username" name="username" type="text" placeholder="Nhập tên đăng nhập"
+                            class="form-control">
+                        <span class="form-message-username form-message"></span>
                     </div>
                     <div class="form-group">
                         <label for="password" class="form-label">Mật khẩu</label>
@@ -453,13 +464,11 @@
                                 <option value="1">Khach hang</option>
                             </select>
                         <select name="phanquyen" id="phanquyen" style="margin-bottom:10px;display:block;">
-                            <option value="1">Admin</option>
-                            <option value="2">Nhân Viên Sale</option>
-                            <option value="3">Nhân Viên Giao Hàng</option>
-                            <option value="4">Nhân Viên Bán Hàng</option>
-                            <option value="5">Nhân Viên Nấu Ăn</option>
+                            
                         </select>
                     </div>
+                    </div>
+</div>
                     <!-- <button class="form-submit add-account-e" id="signup-button">Đăng ký</button> -->
                     <button class="form-submit edit-account-e" id="btn-update-account"><i
                             class="fa-regular fa-floppy-disk"></i> Lưu thông tin</button>

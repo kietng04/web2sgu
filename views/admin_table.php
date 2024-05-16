@@ -139,18 +139,17 @@
                                     <label for="time-end">Đến</label>
                                     <input style="width:150px;" type="date" class="form-control-date" id="time-end-tk">
                                 </div>
-                                <button style="margin-left: 10px; padding: 10px 10px; background: #b5292f; border-radius: 5px; color: white; font-weight: bold;" id="thongke_action">Thống kê</button>
+
+                                <button id="thongke_action">Thống kê</button>
+                                <span class="form-message-date form-message"></span>
                             </form>
                         </div>
                     </div>
-                </div>
-                <div class="admin-control-right">
-                        <label for="top_products" style="text-align: center; align-content: center;">TOP SẢN PHẨM BÁN CHẠY</label>
-                        <select name="top_products" id="top_products">
-                            <option value="3">Top 3</option>
-                            <option value="5">Top 5</option>
-                            <option value="10">Top 10</option>
-                        </select>
+
+                    <div class="admin-control-right ">
+                        <label for="top_products">TOP SẢN PHẨM BÁN CHẠY</label>
+                        <input min="1"   type="number" id="top_products" style="border:1px solid gray;border-radius:2px;margin-left:5px;">
+
                     </div>
                 <div class="order-statistical" id="order-statistical">
 

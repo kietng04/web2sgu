@@ -384,3 +384,22 @@ ADD COLUMN TrangThaiXoa int(11) DEFAULT 1;
 
 ALTER TABLE taikhoannhanvien
 ADD COLUMN TrangThaiXoa int(11) DEFAULT 1;
+
+UPDATE trangthai
+SET ChiTietTT = 'Đã xác nhận'
+WHERE MaTT = 1;
+
+UPDATE trangthai
+SET ChiTietTT = 'Đang giao hàng'
+WHERE MaTT = 2;
+
+UPDATE trangthai
+SET ChiTietTT = 'Đã giao hàng'
+WHERE MaTT = 3;
+
+UPDATE trangthai
+SET ChiTietTT = 'Đã hủy'
+WHERE MaTT = 4;
+
+INSERT into trangthai(MaTT, ChiTietTT)
+VALUES (0,'Đang chờ xác nhận')

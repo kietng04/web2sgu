@@ -231,12 +231,8 @@
                         </div>
                         <div class="form-group">
                             <label for="category" class="form-label">Chọn quyền</label>
-                            <select name="category" id="chon-mon" style="width:400px;">
-                                <option value="1">Admin</option>
-                                <option value="2">Nhân Viên Sale</option>
-                                <option value="3">Nhân Viên Giao Hàng</option>
-                                <option value="4">Nhân Viên Bán Hàng</option>
-                                <option value="5">Nhân Viên Nấu Ăn</option>
+                            <select name="category" class="chon_quyen_edit" id="chon-mon" style="width:400px;">
+                                
                             </select>
                             <span class="form-message form-message-edit"></span>
                         </div>
@@ -466,11 +462,7 @@
                                 <option value="1">Khach hang</option>
                             </select>
                         <select name="phanquyen" id="phanquyen" style="margin-bottom:10px;display:block;">
-                            <option value="1">Admin</option>
-                            <option value="2">Nhân Viên Sale</option>
-                            <option value="3">Nhân Viên Giao Hàng</option>
-                            <option value="4">Nhân Viên Bán Hàng</option>
-                            <option value="5">Nhân Viên Nấu Ăn</option>
+                            
                         </select>
                     </div>
                     </div>

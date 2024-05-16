@@ -858,6 +858,7 @@ function getPhanQuyen(){
         },
         success: function (data) {
             console.log(data)
+            render_phanquyen_to_select(data);
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log("Error: ", jqXHR.responseText); 
@@ -868,3 +869,14 @@ function getPhanQuyen(){
     })
 }
 
+
+function render_phanquyen_to_select(phanquyen){
+    let select_phanquyen=document.querySelector('#phanquyen');
+    let select_phanquyen_edit=document.querySelector('.chon_quyen_edit');
+    let html="";
+    for(let i=0;i<phanquyen.length;i++){
+        html+=`<option value="${phanquyen[i].MaQuyen}">${phanquyen[i].TenNhomQuyen}</option>`;
+    }
+    select_phanquyen.innerHTML=html;
+    select_phanquyen_edit.innerHTML=html;
+}

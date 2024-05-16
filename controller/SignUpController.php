@@ -5,9 +5,9 @@ require_once(__DIR__ . '/../model/ThongTinNguoiDungBUS.php');
 session_start();
 
 global $bustk;
-$bustk = new NguoiDungBUS();
+$bustk = new ThongTinNguoiDungBUS();
 global $busttnd;
-$busttnd = new ThongTinNguoiDungBUS();
+$busttnd = new NguoiDungBUS();
 
 class SignUpController extends BaseController
 {

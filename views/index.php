@@ -124,6 +124,13 @@
                             <i class="fa-light fa-xmark"></i>
                         </button>
                     </div> -->
+                    <div class="advanced-search-name">
+                        <span>Phân theo</span>
+                        <select name="" id="advanced-search-name-select">
+                            <option>A-Z</option>
+                            <option>Z-A</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 

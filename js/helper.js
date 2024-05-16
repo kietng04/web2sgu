@@ -36,7 +36,7 @@ function loginz() {
         document.querySelector("#display_sdt").value = result[0].SDT;
         document.querySelector("#display_diachi").value = result[0].DiaChi;
         loadSessionCart();
-        
+
       } else {
         alert("Tên đăng nhập hoặc mật khẩu không đúng!");
       }
@@ -211,22 +211,56 @@ function updateInfo() {
 }
 
 var btn_updateinfo = document.querySelector("#update-info");
+var sdtFormItem = document.querySelector("#display_sdt");
+//var sdtError = document.querySelector("#sdt-error"); // Thay đổi này dựa trên id của phần tử hiển thị lỗi
+var checkSdt = true; // Giả sử ban đầu không có lỗi
+
 if (btn_updateinfo != null) {
   btn_updateinfo.addEventListener("click", function (event) {
     // Ngăn chặn hành động mặc định của sự kiện
     event.preventDefault();
 
-    var phone = document.querySelector("#display_sdt").value;
+    var phone = sdtFormItem.value;
     var address = document.querySelector("#display_diachi").value;
 
     var phoneRegex = /^0\d{9}$/;
     if (!phoneRegex.test(phone)) {
-      alert("Số điện thoại phải bắt đầu bằng 0 và có 10 chữ số.");
+      alert("Số điện thoại không hợp lệ.");
+      checkSdt = false;
     } else if (address.length <= 6) {
-      alert("Địa chỉ phải có nhiều hơn 7 ký tự.");
+      alert("Địa chỉ phải có nhiều hơn 6 ký tự.");
     } else {
-      // Nếu tất cả các điều kiện đều đúng, thực hiện cập nhật thông tin
-      updateInfo();
+      // Kiểm tra số điện thoại đã tồn tại hay chưa
+      $.ajax({
+        url: './controller/SignUpController.php',
+        type: 'POST',
+        data: {
+          request: 'checksdt',
+          sdt: phone,
+        },
+        success: function (data) {
+          var parsedData = JSON.parse(data);
+          var phoneExists = parsedData.some(function (user) {
+            return user.SDT === phone;
+          });
+
+          if (phoneExists) {
+            alert("Số điện thoại đã tồn tại.");
+            checkSdt = false;
+            sdtFormItem.focus();
+          } else {
+            checkSdt = true;
+            // Nếu tất cả các điều kiện đều đúng, thực hiện cập nhật thông tin
+            updateInfo();
+          }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          console.log("Error: ", jqXHR.responseText);
+          console.log("Status: ", textStatus);
+          console.log("Error: ", errorThrown);
+          alert("code nhu cc");
+        }
+      });
     }
   });
 }
@@ -592,16 +626,15 @@ function addeventbutbtn() {
                 <div class="content">
                     <p class="title">${item["Product"].TenSP}</p>
                     <p class="desc">Size: ${mapsize.get(
-                      item["Product"].MaSize
-                    )} - Đế: ${mapde.get(item["Product"].MaVien)}</p>
+                  item["Product"].MaSize
+                )} - Đế: ${mapde.get(item["Product"].MaVien)}</p>
                     <p class="price">${toVND(item["Product"].GiaTien)}</p>
                 </div>
                 
                 <div class="buttons_added">
                 <input class="minus is-form" type="button" value="-" onclick="decreasingNumber(this, ${index})">
-                <input class="input-qty" max="100" min="1" name="" type="number" value="${
-                  item["Quantity"]
-                }" oninput="addeventinput()">
+                <input class="input-qty" max="100" min="1" name="" type="number" value="${item["Quantity"]
+                  }" oninput="addeventinput()">
                 <input class="plus is-form" type="button" value="+" onclick="increasingNumber(this, ${index})">
                 </div>
                 <i class="fa-solid fa-xmark" data-index="${index}" onclick="removeItemFromCart(this.getAttribute('data-index'))"></i>
@@ -714,15 +747,14 @@ function loadSessionCart() {
             <div class="content">
                 <p class="title">${item["Product"].TenSP}</p>
                 <p class="desc">Đế: ${mapsize.get(
-                  item["Product"].MaSize
-                )}, Size: ${mapde.get(item["Product"].MaVien)}</p>
+            item["Product"].MaSize
+          )}, Size: ${mapde.get(item["Product"].MaVien)}</p>
                 <p class="price">${toVND(item["Product"].GiaTien)}</p>
             </div>
             <div class="buttons_added">
               <input class="minus is-form" type="button" value="-" onclick="decreasingNumber(this, ${index})">
-              <input class="input-qty" max="100" min="1" name="" type="number" value="${
-                item["Quantity"]
-              }" oninput="addeventinput()">
+              <input class="input-qty" max="100" min="1" name="" type="number" value="${item["Quantity"]
+            }" oninput="addeventinput()">
               <input class="plus is-form" type="button" value="+" onclick="increasingNumber(this,  ${index})">
               </div>
               <i class="fa-solid fa-xmark" data-index="${index}" onclick="removeItemFromCart(this.getAttribute('data-index'))"></i>
@@ -1043,10 +1075,10 @@ function addeventclickxeminfo() {
 }
 
 function adminbtn() {
-    if (currentID.includes("NV")) {
-      document.querySelector('.header__action-admin').classList.remove('--none');
-    }
-    else {
-      document.querySelector('.header__action-admin').classList.add('--none');
-    }
+  if (currentID.includes("NV")) {
+    document.querySelector('.header__action-admin').classList.remove('--none');
+  }
+  else {
+    document.querySelector('.header__action-admin').classList.add('--none');
+  }
 }

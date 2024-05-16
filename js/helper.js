@@ -33,6 +33,7 @@ function loginz() {
         document.querySelector('#display_sdt').value = result[0].SDT;
         document.querySelector('#display_diachi').value = result[0].DiaChi;
         loadSessionCart();
+        
       } else {
         alert("Tên đăng nhập hoặc mật khẩu không đúng!");
       }
@@ -66,7 +67,7 @@ function logins() {
         document.querySelector('#display_email').value = result[0].Email;
         document.querySelector('#display_sdt').value = result[0].SDT;
         document.querySelector('#display_diachi').value = result[0].DiaChi;
-
+        loadSessionCart();
       } else {
         alert("Tên đăng nhập hoặc mật khẩu không đúng!");
       }
@@ -280,35 +281,35 @@ function initlize() {
 }
 
 
-// function signup(e) {
-//   e.preventDefault();
-//   $.ajax({
-//     url: "controller/ProductsController.php",
-//     type: "post",
-//     dataType: "json",
-//     timeout: 1500,
-//     data: {
-//       request: "dangky",
-//       data_ho: document.getElementById("lastName").value,
-//       data_ten: document.getElementById("firstName").value,
-//       data_sdt: document.getElementById("phone").value,
-//       data_email: document.getElementById("email").value,
-//       data_diachi: document.getElementById("address").value,
-//       data_newUser: document.getElementById("name").value,
-//       data_newPass: document.getElementById("pass").value,
-//       data_gioitinh: document.getElementById("sexial").value,
-//     },
-//     success: function (kq) {
-//       if (kq != null) {
-//         login(
-//           e,
-//           document.getElementById("name").value,
-//           document.getElementById("pass").value
-//         );
-//       }
-//     },
-//   });
-// }
+function signup(e) {
+  e.preventDefault();
+  $.ajax({
+    url: "controller/ProductsController.php",
+    type: "post",
+    dataType: "json",
+    timeout: 1500,
+    data: {
+      request: "dangky",
+      data_ho: document.getElementById("lastName").value,
+      data_ten: document.getElementById("firstName").value,
+      data_sdt: document.getElementById("phone").value,
+      data_email: document.getElementById("email").value,
+      data_diachi: document.getElementById("address").value,
+      data_newUser: document.getElementById("name").value,
+      data_newPass: document.getElementById("pass").value,
+      data_gioitinh: document.getElementById("sexial").value,
+    },
+    success: function (kq) {
+      if (kq != null) {
+        login(
+          e,
+          document.getElementById("name").value,
+          document.getElementById("pass").value
+        );
+      }
+    },
+  });
+}
 
 function FormValidate(e) {
   var name = document.getElementById("name").value;
@@ -727,6 +728,7 @@ function loadSessionCart() {
         document.querySelector(".thanhvien").innerHTML = (data["result"][0].Ho + " " + data["result"][0].Ten).toUpperCase();
         document.querySelector(".login").innerHTML = "Đăng xuất";
         document.querySelector(".view_profile").style.display = "block";
+        adminbtn();
       }
       else {
         document.querySelector(".thanhvien").innerHTML = "KHÁCH";
@@ -936,4 +938,10 @@ function addeventclickxeminfo() {
     },
   });
 }); 
+}
+
+function adminbtn() {
+    if (currentID.includes("NV")) {
+      document.querySelector('.header__action-admin').classList.remove('--none');
+    }
 }

@@ -93,7 +93,7 @@
                     <div class="advanced-search-category">
                         <span>Phân loại </span>
                         <select name="" id="advanced-search-category-select">
-                            <option>Tất cả</option>
+                            
                             <option>Pizza Bo </option>
                             <option>Pizza Ga</option>
                             <option>Pizza Hai San</option>

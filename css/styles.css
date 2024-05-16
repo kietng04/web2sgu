@@ -858,7 +858,7 @@ td {
 .form-item.--login.--error input {
   color: red;
 }
-
+.header__action-admin i,
 .header__action-bell i {
   color: #c8102e;
 }
@@ -990,4 +990,13 @@ td {
   color: white;
   cursor: pointer;
   text-transform: uppercase;
+}
+
+
+
+
+
+/* class --none cho admin button */
+.header__action-admin.--none {
+  display: none;
 }

@@ -26,6 +26,7 @@ function addeventthanhtoan() {
         request: "getCurrentUser",
       },
       success: function (data) {
+        console.log(data);
         if (!data) {
           createToast("error", "Bạn cần đăng nhập để thực hiện thanh toán");  
           return;
@@ -36,6 +37,11 @@ function addeventthanhtoan() {
           return;
         }
         var listorder = data.cart;
+        // if current user contain NV then
+        if (!data['result'][0]['MaND']) {
+          createToast("error", "Nhân viên không được mua hàng");
+          return;
+        }
         // ajax check xem co san pham nao vuot qua so luong ton kho khong
         $.ajax({
           url: "./controller/ProductsController.php",
@@ -51,7 +57,7 @@ function addeventthanhtoan() {
               createToast("error", data.message);
               return;
             }
-   
+            console.log(data);
             window.location.href = "./index.php?controller=PaymentController&action=index";
           },
           error: function (httpRequest, textStatus, errorThrown) {

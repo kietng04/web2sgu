@@ -27,6 +27,9 @@ if (isset($_POST['request'])) {
                    getRowPagAjax();
             }
             break;
+        case 'deleteBill':
+            deleteBill();
+            break;
     }
 }
 
@@ -51,4 +54,10 @@ function getRowPagAjax() {
     if ($result != null) {
         die (json_encode($result));
     }
+}
+
+function deleteBill() {
+    $mahd = $_POST['mahd'];
+    $result = (new HoaDonBUS())->deleteBill($mahd);
+    die(json_encode($result));
 }

@@ -1803,3 +1803,19 @@ label a {
 .black {
   background-color: rgb(169, 168, 168);
 }
+.order-product-info h4 {
+  font-weight: 500;
+    /* color: var(--text-color); */
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.order-product-info p {
+  margin-top: 10px;
+}
+.order-product-right{
+  display: flex;
+    gap: 100px;
+    margin-left: 20px;
+    padding: 16px;
+}

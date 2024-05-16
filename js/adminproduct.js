@@ -9,7 +9,6 @@ var listDeLength = 0;
 var curAttribute = new Map();
 var totalPage = 0;
 var flag = 0;
-
 loadTableProduct();
 loadCombinationSizeAndCrust();
 addeventinputthemsp();
@@ -17,75 +16,144 @@ addeventaddproduct();
 addeventthemthuoctinh();
 loadcomcomboboxtheloai();
 addmasizedevaomap();
+addeventthemsp();
 var mapsize =  new Map();
 var mapde = new Map();
 var decodemapsize = new Map();
 var decodemapde = new Map();
 //traverse rowtable and add to curAttribute
 
+function addeventthemsp() {
+  document.querySelector('#btn-add-product').addEventListener('click', function() {
+    curAttribute.clear();
+   document.querySelector('#masanpham').disabled = false;
+  })
+}
 function addmasizedevaomap() {
   $.ajax({
-    url: './controller/ProductManagementController.php',
-    type: 'POST',
-    dataType: 'json',
+    url: "./controller/ProductManagementController.php",
+    type: "POST",
+    dataType: "json",
     data: {
-        request: 'getMapSizeDe',
+      request: "getMapSizeDe",
     },
-    success: function(data) {
+    success: function (data) {
       console.log(data);
-      data['sizes'].forEach(function (item) {
+      data["sizes"].forEach(function (item) {
         mapsize.set(item.MaSize, item.TenSize);
         decodemapsize.set(item.TenSize, item.MaSize);
-      })
-      data['viens'].forEach(function (item) {
+      });
+      data["viens"].forEach(function (item) {
         mapde.set(item.MaVien, item.TenVien);
         decodemapde.set(item.TenVien, item.MaVien);
-      })
+      });
+    },
+  });
+}
+getThongTinNhanVien();
 
+function getAllThongTinNhanVienSS() {
+  $.ajax({
+    url: "./controller/ProductsController.php",
+    type: "post",
+    dataType: "json",
+    timeout: 1500,
+    data: {
+      request: "getAllThongTinNhanVienSS",
+    },
+    success: function (result) {
+      if (result != null) {
+        alert("Lay nhan vien thanh cong oke!");
+        ma_quyen = result[0].PhanQuyen;
+        console.log("result nhan vien :>> ", result);
+        console.log("ma_quyen :>> ", ma_quyen);
+        getAllChucNangNhomQuyenByMaPhanQuyen();
+      } else {
+        alert("Lỗi khi lấy thông tin người dùng!");
+      }
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log("Error: ", jqXHR.responseText);
+      console.log("Status: ", textStatus);
+      console.log("Error: ", errorThrown);
+      alert("code nhu cczzz");
+    },
+  });
+}
+var list_chucnangnhomquyen;
+function getAllChucNangNhomQuyenByMaPhanQuyen() {
+  $.ajax({
+    url: "./controller/ProductsController.php",
+    type: "post",
+    dataType: "json",
+    timeout: 1500,
+    data: {
+      request: "getAllChucNangNhomQuyenByMaPhanQuyen",
+      ma_quyen: ma_quyen,
+    },
+    success: function (result) {
+      if (result != null) {
+        alert("Lay chuc nang nhom quyen thanh cong oke!");
+        list_chucnangnhomquyen = result;
+        console.log("list_chucnangnhomquyen :>> ", list_chucnangnhomquyen);
+        hienThiChucNangNhomQuyen();
+      } else {
+        alert("Lỗi khi lấy thông tin chức năng nhóm quyền!");
+      }
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log("Error: ", jqXHR.responseText);
+      console.log("Status: ", textStatus);
+      console.log("Error: ", errorThrown);
+      alert("code nhu cc");
+    },
+  });
+}
+
+// 0
+// :
+// {MaQuyen: '1', MaCN: 'sanpham', hanhdong: 'create'}
+// 1
+// :
+// {MaQuyen: '1', MaCN: 'sanpham', hanhdong: 'delete'}
+// 2
+// :
+// {MaQuyen: '1', MaCN: 'sanpham', hanhdong: 'update'}
+// 3
+// :
+// {MaQuyen: '1', MaCN: 'sanpham', hanhdong: 'view'}
+function hienThiChucNangNhomQuyen() {
+  var btn_add_product = document.querySelectorAll("#btn-add-product");
+  var btn_edit_product = document.querySelectorAll("#btn-edit-product");
+  var btn_delete_product = document.querySelectorAll("#btn-delete-product");
+  btn_add_product.forEach(function (btn) {
+    btn.style.display = "none";
+  });
+  btn_edit_product.forEach(function (btn) {
+    btn.style.display = "none";
+  });
+  btn_delete_product.forEach(function (btn) {
+    btn.style.display = "none";
+  });
+  list_chucnangnhomquyen.forEach(function (item) {
+    if (item.MaCN == "sanpham" && item.hanhdong == "create") {
+      btn_add_product.forEach(function (btn) {
+        btn.style.display = "block";
+      });
+    }
+    if (item.MaCN == "sanpham" && item.hanhdong == "update") {
+      btn_edit_product.forEach(function (btn) {
+        btn.style.display = "block";
+      });
+    }
+    if (item.MaCN == "sanpham" && item.hanhdong == "delete") {
+      btn_delete_product.forEach(function (btn) {
+        btn.style.display = "block";
+      });
     }
   });
-
+  alert("hien thi chuc nang nhom quyen");
 }
-// function showSizeTable() {
-//   console.log("listSizeProduct", listSizeProduct);
-//   var html = "";
-//   var tblbodysize = document.querySelector("#show-size");
-//   tblbodysize.innerHTML = "";
-//   listSizeProduct.forEach(function (item) {
-//     html += `<tr>
-//     <td>${item.MaSize}</td>
-//     <td>${item.TenSize}</td>
-//     <td>${item.DinhLuongSize}</td>
-//     <td>
-//         <button class="btn-edit" value="${item.MaSize}"><i class="fa-regular fa-pen-to-square"></i></button>
-//         <button class="btn-delete" value="${item.MaSize}"><i class="fa-solid fa-trash"></i></button>
-//     </td>
-//     `;
-//   });
-//   tblbodysize.innerHTML = html;
-// }
-
-// function showVienTable() {
-//   console.log("listDeProduct", listDeProduct);
-
-//   var html = "";
-//   var tblbodysize = document.querySelector("#show-vien");
-//   tblbodysize.innerHTML = "";
-//   listDeProduct.forEach(function (item) {
-//     html += `<tr>
-//     <td>${item.MaVien}</td>
-//     <td>${item.TenVien}</td>
-//     <td>${item.DinhLuongVien}</td>
-//     <td>
-//         <button class="btn-edit" value="${item.MaVien}"><i class="fa-regular fa-pen-to-square"></i></button>
-//         <button class="btn-delete" value="${item.MaVien}"><i class="fa-solid fa-trash"></i></button>
-//     </td>
-//     `;
-//   });
-//   tblbodysize.innerHTML = html;
-// }
-
-
 
 var listProduct;
 function loadTableProduct() {
@@ -110,6 +178,7 @@ function loadTableProduct() {
       totalPage = row / perPage;
       totalPage = Math.ceil(totalPage);
       showProductTableAdmin();
+      getAllThongTinNhanVienSS();
       renderPagAdmin(totalPage, currentPagez);
       addeventdelete();
       // addeventedit();
@@ -139,6 +208,11 @@ function loadTableProduct() {
       totalPage = row / perPage;
       totalPage = Math.ceil(totalPage);
       showProductTableAdmin();
+      //tai sao khong display none khi goi?
+
+      // hienThiChucNangByMaQuyen()
+      // console.log('list_chucnangnhomquyen :>> ', list_chucnangnhomquyen);
+
       renderPagAdmin(totalPage, currentPagez);
       addeventdelete();
     },
@@ -162,23 +236,24 @@ function showProductTableAdmin() {
                <div class="list-control">
                    <div class="list-tool">
                        <button class="btn-edit" value="${item.MaSP}" onclick="prepared(this.value)"><i class="fa-regular fa-pen-to-square"></i></button>
-                       <button class="btn-delete" value="${item.MaSP}"><i class="fa-solid fa-trash"></i></button>
+                       <button class="btn-delete" value="${item.MaSP}">x</button>
                    </div>
                </div>
         </div>
    </div>`;
   });
-  if( document.querySelector("#show-product") == null) return 0;
+  if (document.querySelector("#show-product") == null) return 0;
   document.querySelector("#show-product").innerHTML = html;
   // var editButtons = document.querySelectorAll('.btn-edit');
   // console.log('editButtons', editButtons)
 }
 function prepared(masp) {
-
+  curAttribute.clear();
+  clearmsg();
   var titleModal = document.querySelector(".modal-container-title");
   var modal = document.querySelector(".add-product");
   var uploadImg = document.querySelector(".upload-image-preview");
-  
+
   uploadImg.src = "img/pizza-1.png";
   modal.classList.add("open");
   titleModal.innerHTML = "CHỈNH SỬA SẢN PHẨM";
@@ -195,28 +270,33 @@ function prepared(masp) {
     success: function (data) {
       console.log(data);
       document.querySelector("#masanpham").value = data[0].MaSP;
-      if (document.querySelector(".edit-product-e").innerHTML == "CHỈNH SỬA SẢN PHẨM") {
+      if (
+        document.querySelector(".edit-product-e").innerHTML ==
+        "CHỈNH SỬA SẢN PHẨM"
+      ) {
         document.querySelector("#masanpham").disabled = true;
-      }
-      else document.querySelector("#masanpham").disabled = false;
+      } else document.querySelector("#masanpham").disabled = false;
       document.querySelector("#ten-mon").value = data[0].TenSP;
       document.querySelector("#chon-loai").value = data[0].Loai;
       document.querySelector("#mo-ta").value = data[0].Mota;
       // load size and crust gia nhap xuat
       var html = "";
       data.forEach(function (item) {
+        var key = item.MaSize + item.MaVien;
         html += `<tr>
         <td>${mapsize.get(item.MaSize)}</td>
         <td>${mapde.get(item.MaVien)}</td>
         <td>${toVND(item.GiaNhap)}</td>
         <td>${toVND(item.GiaTien)}</td>
         <td>${item.SoLuong}</td>
-        <td><i class="fa-solid fa-trash" onclick="deleteRow(this)"></i></td>
+        <td><i class="fa-solid fa-trash" onclick="deleteRow('${key}')"></i></td>
         </tr>`;
-        
+        if (item.MaSize == null) {
+          html = "";
+        }
 
         var masize = item.MaSize;
-        var made = item.MaVien
+        var made = item.MaVien;
         var gianhap = item.GiaNhap;
         var giaxuat = item.GiaTien;
     
@@ -227,8 +307,8 @@ function prepared(masp) {
           {
             tensize: mapsize.get(item.MaSize),
             tende: mapde.get(item.MaVien),
-            gianhap: gianhap,
-            giaxuat: giaxuat,
+            gianhap: parseFloat(gianhap),
+            giaxuat: parseFloat(giaxuat),
             soluong: 0
           }
         );
@@ -236,16 +316,11 @@ function prepared(masp) {
       })
       document.querySelector(".rowTable").innerHTML = html;
       document.querySelector(".modal-content-left img").src = data[0].Img;
-      }})
-      console.log(curAttribute);
-      // load hinh anh
-   
-
-     
-
-    }
-
-
+    },
+  });
+  console.log(curAttribute);
+  // load hinh anh
+}
 
 function renderPagAdmin(totalPage, currentPage) {
   if (totalPage < 2) totalPage = 0;
@@ -333,7 +408,9 @@ function addeventdelete() {
   btns.forEach(function (btn) {
     btn.addEventListener("click", function (ev) {
       var masp = ev.target.getAttribute("value");
-      alert(masp);
+      // option pane
+      var r = confirm("Bạn có chắc chắn muốn xóa sản phẩm này?");
+      if (r == false) return 0;
       $.ajax({
         url: "./controller/ProductManagementController.php",
         type: "POST",
@@ -343,6 +420,7 @@ function addeventdelete() {
           masp: masp,
         },
         success: function (data) {
+          console.log(data);
           loadTableProduct();
         },
       });
@@ -382,8 +460,7 @@ function searchProduct() {
 }
 
 function resetInput() {
-  currentqueryz =
-    'SELECT * FROM `sanpham` WHERE  sanpham.TrangThai = 1 ';
+  currentqueryz = "SELECT * FROM `sanpham` WHERE  sanpham.TrangThai = 1 ";
   currentPagez = 1;
   document.getElementById("the-loai").value = "Tất cả";
   loadTableProduct();
@@ -438,7 +515,6 @@ function loadCombinationSizeAndCrust() {
       });
     },
   });
-
 }
 
 function addeventaddproduct() {
@@ -449,6 +525,7 @@ function addeventaddproduct() {
       editproduct();
       return;
     }
+    curAttribute = new Map();
     clearmsg();
     if (checkregrex().result == false) {
       var resultMsg = checkregrex().resultMsg;
@@ -475,43 +552,37 @@ function addeventaddproduct() {
     formData.append("masp", masp);
 
     var fileField = document.querySelector('input[type="file"]');
-    formData.append('up-hinh-anh', fileField.files[0]);
-        // traverse curAttribute
-        var chitietsanpham = [];
-        curAttribute.forEach(function (value, key) {
-            chitietsanpham.push({
-                masize: key[0],
-                made: key[1],
-            });
-        });
-        formData.append('chitietsanpham', JSON.stringify(chitietsanpham));
-        
-        $.ajax({
-            url: './controller/ProductManagementController.php',
-            type: 'POST',
-            dataType: 'json',
-            data: formData,
-            processData: false,
-            contentType: false, 
-            success: function(data) {
-           
-            }
-        });
-        
+    formData.append("up-hinh-anh", fileField.files[0]);
+    // traverse curAttribute
+    var chitietsanpham = [];
+    curAttribute.forEach(function (value, key) {
+      chitietsanpham.push({
+        masize: key[0],
+        made: key[1],
+      });
     });
+    formData.append("chitietsanpham", JSON.stringify(chitietsanpham));
+
+    $.ajax({
+      url: "./controller/ProductManagementController.php",
+      type: "POST",
+      dataType: "json",
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function (data) {},
+    });
+  });
 }
 
-
-
 function editproduct() {
-
   var masp = document.getElementById("masanpham").value;
   var tensp = document.getElementById("ten-mon").value;
   var loai = document.getElementById("chon-loai").value;
   var mota = document.getElementById("mo-ta").value;
-
+  
   var formData = new FormData(document.querySelector(".add-product-form"));
-
+  console.log(curAttribute);
   formData.append("request", "editProduct");
   formData.append("tensp", tensp);
   formData.append("loai", loai);
@@ -519,33 +590,37 @@ function editproduct() {
   formData.append("masp", masp);
 
   var fileField = document.querySelector('input[type="file"]');
-  formData.append('up-hinh-anh', fileField.files[0]);
+  formData.append("up-hinh-anh", fileField.files[0]);
   // traverse rowtable
-  var chitietsanpham = [];  
+  var chitietsanpham = [];
   curAttribute.forEach(function (value, key) {
     chitietsanpham.push({
       masize: key[0],
       made: key[1],
       gianhap: value.gianhap,
       giaxuat: value.giaxuat,
-      soluong: value.soluong
+      soluong: value.soluong,
     });
   })
 
   
-  console.log(chitietsanpham);
-  return;
+
   formData.append('chitietsanpham', JSON.stringify(chitietsanpham));
 
   $.ajax({
-    url: './controller/ProductManagementController.php',
-    type: 'POST',
-    dataType: 'json',
+    url: "./controller/ProductManagementController.php",
+    type: "POST",
+    dataType: "json",
     data: formData,
     processData: false,
     contentType: false,
     success: function(data) {
-      console.log(data);
+      if (data) {
+        createToast("success", "Sửa sản phẩm thành công");
+        var modal = document.querySelector('.add-product');
+        modal.classList.remove('open');
+        loadTableProduct();
+      }
     }
   });
 }
@@ -593,21 +668,28 @@ function addeventthemthuoctinh() {
         var tentt = tentt.options[tentt.selectedIndex].text;
         tentt = tentt.replace("Size: ", "");
         tentt = tentt.replace(" - ", "-");
+        // neu gia nhap hoac gia xuat ko phai la so
 
+        // số lượng phải lớn hơn 0
 
-        if (curAttribute.has(thuoctinh)) {
-          console.log(curAttribute);
+    if (curAttribute.has(thuoctinh)) {
+      console.log(curAttribute);
 
-            alert('Thuộc tính đã tồn tại');
+            createToast("error", "Thuộc tính đã tồn tại");
             return 0;
         }
         else {
+          var gianhapz = document.querySelector('#gia-nhap').value;
+          var giaxuatz = document.querySelector('#gia-xuat').value;
+          if (gianhapz == "") gianhapz = 0;
+          if (giaxuatz == "") giaxuatz = 0;
+
             curAttribute.set(thuoctinh, 
                 {
                     tensize: tentt.split('-')[0],
                     tende: tentt.split('-')[1],
-                    gianhap: document.querySelector('#gia-nhap').value,
-                    giaxuat: document.querySelector('#gia-xuat').value,
+                    gianhap: gianhapz,
+                    giaxuat: giaxuatz,
                     soluong: 0
                 }
             );
@@ -627,13 +709,14 @@ function filltable() {
     var decodede = decodemapde.get(value.tende);
     var decodesize = decodemapsize.get(value.tensize);
     decodesizede = decodesize + "-" + decodede;
+    var keyz = value.MaSize + value.MaVien;
     html += `<tr>
         <td>${value.tensize}</td>
         <td>${value.tende}</td>
         <td>${toVND(value.gianhap)}</td>
         <td>${toVND(value.giaxuat)}</td>
         <td>${value.soluong}</td>
-        <td><i class="fa-solid fa-trash" onclick="deleteRow(this)"></i></td>
+        <td><i class="fa-solid fa-trash" onclick="deleteRow('${key}')"></i></td>
         </tr>`;
   });
   rowTable.innerHTML = html;
@@ -688,7 +771,7 @@ function filltable() {
 //     case "0": // Kích thước
 //       sizeForm.style.display = "block";
 //       deForm.style.display = "none";
-   
+
 //       break;
 //     case "1": // Đế
 //       sizeForm.style.display = "none";
@@ -697,15 +780,12 @@ function filltable() {
 //   }
 // }
 
-
-
-
 // var btnInsert = document.getElementById("btn-insert");
 // btnInsert.addEventListener("click", function (e) {
 //   e.preventDefault();
 //   alert("Thêm thành công");
 //   insertAttributeProduct();
-  
+
 // });
 
 // function insertAttributeProduct() {
@@ -733,8 +813,6 @@ function filltable() {
 //     },
 //   });
 
-   
-
 // }
 
 //ajax
@@ -742,26 +820,30 @@ function filltable() {
 
 // Kiet: Add event for button add attribute
 
-
 // hoc
 function loadcomcomboboxtheloai() {
-    $.ajax({
-        url: './controller/ProductsController.php',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            request: 'getAllCategory',
-        },
-        success: function(data) {
+  $.ajax({
+    url: "./controller/ProductsController.php",
+    type: "POST",
+    dataType: "json",
+    data: {
+      request: "getAllCategory",
+    },
+    success: function (data) {
+      var html = "<option>Tất cả</option>";
+      data.forEach(function (item) {
+        html += `<option>${item.TenLoai}</option>`;
+      });
 
-            var html = '<option>Tất cả</option>';
-            data.forEach(function (item) {
-                html += `<option>${item.TenLoai}</option>`;
-            });
-   
-          document.getElementById('the-loai').innerHTML = html;
-        }
-    });
+      document.getElementById("the-loai").innerHTML = html;
+    },
+  });
+}
+
+function deleteRow(key) {
+    curAttribute.delete(key);
+    console.log(curAttribute);
+    filltable();
 }
 
 

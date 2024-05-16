@@ -172,6 +172,7 @@
                                     <td>Nhân viên nhập</td>
                                     <td>Tổng tiền</td>
                                     <td>Thời gian</td>
+                                    <td>Thao tác</td>               
                                 </tr>
                             </thead>
                             <tbody class="rowtablePX">
@@ -339,6 +340,47 @@
 
                 <button class="btn-control-large" onclick="thempn(event)">Thêm phiếu nhập</button>
             </div>
+        </div>
+    </div>
+      <!-- Modal chi tiet hoa don  -->
+      <div class="modal detail-order">
+        <div class="modal-container">
+            <h3 class="modal-container-title">CHI TIẾT ĐƠN HÀNG</h3>
+            <button class="modal-close-order"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+            <div class="modal-detail-order --import">
+                <div class="modal-detail-left" style="width: 100%;">
+                    <div class="order-item-group"> 
+                
+                    <div class="order-product">
+                        <div class="order-product-left">
+                          
+                            <div class="order-product-info">
+                                <h4>undefined</h4>
+                                <p class="order-product-note"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i> Kích cỡ:
+                                    Lớn; Đế:Dày
+                                </p>
+                                <p class="order-product-quantity">SỐ LƯỢNG: undefined</p>
+                                <p>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="order-product-right">
+                            <div class="order-product-price">
+                               Giá nhập:<span class="order-product-current-price">NaN&nbsp;₫</span>
+                            </div>
+                            <div class="order-product-price">
+                            Giá xuất:<span class="order-product-current-price">NaN&nbsp;₫</span>
+                            </div>
+                        </div>
+                    </div> 
+
+    </div>
+                </div>
+            </div>
+        
+            </div>
+
+            
         </div>
     </div>
 

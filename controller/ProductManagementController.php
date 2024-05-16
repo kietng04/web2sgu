@@ -29,9 +29,69 @@ if (isset($_POST['request'])) {
         case 'getMapSizeDe':
             getMapSizeDe();
             break;
+        case 'editProduct':
+            editProduct();
+            break;
     }
 }
 
+function editProduct() {
+    global $bussp;
+    $name = $_POST['tensp'];
+    $category = $_POST['loai'];
+    $description = $_POST['mota'];
+    $masp = $_POST['masp'];
+
+    if (isset($_FILES['up-hinh-anh'])) {
+        global $bussp;
+        $file = $_FILES['up-hinh-anh'];
+        
+        $uploadDir = '../images/pizzaimg/';
+
+        // Tạo một tên file duy nhất
+        $uploadFile = $uploadDir . basename($file['name']);
+
+        // Di chuyển file đã tải lên vào thư mục tải lên
+        if (move_uploaded_file($file['tmp_name'], $uploadFile)) {
+            $uploadFile = './images/pizzaimg/' . basename($file['name']);
+            $sql = "UPDATE sanpham SET TenSP = '$name', Mota = '$description', Img = '$uploadFile', Loai = '$category' WHERE MaSP = '$masp'";
+        } else {
+            $uploadFile = './images/pizzaimg/pizza_temp.jpg';
+            $sql = "UPDATE sanpham SET TenSP = '$name', Mota = '$description', Loai = '$category' WHERE MaSP = '$masp'";
+        }
+        // them sp vao db
+       
+        $result = $bussp->updatezzz($sql);
+
+        if ($result) {
+            // add chitietsanpham
+            // convert to arrray $_POST['chitietsanpham']; 
+            $listchitiet = json_decode($_POST['chitietsanpham'], true);
+           // die listchitiet size
+           $sql = "DELETE FROM chitietsanpham WHERE MaSP = '$masp'";
+                $result = $bussp->updatezzz($sql);
+
+                if (!$result) {
+                    die (json_encode(array('status' => 'fail1')));
+                }
+            foreach ($listchitiet as $item) {
+
+                // delete chi tietsanpham have size and vien and then insert it
+                
+                
+
+                $sql = "INSERT INTO chitietsanpham(MaSP, MaSize, MaVien, GiaNhap, GiaTien, SoLuong) VALUES ('$masp', '{$item['masize']}', '{$item['made']}', {$item['gianhap']} , {$item['giaxuat']}, 0)";
+                $result = $bussp->insertz($sql);
+
+                if (!$result) {
+                    die (json_encode(array('status' => 'fail2')));
+                }
+
+            }
+            die (json_encode(array('status' => 'successz')));
+        }
+    }
+}
 
 function uploadProduct() {
     $name = $_POST['tensp'];
@@ -96,7 +156,7 @@ function uploadProduct() {
             
             $listchitiet = json_decode($_POST['chitietsanpham'], true);
             foreach ($listchitiet as $item) {
-                $sql = "INSERT INTO chitietsanpham(MaSP, MaSize, MaVien, GiaNhap, GiaTien, SoLuong) VALUES ('$masp', '{$item['masize']}', '{$item['made']}','0' ,'0', 0)";
+                $sql = "INSERT INTO chitietsanpham(MaSP, MaSize, MaVien, GiaNhap, GiaTien, SoLuong) VALUES ('$masp', '{$item['masize']}', '{$item['made']}',0 ,0, 0)";
                 $result = $bussp->insertz($sql);
                 if (!$result) {
                     die (json_encode(array('status' => 'fail')));
@@ -173,10 +233,13 @@ function getproductbyid() {
     $masp = $_POST['masp'];
     $sql = "SELECT * FROM sanpham, chitietsanpham WHERE sanpham.MaSP = chitietsanpham.MaSP AND sanpham.MaSP = '$masp'";
     $result = $bussp->get_list($sql);
-    if ($result != null) {
+    // if count reuslt is 0
+    if (count($result) == 0) {
+        $sql = "SELECT * FROM sanpham WHERE MaSP = '$masp'";
+        $result = $bussp->get_list($sql);
         die (json_encode($result));
     }
-    die (json_encode(null));
+    die (json_encode($result));
 }
 
 function getMapSizeDe() {

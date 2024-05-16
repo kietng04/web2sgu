@@ -377,22 +377,7 @@
     </div>
                 </div>
             </div>
-            <div class="modal-detail-bottom">
-            <div class="modal-detail-bottom-left">
-                <div class="price-total">
-                    <span class="thanhtien">Tổng tiền giá nhập: </span>
-                    <span class="price">100.000&nbsp;₫</span>
-                </div>
-            </div>
-            <div class="modal-detail-bottom-right">
-                <select id="statusSelect" style="appearance:none;text-align:center;border:1px;" onchange="showSelectedValue(this,1)">
-                    <option value="0">Chưa xử lí</option>
-                    <option value="1">Đã xác nhận</option>
-                    <option value="2">Đang giao hàng</option>
-                    <option value="3">Đã giao hàng</option>
-                    <option value="4">Đã hủy</option>
-                </select>
-            </div>
+        
             </div>
 
             

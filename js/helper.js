@@ -2,6 +2,7 @@ var categoryz = [];
 var currentPage = 1;
 var listProduct = null;
 var perPage = 8;
+var currentID;
 
 function loginz() {
   var a = document.querySelector("#taikhoan").value;
@@ -61,7 +62,7 @@ function logins() {
         document.querySelector('#display_email').value = result[0].Email;
         document.querySelector('#display_sdt').value = result[0].SDT;
         document.querySelector('#display_diachi').value = result[0].DiaChi;
-
+        alert(currentID);
       } else {
         alert("Tên đăng nhập hoặc mật khẩu không đúng!");
       }

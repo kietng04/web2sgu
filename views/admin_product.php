@@ -338,8 +338,8 @@
                                 <option>Chọn loại</option>
                                 <option>BÒ</option>
                                 <option>HẢI SẢN</option>
-                                <option>Món Phụ</option>
-                                <option>Nước uống</option>
+                                <option>GÀ</option>
+                                <option>HEO</option>
                             </select>
                             <span class="form-message"></span>
                         </div>
@@ -359,6 +359,10 @@
                                 <tr>
                                     <td>Size</td>
                                     <td>Đế</td>
+                                    <td>Giá nhập</td>
+                                    <td>Giá bán</td>
+                                    <td>Số lượng</td>
+                                    <td>Xóa</td>
                                 </tr>
                             </thead>
                             <tbody class="rowTable">
@@ -631,6 +635,9 @@
             uploadImg.src = "images/pizzaimg/pizza_temp.jpg";
             modal.classList.add('open');
             titleModal.innerHTML = "THÊM MỚI SẢN PHẨM";
+            // clear form
+            document.querySelector('.add-product-form').reset();
+            document.querySelector('.rowTable').innerHTML = '';
         });
 
         detailButtons.forEach(function(button) {

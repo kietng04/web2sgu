@@ -81,4 +81,20 @@ class SanPhamBUS extends DB_business {
         return $result;
     }
     
+    function checkQuantity() {
+        $listorder = $_POST['listorder'];
+        $sql = "SELECT * FROM chitietsanpham";
+        $result = $this->get_list($sql);
+        $check = true;
+        foreach ($listorder as $order) {
+            foreach ($result as $product) {
+                if ($order['Product']['MaSP'] == $product['MaSP'] && $order['Product']['MaSize'] == $product['MaSize'] && $order['Product']['MaVien'] == $product['MaVien']) {
+                    if ($order['Quantity'] > $product['SoLuong']) {
+                        die (json_encode(array('status' => 'fail', 'message' => 'Sản phẩm ' . $order['Product']['TenSP'] . ' không đủ số lượng số lượng hiện có: ' . $product['SoLuong'])));
+                    }
+                }
+            }
+        }
+        die (json_encode(array('status' => 'success')));
+    }
 }

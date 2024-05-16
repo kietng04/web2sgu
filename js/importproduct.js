@@ -1,8 +1,11 @@
+loaddsphieunhap();
 loadProductPN();
 addeventThempn();
 loadmaphieunhap();
 addeventsuapn();
 addeventxoapn();
+loadcomboboxnhanvien();
+addeventtimkiemnangcao();
 var curProduct;
 var listDeProduct = [];
 var listDeLength = 0;
@@ -10,6 +13,7 @@ var listSizeProduct = [];
 var listproduct = [];
 var listCTPN = [];
 var sum = 0;
+
 function loadProductPN() {
     $.ajax({
         url: "./controller/ProductsController.php",
@@ -32,6 +36,55 @@ function loadProductPN() {
             addeventClick();
         }
     })
+}
+
+
+function loaddsphieunhap() {
+    $.ajax({
+        url: './controller/ImportController.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            request: 'getDSPhieuNhap'
+            
+        },
+        success: function(data) {
+            console.log(data);
+       
+            var div = document.querySelector('.rowtablePX');
+            var html = '';  
+            data.forEach(element => {
+                html += `<tr value="${element.MaPN}">
+                <td>${element.MaPN}</td>
+                            <td>${element.Ho + "  " + element.Ten}</td>
+                            <td>${toVND(element.DonGia)}</td>
+                            <td>${element.NgayNhap}</td>
+                        </tr>`
+            })
+            div.innerHTML = html;
+            addeventclickdetail();  
+        }
+    })
+
+}
+
+function getTenNhanVientheomanv(manv) {
+    // ajax
+    let tennv = "á";
+    $.ajax({
+        url: './controller/StaffManagementController.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            request: 'getNVtheoMaNV',
+            manv: manv
+        },
+        success: function(data) {
+            console.log(data[0].Ho + ' ' + data[0].Ten);
+             tennv = data[0].Ho + ' ' + data[0].Ten;
+        }
+    })
+    return tennv;
 }
 
 function addeventClick() {
@@ -115,11 +168,26 @@ function addeventThempn() {
             createToast('error', 'Vui lòng nhập đủ thông tin phiếu nhập!');
             return;
         }
-
+        // giá nhập và giá bán phải là số
+        if (isNaN(gianhap) || isNaN(giaban)) {
+            createToast('error', 'Giá nhập và giá bán phải là số!');
+            return;
+        }
         if (parseFloat(gianhap) >= parseFloat(giaban)) {
             createToast('error', 'Giá nhập phải nhỏ hơn giá bán!');
             return;
         }
+        //số lượng là số
+        if (isNaN(soluong)) {
+            createToast('error', 'Số lượng phải là số!');
+            return;
+        }
+        // số lượng phải là số nguyên dương
+        if (soluong <= 0) {
+            createToast('error', 'Số lượng phải là số nguyên dương!');
+            return;
+        }
+        
         // check xem sản phẩm đã tồn tại trong list chưa
         var flag = 0;
         listCTPN.forEach(element => {
@@ -143,9 +211,7 @@ function addeventThempn() {
             "GiaBan": document.getElementById('product-pricesell').value
         })
         loadTablepn();
-        sum += parseInt(document.getElementById('product-price').value) * parseInt(soluong);
-        
-        document.querySelector('.tongtienpn').innerHTML = toVND(sum);
+
     })
 
 }
@@ -165,6 +231,14 @@ function loadTablepn() {
                 </tr>`
     })
     divtable.innerHTML = html;
+    // update giá tiền
+    sum = 0;
+    console.log(listCTPN);
+    listCTPN.forEach(element => {
+        sum += parseFloat(element.GiaNhap) * parseFloat(element.SoLuong);
+    })
+    document.querySelector('.tongtienpn').innerHTML = toVND(sum);
+
     addeventclickdetail();
 }
 
@@ -205,7 +279,8 @@ function loadmaphieunhap() {
             request: 'getMaPNnew'
         },
         success: function(data) {
-            document.querySelector('#import-id').value = parseInt(data[data.length - 1].mapn) + 1; 
+            if (data.length == 0) document.querySelector('#import-id').value = 1;
+            else document.querySelector('#import-id').value = parseInt(data[data.length - 1].mapn) + 1; 
             document.querySelector('#import-id').disabled = true;
             removeloader();
         }
@@ -233,7 +308,7 @@ function thempn(e) {
             MaPN: document.querySelector('#import-id').value,
             listCTPN: listCTPN,
             date: date,
-            dongia: sum,
+            dongia: sum
         },
         success: function(data) {
             console.log(data);
@@ -245,6 +320,13 @@ function addeventsuapn() {
     document.querySelector('.suapn').addEventListener('click', function(e) {
         e.preventDefault();
         var flag = 0;
+        var masp = document.querySelector('#product-name').value.split(' - ')[0];
+        var tensp = document.querySelector('#product-name').value.split(' - ')[1]
+        var masize = document.querySelector('#product-item').value[0];
+        var made = document.querySelector('#product-item').value[1];
+        var soluong = document.querySelector('#product-quantity').value;
+        var giaban = document.querySelector('#product-pricesell').value;
+        var gianhap = document.querySelector('#product-price').value;
         document.querySelectorAll('.rowdetail').forEach(element => {
             if (element.classList.contains('black')) {
                 flag = 1;
@@ -255,6 +337,30 @@ function addeventsuapn() {
             return;
         }    
         // sua
+        if (masp == '' || masize == '' || made == '' || soluong == '') {
+            createToast('error', 'Vui lòng nhập đủ thông tin phiếu nhập!');
+            return;
+        }
+        // giá nhập và giá bán phải là số
+        if (isNaN(gianhap) || isNaN(giaban)) {
+            createToast('error', 'Giá nhập và giá bán phải là số!');
+            return;
+        }
+        if (parseFloat(gianhap) >= parseFloat(giaban)) {
+            createToast('error', 'Giá nhập phải nhỏ hơn giá bán!');
+            return;
+        }
+        //số lượng là số
+        if (isNaN(soluong)) {
+            createToast('error', 'Số lượng phải là số!');
+            return;
+        }
+        // số lượng phải là số nguyên dương
+        if (soluong <= 0) {
+            createToast('error', 'Số lượng phải là số nguyên dương!');
+            return;
+        }
+
         var index;
         document.querySelectorAll('.rowdetail').forEach((element, i) => {
             if (element.classList.contains('black')) {
@@ -287,8 +393,8 @@ function addeventsuapn() {
             "SoLuong": soluong,
             "TenSize": document.querySelector('#product-item').options[document.querySelector('#product-item').selectedIndex].text.split(' - ')[0],
             "TenDe": document.querySelector('#product-item').options[document.querySelector('#product-item').selectedIndex].text.split(' - ')[1],
-            "GiaNhap": parseDouble(document.getElementById('product-price').value),
-            "GiaBan": parseDouble(document.getElementById('product-pricesell').value)
+            "GiaNhap": parseFloat(document.getElementById('product-price').value),
+            "GiaBan": parseFloat(document.getElementById('product-pricesell').value)
         }
         loadTablepn();
     })
@@ -320,5 +426,68 @@ function addeventxoapn() {
         document.querySelector('.tongtienpn').innerHTML = toVND(sum);
         listCTPN.splice(index, 1);
         loadTablepn();
+    })
+}
+
+function loadcomboboxnhanvien() {
+    $.ajax({
+        url: './controller/StaffManagementController.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            request: 'getDSNV'
+        },
+        success: function(data) {
+           var html = "<option value=''>Chọn nhân viên</option>";
+           data.forEach(element => {
+               html += `<option value="${element.MaNV}">${element.Ho + ' ' + element.Ten}</option>`
+           })
+           document.querySelector('#nhan_vien_nhap').innerHTML = html;
+        }
+    })
+
+}
+
+function loaddsphieunhapz(data) {
+    var div = document.querySelector('.rowtablePX');
+    var html = '';  
+    data.forEach(element => {
+        html += `<tr value="${element.MaPN}">
+        <td>${element.MaPN}</td>
+                    <td>${element.Ho + "  " + element.Ten}</td>
+                    <td>${toVND(element.DonGia)}</td>
+                    <td>${element.NgayNhap}</td>
+                </tr>`
+    })
+ 
+    div.innerHTML = html;
+    addeventclickdetail();  
+}
+
+function addeventtimkiemnangcao() {
+    document.querySelector('.timkiemnangcao').addEventListener('click', function(e) {
+        e.preventDefault();
+        var manv = document.querySelector('#nhan_vien_nhap').value;
+        var ngaybd = document.querySelector('#ngay_nhap_tu_ngay').value;
+        var ngaykt = document.querySelector('#ngay_nhap_den_ngay').value;
+        var giafrom = document.querySelector('.giatu').value;
+        var giato = document.querySelector('.giaden').value;
+        $.ajax({
+            url: './controller/ImportController.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                request: 'timkiemnangcao',
+                manv: manv,
+                ngaybd: ngaybd,
+                ngaykt: ngaykt,
+                giafrom: giafrom,
+                giato: giato
+            },
+            success: function(data) {
+                loaddsphieunhapz(data);
+            },
+        })
+            
     })
 }

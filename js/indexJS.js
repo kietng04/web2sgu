@@ -490,7 +490,7 @@ function livesearch(input, category, min, max) {
 
   // Tạo câu truy vấn với biến input
   currentqueryz =
-    "SELECT sanpham.MaSP, TenSP, Mota, Img, Loai, MaSize, MaVien, GiaTien FROM `sanpham` left join `chitietsanpham` on `sanpham`.masp=`chitietsanpham`.masp left join `loaisanpham` on chitietsanpham.masp=loaisanpham.maloai WHERE sanpham.TenSP LIKE '%" +
+    "SELECT sanpham.MaSP, TenSP, Mota, Img, Loai, MaSize, MaVien, GiaTien FROM `sanpham` left join `chitietsanpham` on `sanpham`.masp=`chitietsanpham`.masp left join `loaisanpham` on sanpham.Loai=loaisanpham.TenLoai WHERE sanpham.TenSP LIKE '%" +
     input +
     "%' ";
   let category_id = 0;
@@ -498,9 +498,8 @@ function livesearch(input, category, min, max) {
   if (min + max != 0) {
     currentqueryz +=
       "and chitietsanpham.giatien between " + min + "000 and " + max + "000";
-  }
+  } 
 // CURRENTQUERY += groupby masp
- currentqueryz += " group by sanpham.MaSP";
   if (category != "Tất cả") {
     switch (category) {
       case "Pizza Bo":
@@ -520,6 +519,7 @@ function livesearch(input, category, min, max) {
         break;
     }
     currentqueryz += " and loaisanpham.maloai= " + category_id + "";
+    currentqueryz += " order by sanpham.MaSP";  
   }
   currentPagez = 1;
   console.log(currentPagez, currentqueryz);

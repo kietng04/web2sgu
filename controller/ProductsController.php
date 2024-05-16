@@ -125,7 +125,7 @@ function login() {
 function loginStaff() { 
     $username=$_POST['data_usernames'];
     $password=$_POST['data_passs'];
-    $sql = "SELECT * FROM TaiKhoanNhanVien WHERE TaiKhoan='$username' AND MatKhau='$password'";
+    $sql = "SELECT * FROM TaiKhoanNhanVien tk join NhanVien nv on tk.MaNV = nv.MaNV WHERE tk.TaiKhoan='$username' AND tk.MatKhau='$password'";
     $result = (new NhanVienBus())->get_list($sql);
         // create array include $result and null
     $returnz = array('result' => $result, 'cart' => null);

@@ -57,17 +57,13 @@
                     </form>
                 </div>
                 <div class="header__action">
-                    <div class="header__action-admin">
+                    <div class="header__action-admin --none">
                         <a href="index.php?controller=AdminIndexController&action=index">
                         <i class="fa fa-cog" aria-hidden="true"></i>
                         </a>
                         
                     </div>
-                    <div class="header__action-location">
-                        <i class="fa-solid fa-location-dot"></i>
-                    </div>
-                    <div class="header__action-bell">
-                        <i class="fa-regular fa-bell"></i>
+
                     <div class="header__action-admin --none">
                         <a href="index.php?controller=AdminIndexController&action=index">
                         <i class="fa fa-cog" aria-hidden="true"></i></a>

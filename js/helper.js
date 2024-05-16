@@ -1046,4 +1046,7 @@ function adminbtn() {
     if (currentID.includes("NV")) {
       document.querySelector('.header__action-admin').classList.remove('--none');
     }
+    else {
+      document.querySelector('.header__action-admin').classList.add('--none');
+    }
 }

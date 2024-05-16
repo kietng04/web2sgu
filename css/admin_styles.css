@@ -222,11 +222,6 @@ nav.close~.dashboard .top {
   transition: var(--tran-05);
 }
 
-.import-info form {
-  display: flex;
-  justify-content: flex-start;
-}
-
 .import-info .insert {
   margin-bottom: 20px;
   display: flex;

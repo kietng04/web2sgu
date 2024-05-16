@@ -207,9 +207,9 @@
     </div>
 
     <!-- Modal them hoa chinh sua san pham -->
-    <div class="modal add-product">
-        <div class="modal-container" style="overflow-y:auto;">
-            <h3 class="modal-container-title edit-product-e">CHỈNH SỬA TÀI KHOẢN</h3>
+    <div class="modal add-product" style="display: flex; flex-direction: column;">
+        <div class="modal-container" style="overflow-y:auto; width:fit-content;">
+            <h3 class="modal-container-title edit-product-e" style="display: flex; justify-content: center; font-weight: bold; font-size: 20px;">CHỈNH SỬA TÀI KHOẢN</h3>
             <button class="modal-close product-form" id="edit_close_btn"><i class="fa-solid fa-xmark"></i></i></button>
             <div class="modal-content">
                 <form action="" class="add-product-form">
@@ -222,7 +222,7 @@
                                 type="file" class="form-control" onchange="uploadImage(this)">
                         </div>
                     </div> -->
-                    <div class="modal-content-right">
+                    <div class="modal-content-right" style="width:100%;">
                         <div class="form-group">
                             <label for="ten-mon" class="form-label">TÊN TÀI KHOẢN</label>
                             <input id="ten-mon" name="ten-mon" type="text" placeholder=""
@@ -231,7 +231,7 @@
                         </div>
                         <div class="form-group">
                             <label for="category" class="form-label">Chọn quyền</label>
-                            <select name="category" id="chon-mon" style="width:400px;">
+                            <select name="category" id="chon-mon" style="width:100%;">
                                 <option value="1">Admin</option>
                                 <option value="2">Nhân Viên Sale</option>
                                 <option value="3">Nhân Viên Giao Hàng</option>
@@ -247,18 +247,18 @@
                         <div class="form-group">
                             <label for="gia-moi" class="form-label">Liên Hệ: </label>
                             <input id="gia-moi" name="gia-moi" type="text" placeholder=""
-                                class="form-control">
+                                class="form-control" style="width:100%;">
                             <span class="form-message form-message-phone-edit"></span>
                         </div>
                         <div class="form-group">
                             <label for="so-luong" class="form-label">Email </label>
                             <input id="so-luong" name="so-luong" type="text" placeholder=""
-                                class="form-control">
+                                class="form-control" style="width:100%;">
                             <span class="form-message form-message-email-edit"></span>
                         </div>
                         <div class="form-group">
                             <label for="mo-ta" class="form-label">Địa chỉ</label>
-                            <textarea class="product-desc" id="mo-ta" placeholder=""></textarea>
+                            <textarea class="product-desc" id="mo-ta" placeholder="" style="width:100%;"></textarea>
                             <span class="form-message form-message-address-edit"></span>
                         </div>
                         <button class="form-submit btn-update-product-form edit-product-e" id="update-product-button">
@@ -447,7 +447,7 @@
                             class="form-control">
                         <span class="form-message-confirm-password form-message"></span>
                     </div>
-                    <div style="display:flex;">
+                    <div style="display:flex; justify-content: center;">
                         <select name="chonquyen" id="chonquyen">
                                 <option value="0">Nhan vien</option>
                                 <option value="1">Khach hang</option>

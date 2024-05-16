@@ -1803,3 +1803,10 @@ label a {
 .black {
   background-color: rgb(169, 168, 168);
 }
+
+.form-search-import{
+  margin-top: 20px;
+  display: flex;
+  width: 400px;
+}
+

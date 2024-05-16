@@ -118,9 +118,11 @@
                         <i class="fa-solid fa-box"></i>
                         <span class="text"> Nhập hàng </span>
                     </div>
-                    <form action="" class="form-search">
-                            <span class="search-btn"><i class="fa-solid fa-magnifying-glass" onclick="searchProduct()" aria-hidden="true"></i></span>
-                            <input id="form-search-product" type="text" class="form-search-input" placeholder="Tìm kiếm theo mã phiếu nhập...">
+                    <form action="" class="form-search-import">
+                        <span class="search-btn"><i class="fa-solid fa-magnifying-glass" onclick="searchProduct()"
+                                aria-hidden="true"></i></span>
+                        <input id="form-search-import" type="text" class="form-search-input"
+                            placeholder="Tìm kiếm theo mã phiếu nhập...">
                     </form>
                     <div class="import-function">
                         <div class="add">
@@ -136,91 +138,97 @@
                 <div class="import-container">
                     <div class="import-info">
                         <form>
-                            <div class="insert">
-                                <label for="nhan_vien_nhap">Nhân viên nhập:</label>
-                                <select id="nhan_vien_nhap" name="nhan_vien_nhap">
-                                    <option value="">Chọn nhân viên</option>
-                                    <option value="1">Nguyễn Văn A</option>
-                                    <option value="2">Trần Thị B</option>
-                                    <option value="3">Lê Văn C</option>
-                                </select>
+                            <div style="display: flex; gap: 100px;">
+                                <div class="insert">
+                                    <label for="nhan_vien_nhap">Nhân viên nhập:</label>
+                                    <select id="nhan_vien_nhap" name="nhan_vien_nhap">
+                                        <option value="">Chọn nhân viên</option>
+                                        <option value="1">Nguyễn Văn A</option>
+                                        <option value="2">Trần Thị B</option>
+                                        <option value="3">Lê Văn C</option>
+                                    </select>
+                                </div>
+
+                                <div class="insert">
+                                    <label for="ngay_nhap_tu_ngay">Từ ngày:</label>
+                                    <input type="date" id="ngay_nhap_tu_ngay" name="ngay_nhap_tu_ngay">
+                                </div>
+                                <div class="insert">
+                                    <label for="ngay_nhap_den_ngay">Đến ngày:</label>
+                                    <input type="date" id="ngay_nhap_den_ngay" name="ngay_nhap_den_ngay">
+                                </div>
                             </div>
-                            <div class="insert">
-                                <label for="ngay_nhap_tu_ngay">Từ ngày:</label>
-                                <input type="date" id="ngay_nhap_tu_ngay" name="ngay_nhap_tu_ngay">
+                            <div style="display: flex; gap: 80px;">
+                                <div class="insert">
+                                    <label for="giatu" class="">Giá từ: </label>
+                                    <input type="text" class="giatu" style="width: 100px">
+                                </div>
+                                <div class="insert">
+                                    <label for="giaden" class="">Giá đến: </label>
+                                    <input type="text" class="giaden" style="width: 100px">
+                                </div>
+                                <button type="submit" class="btn-control-large timkiemnangcao">Tìm kiếm</button>
                             </div>
-                            <div class="insert">
-                                <label for="ngay_nhap_den_ngay">Đến ngày:</label>
-                                <input type="date" id="ngay_nhap_den_ngay" name="ngay_nhap_den_ngay">
-                            </div>
-                            <div class="insert">
-                                <label for="giatu" class="">Giá từ: </label>
-                                <input type="text" class="giatu">
-                            </div>
-                            <div class="insert">
-                                <label for="giaden" class="" >Giá đến: </label>
-                                <input type="text" class="giaden">
-                            </div>
-                            <button type="submit" class="btn-control-large timkiemnangcao">Tìm kiếm</button>
-                        </form>
                     </div>
-                    <div class="import-detail">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <td>Mã phiếu nhập</td>
-                                    <td>Nhân viên nhập</td>
-                                    <td>Tổng tiền</td>
-                                    <td>Thời gian</td>
-                                </tr>
-                            </thead>
-                            <tbody class="rowtablePX">
-                                <tr>
-                                    <td>1</td>
-                                    <td>ABC123</td>
-                                    <td>Công ty A</td>
-                                    <td>Nguyễn Văn A</td>
-                                    <td>2023-11-14 10:20:00</td>
-                                    <td>1.000.000 VNĐ</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>DEF456</td>
-                                    <td>Công ty B</td>
-                                    <td>Trần Thị B</td>
-                                    <td>2023-11-15 11:30:00</td>
-                                    <td>2.000.000 VNĐ</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>GHI789</td>
-                                    <td>Công ty C</td>
-                                    <td>Lê Văn C</td>
-                                    <td>2023-11-16 12:40:00</td>
-                                    <td>3.000.000 VNĐ</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>JKL101</td>
-                                    <td>Công ty D</td>
-                                    <td>Nguyễn Thị D</td>
-                                    <td>2023-11-17 13:50:00</td>
-                                    <td>4.000.000 VNĐ</td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>MNO234</td>
-                                    <td>Công ty E</td>
-                                    <td>Trần Văn E</td>
-                                    <td>2023-11-18 14:00:00</td>
-                                    <td>5.000.000 VNĐ</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    </form>
+                </div>
+                <div class="import-detail">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Mã phiếu nhập</td>
+                                <td>Nhân viên nhập</td>
+                                <td>Tổng tiền</td>
+                                <td>Thời gian</td>
+                            </tr>
+                        </thead>
+                        <tbody class="rowtablePX">
+                            <tr>
+                                <td>1</td>
+                                <td>ABC123</td>
+                                <td>Công ty A</td>
+                                <td>Nguyễn Văn A</td>
+                                <td>2023-11-14 10:20:00</td>
+                                <td>1.000.000 VNĐ</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>DEF456</td>
+                                <td>Công ty B</td>
+                                <td>Trần Thị B</td>
+                                <td>2023-11-15 11:30:00</td>
+                                <td>2.000.000 VNĐ</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>GHI789</td>
+                                <td>Công ty C</td>
+                                <td>Lê Văn C</td>
+                                <td>2023-11-16 12:40:00</td>
+                                <td>3.000.000 VNĐ</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>JKL101</td>
+                                <td>Công ty D</td>
+                                <td>Nguyễn Thị D</td>
+                                <td>2023-11-17 13:50:00</td>
+                                <td>4.000.000 VNĐ</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>MNO234</td>
+                                <td>Công ty E</td>
+                                <td>Trần Văn E</td>
+                                <td>2023-11-18 14:00:00</td>
+                                <td>5.000.000 VNĐ</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </section>
+    </div>
+    </section>
     </div>
     <div class="modal add-import">
         <div class="modal-container">
@@ -347,7 +355,7 @@
     <script src="js/notificationEffect.js"></script>
     <script src="js/helper.js"></script>
     <script src="js/importproduct.js"></script>
-   
+
 
     <script>
     var addButtons = document.querySelectorAll('.add');

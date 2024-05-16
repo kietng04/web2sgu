@@ -333,6 +333,18 @@
                             <span class="form-message"></span>
                         </div>
                         <div class="form-group">
+                            <label for="gia-nhap" class="form-label">Gia nhap</label>
+                            <input id="gia-nhap" name="gia-nhap" type="text" placeholder="Nhap gia nhap"
+                                class="form-control">
+                            <span class="form-message"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="gia-xuat" class="form-label">Gia xuat</label>
+                            <input id="gia-xuat" name="gia-xuat" type="text" placeholder="Nhập gia xuat"
+                                class="form-control">
+                            <span class="form-message"></span>
+                        </div>
+                        <div class="form-group">
                             <label for="category" class="form-label">Chọn món</label>
                             <select name="category" id="chon-loai">
                                 <option>Chọn loại</option>
@@ -375,7 +387,7 @@
                         </div>
                         <button class="form-submit btn-update-product-form edit-product-e" id="add-product-button">
                             <i class="fa-solid fa-pen"></i>
-                            <span>THÊM SẢN PHẨM</span>
+                            <span class="btnzzz">THÊM SẢN PHẨM</span>
                         </button>
                     </div>
                 </form>
@@ -635,9 +647,11 @@
             uploadImg.src = "images/pizzaimg/pizza_temp.jpg";
             modal.classList.add('open');
             titleModal.innerHTML = "THÊM MỚI SẢN PHẨM";
+            document.querySelector(".btnzzz").innerHTML = "Thêm sản phẩm";
             // clear form
             document.querySelector('.add-product-form').reset();
             document.querySelector('.rowTable').innerHTML = '';
+            
         });
 
         detailButtons.forEach(function(button) {

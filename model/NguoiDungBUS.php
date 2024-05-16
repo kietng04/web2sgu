@@ -36,14 +36,16 @@ class NguoiDungBUS extends DB_business {
 
     function loadAll(){
         $sql = "
-        SELECT nhanvien.Ten,nhanvien.Ho,nhanvien.MaNV,nhanvien.SDT,nhanvien.Email,nhanvien.DiaChi,taikhoannhanvien.TrangThai
+        SELECT nhanvien.Ten,nhanvien.Ho,nhanvien.MaNV,nhanvien.SDT,nhanvien.Email,nhanvien.DiaChi,taikhoannhanvien.TrangThai,taikhoannhanvien.TrangThaiXoa as Xoa
         FROM nhanvien
         LEFT join taikhoannhanvien on nhanvien.MaNV=taikhoannhanvien.MaNV
+        WHERE taikhoannhanvien.TrangThaiXoa=1
               UNION ALL
         SELECT  
-        nguoidung.Ten ,nguoidung.Ho, nguoidung.MaND ,nguoidung.SDT,nguoidung.Email,nguoidung.DiaChi,taikhoannguoidung.TrangThai nguoidung 
+        nguoidung.Ten ,nguoidung.Ho, nguoidung.MaND ,nguoidung.SDT,nguoidung.Email,nguoidung.DiaChi,taikhoannguoidung.TrangThai,taikhoannguoidung.TrangThaiXoa as Xoa
         FROM nguoidung
         LEFT JOIN taikhoannguoidung on nguoidung.MaND=taikhoannguoidung.MaND
+        WHERE taikhoannguoidung.TrangThaiXoa=1
         ";
         $result = mysqli_query($this->__conn, $sql);
         $data = [];
@@ -56,15 +58,12 @@ class NguoiDungBUS extends DB_business {
 
     function deleteNguoiDung($mand){
         // Delete from taikhoannguoidung
-        $sql1 = "DELETE FROM taikhoannguoidung WHERE MaND = '$mand'";
+        $sql1 = "UPDATE taikhoannguoidung SET TrangThaiXoa=0 WHERE MaND='$mand'";
         $result1 = mysqli_query($this->__conn, $sql1);
 
-        // Delete from nguoidung
-        $sql2 = "DELETE FROM nguoidung WHERE MaND = '$mand'";
-        $result2 = mysqli_query($this->__conn, $sql2);
 
         // Return true if both queries were successful
-        return $result1 && $result2;
+        return $result1;
     }
 
 
@@ -76,10 +75,32 @@ class NguoiDungBUS extends DB_business {
         return $result1 && $result2;
     }
 
+    function updateNhanVien($manv,$ho,$ten,$email,$diachi,$sodienthoai) {
+        $sql = "UPDATE nhanvien SET Ho='$ho', Ten='$ten', Email='$email ', DiaChi='$diachi', SDT='$sodienthoai' WHERE MaNV='$manv'";
+        $sql2="UPDATE taikhoannhanvien SET TaiKhoan='$email' WHERE MaNV='$manv'";
+        $result1 = mysqli_query($this->__conn, $sql);
+        $result2 = mysqli_query($this->__conn, $sql2);
+        return $result1 && $result2;
+    }
+
     function updateStatus($mand,$status){
         $sql = "UPDATE taikhoannguoidung SET TrangThai=$status WHERE MaND='$mand'";
         $result = mysqli_query($this->__conn, $sql);
         return $result;
 
     }
+
+    public function nextUserId() {
+
+        $query = "SELECT COUNT(MaND) AS max_id FROM NguoiDung";
+        $result = mysqli_query($this->__conn, $query);
+        $row = mysqli_fetch_assoc($result);
+        $maxId = $row['max_id'];
+
+
+        $nextId = intval($maxId) + 1;
+
+        return $nextId;
+    }
+
 }

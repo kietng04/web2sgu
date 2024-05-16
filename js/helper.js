@@ -2,11 +2,13 @@ var categoryz = [];
 var currentPage = 1;
 var listProduct = null;
 var perPage = 8;
+var a;
+var b;
+var isNhanVien = false;
 var currentID;
-
 function loginz() {
-  var a = document.querySelector("#taikhoan").value;
-  var b = document.querySelector("#matkhau").value;
+  a = document.querySelector("#taikhoan").value;
+  b = document.querySelector("#matkhau").value;
 
   $.ajax({
     url: "./controller/ProductsController.php",
@@ -21,6 +23,7 @@ function loginz() {
     success: function (result) {
       if (result != null) {
         alert("Đăng nhập thành công!");
+        isNhanVien = 0;
         document.querySelector(".popupLogin").classList.add("--none");
         // Update userModal with the result
         currentID = result[0].MaND;
@@ -54,6 +57,7 @@ function logins() {
     success: function (result) {
       if (result != null) {
         alert("Đăng nhập thành công!");
+        isNhanVien = 1;
         document.querySelector('.popupLogin').classList.add('--none');
         // Update userModal with the result
         currentID = result[0].MaNV;
@@ -62,7 +66,7 @@ function logins() {
         document.querySelector('#display_email').value = result[0].Email;
         document.querySelector('#display_sdt').value = result[0].SDT;
         document.querySelector('#display_diachi').value = result[0].DiaChi;
-        alert(currentID);
+
       } else {
         alert("Tên đăng nhập hoặc mật khẩu không đúng!");
       }
@@ -106,7 +110,7 @@ function login(
     },
   });
 }
-var currentID;
+
 function updateInfo() {
   var ho = document.getElementById("display_firstname").value;
   var ten = document.getElementById("display_lastname").value;
@@ -114,40 +118,108 @@ function updateInfo() {
   var sdt = document.getElementById("display_sdt").value;
   var diachi = document.getElementById("display_diachi").value;
 
+  // ajax session get current user
   $.ajax({
-    url: "./controller/ProductsController.php",
-    type: "post",
+    type: "POST",
+    url: "controller/ProductsController.php",
     dataType: "json",
     timeout: 1500,
     data: {
-      request: "updateInfo",
-      id: currentID,
-      ho: ho,
-      ten: ten,
-      email: email,
-      sdt: sdt,
-      diachi: diachi,
+      request: "getCurrentUser",
     },
-    success: function (result) {
-      if (result != null) {
-        alert("Cập nhật thông tin thành công!");
-      } else {
-        alert("Cập nhật thông tin thất bại!");
+    success: function (data) {
+      if (!data) {
+        createToast("error", "Vui lòng đăng nhập để cập nhật thông tin!");
+        return;
       }
-    },
-    error: function(jqXHR, textStatus, errorThrown) {
-      console.log("Error: ", jqXHR.responseText); 
-      console.log("Status: ", textStatus);
-      console.log("Error: ", errorThrown);
-      alert("code nhu cc");
+      console.log(data)
+      if (data['result'][0]['MaNV']) currentID = data['result'][0]['MaNV'];
+      else currentID =data['result'][0]['MaND'];
+
+      $.ajax({
+        url: "./controller/ProductsController.php",
+        type: "post",
+        dataType: "json",
+        timeout: 1500,
+        data: {
+          request: "updateInfo",
+          id: currentID,
+          ho: ho,
+          ten: ten,
+          email: email,
+          sdt: sdt,
+          diachi: diachi,
+        },
+        success: function (result) {
+          if (result != null) {
+            alert("Cập nhật thông tin thành công!");
+            // ajax get current user
+            if (currentID.includes("NV")) {
+              $.ajax({
+                type: "POST",
+                url: "controller/ProductsController.php",
+                dataType: "json",
+                timeout: 1500, // sau 1.5 giây mà không phản hồi thì dừng => hiện lỗi
+                data: {
+                  request: "dangnhapnhanvien",
+                  data_usernames: a,
+                  data_passs: b,
+                },
+                success: function (data) {
+                  console.log(data);
+                },
+              });
+            }
+            else {
+              $.ajax({
+                type: "POST",
+                url: "controller/ProductsController.php",
+                dataType: "json",
+                timeout: 1500, // sau 1.5 giây mà không phản hồi thì dừng => hiện lỗi
+                data: {
+                  request: "dangnhapnguoidung",
+                  data_username: a,
+                  data_pass: b,
+                },
+                success: function (data) {
+                  console.log(data);
+                },
+              });
+            }
+      
+          } else {
+            alert("Cập nhật thông tin thất bại!");
+          }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.log("Error: ", jqXHR.responseText); 
+          console.log("Status: ", textStatus);
+          console.log("Error: ", errorThrown);
+          alert("code nhu cc");
+        }
+      });
     }
-  });
+  })
 }
 
 var btn_updateinfo = document.querySelector("#update-info");
 if (btn_updateinfo != null) {
-  btn_updateinfo.addEventListener("click", function () {
-    updateInfo();
+  btn_updateinfo.addEventListener("click", function (event) {
+    // Ngăn chặn hành động mặc định của sự kiện
+    event.preventDefault();
+
+    var phone = document.querySelector('#display_sdt').value;
+    var address = document.querySelector('#display_diachi').value;
+
+    var phoneRegex = /^0\d{9}$/;
+    if (!phoneRegex.test(phone)) {
+      alert('Số điện thoại phải bắt đầu bằng 09 và có 10 chữ số.');
+    } else if (address.length <= 6) {
+      alert('Địa chỉ phải có nhiều hơn 7 ký tự.');
+    } else {
+      // Nếu tất cả các điều kiện đều đúng, thực hiện cập nhật thông tin
+      updateInfo();
+    }
   });
 }
 
@@ -622,6 +694,11 @@ function loadSessionCart() {
       var html = "";
 
       if (data) {
+        a = data['result'][0].TaiKhoan;
+        b = data['result'][0].MatKhau;
+        currentID = data['result'][0].MaND;
+        if(currentID == null) currentID = data['result'][0].MaNV;
+        alert(currentID);
         data["cart"].forEach(function (item, index) {
           html += `<div class="list__item data-index="${index}">
             <div class="img">
@@ -674,7 +751,7 @@ function addeventinput() {
         if (!alertShownInvalid) {
           alert("Vui lòng nhập số nguyên dương lớn hơn 0!");
           alertShownInvalid = true;
-          inputField.value = 1;
+          return inputField.value = 1;
         }
         return;
       } else {
@@ -848,6 +925,7 @@ function addeventclickxeminfo() {
     },
     success: (data) => {
       if (data) {
+        console.log(data);
         currentID = data.result[0].MaND;
         document.querySelector('#display_firstname').value = data.result[0].Ho;
         document.querySelector('#display_lastname').value = data.result[0].Ten;

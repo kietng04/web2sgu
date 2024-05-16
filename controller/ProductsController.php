@@ -103,9 +103,16 @@ switch($_POST['request']) {
         }
         die (json_encode(false));
         break;
+    case 'capnhatthongtinuser':
+        capnhatthongtinuser();
+        break;
 }
 }
 function login() {
+    // unset session
+    if(isset($_SESSION['currentUser'])) {
+        unset($_SESSION['currentUser']);
+    }
     $username=$_POST['data_username'];
 	$password=$_POST['data_pass'];
     $sql = "SELECT * FROM TaiKhoanNguoiDung tk join NguoiDung nd on tk.MaND = nd.MaND WHERE tk.TaiKhoan='$username' AND tk.MatKhau='$password'";
@@ -123,6 +130,9 @@ function login() {
     return 0;
 }
 function loginStaff() { 
+    if(isset($_SESSION['currentUser'])) {
+        unset($_SESSION['currentUser']);
+    }
     $username=$_POST['data_usernames'];
     $password=$_POST['data_passs'];
     $sql = "SELECT * FROM TaiKhoanNhanVien tk join NhanVien nv on tk.MaNV = nv.MaNV WHERE tk.TaiKhoan='$username' AND tk.MatKhau='$password'";
@@ -287,7 +297,12 @@ function updateInfo() {
     $sdt = $_POST['sdt'];
     $email = $_POST['email'];
     $diachi = $_POST['diachi'];
-    $result = (new NguoiDungBUS())->updateNguoiDung($id,$ho,$ten,$email,$diachi,$sdt);
+    // if id contain nv
+    if (strpos($id, 'NV') !== false) {
+        $result = (new NhanVienBUS())->updateNhanVien($id, $ho, $ten, $email, $diachi, $sdt);
+    } else {
+        $result = (new NguoiDungBUS())->updateNguoiDung($id, $ho, $ten, $email, $diachi, $sdt);
+    }
     if ($result != null) {
         die (json_encode($result));
     }
@@ -298,4 +313,9 @@ function checkQuantity() {
     $listorder = $_POST['listorder'];
     $result = (new SanPhamBUS())->checkQuantity();
     die (json_encode($result));
+}
+
+function capnhatthongtinuser() {
+    // unset session
+
 }

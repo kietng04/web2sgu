@@ -18,6 +18,10 @@ loadcomcomboboxtheloai();
 addmasizedevaomap();
 var mapsize =  new Map();
 var mapde = new Map();
+var decodemapsize = new Map();
+var decodemapde = new Map();
+//traverse rowtable and add to curAttribute
+
 function addmasizedevaomap() {
   $.ajax({
     url: './controller/ProductManagementController.php',
@@ -30,9 +34,11 @@ function addmasizedevaomap() {
       console.log(data);
       data['sizes'].forEach(function (item) {
         mapsize.set(item.MaSize, item.TenSize);
+        decodemapsize.set(item.TenSize, item.MaSize);
       })
       data['viens'].forEach(function (item) {
         mapde.set(item.MaVien, item.TenVien);
+        decodemapde.set(item.TenVien, item.MaVien);
       })
 
     }
@@ -248,13 +254,15 @@ function showProductTableAdmin() {
   // console.log('editButtons', editButtons)
 }
 function prepared(masp) {
+
   var titleModal = document.querySelector(".modal-container-title");
   var modal = document.querySelector(".add-product");
   var uploadImg = document.querySelector(".upload-image-preview");
-
+  
   uploadImg.src = "img/pizza-1.png";
   modal.classList.add("open");
   titleModal.innerHTML = "CHỈNH SỬA SẢN PHẨM";
+  document.querySelector(".btnzzz").innerHTML = "Sửa sản phẩm";
 
   $.ajax({
     url: "./controller/ProductManagementController.php",
@@ -267,7 +275,10 @@ function prepared(masp) {
     success: function (data) {
       console.log(data);
       document.querySelector("#masanpham").value = data[0].MaSP;
-      document.querySelector("#masanpham").disabled = true;
+      if (document.querySelector(".edit-product-e").innerHTML == "CHỈNH SỬA SẢN PHẨM") {
+        document.querySelector("#masanpham").disabled = true;
+      }
+      else document.querySelector("#masanpham").disabled = false;
       document.querySelector("#ten-mon").value = data[0].TenSP;
       document.querySelector("#chon-loai").value = data[0].Loai;
       document.querySelector("#mo-ta").value = data[0].Mota;
@@ -282,13 +293,39 @@ function prepared(masp) {
         <td>${item.SoLuong}</td>
         <td><i class="fa-solid fa-trash" onclick="deleteRow(this)"></i></td>
         </tr>`;
+        
+
+        var masize = item.MaSize;
+        var made = item.MaVien
+        var gianhap = item.GiaNhap;
+        var giaxuat = item.GiaTien;
+    
+        //  replace , to "" and "đ" to "" 
+        
+
+        curAttribute.set(masize + made, 
+          {
+            tensize: mapsize.get(item.MaSize),
+            tende: mapde.get(item.MaVien),
+            gianhap: gianhap,
+            giaxuat: giaxuat,
+            soluong: 0
+          }
+        );
+
       })
       document.querySelector(".rowTable").innerHTML = html;
-      // load hinh anh
       document.querySelector(".modal-content-left img").src = data[0].Img;
-    },
-  });
-}
+      }})
+      console.log(curAttribute);
+      // load hinh anh
+   
+
+     
+
+    }
+
+
 
 function renderPagAdmin(totalPage, currentPage) {
   if (totalPage < 2) totalPage = 0;
@@ -486,6 +523,10 @@ function addeventaddproduct() {
   var btn = document.getElementById("add-product-button");
   btn.addEventListener("click", function (e) {
     e.preventDefault();
+    if (document.querySelector(".btnzzz").innerHTML == "Sửa sản phẩm") {
+      editproduct();
+      return;
+    }
     clearmsg();
     if (checkregrex().result == false) {
       var resultMsg = checkregrex().resultMsg;
@@ -538,6 +579,54 @@ function addeventaddproduct() {
     });
 }
 
+
+
+function editproduct() {
+
+  var masp = document.getElementById("masanpham").value;
+  var tensp = document.getElementById("ten-mon").value;
+  var loai = document.getElementById("chon-loai").value;
+  var mota = document.getElementById("mo-ta").value;
+
+  var formData = new FormData(document.querySelector(".add-product-form"));
+
+  formData.append("request", "editProduct");
+  formData.append("tensp", tensp);
+  formData.append("loai", loai);
+  formData.append("mota", mota);
+  formData.append("masp", masp);
+
+  var fileField = document.querySelector('input[type="file"]');
+  formData.append('up-hinh-anh', fileField.files[0]);
+  // traverse rowtable
+  var chitietsanpham = [];  
+  curAttribute.forEach(function (value, key) {
+    chitietsanpham.push({
+      masize: key[0],
+      made: key[1],
+      gianhap: value.gianhap,
+      giaxuat: value.giaxuat,
+      soluong: value.soluong
+    });
+  })
+
+  
+  console.log(chitietsanpham);
+  return;
+  formData.append('chitietsanpham', JSON.stringify(chitietsanpham));
+
+  $.ajax({
+    url: './controller/ProductManagementController.php',
+    type: 'POST',
+    dataType: 'json',
+    data: formData,
+    processData: false,
+    contentType: false,
+    success: function(data) {
+      console.log(data);
+    }
+  });
+}
 function checkregrex() {
   var masp = document.getElementById("masanpham").value;
   var tensp = document.getElementById("ten-mon").value;
@@ -583,17 +672,27 @@ function addeventthemthuoctinh() {
     tentt = tentt.replace("Size: ", "");
     tentt = tentt.replace(" - ", "-");
 
-    if (curAttribute.has(thuoctinh)) {
-      alert("Thuộc tính đã tồn tại");
-      return 0;
-    } else {
-      curAttribute.set(thuoctinh, {
-        tensize: tentt.split("-")[0],
-        tende: tentt.split("-")[1],
-      });
-    }
-    filltable();
-  });
+        if (curAttribute.has(thuoctinh)) {
+          console.log(curAttribute);
+
+            alert('Thuộc tính đã tồn tại');
+            return 0;
+        }
+        else {
+            curAttribute.set(thuoctinh, 
+                {
+                    tensize: tentt.split('-')[0],
+                    tende: tentt.split('-')[1],
+                    gianhap: document.querySelector('#gia-nhap').value,
+                    giaxuat: document.querySelector('#gia-xuat').value,
+                    soluong: 0
+                }
+            );
+
+        }
+        console.log(curAttribute);
+        filltable();
+    });
 }
 
 function filltable() {
@@ -601,9 +700,17 @@ function filltable() {
   // traverse map
   var html = "";
   curAttribute.forEach(function (value, key) {
+    var decodesizede;
+    var decodede = decodemapde.get(value.tende);
+    var decodesize = decodemapsize.get(value.tensize);
+    decodesizede = decodesize + "-" + decodede;
     html += `<tr>
         <td>${value.tensize}</td>
         <td>${value.tende}</td>
+        <td>${toVND(value.gianhap)}</td>
+        <td>${toVND(value.giaxuat)}</td>
+        <td>${value.soluong}</td>
+        <td><i class="fa-solid fa-trash" onclick="deleteRow(this)"></i></td>
         </tr>`;
   });
   rowTable.innerHTML = html;

@@ -31,7 +31,7 @@
             </div>
             <div class="middle-sidebar">
                 <ul class="sidebar-list">
-                    <li class="sidebar-list-item tab-content active">
+                    <li class="sidebar-list-item tab-content ">
                         <a href="index.php?controller=AdminIndexController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-house"></i></div>
                             <div class="hidden-sidebar">Trang tổng quan</div>
@@ -73,7 +73,7 @@
                             <div class="hidden-sidebar">Thống kê</div>
                         </a>
                     </li>
-                    <li class="sidebar-list-item tab-content">
+                    <li class="sidebar-list-item tab-content active">
                         <a href="index.php?controller=PermissionController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-couch"></i></i></div>
                             <div class="hidden-sidebar">Phân quyền</div>
@@ -155,7 +155,7 @@
                         </div>
                     </div>
                     <div class="role-name">
-                        <span>Tên nhóm quyền: </span>
+                        <span id="tennhomquyen">Tên nhóm quyền: </span>
                         <input type="text" name="role-name" id="role-name">
                     </div>
                     <div>
@@ -215,7 +215,7 @@
                             </tbody>
                         </table>
                         <div class="boc-button">
-                            <button class="themnhomquyen">Thêm nhóm quyền</button>
+                            <button class="themnhomquyen" id="themnhomquyen">Thêm nhóm quyền</button>
                         </div>
                         <div class="boc-button">
                             <button class="suanhomquyen" id="suanhomquyen">Sửa nhóm quyền</button>

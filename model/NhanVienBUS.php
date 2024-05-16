@@ -37,15 +37,10 @@ class NhanVienBUS extends DB_business {
     
     function deleteNhanVien($manv){
         // Delete from taikhoannhanvien
-        $sql1 = "DELETE FROM taikhoannhanvien WHERE MaNV = '$manv'";
+        $sql1 = "UPDATE taikhoannguoidung SET TrangThaiXoa=0 WHERE MaNV='$manv'";
         $result1 = mysqli_query($this->__conn, $sql1);
-
-        // Delete from nhanvien
-        $sql2 = "DELETE FROM nhanvien WHERE MaNV = '$manv'";
-        $result2 = mysqli_query($this->__conn, $sql2);
-
         // Return true if both queries were successful
-        return $result1 && $result2;
+        return $result1;
     }
     
     function getPhanQuyen($manv){
@@ -54,8 +49,8 @@ class NhanVienBUS extends DB_business {
         return mysqli_fetch_assoc($result);
     }
 
-    function updateNhanVien($manv,$ho,$ten,$email,$Diachi,$sodienthoai,$phanquyen){
-        $sql = "UPDATE nhanvien SET Ho='$ho',Ten='$ten',Email='$email',DiaChi='$Diachi',SDT='$sodienthoai',PhanQuyen=$phanquyen WHERE MaNV='$manv'";
+    function updateNhanVien($manv,$ho,$ten,$email,$Diachi,$sodienthoai){
+        $sql = "UPDATE nhanvien SET Ho='$ho',Ten='$ten',Email='$email',DiaChi='$Diachi',SDT='$sodienthoai' WHERE MaNV='$manv'";
         $sql2="UPDATE taikhoannhanvien SET TaiKhoan='$email' WHERE MaNV='$manv'";
         $result = mysqli_query($this->__conn, $sql);
         $result2 = mysqli_query($this->__conn, $sql2);

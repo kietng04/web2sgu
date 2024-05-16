@@ -97,4 +97,16 @@ class SanPhamBUS extends DB_business {
         }
         die (json_encode(array('status' => 'success')));
     }
+
+    function update_soluong($mahd) {
+        // lay ra chi tiet hoa don theo mahd
+        $sql = "SELECT * FROM chitiethoadon WHERE MaHD = '$mahd'";
+        $result = $this->get_list($sql);
+        // tru so luong
+        foreach ($result as $product) {
+            $sql = "UPDATE chitietsanpham SET SoLuong = SoLuong - " . $product['SoLuong'] . " WHERE MaSP = '" . $product['MaSP'] . "' AND MaSize = '" . $product['MaSize'] . "' AND MaVien = '" . $product['MaVien'] . "'";
+            $this->updatezzz($sql);
+        }
+        return true;
+    }
 }

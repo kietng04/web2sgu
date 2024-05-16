@@ -147,6 +147,10 @@ function nhanSuaPhanQuyen() {
   console.log('btn_sua_phan_quyen :>> ', btn_sua_phan_quyen);
   btn_sua_phan_quyen.forEach(function (btn) {
     btn.addEventListener("click", function () {
+      var btnthemnhomquyen = document.querySelector("#themnhomquyen");
+      btnthemnhomquyen.style.display = "none";
+      var btnsuanhomquyen = document.querySelector("#suanhomquyen");
+      btnsuanhomquyen.style.display = "inline-block";
       var dark_over = document.querySelector(".dark-overlay");
       dark_over.style.display = "block";
       var edit_role = document.querySelector("#roleModal");
@@ -155,7 +159,9 @@ function nhanSuaPhanQuyen() {
       ma_quyen_khi_tac_dong = ma_quyen_khi_nhan;
       console.log('ma_quyen_khi_nhan :>> ', ma_quyen_khi_nhan);
       var role_name = document.querySelector("#role-name");
-      role_name.value = ma_quyen_khi_nhan;
+      var tennhomquyen = btn.parentElement.parentElement.children[1].innerText;
+      role_name.value = tennhomquyen;
+      role_name.disabled = true;
       
       $.ajax({
         url: "./controller/PermissionController.php",
@@ -269,6 +275,7 @@ function nhanSuaPhanQuyen() {
 function clearcheckbox() {
   var role_name = document.querySelector("#role-name");
   role_name.value = ""; 
+  role_name.disabled = false;
   var list_checkbox = document.querySelectorAll(".cbcn");
           list_checkbox.forEach(function (item) {
             item.checked = false;
@@ -277,7 +284,7 @@ function clearcheckbox() {
 function nhansuanhomquyen() {
   var btnsuanhomquyen = document.querySelector("#suanhomquyen");
   btnsuanhomquyen.addEventListener("click", function () {
-    alert(ma_quyen_khi_tac_dong)
+    // alert(ma_quyen_khi_tac_dong)
     var role_name = document.querySelector("#role-name");
     role_name.value = ma_quyen_khi_tac_dong;
     xoaChucNangNhomQuyenByMaQuyen();
@@ -302,12 +309,14 @@ function updateChucNangNhomQuyenByMaQuyen() {
       if (list_checkbox[i * 4 + j].checked) {
         var ma_cn = data_chuc_nang[i];
         var hanhdong = data_hanh_dong[j];
-        alert("ma_quyen :>> " + ma_quyen + " ma_cn :>> " + ma_cn + " hanhdong :>> " + hanhdong);
+        // alert("ma_quyen :>> " + ma_quyen + " ma_cn :>> " + ma_cn + " hanhdong :>> " + hanhdong);
         themChucNangNhomQuyen(ma_quyen, ma_cn, hanhdong);
       }
     }
   }
   
+
+  // closeModal();
   
 
 }
@@ -335,7 +344,7 @@ function xoaChucNangNhomQuyenByMaQuyen() {
       console.log("Error: ", jqXHR.responseText);
       console.log("Status: ", textStatus);
       console.log("Error: ", errorThrown);
-      alert("code nhu cc o xoa");
+      // alert("code nhu cc o xoa");
     },
   });
 
@@ -371,7 +380,7 @@ function themChucNangNhomQuyen(ma_quyen, ma_cn, hanhdong) {
     },
     success: function (result) {
       if (result != null) {
-        alert("Them chuc nang nhom quyen thanh cong oke!");
+        // alert("Them chuc nang nhom quyen thanh cong oke!");
       } else {
         alert("Lỗi khi them chuc nang nhom quyen!");
       }
@@ -380,7 +389,7 @@ function themChucNangNhomQuyen(ma_quyen, ma_cn, hanhdong) {
       console.log("Error: ", jqXHR.responseText);
       console.log("Status: ", textStatus);
       console.log("Error: ", errorThrown);
-      alert("code nhu cc o them");
+      // alert("code nhu cc o them");
     },
   });
 }
@@ -393,6 +402,11 @@ function addeventdelete() {
   var btns = document.querySelectorAll(".btn-delete");
   btns.forEach((btn) => {
     btn.addEventListener("click", function () {
+
+      // xac nhan ban co muon xoa khong?
+      if (!confirm("Bạn có chắc chắn muốn xóa nhóm quyền này không?")) {
+        return;
+      }
       var maquyen = btn.value;
       $.ajax({
         url: "./controller/PermissionController.php",
@@ -403,7 +417,7 @@ function addeventdelete() {
         },
         success: function (data) {
           if (data) {
-            alert("Xóa nhóm quyền thành công");
+            // alert("Xóa nhóm quyền thành công");
             loadtablephanquyen();
           }
         },
@@ -469,6 +483,10 @@ function addeventthemnq() {
 
 var btnadd = document.querySelector(".add");
 btnadd.addEventListener("click", function () {
+  var btnthemnhomquyen = document.querySelector("#themnhomquyen");
+  btnthemnhomquyen.style.display = "inline-block";
+  var btnsuanhomquyen = document.querySelector("#suanhomquyen");
+  btnsuanhomquyen.style.display = "none";
   var role_name = document.querySelector("#role-name");
   role_name.value = "";
   var dark_over = document.querySelector(".dark-overlay");
@@ -482,3 +500,11 @@ var btnClose = document.querySelector(".close");
 btnClose.addEventListener("click", function () {
   clearcheckbox();
 });
+
+function closeModal() {
+  var dark_over = document.querySelector(".dark-overlay");
+  dark_over.style.display = "none";
+  var add_role = document.querySelector("#roleModal");
+  add_role.style.display = "none";
+  clearcheckbox();
+}

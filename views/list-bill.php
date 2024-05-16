@@ -142,7 +142,7 @@
         <div class="dark-overlay hide">
             <div class="container-bill hide">
                 <header>
-                    <img src="logo1.png" alt="">
+                    <img src="img/logo1.png" alt="">
                     <i class="fa-solid fa-xmark"></i>
                 </header>
                 <main>

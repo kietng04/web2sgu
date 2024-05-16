@@ -144,8 +144,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="admin-control-right ">
-                        <label for="top_products">TOP SẢN PHẨM BÁN CHẠY</label>
+                <div class="admin-control-right">
+                        <label for="top_products" style="text-align: center; align-content: center;">TOP SẢN PHẨM BÁN CHẠY</label>
                         <select name="top_products" id="top_products">
                             <option value="3">Top 3</option>
                             <option value="5">Top 5</option>

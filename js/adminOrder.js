@@ -18,7 +18,114 @@ var perPage=4;
 let showorder_wrapper=document.querySelector("#showOrder");
 var listOrder=[];
 var backup_data=[];
-let order_id=0;
+let order_id = 0;
+
+
+
+
+function getAllThongTinNhanVienSS() {
+    $.ajax({
+      url: "./controller/ProductsController.php",
+      type: "post",
+      dataType: "json",
+      timeout: 1500,
+      data: {
+        request: "getAllThongTinNhanVienSS",
+      },
+      success: function (result) {
+        if (result != null) {
+          alert("Lay nhan vien thanh cong oke!");
+          ma_quyen = result[0].PhanQuyen;
+          console.log("result nhan vien :>> ", result);
+          console.log("ma_quyen :>> ", ma_quyen);
+          getAllChucNangNhomQuyenByMaPhanQuyen();
+        } else {
+          alert("Lỗi khi lấy thông tin người dùng!");
+        }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("Error: ", jqXHR.responseText);
+        console.log("Status: ", textStatus);
+        console.log("Error: ", errorThrown);
+        alert("code nhu cczzz");
+      },
+    });
+  }
+  var list_chucnangnhomquyen;
+  function getAllChucNangNhomQuyenByMaPhanQuyen() {
+    $.ajax({
+      url: "./controller/ProductsController.php",
+      type: "post",
+      dataType: "json",
+      timeout: 1500,
+      data: {
+        request: "getAllChucNangNhomQuyenByMaPhanQuyen",
+        ma_quyen: ma_quyen,
+      },
+      success: function (result) {
+        if (result != null) {
+          alert("Lay chuc nang nhom quyen thanh cong oke!");
+          list_chucnangnhomquyen = result;
+          console.log("list_chucnangnhomquyen :>> ", list_chucnangnhomquyen);
+          hienThiChucNangNhomQuyen();
+        } else {
+          alert("Lỗi khi lấy thông tin chức năng nhóm quyền!");
+        }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("Error: ", jqXHR.responseText);
+        console.log("Status: ", textStatus);
+        console.log("Error: ", errorThrown);
+        alert("code nhu cc");
+      },
+    });
+  }
+  
+  function hienThiChucNangNhomQuyen() {
+    var btn_add_product = document.querySelectorAll("#btn-add-user");
+    var btn_edit_product = document.querySelectorAll(".btn-edit");
+      var btn_delete_product = document.querySelectorAll(".btn-delete");
+      var btn_view_product = document.querySelectorAll(".btn-detail");
+
+        btn_add_product.forEach(function (btn) {
+        btn.style.display = "none";
+        });
+        btn_edit_product.forEach(function (btn) {
+        btn.style.display = "none";
+        });
+        btn_delete_product.forEach(function (btn) {
+        btn.style.display = "none";
+        });
+        btn_view_product.forEach(function (btn) {
+            btn.style.display = "none";
+            });
+    list_chucnangnhomquyen.forEach(function (item) {
+      if (item.MaCN == "donhang" && item.hanhdong == "create") {
+        btn_add_product.forEach(function (btn) {
+          btn.style.display = "inline-block";
+        });
+      }
+        if (item.MaCN == "donhang" && item.hanhdong == "update") {
+            // btnStatus.style.display = "inline-block";
+        btn_edit_product.forEach(function (btn) {
+          btn.style.display = "inline-block";
+        });
+      }
+      if (item.MaCN == "donhang" && item.hanhdong == "delete") {
+        btn_delete_product.forEach(function (btn) {
+          btn.style.display = "inline-block";
+        });
+        }
+        if (item.MaCN == "donhang" && item.hanhdong == "view") {
+          btn_view_product.forEach(function (btn) {
+              btn.style.display = "inline-block";
+            });
+          }
+        
+    });
+    alert("hien thi chuc nang nhom quyen");
+  }
+
 loadTableOrder();
 function loadTableOrder() { 
     $.ajax({
@@ -64,7 +171,8 @@ function showOrderTableAdmin(){
         </td>
     </tr>`
     });
-    document.querySelector('#showOrder').innerHTML=html;
+    document.querySelector('#showOrder').innerHTML = html;
+    getAllThongTinNhanVienSS();
 }
 let listDetail="";
 
@@ -299,10 +407,13 @@ function addEventButton() {
             showOrderTableDetailAdmin(row_id,left_container);
             show_right_detail(row_id,popup.querySelector(".modal-detail-right"))
             let bottom_container=popup.querySelector(".modal-detail-bottom");
-            show_bottom_detail(row_id,bottom_container);
+            show_bottom_detail(row_id, bottom_container);
+            
+            // statusChange();
         });
     });    
 }
+
 function close(){
     let close_btn=document.querySelector(".modal-close-order");
     console.log(close_btn);

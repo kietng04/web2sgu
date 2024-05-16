@@ -485,12 +485,12 @@ function addeventchuyensizevade(listDetail) {
 }
 
 ////TÌM KIẾM VÀ TÌM KIẾM NÂNG CAO (AUTHROR: TRUNG HƯNG)
-function livesearch(input, category, min, max) {
+function livesearch(input, category, min, max, name) {
   // userInput là giá trị được nhập vào từ người dùng
 
   // Tạo câu truy vấn với biến input
   currentqueryz =
-    "SELECT sanpham.MaSP, TenSP, Mota, Img, Loai, MaSize, MaVien, GiaTien FROM `sanpham` left join `chitietsanpham` on `sanpham`.masp=`chitietsanpham`.masp left join `loaisanpham` on chitietsanpham.masp=loaisanpham.maloai WHERE sanpham.TenSP LIKE '%" +
+    "SELECT sanpham.MaSP, TenSP, Mota, Img, Loai, MaSize, MaVien, GiaTien FROM `sanpham` left join `chitietsanpham` on `sanpham`.masp=`chitietsanpham`.masp left join `loaisanpham` on sanpham.Loai=loaisanpham.TenLoai WHERE sanpham.TenSP LIKE '%" +
     input +
     "%' ";
   let category_id = 0;
@@ -500,7 +500,6 @@ function livesearch(input, category, min, max) {
       "and chitietsanpham.giatien between " + min + "000 and " + max + "000";
   }
 // CURRENTQUERY += groupby masp
- currentqueryz += " group by sanpham.MaSP";
   if (category != "Tất cả") {
     switch (category) {
       case "Pizza Bo":
@@ -521,6 +520,8 @@ function livesearch(input, category, min, max) {
     }
     currentqueryz += " and loaisanpham.maloai= " + category_id + "";
   }
+  currentqueryz += " group by sanpham.TenSP";
+  currentqueryz += (name == "A-Z") ? " ASC" : " DESC";
   currentPagez = 1;
   console.log(currentPagez, currentqueryz);
   $.ajax({
@@ -560,6 +561,8 @@ document.querySelector(".search-btn").addEventListener("click", function () {
   var category = $("#advanced-search-category-select").val();
   var min = $("#min-price").val();
   var max = $("#max-price").val();
-  console.log(input, category, min, max);
-  livesearch(input, category, min, max);
+  var name = $("#advanced-search-name-select").val();
+  console.log(input, category, min, max, name);
+  livesearch(input, category, min, max, name);
+
 });

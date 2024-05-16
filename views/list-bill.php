@@ -41,19 +41,7 @@
                     <img src="./img/logo-pizza.png" alt="logo">
                 </a>
             </div>
-            <div class="header__action">
-                <div class="header__action-location">
-                    <i class="fa-solid fa-location-dot"></i>
-                </div>
-                <div class="header__action-bell">
-                    <i class="fa-regular fa-bell"></i>
-                </div>
-                <i class="fa-solid fa-file-invoice"></i>
-                <div class="header__action-member">
-                    <div class="icon"><i class="fa-solid fa-circle-user"></i></div>
-                    <p>Thanh Vien</p>
-                </div>
-            </div>
+
         </header>
 
         <div class="container">

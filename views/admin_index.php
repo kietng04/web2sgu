@@ -21,7 +21,7 @@
                 <i class="fa-solid fa-bars"></i>
             </div> -->
             <div class="top-sidebar">
-                <a href="#" class="channel-logo"><img src="img/logo-pizza.png" alt="Channel Logo"></a>
+                <a href="index.php" class="channel-logo"><img src="img/logo-pizza.png" alt="Channel Logo"></a>
                 <div class="hidden-sidebar your-channel"><img src=""
                         style="height: 30px;" alt="">
                 </div>
@@ -29,7 +29,8 @@
             <div class="middle-sidebar">
                 <ul class="sidebar-list">
                     <li class="sidebar-list-item tab-content active">
-                        <a href="index.php?controller=AdminIndexController&action=index" class="sidebar-link">
+                        <!-- tro ve trang chinh -->
+                        <a href="index.php" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-house"></i></div>
                             <div class="hidden-sidebar">Trang tổng quan</div>
                         </a>

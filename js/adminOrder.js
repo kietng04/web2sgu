@@ -39,7 +39,7 @@ function loadTableOrder() {
             addEventButton();
             removeloader();
             close();
-            // renderPagAdmin(totalPage);
+            // renderPagAdmin(totalPage);git
             
         },
         error: function() {

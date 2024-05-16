@@ -404,7 +404,7 @@
     </div>
 
 
-    <div class="modal signup open">
+    <div class="modal signup">
         <div class="modal-container" style="overflow-y:auto;">
             <h3 class="modal-container-title add-account-e" style="font-weight: 600; font-size:20px">THÊM KHÁCH HÀNG MỚI
             </h3>

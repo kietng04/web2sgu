@@ -39,7 +39,7 @@ if (isset($_POST['request'])) {
                 die(json_encode($result));
             }
             break;
-        case 'checkgmail':
+        case 'checkemail':
             if (isset($_POST['email'])) {
                 $email = $_POST['email'];
                 $result = checkEmail($busttnd, $email);

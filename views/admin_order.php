@@ -107,11 +107,12 @@
                 <div class="admin-control">
                     <div class="admin-control-left">
                         <select name="tinh-trang" id="tinh-trang" onchange="findOrder_category.bind(this)()">
-                            <option value="0">Tất cả</option>
-                            <option value="1">Đã xác minh</option>
-                            <option value="2">Chưa xác minn</option>
-                            <option value="3">Bị hạn chế</option>
-                            <option value="4">Bị khóa</option>
+                            <option value="5">Tất cả</option>
+                            <option value="0">Đang chờ xác nhận</option>
+                            <option value="1">Đã xác nhận</option>
+                            <option value="2">Đang giao hàng</option>
+                            <option value="3">Đã giao hàng</option>
+                            <option value="4">Đã hủy</option>
                             
                             
                         </select>

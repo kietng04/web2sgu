@@ -101,17 +101,20 @@ function transform_into_maVien(maVien){
 function convert_status(status){
     var detail_status;
     switch(status){
+        case 0:
+            detail_status='Đang chờ xác nhận';
+            break;
         case 1:
-            detail_status='Đã xác minh';
+            detail_status='Đã xác nhận';
             break;
         case 2:
-            detail_status='Chưa xác minh';
+            detail_status='Đang giao hàng';
             break;
         case 3:
-            detail_status='Bị hạn chế';
+            detail_status='Đã giao hàng';
             break;
         case 4:
-            detail_status='Bị khóa';
+            detail_status='Đã hủy';
             break;
 
     }
@@ -448,7 +451,7 @@ function findOrder_category(){
     let category=Number(this.value);
     var search_list=[];
     //write the querry select the orders by category
-    if(category==0){loadTableOrder();return;}
+    if(category==5){loadTableOrder();return;}
     else{
         let convert_category=convert_status(category);
         for(let i=0;i<listOrder.length;i++){

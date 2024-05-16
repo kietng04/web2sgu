@@ -130,7 +130,7 @@
                                 <option>2023</option>
                                 <option>2024</option>
                             </select>
-                            <form action="" class="fillter-date" style="display:none; margin-top: -10px;">
+                            <form action="" class="fillter-date" style="display:none; margin-top: 0px; margin-left: 10px;">
                                 <div>
                                     <label for="time-start">Từ</label>
                                     <input style="width:150px;" type="date" class="form-control-date" id="time-start-tk">
@@ -139,7 +139,7 @@
                                     <label for="time-end">Đến</label>
                                     <input style="width:150px;" type="date" class="form-control-date" id="time-end-tk">
                                 </div>
-                                <button style="margin-left: 10px;" id="thongke_action">Thống kê</button>
+                                <button style="margin-left: 10px; padding: 10px 10px; background: #b5292f; border-radius: 5px; color: white; font-weight: bold;" id="thongke_action">Thống kê</button>
                             </form>
                         </div>
                     </div>

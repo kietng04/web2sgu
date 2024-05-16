@@ -1,6 +1,6 @@
 //xử lí các sự kiện nhấn nút , change:
 loadUser();
-
+getPhanQuyen();
 var phanquyen = 0;
 
 function getAllThongTinNhanVienSS() {
@@ -847,27 +847,24 @@ trangthai_select.addEventListener('change', function(e){
 
 
 
-// //function lấy ra danh sách phân quyền
-// function getPhanQuyen(manv,select_phanquyen){
-//     $.ajax({
-//         type: 'POST',
-//         url: './controller/UserController.php',
-//         dataType: 'json',
-//         data: {
-//             request: 'getPhanQuyen',
-//             manv: manv
-//         },
-//         success: function (data) {
-//             phanquyen=data.PhanQuyen;
-//             select_phanquyen.value=data.PhanQuyen;
-//             console.log(phanquyen)
-//         },
-//         error: function(jqXHR, textStatus, errorThrown) {
-//             console.log("Error: ", jqXHR.responseText); 
-//             console.log("Status: ", textStatus);
-//             console.log("Error: ", errorThrown);
-//             alert("code nhu cc");
-//           }
-//     })
-// }
+//function lấy ra danh sách phân quyền
+function getPhanQuyen(){
+    $.ajax({
+        type: 'POST',
+        url: './controller/PermissionController.php',
+        dataType: 'json',
+        data: {
+            request: 'loadnhomquyen'
+        },
+        success: function (data) {
+            console.log(data)
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log("Error: ", jqXHR.responseText); 
+            console.log("Status: ", textStatus);
+            console.log("Error: ", errorThrown);
+            alert("code nhu cc");
+          }
+    })
+}
 

@@ -82,6 +82,10 @@ top_product_input.addEventListener('change', function (event) {
   var value=event.target.value;
   top_choice =value;
   console.log(top_choice);
+  if(phanloai!=0){
+    loadDataTOPproducts_category(isthang, top_choice,phanloai);
+  }
+  else
   loadDataTOPproducts(isthang, top_choice);
   
 })
@@ -91,25 +95,96 @@ top_product_input.addEventListener('keydown', function (event) {
     var value=event.target.value;
     top_choice = validateInput(value);
     top_product_input.value=top_choice;
-    console.log(top_choice);
+    if(phanloai!=0){
+      loadDataTOPproducts_category(isthang, top_choice,phanloai);
+    }
+    else
     loadDataTOPproducts(isthang, top_choice);
   }
+})
+}
+function convertPhanLoaiSP(phanloai){
+  switch(phanloai){
+    case '1': return "GÀ";
+    case '2': return "BÒ";
+    case '3': return "HẢI SẢN";
+    case '4': return "HEO";
+    default: return "Tất cả";
+  }
+
+}
+
+function loadDataTOPproducts_category(isthang, top_choice,phanloai){
+  let texth2 = document.getElementsByTagName('h2')[0];
+  phanloai=convertPhanLoaiSP(phanloai)
+  console.log(phanloai);
+  if (isthang == 2) {
+    texth2.innerText = `Top ${top_choice} sản phẩm loại ${phanloai} bán chạy nhất trong khoảng thời gian từ ${start_date} đến ${end_date}`;
+  }
+  else if (isthang == 1) {
+    texth2.innerText = `Top ${top_choice} sản phẩm loại ${phanloai} bán chạy nhất trong năm ${year}`;
+  }
+  else {
+    texth2.innerText = `Top ${top_choice} sản phẩm loại ${phanloai} bán chạy nhất`;
+  }
+
+  var current_queryz_tail;
+  current_queryz_head = "SELECT sp.MaSP as MaSP,sp.TenSP as TenSP,COALESCE(SUM(cthd.SoLuong), 0) AS SoLuong FROM SanPham sp LEFT JOIN ChiTietHoaDon cthd ON sp.MaSP = cthd.MaSP LEFT JOIN HoaDon hd ON cthd.MaHD = hd.MaHD";
+
+  if (isthang == 2) {
+    current_queryz_tail = " WHERE sp.Loai='"+ phanloai+"' and hd.NgayLap BETWEEN '" + start_date + "' AND '" + end_date + "' GROUP BY sp.MaSP, sp.TenSP ORDER BY SoLuong DESC LIMIT " + top_choice + "";
+  }
+  else if (isthang == 1) {
+    current_queryz_tail = " WHERE sp.Loai='"+phanloai+"' and  YEAR(hd.NgayLap)=" + year + " GROUP BY sp.MaSP, sp.TenSP ORDER BY SoLuong DESC LIMIT " + top_choice + "";
+  }
+  else {
+    current_queryz_tail = " WHERE sp.Loai='"+phanloai+"' GROUP BY sp.MaSP, sp.TenSP ORDER BY SoLuong DESC LIMIT " + top_choice + "";
+  }
+
+  let current_queryz = current_queryz_head + current_queryz_tail;
+  console.log(current_queryz)
+  $.ajax({
+    url: './controller/AdminStatisticController.php',
+    type: 'POST',
+    dataType: 'json',
+    data: {
+      request: "getTopProducts",
+      query: current_queryz
+    },
+    success: function (data) {
+      console.log(data);
+      if (Array.isArray(data))
+        render_ranke_products_table(data.map(item => item.TenSP), data.map(item => item.SoLuong));
+      else {
+        let table = $("#top_products_table")[0];
+        let table_tbody = table.getElementsByTagName('tbody')[0];
+        table_tbody.innerHTML = "";
+      }
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log("Error: ", jqXHR.responseText);
+      console.log("Status: ", textStatus);
+      console.log("Error: ", errorThrown);
+      alert("code nhu cc");
+    }
 })
 }
 
 
 function loadDataTOPproducts(isthang, top_choice) {
-
   let texth2 = document.getElementsByTagName('h2')[0];
-  if (isthang == 2) {
-    texth2.innerText = `Top ${top_choice} sản phẩm bán chạy nhất trong khoảng thời gian từ ${start_date} đến ${end_date}`;
-  }
-  else if (isthang == 1) {
-    texth2.innerText = `Top ${top_choice} sản phẩm bán chạy nhất trong năm ${year}`;
-  }
-  else {
-    texth2.innerText = `Top ${top_choice} sản phẩm bán chạy nhất`;
-  }
+  console.log(getphanloai());
+  
+    if (isthang == 2) {
+      texth2.innerText = `Top ${top_choice} sản phẩm bán chạy nhất trong khoảng thời gian từ ${start_date} đến ${end_date}`;
+    }
+    else if (isthang == 1) {
+      texth2.innerText = `Top ${top_choice} sản phẩm bán chạy nhất trong năm ${year}`;
+    }
+    else {
+      texth2.innerText = `Top ${top_choice} sản phẩm bán chạy nhất`;
+    }
+  
 
   var current_queryz_tail;
   current_queryz_head = "SELECT sp.MaSP as MaSP,sp.TenSP as TenSP,COALESCE(SUM(cthd.SoLuong), 0) AS SoLuong FROM SanPham sp LEFT JOIN ChiTietHoaDon cthd ON sp.MaSP = cthd.MaSP LEFT JOIN HoaDon hd ON cthd.MaHD = hd.MaHD";
@@ -251,11 +326,12 @@ function date_chosen() {
       year = year_combobox.value;
       if (phanloai != 0) {
         loadDATAtoChart_inMonth_category(phanloai, year);
-        loadDataTOPproducts(isthang, top_choice)
+       loadDataTOPproducts_category(isthang, top_choice,phanloai)
       }
       else {
         loadDATAtoChart_inMonth(year);
-        loadDataTOPproducts(isthang, top_choice)
+        loadDataTOPproducts_category(isthang, top_choice,phanloai)
+
       }
     });
   }
@@ -291,7 +367,7 @@ $('#thongke_action')[0].addEventListener('click', function (event) {
     form_message.innerText="";
   if (phanloai != 0) {
     loadDATAtoChart_inDay_category(phanloai, start_date, end_date);
-    loadDataTOPproducts(isthang, top_choice);
+    loadDataTOPproducts_category(isthang, top_choice,phanloai); 
   }
   else {
     loadDATAtoChart_inDay(start_date, end_date);
@@ -310,19 +386,27 @@ $('#the-loai-tk')[0].addEventListener('change', function (e) {
     alert(`phan loai: ${phanloai} ,nam hien tai: ${year}`);
     if (phanloai_thoigian == 2) {
       loadDATAtoChart_inMonth(year);
+      loadDataTOPproducts(isthang, top_choice);
     }
     else {
       loadDATAtoChart_inDay(start_date, end_date);
+      loadDataTOPproducts(isthang, top_choice);
     }
   }
   else {
-    alert("phan loai: ", phanloai, "nam hien tai:", year);
+    loadDataTOPproducts_category(isthang, top_choice,phanloai);
+    alert(`phan loai: ${phanloai} "nam hien tai:", ${year}`);
     if (phanloai_thoigian == 1) {
       loadDATAtoChart_inDay_category(category, start_date, end_date);
+      
     }
     loadDATAtoChart_inMonth_category(category, year);
   }
 })
+
+function getphanloai() {
+  return phanloai;
+}
 
 function loadDATAtoChart_inMonth_category(category, year) {
   $.ajax({

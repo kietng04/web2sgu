@@ -79,6 +79,7 @@ CREATE TABLE `NhanVien` (
   `Email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `DiaChi` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `PhanQuyen` int(11) NOT NULL,
+  `TrangThai` int(11) DEFAULT 1,
   primary key (MaNV)
 );
 
@@ -147,25 +148,27 @@ CREATE TABLE `SizeSanPham`(
   `MaSize` varchar(100) NOT NULL,
   `TenSize` varchar(100) NOT NULL,
   `DinhLuongSize` varchar(100) NOT NULL,
+  `TrangThai` int(11) DEFAULT 1,
   primary key (MaSize)
 );
 
-INSERT INTO `SizeSanPham` (`MaSize`, `TenSize`, `DinhLuongSize`) VALUES
-('S', 'Nhỏ', 'Bán kính 15cm'),
-('M', 'Vừa', 'Bán kính 20cm'),
-('L', 'Lớn', 'Bán kính 25cm');
+INSERT INTO `SizeSanPham` (`MaSize`, `TenSize`, `DinhLuongSize`, `TrangThai`) VALUES
+('S', 'Nhỏ', 'Bán kính 15cm',1),
+('M', 'Vừa', 'Bán kính 20cm',1),
+('L', 'Lớn', 'Bán kính 25cm',1);
 
 CREATE TABLE `VienSanPham`(
   `MaVien` varchar(100) NOT NULL,
   `TenVien` varchar(100) NOT NULL,
   `DinhLuongVien` nvarchar(100) NOT NULL,
+  `TrangThai` int(11) DEFAULT 1,
   primary key (MaVien)
 );
 
-INSERT INTO `VienSanPham` (`MaVien`, `TenVien`, `DinhLuongVien`) VALUES
-('M', 'Mỏng', 'Độ dày 0.3cm'),
-('V', 'Vừa', 'Độ dày 0.4cm'),
-('D', 'Dày', 'Độ dày 0.5cm');
+INSERT INTO `VienSanPham` (`MaVien`, `TenVien`, `DinhLuongVien`, `TrangThai`) VALUES
+('M', 'Mỏng', 'Độ dày 0.3cm',1),
+('V', 'Vừa', 'Độ dày 0.4cm',1),
+('D', 'Dày', 'Độ dày 0.5cm',1);
 
 
 CREATE TABLE `LoaiSanPham`(
@@ -280,14 +283,13 @@ INSERT INTO `ChiTietSanPham` (`MaSP`, `MaSize`, `MaVien`, `GiaNhap` ,`GiaTien`) 
 
 CREATE TABLE `NhapSanPham` (
   `MaPN` int(11) NOT NULL,
-  `MaNV` int(11) NOT NULL,
+  `MaNV` varchar(255) NOT NULL,
   `NgayNhap` datetime NOT NULL,
   `DonGia` decimal(10,2) NOT NULL,
+  `trangthai` int(11) DEFAULT 1,
   primary key (MaPN)
 );
 
-INSERT INTO `NhapSanPham` (`MaPN`, `MaNV`, `NgayNhap`) VALUES
-(1, 1, '2020-12-12 12:00:00');
 
 CREATE TABLE `ChiTietNhap` (
   `MaPN` int(11) NOT NULL,

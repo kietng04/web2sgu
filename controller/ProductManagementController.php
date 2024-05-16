@@ -1,6 +1,7 @@
 <?php
 require_once('BaseController.php');
 require_once(__DIR__ . '/../model/SanPhamBUS.php');
+
 class ProductManagementController extends BaseController
 {
     public function index()
@@ -22,13 +23,18 @@ if (isset($_POST['request'])) {
         case 'deleteProduct':
             deleteProduct();
             break;
+        case 'getproductbyid':
+            getproductbyid();
+            break;
+        case 'getMapSizeDe':
+            getMapSizeDe();
+            break;
     }
 }
 
 
 function uploadProduct() {
     $name = $_POST['tensp'];
-    
     $category = $_POST['loai'];
     $description = $_POST['mota'];
     $masp = $_POST['masp'];
@@ -109,7 +115,6 @@ function uploadProduct() {
 function getProducts() {
     global $bussp;
     $query = $_POST['currentquery'];
-    // count(*) from query
     $countrow = "SELECT count(*) as total from ($query) as total";
     $rownum = (new DB_driver())->get1row($countrow);
     $currentpage = $_POST['currentpage'];
@@ -161,4 +166,29 @@ function deletechitietsp($id) {
         die (json_encode(array('status' => 'successz1')));
     }
     die (json_encode(array('status' => 'fail')));
+}
+
+function getproductbyid() {
+    global $bussp;
+    $masp = $_POST['masp'];
+    $sql = "SELECT * FROM sanpham, chitietsanpham WHERE sanpham.MaSP = chitietsanpham.MaSP AND sanpham.MaSP = '$masp'";
+    $result = $bussp->get_list($sql);
+    if ($result != null) {
+        die (json_encode($result));
+    }
+    die (json_encode(null));
+}
+
+function getMapSizeDe() {
+    global $bussp;
+    $sql = "SELECT * FROM sizesanpham WHERE TrangThai = 1";
+    $result = $bussp->get_list($sql);
+    // add to result 
+    $sql = "SELECT * FROM viensanpham WHERE TrangThai = 1";
+    $result2 = $bussp->get_list($sql);
+    $result = array('sizes' => $result, 'viens' => $result2);
+    if ($result != null) {
+        die (json_encode($result));
+    }
+    die (json_encode(null));
 }

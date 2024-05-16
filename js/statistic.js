@@ -4,10 +4,12 @@
 
 // renderChart();
 loadDATAtoChart_inMonth(2024);
-loadDataTOPproducts(0, 3);
-var year = 2020;
-var phanloai = 0; // phan loai khong la tat ca , ....
-var phanloai_thoigian = 2 // 2 la thang , 1 la ngay 
+
+loadDataTOPproducts(0,3);
+var year=2024;
+var phanloai=0; // phan loai khong la tat ca , ....
+var phanloai_thoigian=2 // 2 la thang , 1 la ngay 
+
 var start_date; // ngay bat dau 
 var end_date; // ngay ket thuc
 var sum_doanhthu = 0;

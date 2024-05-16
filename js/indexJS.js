@@ -10,7 +10,67 @@ var perPage = 8;
 var curProduct;
 loadDefaultProducts();
 loadSessionCart();
+addeventclickxeminfo();
+addeventthanhtoan();
 
+function addeventthanhtoan() {
+  var payment = document.querySelector(".payment__btn");
+  payment.addEventListener("click", function () {
+    // get current user
+    $.ajax({
+      url: "./controller/ProductsController.php",
+      type: "post",
+      dataType: "json",
+      timeout: 1500,
+      data: {
+        request: "getCurrentUser",
+      },
+      success: function (data) {
+        if (!data) {
+          createToast("error", "Bạn cần đăng nhập để thực hiện thanh toán");  
+          return;
+        }
+        
+        if (!data.cart) {
+          createToast("error", "Bạn chưa chọn sản phẩm nào");  
+          return;
+        }
+        var listorder = data.cart;
+        // ajax check xem co san pham nao vuot qua so luong ton kho khong
+        $.ajax({
+          url: "./controller/ProductsController.php",
+          type: "post",
+          dataType: "json",
+          timeout: 1500,
+          data: {
+            request: "checkQuantity",
+            listorder: listorder
+          },
+          success: function (data) {
+            if (data.status == "fail") {
+              createToast("error", data.message);
+              return;
+            }
+   
+            window.location.href = "./index.php?controller=PaymentController&action=index";
+          },
+          error: function (httpRequest, textStatus, errorThrown) {
+            console.log("HTTP Request Failed");
+            console.log("jqXHR:", httpRequest);
+            console.log("textStatus:", textStatus);
+            console.log("errorThrown:", errorThrown);
+          },
+        });
+      },
+      error: function () {
+        alert("2sad");
+      },
+    });
+    // check xem co san pham nao vuot qua so luong ton kho khong
+    
+    })
+
+}
 
 function loadDefaultProducts() {
   activeloader();
@@ -153,20 +213,26 @@ function addEventProducts() {
         success: function (data) {
           var datatemp = data;
           console.log(data);
+
           var from = document.querySelector('#min-price').value;
           var to = document.querySelector('#max-price').value;
+          // if from and to is empty then from is 0 and to is max value
+          if (from == "") from = 0;
+          if (to == "") to = 1000000000;
+
+          if (from != "") from = from + "000";
+          if (to != "") to = to + "000";
 
           if (from && to) {
             data = [];
-            console.log(data);
             datatemp.forEach( function(item) {
-              if (parseFloat(item.GiaTien) >= from && parseFloat(item.GiaTien) <= to) {
+              if (parseFloat(item.GiaTien) >= parseFloat(from) && parseFloat(item.GiaTien) <= parseFloat(to)) {
                 data.push(item);
               }
          
             })
           }
-          console.log(data);
+
           let setSize = new Set(); 
           let setVien = new Set();
           var sizearray = [];
@@ -194,9 +260,9 @@ function addEventProducts() {
               sizevien.push(obj2);
             }
           });
-          console.log(setSize);
+
           if (data.length == 0) {
-            alert("Error");
+            alert("Errors");
             return;
           }
           var product = data;
@@ -370,7 +436,7 @@ function addeventchuyensizevade(listDetail) {
       );
     }
   }
-
+  console.log(map);
   size.forEach(function (item) {
     item.addEventListener("click", function () {
       document.querySelector(".popup .btn.--add").style.backgroundColor =
@@ -379,7 +445,13 @@ function addeventchuyensizevade(listDetail) {
       var de = document.querySelector(".box__item.--de.--active p").innerText;
       var price = map.get(size + " " + de);
       // if price is NaN
-      if (!price) alert("Price is NaN");
+      if (!price) {
+        //disable button
+        document.querySelector(".popup .btn.--add").style.backgroundColor =
+          "#ccc";
+        // disabled = true;
+        document.querySelector(".popup .btn.--add").disabled = true;
+      }
       document.querySelector(".popup .btn.--add p:nth-child(2)").innerText =
         toVND(price);
     });
@@ -411,9 +483,9 @@ function livesearch(input, category, min, max) {
 
   // Tạo câu truy vấn với biến input
   currentqueryz =
-    "SELECT sanpham.MaSP, TenSP, Mota, Img, Loai, MaSize, MaVien, GiaTien FROM `sanpham` left join `chitietsanpham` on `sanpham`.masp=`chitietsanpham`.masp left join `loaisanpham` on chitietsanpham.masp=loaisanpham.masp WHERE sanpham.TenSP LIKE '%" +
+    "SELECT sanpham.MaSP, TenSP, Mota, Img, Loai, MaSize, MaVien, GiaTien FROM `sanpham` left join `chitietsanpham` on `sanpham`.masp=`chitietsanpham`.masp left join `loaisanpham` on chitietsanpham.masp=loaisanpham.maloai WHERE sanpham.TenSP LIKE '%" +
     input +
-    "%' and (chitietsanpham.MASIZE='S' AND chitietsanpham.MAVIEN='M') ";
+    "%' ";
   let category_id = 0;
 
   if (min + max != 0) {
@@ -443,7 +515,6 @@ function livesearch(input, category, min, max) {
   }
   currentPagez = 1;
   console.log(currentPagez, currentqueryz);
-
   $.ajax({
     url: "./controller/ProductsController.php",
     type: "post",

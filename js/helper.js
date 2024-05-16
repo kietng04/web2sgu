@@ -28,6 +28,7 @@ function loginz() {
         document.querySelector('#display_email').value = result[0].Email;
         document.querySelector('#display_sdt').value = result[0].SDT;
         document.querySelector('#display_diachi').value = result[0].DiaChi;
+        loadSessionCart();
       } else {
         alert("Tên đăng nhập hoặc mật khẩu không đúng!");
       }
@@ -143,11 +144,25 @@ function updateInfo() {
 }
 
 var btn_updateinfo = document.querySelector("#update-info");
-console.log(btn_updateinfo);
-btn_updateinfo.addEventListener('click', function (e) {
-  e.preventDefault();
-  updateInfo();
-});
+if (btn_updateinfo != null) {
+  btn_updateinfo.addEventListener("click", function (event) {
+    // Ngăn chặn hành động mặc định của sự kiện
+    event.preventDefault();
+
+    var phone = document.querySelector('#display_sdt').value;
+    var address = document.querySelector('#display_diachi').value;
+
+    var phoneRegex = /^0\d{9}$/;
+    if (!phoneRegex.test(phone)) {
+      alert('Số điện thoại phải bắt đầu bằng 09 và có 10 chữ số.');
+    } else if (address.length <= 6) {
+      alert('Địa chỉ phải có nhiều hơn 7 ký tự.');
+    } else {
+      // Nếu tất cả các điều kiện đều đúng, thực hiện cập nhật thông tin
+      updateInfo();
+    }
+  });
+}
 
 function updateUI() {
   getCurrentUser((data) => {
@@ -409,6 +424,17 @@ function filterCategory(category) {
 
 function showProducts() {
   var html = "";
+  // remove duplicate
+  for (var i = 0; i < listProduct.length; i++) {
+    for (var j = i + 1; j < listProduct.length; j++) {
+      if (listProduct[i].MaSP == listProduct[j].MaSP) {
+        listProduct.splice(j, 1);
+        j--;
+      }
+    }
+  }
+  console.log(listProduct);
+
   listProduct.forEach(function (item) {
     html += `<div class="scproducts__list-item" value="${item.MaSP}">
      <div class="top">
@@ -438,7 +464,7 @@ function addeventbutbtn() {
       document.querySelector(".popup .btn.--add").style.backgroundColor ==
       "rgb(204, 204, 204)"
     ) {
-      alert("Size và đế bạn vừa chọn hiện chưa có!");
+      alert("Lỗi!");
     }
 
     $.ajax({
@@ -597,42 +623,53 @@ function loadSessionCart() {
     success: function (data) {
       console.log(data);
       // hide load icon
-      if (data === null || data["result"] === null) {
-        return;
-      }
 
-      if (data["cart"] == null) {
+
+      if (data && data["cart"] == null) {
         data["cart"] = [];
         document.querySelector(".totalPrice").innerHTML = "";
       } else {
-        return data["cart"];
+        
       }
       var cartdiv = document.querySelector(".list");
       var html = "";
-      console.log(data["cart"]);
-      data["cart"].forEach(function (item, index) {
-        html += `<div class="list__item data-index="${index}">
-          <div class="img">
-              <img src="${item["Product"].Img}" alt="">
-          </div>
-          <div class="content">
-              <p class="title">${item["Product"].TenSP}</p>
-              <p class="desc">Đế: ${mapsize.get(
-          item["Product"].MaSize
-        )}, Size: ${mapde.get(item["Product"].MaVien)}</p>
-              <p class="price">${toVND(item["Product"].GiaTien)}</p>
-          </div>
-          <div class="buttons_added">
-            <input class="minus is-form" type="button" value="-" onclick="decreasingNumber(this, ${index})">
-            <input class="input-qty" max="100" min="1" name="" type="number" value="${item["Quantity"]
-          }" oninput="addeventinput()">
-            <input class="plus is-form" type="button" value="+" onclick="increasingNumber(this,  ${index})">
+
+      if (data) {
+        data["cart"].forEach(function (item, index) {
+          html += `<div class="list__item data-index="${index}">
+            <div class="img">
+                <img src="${item["Product"].Img}" alt="">
             </div>
-            <i class="fa-solid fa-xmark" data-index="${index}" onclick="removeItemFromCart(this.getAttribute('data-index'))"></i>
-          </div>`;
-      });
-      cartdiv.innerHTML = html;
-      console.log(html);
+            <div class="content">
+                <p class="title">${item["Product"].TenSP}</p>
+                <p class="desc">Đế: ${mapsize.get(
+            item["Product"].MaSize
+          )}, Size: ${mapde.get(item["Product"].MaVien)}</p>
+                <p class="price">${toVND(item["Product"].GiaTien)}</p>
+            </div>
+            <div class="buttons_added">
+              <input class="minus is-form" type="button" value="-" onclick="decreasingNumber(this, ${index})">
+              <input class="input-qty" max="100" min="1" name="" type="number" value="${item["Quantity"]
+            }" oninput="addeventinput()">
+              <input class="plus is-form" type="button" value="+" onclick="increasingNumber(this,  ${index})">
+              </div>
+              <i class="fa-solid fa-xmark" data-index="${index}" onclick="removeItemFromCart(this.getAttribute('data-index'))"></i>
+            </div>`;
+        });
+        cartdiv.innerHTML = html;
+        console.log(data);
+      }
+      if (data) {
+        document.querySelector(".thanhvien").innerHTML = (data["result"][0].Ho + " " + data["result"][0].Ten).toUpperCase();
+        document.querySelector(".login").innerHTML = "Đăng xuất";
+        document.querySelector(".view_profile").style.display = "block";
+      }
+      else {
+        document.querySelector(".thanhvien").innerHTML = "KHÁCH";
+        document.querySelector(".login").innerHTML = "Đăng nhập";
+        document.querySelector(".view_profile").style.display = "none";
+      }
+
       removeloader();
     },
   });
@@ -650,7 +687,7 @@ function addeventinput() {
         if (!alertShownInvalid) {
           alert("Vui lòng nhập số nguyên dương lớn hơn 0!");
           alertShownInvalid = true;
-          inputField.value = 1;
+          return inputField.value = 1;
         }
         return;
       } else {
@@ -809,4 +846,29 @@ function activeloader() {
 function removeloader(toast) {
   const loader = document.querySelector(".loader");
   loader.classList.add("loader-hidden");
+}
+
+function addeventclickxeminfo() {
+  // get sesssion
+  document.querySelector(".view_profile").addEventListener("click", function () {
+  $.ajax({
+    type: "POST",
+    url: "controller/ProductsController.php",
+    dataType: "json",
+    timeout: 1500,
+    data: {
+      request: "getCurrentUser",
+    },
+    success: (data) => {
+      if (data) {
+        currentID = data.result[0].MaND;
+        document.querySelector('#display_firstname').value = data.result[0].Ho;
+        document.querySelector('#display_lastname').value = data.result[0].Ten;
+        document.querySelector('#display_email').value = data.result[0].Email;
+        document.querySelector('#display_sdt').value =data.result[0].SDT;
+        document.querySelector('#display_diachi').value = data.result[0].DiaChi;
+      }
+    },
+  });
+}); 
 }

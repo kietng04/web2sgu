@@ -38,7 +38,7 @@
             </div>
             <div class="middle-sidebar">
                 <ul class="sidebar-list">
-                    <li class="sidebar-list-item tab-content active">
+                    <li class="sidebar-list-item tab-content ">
                         <a href="index.php?controller=AdminIndexController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-house"></i></div>
                             <div class="hidden-sidebar">Trang tổng quan</div>
@@ -48,6 +48,12 @@
                         <a href="index.php?controller=ProductManagementController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-pizza-slice"></i></i></div>
                             <div class="hidden-sidebar">Sản phẩm</div>
+                        </a>
+                    </li>
+                    <li class="sidebar-list-item tab-content">
+                        <a href="index.php?controller=ProductAttributeController&action=index" class="sidebar-link">
+                            <div class="sidebar-icon"><i class="fa-solid fa-chart-simple"></i></div>
+                            <div class="hidden-sidebar">Thuộc tính sản phẩm</div>
                         </a>
                     </li>
                     <li class="sidebar-list-item tab-content">
@@ -62,7 +68,7 @@
                             <div class="hidden-sidebar">Đơn hàng</div>
                         </a>
                     </li>
-                    <li class="sidebar-list-item tab-content">
+                    <li class="sidebar-list-item tab-content active">
                         <a href="index.php?controller=ImportController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-file-import"></i></div>
                             <div class="hidden-sidebar">Nhập hàng</div>
@@ -112,6 +118,10 @@
                         <i class="fa-solid fa-box"></i>
                         <span class="text"> Nhập hàng </span>
                     </div>
+                    <form action="" class="form-search">
+                            <span class="search-btn"><i class="fa-solid fa-magnifying-glass" onclick="searchProduct()" aria-hidden="true"></i></span>
+                            <input id="form-search-product" type="text" class="form-search-input" placeholder="Tìm kiếm theo mã phiếu nhập...">
+                    </form>
                     <div class="import-function">
                         <div class="add">
                             <i class="fa-solid fa-plus"></i>
@@ -136,28 +146,35 @@
                                 </select>
                             </div>
                             <div class="insert">
-                                <label for="ngay_nhap_tu_ngay">Ngày nhập từ ngày:</label>
+                                <label for="ngay_nhap_tu_ngay">Từ ngày:</label>
                                 <input type="date" id="ngay_nhap_tu_ngay" name="ngay_nhap_tu_ngay">
                             </div>
                             <div class="insert">
                                 <label for="ngay_nhap_den_ngay">Đến ngày:</label>
                                 <input type="date" id="ngay_nhap_den_ngay" name="ngay_nhap_den_ngay">
                             </div>
+                            <div class="insert">
+                                <label for="giatu" class="">Giá từ: </label>
+                                <input type="text" class="giatu">
+                            </div>
+                            <div class="insert">
+                                <label for="giaden" class="" >Giá đến: </label>
+                                <input type="text" class="giaden">
+                            </div>
+                            <button type="submit" class="btn-control-large timkiemnangcao">Tìm kiếm</button>
                         </form>
                     </div>
                     <div class="import-detail">
                         <table>
                             <thead>
                                 <tr>
-                                    <td>STT</td>
                                     <td>Mã phiếu nhập</td>
-                                    <td>Nhà cung cấp</td>
                                     <td>Nhân viên nhập</td>
-                                    <td>Thời gian</td>
                                     <td>Tổng tiền</td>
+                                    <td>Thời gian</td>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="rowtablePX">
                                 <tr>
                                     <td>1</td>
                                     <td>ABC123</td>
@@ -330,7 +347,7 @@
     <script src="js/notificationEffect.js"></script>
     <script src="js/helper.js"></script>
     <script src="js/importproduct.js"></script>
-    <script src="js/helper.js"></script>
+   
 
     <script>
     var addButtons = document.querySelectorAll('.add');

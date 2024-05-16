@@ -32,7 +32,7 @@ class NhanVienBUS extends DB_business {
         } else {
             return false;
         }
-    }
+    }   
 
     
     function deleteNhanVien($manv){
@@ -63,4 +63,18 @@ class NhanVienBUS extends DB_business {
         return $result;
 
     }
+    
+function getNVtheoMaNVienz() {
+    $manv = $_POST['manv'];
+    $sql = "SELECT * FROM taikhoannhanvien, nhanvien WHERE taikhoannhanvien.MaNV = nhanvien.MaNV AND taikhoannhanvien.MaNV = '$manv' and nhanvien.TrangThai = 1";
+    $data = $this->get_list($sql);
+    die(json_encode($data));
 }
+
+    function getDSNV() {
+        $sql = "SELECT * FROM nhanvien WHERE nhanvien.TrangThai = 1";
+        $data = $this->get_list($sql);
+        die(json_encode($data));
+    }
+}
+

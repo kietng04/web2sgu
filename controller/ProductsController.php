@@ -1,10 +1,13 @@
 <?php
 // require base controller
+
+
 require_once('BaseController.php');
 require_once(__DIR__ . '/../model/NguoiDungBUS.php');
-require_once(__DIR__ . '/../model/NhanVienBUS.php');
 require_once(__DIR__ . '/../model/SanPhamBUS.php');
+require_once(__DIR__ . '/../model/NhanVienBUS.php');
 session_start();
+
 class ProductsController extends BaseController
 {
 	public function index()
@@ -19,7 +22,7 @@ if (isset($_POST['request'])) {
 switch($_POST['request']) {
     case 'dangnhapnguoidung':
         if(isset($_POST['data_username']) && isset($_POST['data_pass'])){
-            loginUser();
+            login();
         }
         break;
     case 'dangnhapnhanvien':
@@ -90,9 +93,19 @@ switch($_POST['request']) {
     case 'updateInfo':
         updateInfo();
         break;
+    case 'checkQuantity':
+        checkQuantity();
+        break;
+    case 'logout':
+        if(isset($_SESSION['currentUser'])) {
+            unset($_SESSION['currentUser']);
+            die (json_encode(true));
+        }
+        die (json_encode(false));
+        break;
 }
 }
-function loginUser() {
+function login() {
     $username=$_POST['data_username'];
 	$password=$_POST['data_pass'];
     $sql = "SELECT * FROM TaiKhoanNguoiDung tk join NguoiDung nd on tk.MaND = nd.MaND WHERE tk.TaiKhoan='$username' AND tk.MatKhau='$password'";
@@ -139,7 +152,7 @@ function signup() {
     $insert_sql="INSERT INTO nguoidung ,Ten,SDT,Email,DiaChi,TaiKhoan,MatKhau,GioiTinh) VALUES ('$ho','$ten','$sdt','$email','$diachi','$newUser','$newPass','$gioitinh')";
 
 
-    $re = (new sanphamBUS)->updatezzz($insert_sql);
+    $result = (new sanphamBUS)->updatezzz($insert_sql);
 
 
     if($result != false){
@@ -279,4 +292,10 @@ function updateInfo() {
         die (json_encode($result));
     }
     die (json_encode(null));
+}
+
+function checkQuantity() {
+    $listorder = $_POST['listorder'];
+    $result = (new SanPhamBUS())->checkQuantity();
+    die (json_encode($result));
 }

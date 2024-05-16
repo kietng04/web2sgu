@@ -76,8 +76,8 @@ function loadUserInfo() {
         success: function(data) {
             console.log(data);
             document.querySelector('.name').value = data['result'][0].Ho + ' ' + data['result'][0].Ten; 
-            document.querySelector('.email').value = data['result'][0].SDT;
-            document.querySelector('.sdt').value = data['result'][0].Email;
+            document.querySelector('.email').value = data['result'][0].Email;
+            document.querySelector('.sdt').value = data['result'][0].SDT;
             document.querySelector('.diachi').value = data['result'][0].DiaChi;
         }
     })

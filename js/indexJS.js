@@ -107,7 +107,7 @@ function loadDefaultProducts() {
 }
 
 function renderPag(totalPage) {
-  if (totalPage < 2) totalPage = 0;
+  if (totalPage < 1) totalPage = 0;
   var html = "";
   for (var i = 1; i <= totalPage; i++) {
     if (i == 1) {
@@ -188,6 +188,7 @@ function toggleActive(clickedBtn, category) {
       var totalPage = data.countrow / perPage;
       totalPage = Math.ceil(totalPage);
       showProducts();
+
       renderPag(totalPage);
     },
     //fail
@@ -498,7 +499,8 @@ function livesearch(input, category, min, max) {
     currentqueryz +=
       "and chitietsanpham.giatien between " + min + "000 and " + max + "000";
   }
-
+// CURRENTQUERY += groupby masp
+ currentqueryz += " group by sanpham.MaSP";
   if (category != "Tất cả") {
     switch (category) {
       case "Pizza Bo":
@@ -536,6 +538,7 @@ function livesearch(input, category, min, max) {
       if (data && data.result && data.result.length > 0) {
         listProduct = data.result;
         var totalPage = data.countrow / perPage;
+        totalPage = Math.ceil(totalPage);
         showProducts();
         renderPag(totalPage);
       } else {

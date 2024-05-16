@@ -95,6 +95,7 @@ CREATE TABLE `HoaDon` (
   `MaNV` varchar(255) NOT NULL,
   `NgayLap` date NOT NULL,
   `TongTien` decimal(10,2) NOT NULL,
+  `TrangThai` int(11) NOT NULL,
   primary key (MaHD)
 );
 

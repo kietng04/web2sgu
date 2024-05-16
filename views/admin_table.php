@@ -107,8 +107,8 @@
             <!-- Thong ke  -->
             <div class="section active">
                 <div class="admin-control">
-                    <div class="admin-control-left">
-                        <select name="the-loai-tk" id="the-loai-tk" onchange="thongKe()" style="width:200px;">
+                    <div class="admin-control-left" style="display: flex; align-item: center;">
+                        <select name="the-loai-tk" id="the-loai-tk" onchange="thongKe()" style="width:100px;">
                             <option value="0" name="0">Tất cả</option>
                             <option value="2" name="2">Pizza Bò</option>
                             <option value="1" name="1">Pizza Gà</option>
@@ -123,22 +123,23 @@
 
                         </select>
                         <div>
-                            <select name="chon_nam" id="chon-nam" style="display:none;">
+                            <select name="chon_nam" id="chon-nam" style="display:none; margin-top: 0px;">
                                 <option>2020</option>
                                 <option>2021</option>
                                 <option>2022</option>
                                 <option>2023</option>
                                 <option>2024</option>
                             </select>
-                            <form action="" class="fillter-date" style="display:none;top:40px;">
+                            <form action="" class="fillter-date" style="display:none; margin-top: 0px; margin-left: 10px;">
                                 <div>
                                     <label for="time-start">Từ</label>
-                                    <input type="date" class="form-control-date" id="time-start-tk">
+                                    <input style="width:150px;" type="date" class="form-control-date" id="time-start-tk">
                                 </div>
                                 <div>
                                     <label for="time-end">Đến</label>
-                                    <input type="date" class="form-control-date" id="time-end-tk">
+                                    <input style="width:150px;" type="date" class="form-control-date" id="time-end-tk">
                                 </div>
+
                                 <button id="thongke_action">Thống kê</button>
                                 <span class="form-message-date form-message"></span>
                             </form>
@@ -148,8 +149,8 @@
                     <div class="admin-control-right ">
                         <label for="top_products">TOP SẢN PHẨM BÁN CHẠY</label>
                         <input min="1"   type="number" id="top_products" style="border:1px solid gray;border-radius:2px;margin-left:5px;">
+
                     </div>
-                </div>
                 <div class="order-statistical" id="order-statistical">
 
                     <div class="order-statistical-item">

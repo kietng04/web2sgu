@@ -71,9 +71,9 @@
                     <div class="header__action-bell">
                         <i class="fa-solid fa-cart-shopping"></i>
                     </div>
-                    <div class="header__action-bell">
-                        <a href="index.php?controller=HistoryBillController&action=index"><i
-                                class="fa-solid fa-file-invoice"></i></a>
+                    <div class="header__action-bell bill">
+                        <!-- <a href="index.php?controller=HistoryBillController&action=index"></a>--><i 
+                                class="fa-solid fa-file-invoice"></i>
                     </div>
                     <div class="header__action-member">
                         <div class="icon"><i class="fa-solid fa-circle-user"></i></div>

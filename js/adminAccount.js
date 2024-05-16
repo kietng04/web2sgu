@@ -103,7 +103,7 @@ submit_button.addEventListener('click',function(e){
             let phanquyen_edit=select_phanquyen.value;
             let mataikhoan=modal.querySelector('#ma_tai_khoan').innerText.split(':')[1];
     console.log(ten,ho,phone_edit,email_edit,address_edit,phanquyen_edit,mataikhoan)
-    if(validate_form(name_edit,phone_edit,email_edit,address_edit,"123456","123456","edit"))
+    if(validate_form("",mataikhoan,name_edit,phone_edit,email_edit,address_edit,"123456","123456","edit"))
     editAccount(mataikhoan,ho,ten,phone_edit,email_edit,address_edit,phanquyen_edit)
 })
 
@@ -129,11 +129,12 @@ $('#btn-update-account')[0].addEventListener('click', function (e) {
     //lấy dữ liệu từ form
     let fullname_input=$('#fullname').val();
     
-        let name_parts = fullname_input.split(' ');
+        let name_parts = fullname_input.trim().split(' ');
 
         let ten = name_parts.pop();
         let ho = name_parts.join(' ');
     let phone=$('#phone').val();
+    let username=$('#username').val();
     let email=$('#email').val();
     let address=$('#address').val();
     let password=$('#password').val();
@@ -160,8 +161,8 @@ $('#btn-update-account')[0].addEventListener('click', function (e) {
     else manv_string="NV"+manv;
 
     //xử lí validate các input trước khi thực hiện thêm
-    if(validate_form(fullname_input,phone,email,address,password,confirmPassword,"add")){
-    addAccount(ho,ten,phone,email,address,password,phanquyen);
+    if(validate_form(username,0,fullname_input,phone,email,address,password,confirmPassword,"add")){
+    addAccount(username,ho,ten,phone,email,address,password,phanquyen);
     //clear các input
     }
     
@@ -204,16 +205,19 @@ close_add_form.addEventListener('click',function(){
 //function phụ
 
 //validate:
-function validate_form(fullname_input,phone,email,address,password,confirmPassword,form_type)
+function validate_form(username,mataikhoan,fullname_input,phone,email,address,password,confirmPassword,form_type)
 {   
-
+    listUser=backup_data;
+    let otherUsers = listUser.filter(user => user.MaNV !== mataikhoan);
+    console.log(otherUsers)
     var isValidate = true;
     //kiểm tra k được để trống
     var isExist=false;
     //kiểm tra họ tên
     var  name_parts = fullname_input.split(' ');
-    var name_message,phone_message,email_message,address_message,password_message,confirmPassword_message;
+    var name_message,phone_message,email_message,address_message,password_message,confirmPassword_message,username_message;
     if(form_type!='edit'){
+    username_message=document.querySelector('.form-message-username');
     name_message = document.querySelector('.form-message-name');
      phone_message = document.querySelector('.form-message-phone');
      email_message = document.querySelector('.form-message-email');
@@ -229,9 +233,12 @@ function validate_form(fullname_input,phone,email,address,password,confirmPasswo
         password_message = document.querySelector('.form-message-password-edit');
         confirmPassword_message = document.querySelector('.form-message-confirm-password-edit');
     }
-    console.log(name_message,phone_message,email_message,address_message,password_message,confirmPassword_message)
+    console.log(name_message,phone_message,email_message,username_message,address_message,password_message,confirmPassword_message)
     //tôi muốn kiểm tra tất cả điều kiện cùng một lúc
-
+    if(username==otherUsers.find(user=>user.username==username)?.username){
+        username_message.innerText = "Tên tài khoản đã tồn tại";
+        isValidate=false;
+    }
     if(fullname_input!=""){
         if(name_parts.length<2 ){
             name_message.innerText = "Họ tên phải có ít nhất 2 từ";
@@ -247,14 +254,18 @@ function validate_form(fullname_input,phone,email,address,password,confirmPasswo
     }
     //kiểm tra số điện thoại
     let phone_regex = /^[0-9]{10}$/;
+    //nếu tôi ghi số điện thoại là 9 số và 2 dấu cách ở cuối thì sao
+
     if(phone!=""){
+        phone=phone.trim();
     if(!phone.match(phone_regex)){
         phone_message.innerText = "Số điện thoại không hợp lệ";
         isValidate=false;
     }
     else{
-        //kiểm tra số điện thoại đã tồn tại chưa
-        if(phone==listUser.find(user=>user.SDT==phone)?.SDT){
+        //kiểm tra số điện thoại đã tồn tại chưa không tính tài khoản này
+
+        if(phone==otherUsers.find(user=>user.SDT==phone)?.SDT){
             phone_message.innerText = "Số điện thoại đã tồn tại";
             isValidate=false;
             console.log(listUser)
@@ -273,7 +284,7 @@ function validate_form(fullname_input,phone,email,address,password,confirmPasswo
         isValidate=false;
     }
     else{
-        if(email==backup_data.find(user=>user.Email==email)?.Email){
+        if(email==otherUsers.find(user=>user.Email==email)?.Email){
             email_message.innerText = "Email đã tồn tại";
             isValidate=false;
         }
@@ -306,6 +317,7 @@ function validate_form(fullname_input,phone,email,address,password,confirmPasswo
         confirmPassword_message.innerText = "";
     }
 }
+    listUser=backup_data;
     return isValidate;
 }
 //tìm kiếm:
@@ -528,11 +540,11 @@ function loadUser(){
 
 
 //function thêm 
-function addAccount(ho,ten,phone,email,address,password,phanquyen){
+function addAccount(username,ho,ten,phone,email,address,password,phanquyen){
 if(phanquyen==1){
     let mand=findNextMa("ND");
-    if(mand<10) mand="ND0"+mand;
-    else mand="ND"+mand;
+    // if(mand<10) mand="ND0"+mand;
+    // else mand="ND"+mand;
 
     console.log(`mand: ${mand}`)
     $.ajax({
@@ -547,7 +559,8 @@ if(phanquyen==1){
             phone: phone,
             email: email,
             address: address,
-            password: password
+            password: password,
+            username: username
         },
         success: function (data) {
             loadUser();
@@ -742,4 +755,27 @@ trangthai_select.addEventListener('change', function(e){
 
 
 
-//input tìm kiếm:
+// //function lấy ra danh sách phân quyền
+// function getPhanQuyen(manv,select_phanquyen){
+//     $.ajax({
+//         type: 'POST',
+//         url: './controller/UserController.php',
+//         dataType: 'json',
+//         data: {
+//             request: 'getPhanQuyen',
+//             manv: manv
+//         },
+//         success: function (data) {
+//             phanquyen=data.PhanQuyen;
+//             select_phanquyen.value=data.PhanQuyen;
+//             console.log(phanquyen)
+//         },
+//         error: function(jqXHR, textStatus, errorThrown) {
+//             console.log("Error: ", jqXHR.responseText); 
+//             console.log("Status: ", textStatus);
+//             console.log("Error: ", errorThrown);
+//             alert("code nhu cc");
+//           }
+//     })
+// }
+

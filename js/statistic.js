@@ -5,7 +5,7 @@
 // renderChart();
 loadDATAtoChart_inMonth(2024);
 loadDataTOPproducts(0, 3);
-var year = 2020;
+var year = 2024;
 var phanloai = 0; // phan loai khong la tat ca , ....
 var phanloai_thoigian = 2 // 2 la thang , 1 la ngay 
 var start_date; // ngay bat dau 
@@ -72,7 +72,30 @@ function render_ranke_products_table(tensanpham, soluongbanra) {
     </tr>`;
   }
   table_tbody.innerHTML = html;
+  buttonEvent();
 }
+
+function buttonEvent() {
+  let top_product_input=$('#top_products')[0];
+top_product_input.addEventListener('change', function (event) {
+  var value=event.target.value;
+  top_choice =value;
+  console.log(top_choice);
+  loadDataTOPproducts(isthang, top_choice);
+  
+})
+
+top_product_input.addEventListener('keydown', function (event) {
+  if(event.key==="Enter"){
+    var value=event.target.value;
+    top_choice = validateInput(value);
+    top_product_input.value=top_choice;
+    console.log(top_choice);
+    loadDataTOPproducts(isthang, top_choice);
+  }
+})
+}
+
 
 function loadDataTOPproducts(isthang, top_choice) {
 
@@ -88,16 +111,16 @@ function loadDataTOPproducts(isthang, top_choice) {
   }
 
   var current_queryz_tail;
-  current_queryz_head = "SELECT sp.MaSP as MaSP,sp.TenSP as TenSP,SUM(cthd.SoLuong) AS SoLuong FROM SanPham sp JOIN ChiTietHoaDon cthd ON sp.MaSP = cthd.MaSP JOIN HoaDon hd ON cthd.MaHD = hd.MaHD";
+  current_queryz_head = "SELECT sp.MaSP as MaSP,sp.TenSP as TenSP,COALESCE(SUM(cthd.SoLuong), 0) AS SoLuong FROM SanPham sp LEFT JOIN ChiTietHoaDon cthd ON sp.MaSP = cthd.MaSP LEFT JOIN HoaDon hd ON cthd.MaHD = hd.MaHD";
 
   if (isthang == 2) {
-    current_queryz_tail = " WHERE hd.NgayLap BETWEEN '" + start_date + "' AND '" + end_date + "' GROUP BY sp.MaSP, sp.TenSP ORDER BY SUM(cthd.SoLuong) DESC LIMIT " + top_choice + "";
+    current_queryz_tail = " WHERE hd.NgayLap BETWEEN '" + start_date + "' AND '" + end_date + "' GROUP BY sp.MaSP, sp.TenSP ORDER BY SoLuong DESC LIMIT " + top_choice + "";
   }
   else if (isthang == 1) {
-    current_queryz_tail = " WHERE YEAR(hd.NgayLap)=" + year + " GROUP BY sp.MaSP, sp.TenSP ORDER BY SUM(cthd.SoLuong) DESC LIMIT " + top_choice + "";
+    current_queryz_tail = " WHERE YEAR(hd.NgayLap)=" + year + " GROUP BY sp.MaSP, sp.TenSP ORDER BY SoLuong DESC LIMIT " + top_choice + "";
   }
   else {
-    current_queryz_tail = " GROUP BY sp.MaSP, sp.TenSP ORDER BY SUM(cthd.SoLuong) DESC LIMIT " + top_choice + "";
+    current_queryz_tail = " GROUP BY sp.MaSP, sp.TenSP ORDER BY SoLuong DESC LIMIT " + top_choice + "";
   }
 
   let current_queryz = current_queryz_head + current_queryz_tail;
@@ -155,6 +178,7 @@ function loadDATAtoChart_inMonth(year) {
       renderChart();
       renderTable(xValues, yValues, yValues_loinhuan);
       render_item_content();
+      getNumber_of_Type_OF_Products();
     },
     error: function (jqXHR, textStatus, errorThrown) {
       console.log("Error: ", jqXHR.responseText);
@@ -246,10 +270,24 @@ $('#thongke_action')[0].addEventListener('click', function (event) {
   event.preventDefault();
   let start_date_val = document.getElementById("time-start-tk").value;
   let end_date_val = document.getElementById("time-end-tk").value;
-
+  let form_message=document.querySelector(".form-message-date");
   start_date = start_date_val;
   end_date = end_date_val;
   alert(`Phan Loai : ${phanloai},Start Date: ${start_date}, End Date: ${end_date}`);
+  if(isNaN(new Date(start_date).getTime())){
+    form_message.innerText="ngày bắt đầu không được để trống";
+    return;
+  }
+  if(isNaN(new Date(end_date).getTime())){
+    form_message.innerText="ngày kết thúc không được để trống";
+    return;
+  }
+  if(new Date(start_date) > new Date(end_date)){
+    form_message.innerText="Ngay bat dau phai nho hon ngay ket thuc";
+    return;
+  }
+  else{
+    form_message.innerText="";
   if (phanloai != 0) {
     loadDATAtoChart_inDay_category(phanloai, start_date, end_date);
     loadDataTOPproducts(isthang, top_choice);
@@ -258,6 +296,7 @@ $('#thongke_action')[0].addEventListener('click', function (event) {
     loadDATAtoChart_inDay(start_date, end_date);
     loadDataTOPproducts(isthang, top_choice);
   }
+}
 
 });
 
@@ -366,9 +405,42 @@ function render_item_content() {
   $("#products-sale")[0].innerText = sum_products;
 }
 
+function validateInput(value) {
+    if(value<1){
+      console.log("nho hon 1");
+      value=1;
+    }
+    if(value>parseInt(number_of_masp)){
+      console.log("lon hon so luong san pham");
+      value=parseInt(number_of_masp);
+    }
+    return value;
+}
 
-$('#top_products')[0].addEventListener('change', function (event) {
-  top_choice = event.target.value;
-  console.log(top_choice);
-  loadDataTOPproducts(isthang, top_choice);
-})
+
+
+
+
+var number_of_masp=0;
+function getNumber_of_Type_OF_Products(){
+  $.ajax({
+    url: './controller/AdminStatisticController.php',
+    type: 'POST',
+    dataType: 'json',
+    data: {
+      request: "getNumber_of_Type_OF_Products",
+    },
+    success: function (data) {
+      number_of_masp=data[0].SoLuong;
+      console.log(`number of masp: ${number_of_masp}`);
+      $('#top_products').attr('max', number_of_masp);
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log("Error: ", jqXHR.responseText);
+      console.log("Status: ", textStatus);
+      console.log("Error: ", errorThrown);
+      alert("code nhu cc");
+    }
+  });
+}
+

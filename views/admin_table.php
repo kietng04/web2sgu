@@ -134,17 +134,14 @@
                                     <input type="date" class="form-control-date" id="time-end-tk">
                                 </div>
                                 <button id="thongke_action">Thống kê</button>
+                                <span class="form-message-date form-message"></span>
                             </form>
                         </div>
                     </div>
 
                     <div class="admin-control-right ">
                         <label for="top_products">TOP SẢN PHẨM BÁN CHẠY</label>
-                        <select name="top_products" id="top_products">
-                            <option value="3">Top 3</option>
-                            <option value="5">Top 5</option>
-                            <option value="10">Top 10</option>
-                        </select>
+                        <input min="1"   type="number" id="top_products" style="border:1px solid gray;border-radius:2px;margin-left:5px;">
                     </div>
                 </div>
                 <div class="order-statistical" id="order-statistical">

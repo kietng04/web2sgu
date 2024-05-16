@@ -36,13 +36,13 @@ class NguoiDungBUS extends DB_business {
 
     function loadAll(){
         $sql = "
-        SELECT nhanvien.Ten,nhanvien.Ho,nhanvien.MaNV,nhanvien.SDT,nhanvien.Email,nhanvien.DiaChi,taikhoannhanvien.TrangThai,taikhoannhanvien.TrangThaiXoa as Xoa
+        SELECT nhanvien.Ten,nhanvien.Ho,nhanvien.MaNV,nhanvien.SDT,nhanvien.Email,nhanvien.DiaChi,taikhoannhanvien.TrangThai,taikhoannhanvien.TrangThaiXoa as Xoa,taikhoannhanvien.TaiKhoan as username
         FROM nhanvien
         LEFT join taikhoannhanvien on nhanvien.MaNV=taikhoannhanvien.MaNV
         WHERE taikhoannhanvien.TrangThaiXoa=1
               UNION ALL
         SELECT  
-        nguoidung.Ten ,nguoidung.Ho, nguoidung.MaND ,nguoidung.SDT,nguoidung.Email,nguoidung.DiaChi,taikhoannguoidung.TrangThai,taikhoannguoidung.TrangThaiXoa as Xoa
+        nguoidung.Ten ,nguoidung.Ho, nguoidung.MaND ,nguoidung.SDT,nguoidung.Email,nguoidung.DiaChi,taikhoannguoidung.TrangThai,taikhoannguoidung.TrangThaiXoa as Xoa,taikhoannguoidung.TaiKhoan as username
         FROM nguoidung
         LEFT JOIN taikhoannguoidung on nguoidung.MaND=taikhoannguoidung.MaND
         WHERE taikhoannguoidung.TrangThaiXoa=1

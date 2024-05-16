@@ -33,6 +33,9 @@ if (isset($_POST['request'])) {
         case 'getTopProducts':
              getTOPProducts();
             break;
+        case 'getNumber_of_Type_OF_Products':
+            getNumber_of_Type_OF_Products();
+            break;
     }
 }
 
@@ -79,6 +82,15 @@ function getDoanhThu_Loai_Ngay(){
 function getTOPProducts(){
     $query= $_POST['query'];
     $result = (new HoaDonBUS())->getTopProducts($query);
+    if ($result != null) {
+        die (json_encode($result));
+    }
+    die (json_encode("khong tra ve "));
+}
+
+
+function getNumber_of_Type_OF_Products(){
+    $result = (new SanPhamBUS())->getNumber_of_Type_OF_Products();
     if ($result != null) {
         die (json_encode($result));
     }

@@ -4,29 +4,30 @@ const showBillButtons = document.querySelectorAll('.show-detail');
 const darkOverlay = document.querySelector('.dark-overlay');
 
 showBillButtons.forEach(button => {
-  button.addEventListener('click', function() {
+  button.addEventListener('click', function () {
     productDetails.classList.remove("hide");
     darkOverlay.style.display = 'block';
   })
 })
 
 closeDetail.forEach(button => {
-  button.addEventListener('click', function() {
+  button.addEventListener('click', function () {
     productDetails.classList.add("hide");
     darkOverlay.style.display = 'none';
   })
 })
 var User;
+
 let tried_queryz="";
 let length=0;
 var listOrder = [];
 var backup_data = [];
+
 loadtable();
 
 // load lich su don hang
 function loadtable() {
-
-    $.ajax({  
+$.ajax({  
         url: './controller/HistoryBillController.php',
         type: 'POST',
         dataType: 'json',
@@ -57,7 +58,7 @@ function renderTable() {
   console.log(data);  
   var html = "";
   // traverse data
-  data.slice(data.length-4,data.length).reverse().forEach((element) => {
+  data.slice(data.length - 4,data.length).reverse().forEach((element) => {
     html += `<tr>
     <td>${element.MaHD}</td>
     <td>${element.NgayLap}</td>`;
@@ -81,6 +82,7 @@ function renderTable() {
     }
     html += `<td>${toVND(element.TongTien)}</td>
     <td><button class="show-detail" value="${element.MaHD}">Xem chi tiết</button></td>
+    <td><button class="delete-bill" style="background-color: #c8102e; color: white; padding: 10px; border-radius: 50%; cursor: pointer;"><i class="fa-solid fa-trash"></i></button></td>
     </tr>`;
   })
   document.querySelector('.rowtable').innerHTML = html;
@@ -89,38 +91,40 @@ function renderTable() {
 
 function loadtablez(data) {
   var html = "";
-          // traverse data
-          data.forEach((element) => {
-            console.log(element.MaND)
-            html += `<tr>
+  // traverse data
+  data.forEach((element) => {
+    console.log(element.MaND)
+    html += `<tr>
             <td>${element.MaHD}</td>
             <td>${element.NgayLap}</td>`;
-            // parse element.TrangThai to int
-            switch(element.TrangThai) {
-              case '0': 
-                html += `<td>Đang chờ xác nhận</td>`;
-                break;
-              case '1':
-                html += `<td>Đã xác nhận</td>`;
-                break;
-              case '2':
-                html += `<td>Đang giao hàng</td>`;
-                break;
-              case '3':
-                html += `<td>Đã giao hàng</td>`;
-                break;
-              default:
-                html += `<td>Đã hủy</td>`;
-                break;
-            }
-            html += `<td>${toVND(element.TongTien)}</td>
+    // parse element.TrangThai to int
+    switch (element.TrangThai) {
+      case '0':
+        html += `<td>Đang chờ xác nhận</td>`;
+        break;
+      case '1':
+        html += `<td>Đã xác nhận</td>`;
+        break;
+      case '2':
+        html += `<td>Đang giao hàng</td>`;
+        break;
+      case '3':
+        html += `<td>Đã giao hàng</td>`;
+        break;
+      default:
+        html += `<td>Đã hủy</td>`;
+        break;
+    }
+    html += `<td>${toVND(element.TongTien)}</td>
             <td><button class="show-detail" value="${element.MaHD}">Xem chi tiết</button></td>
-        </tr>`;})
-        document.querySelector('.rowtable').innerHTML = html;
-        addeventdetailorder();
-        removeloader();
-        
-          
+            <td><button class="delete-bill"><i class="fa-solid fa-trash"></i></button></td>
+        </tr>`;
+  })
+  document.querySelector('.rowtable').innerHTML = html;
+  addeventdetailorder();
+  removeloader();
+
+
 }
 
 function render_page_li(totalPage) {
@@ -133,22 +137,22 @@ function render_page_li(totalPage) {
     } else {
       html += `<li class="page-item " onclick="ajaxrow(${i},this)" ><a  class="page-link">${i}</a></li>`;
     }
-   
+
   }
   document.querySelector(".pagination").innerHTML = html;
 
 }
 
 
-function ajaxrow(page,currentpage) {
-  let currentqueryz=tried_queryz;
-  console.log("nhan vao ajaxrow",currentqueryz);
-  let currentPagez=1;
+function ajaxrow(page, currentpage) {
+  let currentqueryz = tried_queryz;
+  console.log("nhan vao ajaxrow", currentqueryz);
+  let currentPagez = 1;
   currentPagez = page;
-  if(currentpage.previousElementSibling){
+  if (currentpage.previousElementSibling) {
     currentpage.previousElementSibling.classList.remove('--active');
   }
-  if(currentpage.nextElementSibling){
+  if (currentpage.nextElementSibling) {
     currentpage.nextElementSibling.classList.remove('--active');
   }
   currentpage.classList.add('--active');
@@ -181,7 +185,7 @@ function ajaxrow(page,currentpage) {
 function addeventdetailorder() {
   var detaillist = document.querySelectorAll('.show-detail');
   detaillist.forEach((element) => {
-    element.addEventListener('click', function() {
+    element.addEventListener('click', function () {
       // get value attribute
       var mahd = element.getAttribute('value');
       loadcustomer_detail(mahd);
@@ -253,7 +257,7 @@ function loadDetailBill(mahd) {
       request: 'getDetailBill',
       mahd: mahd
     },
-    success: function(data) {
+    success: function (data) {
       console.log(data);
       var html = "";
       data.forEach((element, index) => {
@@ -283,6 +287,7 @@ function loadDetailBill(mahd) {
 
   })
 }
+
 
 function addEventSearch(){
   let search_btn=document.querySelector('#Search');
@@ -339,3 +344,4 @@ function searching(search_value){
   render_page_li(Math.ceil(listOrder.length/4));
   listOrder=backup_data;
 }
+

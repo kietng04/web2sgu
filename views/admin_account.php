@@ -30,7 +30,7 @@
             </div>
             <div class="middle-sidebar">
                 <ul class="sidebar-list">
-                    <li class="sidebar-list-item tab-content active">
+                    <li class="sidebar-list-item tab-content ">
                         <a href="index.php?controller=AdminIndexController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-house"></i></div>
                             <div class="hidden-sidebar">Trang tổng quan</div>
@@ -43,6 +43,12 @@
                         </a>
                     </li>
                     <li class="sidebar-list-item tab-content">
+                        <a href="index.php?controller=ProductAttributeController&action=index" class="sidebar-link">
+                            <div class="sidebar-icon"><i class="fa-solid fa-chart-simple"></i></div>
+                            <div class="hidden-sidebar">Thuộc tính sản phẩm</div>
+                        </a>
+                    </li>
+                    <li class="sidebar-list-item tab-content active">
                         <a href="index.php?controller=AccountManagementController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-users"></i></i></div>
                             <div class="hidden-sidebar">Tài khoản</div>
@@ -66,6 +72,7 @@
                             <div class="hidden-sidebar">Thống kê</div>
                         </a>
                     </li>
+                    
                     <li class="sidebar-list-item tab-content">
                         <a href="index.php?controller=PermissionController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-couch"></i></i></div>
@@ -476,6 +483,7 @@
         </div>
     </div>
     <script>
+      
     document.addEventListener('DOMContentLoaded', function() {
         var editButtons = document.querySelectorAll('.btn-edit');
         var closeButtons = document.querySelectorAll('.modal-close');
@@ -572,7 +580,21 @@
 
        
 
-    });
+    }); 
+    document.getElementById('btn-add-user').addEventListener('click', function() {
+        var modal = document.querySelector('.modal.signup');
+        modal.classList.add('open');
+                ;
+                    
+            });
+
+        var btnClose = document.querySelectorAll('.modal-close');
+            btnClose.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var modal = this.closest('.modal');
+                    modal.classList.remove('open');
+                });
+            });
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="js/adminAccount.js"></script>

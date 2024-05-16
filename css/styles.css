@@ -620,14 +620,14 @@ a {
 
 #advanced-search-price-btn {
   margin-left: 10px;
-  background-color: var(--color-red);
-  color: var(--white);
+  background-color:red;
+  color: white;
   font-size: 20px;
 }
 
 .advanced-search-control button:hover {
-  background-color: var(--color-red);
-  color: var(--white);
+  background-color:red;
+  color: white;
 }
 
 .advanced__container {
@@ -732,136 +732,16 @@ td {
   color: #000000;
 }
 
-/*======= bill detail =======*/
-.container-bill {
-  width: 700px;
-  left: 20%;
-  top: 15%;
-  transition: translate(-50%, -50%);
-  background: white;
-  padding: 20px 20px;
-  border-radius: 25px;
-  position: absolute;
-  z-index: 3;
-}
-
-.hide {
-  display: none;
-}
-
-.dark-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 115%;
-  background-color: black;
-  opacity: 0.5;
-  z-index: 0;
-  display: none;
-  z-index: 2;
-}
-
-.container-bill header {
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  background: white;
-  margin-bottom: 20px;
-  position: relative;
-}
-
-.container-bill header img {
-  width: 80px;
-  height: auto;
-}
-
-.container-bill header i {
-  color: black;
-  font-size: 20px;
-  position: absolute;
-  right: 0px;
-  cursor: pointer;
-}
-
-.container-bill main {
-  display: flex;
-  flex-direction: column;
-}
-
-.container-bill main .infor {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-}
-
-.container-bill main section {
-  border: solid 1px rgb(234, 234, 234);
-  padding: 10px;
-  margin-bottom: 10px;
-  background: white;
-}
-
-.thong-tin-don-hang,
-.thong-tin-khach-hang {
-  border: none;
-}
-
-.danh-sach-san-pham td img {
-  width: 100px;
-  height: auto;
-}
-
-.container-bill main section h2 {
-  font-size: 18px;
-  margin-bottom: 5px;
-}
-
-.container-bill main section ul {
-  list-style: none;
-  padding: 0;
-}
-
-.container-bill main section ul li {
-  margin-bottom: 5px;
-}
-
-.container-bill main section ul li span {
-  font-weight: bold;
-}
-
-.container-bill main section table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.container-bill main section table th,
-.container-bill main section table td {
-  border: 1px solid #ccc;
-  padding: 5px;
-  text-align: center;
-}
-
-.container-bill main section table th {
-  background-color: #c8102e;
-  color: white;
-}
-
-.container-bill main section table #tong-tien {
-  font-weight: bold;
-  text-align: right;
-}
-
 /*===== product-list =====*/
 .scbox .product-list {
   width: auto;
-  height: 400px;
+  height: fit-content;
   overflow-y: auto;
   border: solid 1px rgb(210, 210, 210);
   border-radius: 15px;
   padding: 10px 10px;
   background: rgb(255, 255, 255);
-  position: absolute;
+  position: relative;
   z-index: 201;
 }
 
@@ -893,11 +773,11 @@ td {
 }
 
 .scbox .product-list .close {
-  background: #008000;
-  padding: 7px 7px;
-  color: #fff;
-  border-radius: 5px;
+  position: absolute;
   cursor: pointer;
+  right: 15px;
+  top: 15px;
+  font-size: 15px;
 }
 
 .scbox .product-list h2 {
@@ -1037,7 +917,7 @@ td {
 #userModal {
   display: none;
   position: fixed;
-  z-index: 100;
+  z-index: 103;
   left: 0;
   top: 0;
   width: 100%;

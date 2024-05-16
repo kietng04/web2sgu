@@ -39,12 +39,14 @@ function signup($bustk, $busttnd) {
     $sodienthoai = $_POST['sdt'];
     $sql = "INSERT INTO NguoiDung(MaND, Ho, Ten, Email, GioiTinh, DiaChi, SDT) VALUES ('$IDCode', '$firstname', '$lastname', '$email', '$gioitinh', '$diachi', '$sodienthoai')";
     $resultTTND = $busttnd->insertz($sql);
+    
+
 
     $username = $_POST['username'];
     $password = $_POST['password'];
     $sql = "INSERT INTO TaiKhoanNguoiDung(MaND, TaiKhoan, MatKhau, TrangThai) VALUES ('$IDCode', '$username', '$password', '1')";
     $resultTK = $bustk->insertz($sql);
-
-    return ['resultTTND' => $resultTTND, 'resultTK' => $resultTK];
+ 
+    return $resultTK;
 }
 ?>

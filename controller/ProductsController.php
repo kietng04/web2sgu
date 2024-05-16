@@ -1,10 +1,14 @@
 <?php
 // require base controller
+
+
 require_once('BaseController.php');
 require_once(__DIR__ . '/../model/NguoiDungBUS.php');
-require_once(__DIR__ . '/../model/NhanVienBUS.php');
 require_once(__DIR__ . '/../model/SanPhamBUS.php');
+require_once(__DIR__ . '/../model/NhanVienBUS.php');
+require_once(__DIR__ . '/../model/NhomQuyenBUS.php');
 session_start();
+
 class ProductsController extends BaseController
 {
 	public function index()
@@ -19,7 +23,7 @@ if (isset($_POST['request'])) {
 switch($_POST['request']) {
     case 'dangnhapnguoidung':
         if(isset($_POST['data_username']) && isset($_POST['data_pass'])){
-            loginUser();
+            login();
         }
         break;
     case 'dangnhapnhanvien':
@@ -90,11 +94,103 @@ switch($_POST['request']) {
     case 'updateInfo':
         updateInfo();
         break;
+
+        case 'getThongTinNhanVienByMANV'://Kiet
+            
+            getThongTinNhanVienByMANV();
+            break;
+            case 'getALLChucNangNhomQuyenByMaQuyen'://Kiet
+                getALLChucNangNhomQuyenByMaQuyen();
+                break;
+       case 'getAllThongTinNhanVienSS':
+        getAllThongTinNhanVienSS();
+            break;
+        case 'getAllChucNangNhomQuyenByMaPhanQuyen':
+            getAllChucNangNhomQuyenByMaPhanQuyen();
+            break;
+    case 'checkQuantity':
+        checkQuantity();
+        break;
+    case 'logout':
+        if(isset($_SESSION['currentUser'])) {
+            unset($_SESSION['currentUser']);
+            die (json_encode(true));
+        }
+        die (json_encode(false));
+        break;
+        case 'getTenSanPhamByMaSP':
+            getTenSanPhamByMaSP();
+            break;
+    case 'capnhatthongtinuser':
+        capnhatthongtinuser();
+        break;
 }
 }
-function loginUser() {
+//Kiet
+
+function getTenSanPhamByMaSP(){
+    $masp = $_POST['id'];
+    $sql = "SELECT TenSP FROM sanpham WHERE MaSP = '$masp'";
+    $result = (new SanPhamBUS())->get_list($sql);
+    if($result != false){
+        die (json_encode($result)); 
+        return 1;
+    }
+}
+function getAllThongTinNhanVienSS(){
+    $id = $_SESSION['currentUser']['result'][0]['MaNV'];
+    $sql = "SELECT * FROM nhanvien WHERE MaNV = '$id'";
+    $result = (new NhanVienBUS())->get_list($sql);
+    if($result != false){
+        die (json_encode($result)); 
+        return 1;
+    }
+    
+}
+function getAllChucNangNhomQuyenByMaPhanQuyen(){
+    $maquyen = $_POST['ma_quyen'];
+    $sql = "SELECT * FROM chucnangnhomquyen WHERE MaQuyen = '$maquyen'";
+    $result = (new NhomQuyenBUS())->get_list($sql);
+
+    if($result != false){
+        die (json_encode($result)); 
+        return 1;
+    }
+
+
+}
+
+function getThongTinNhanVienByMANV(){
+    $manv = $_POST['id'];
+    $sql = "SELECT * FROM nhanvien WHERE MaNV = '$manv'";
+    $result = (new NhanVienBUS())->get_list($sql);
+    if($result != false){
+        die (json_encode($result)); 
+        return 1;
+    }
+}
+function getALLChucNangNhomQuyenByMaQuyen(){
+    $maquyen = $_POST['id'];
+    $sql = "SELECT * FROM chucnangnhomquyen WHERE MaQuyen = '$maquyen'";
+    $result = (new NhomQuyenBUS())->get_list($sql);
+    if($result != false){
+        die (json_encode($result)); 
+        return 1;
+    }
+
+}
+
+//end Kiet
+function login() {
+    // unset session
+    if(isset($_SESSION['currentUser'])) {
+        unset($_SESSION['currentUser']);
+    }
     $username=$_POST['data_username'];
 	$password=$_POST['data_pass'];
+
+    
+
     $sql = "SELECT * FROM TaiKhoanNguoiDung tk join NguoiDung nd on tk.MaND = nd.MaND WHERE tk.TaiKhoan='$username' AND tk.MatKhau='$password'";
     $result = (new NguoiDungBus())->get_list($sql);
     // create array include $result and null
@@ -110,16 +206,18 @@ function loginUser() {
     return 0;
 }
 function loginStaff() { 
+    if(isset($_SESSION['currentUser'])) {
+        unset($_SESSION['currentUser']);
+    }
     $username=$_POST['data_usernames'];
     $password=$_POST['data_passs'];
-    $sql = "SELECT * FROM TaiKhoanNhanVien WHERE TaiKhoan='$username' AND MatKhau='$password'";
+    $sql = "SELECT * FROM TaiKhoanNhanVien tk join NhanVien nv on tk.MaNV = nv.MaNV WHERE tk.TaiKhoan='$username' AND tk.MatKhau='$password'";
     $result = (new NhanVienBus())->get_list($sql);
         // create array include $result and null
     $returnz = array('result' => $result, 'cart' => null);
     if($result != false){
         $_SESSION['currentUser']=$returnz;
         die (json_encode($result)); 
-        
         return 1;
     }
     die (json_encode(null));
@@ -139,7 +237,7 @@ function signup() {
     $insert_sql="INSERT INTO nguoidung ,Ten,SDT,Email,DiaChi,TaiKhoan,MatKhau,GioiTinh) VALUES ('$ho','$ten','$sdt','$email','$diachi','$newUser','$newPass','$gioitinh')";
 
 
-    $re = (new sanphamBUS)->updatezzz($insert_sql);
+    $result = (new sanphamBUS)->updatezzz($insert_sql);
 
 
     if($result != false){
@@ -274,9 +372,25 @@ function updateInfo() {
     $sdt = $_POST['sdt'];
     $email = $_POST['email'];
     $diachi = $_POST['diachi'];
-    $result = (new NguoiDungBUS())->updateNguoiDung($id,$ho,$ten,$email,$diachi,$sdt);
+    // if id contain nv
+    if (strpos($id, 'NV') !== false) {
+        $result = (new NhanVienBUS())->updateNhanVien($id, $ho, $ten, $email, $diachi, $sdt);
+    } else {
+        $result = (new NguoiDungBUS())->updateNguoiDung($id, $ho, $ten, $email, $diachi, $sdt);
+    }
     if ($result != null) {
         die (json_encode($result));
     }
     die (json_encode(null));
+}
+
+function checkQuantity() {
+    $listorder = $_POST['listorder'];
+    $result = (new SanPhamBUS())->checkQuantity();
+    die (json_encode($result));
+}
+
+function capnhatthongtinuser() {
+    // unset session
+
 }

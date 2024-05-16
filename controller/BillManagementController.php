@@ -1,6 +1,7 @@
 <?php 
 require_once('BaseController.php');
 require_once(__DIR__ . '/../model/HoaDonBUS.php');
+require_once(__DIR__ . '/../model/SanPhamBUS.php');
 class BillManagementController extends BaseController
 {
     public function index()
@@ -87,6 +88,11 @@ function update_status(){
     $status = $_POST['trangthai'];
     $result = (new HoaDonBUS())->update_trangthai($mahd, $status);
     if ($result != null) {
+        if ($status < 4 && $status > 0) {
+            // tru so luong
+            $result = (new SanPhamBUS())->update_soluong($mahd);
+            die (json_encode($result));
+        }
         die (json_encode($result));
     }
     die (json_encode("khong tra ve "));

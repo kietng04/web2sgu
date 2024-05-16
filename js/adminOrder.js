@@ -3,7 +3,6 @@ tìm kiếm,xem chi tiết đơn hàng đơn hàng
 xử lí chưa xử lí
 tìm kiếm đơn hàng trong khoảng thời gian
 Hưng*/
-
 let currentqueryz=`
 select CONCAT('',hoadon.MaHD) as MaHD,nguoidung.MaND,CONCAT(nguoidung.Ho, ' ',nguoidung.Ten) as TenND,ngaylap,tongtien,trangthai.chitiettt as trangthai 
 from hoadon
@@ -40,7 +39,7 @@ function loadTableOrder() {
             addEventButton();
             removeloader();
             close();
-            // renderPagAdmin(totalPage);
+            // renderPagAdmin(totalPage);git
             
         },
         error: function() {
@@ -319,6 +318,7 @@ function close(){
 function showSelectedValue(selected_option,order_id){
     let selected_value=selected_option.value;
     //update trangthai
+    alert(selected_value);
     $.ajax({
         url: "./controller/BillManagementController.php",
         type: 'POST',

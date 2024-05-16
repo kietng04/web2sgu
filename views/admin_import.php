@@ -38,7 +38,7 @@
             </div>
             <div class="middle-sidebar">
                 <ul class="sidebar-list">
-                    <li class="sidebar-list-item tab-content active">
+                    <li class="sidebar-list-item tab-content ">
                         <a href="index.php?controller=AdminIndexController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-house"></i></div>
                             <div class="hidden-sidebar">Trang tổng quan</div>
@@ -48,6 +48,12 @@
                         <a href="index.php?controller=ProductManagementController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-pizza-slice"></i></i></div>
                             <div class="hidden-sidebar">Sản phẩm</div>
+                        </a>
+                    </li>
+                    <li class="sidebar-list-item tab-content">
+                        <a href="index.php?controller=ProductAttributeController&action=index" class="sidebar-link">
+                            <div class="sidebar-icon"><i class="fa-solid fa-chart-simple"></i></div>
+                            <div class="hidden-sidebar">Thuộc tính sản phẩm</div>
                         </a>
                     </li>
                     <li class="sidebar-list-item tab-content">
@@ -62,7 +68,7 @@
                             <div class="hidden-sidebar">Đơn hàng</div>
                         </a>
                     </li>
-                    <li class="sidebar-list-item tab-content">
+                    <li class="sidebar-list-item tab-content active">
                         <a href="index.php?controller=ImportController&action=index" class="sidebar-link">
                             <div class="sidebar-icon"><i class="fa-solid fa-file-import"></i></div>
                             <div class="hidden-sidebar">Nhập hàng</div>
@@ -112,6 +118,10 @@
                         <i class="fa-solid fa-box"></i>
                         <span class="text"> Nhập hàng </span>
                     </div>
+                    <form action="" class="form-search">
+                            <span class="search-btn"><i class="fa-solid fa-magnifying-glass" onclick="searchProduct()" aria-hidden="true"></i></span>
+                            <input id="form-search-product" type="text" class="form-search-input" placeholder="Tìm kiếm theo mã phiếu nhập...">
+                    </form>
                     <div class="import-function">
                         <div class="add">
                             <i class="fa-solid fa-plus"></i>
@@ -136,28 +146,36 @@
                                 </select>
                             </div>
                             <div class="insert">
-                                <label for="ngay_nhap_tu_ngay">Ngày nhập từ ngày:</label>
+                                <label for="ngay_nhap_tu_ngay">Từ ngày:</label>
                                 <input type="date" id="ngay_nhap_tu_ngay" name="ngay_nhap_tu_ngay">
                             </div>
                             <div class="insert">
                                 <label for="ngay_nhap_den_ngay">Đến ngày:</label>
                                 <input type="date" id="ngay_nhap_den_ngay" name="ngay_nhap_den_ngay">
                             </div>
+                            <div class="insert">
+                                <label for="giatu" class="">Giá từ: </label>
+                                <input type="text" class="giatu">
+                            </div>
+                            <div class="insert">
+                                <label for="giaden" class="" >Giá đến: </label>
+                                <input type="text" class="giaden">
+                            </div>
+                            <button type="submit" class="btn-control-large timkiemnangcao">Tìm kiếm</button>
                         </form>
                     </div>
                     <div class="import-detail">
                         <table>
                             <thead>
                                 <tr>
-                                    <td>STT</td>
                                     <td>Mã phiếu nhập</td>
-                                    <td>Nhà cung cấp</td>
                                     <td>Nhân viên nhập</td>
-                                    <td>Thời gian</td>
                                     <td>Tổng tiền</td>
+                                    <td>Thời gian</td>
+                                    <td>Thao tác</td>               
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="rowtablePX">
                                 <tr>
                                     <td>1</td>
                                     <td>ABC123</td>
@@ -324,13 +342,69 @@
             </div>
         </div>
     </div>
+      <!-- Modal chi tiet hoa don  -->
+      <div class="modal detail-order">
+        <div class="modal-container">
+            <h3 class="modal-container-title">CHI TIẾT ĐƠN HÀNG</h3>
+            <button class="modal-close-order"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+            <div class="modal-detail-order --import">
+                <div class="modal-detail-left" style="width: 100%;">
+                    <div class="order-item-group"> 
+                
+                    <div class="order-product">
+                        <div class="order-product-left">
+                          
+                            <div class="order-product-info">
+                                <h4>undefined</h4>
+                                <p class="order-product-note"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i> Kích cỡ:
+                                    Lớn; Đế:Dày
+                                </p>
+                                <p class="order-product-quantity">SỐ LƯỢNG: undefined</p>
+                                <p>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="order-product-right">
+                            <div class="order-product-price">
+                               Giá nhập:<span class="order-product-current-price">NaN&nbsp;₫</span>
+                            </div>
+                            <div class="order-product-price">
+                            Giá xuất:<span class="order-product-current-price">NaN&nbsp;₫</span>
+                            </div>
+                        </div>
+                    </div> 
+
+    </div>
+                </div>
+            </div>
+            <div class="modal-detail-bottom">
+            <div class="modal-detail-bottom-left">
+                <div class="price-total">
+                    <span class="thanhtien">Tổng tiền giá nhập: </span>
+                    <span class="price">100.000&nbsp;₫</span>
+                </div>
+            </div>
+            <div class="modal-detail-bottom-right">
+                <select id="statusSelect" style="appearance:none;text-align:center;border:1px;" onchange="showSelectedValue(this,1)">
+                    <option value="0">Chưa xử lí</option>
+                    <option value="1">Đã xác nhận</option>
+                    <option value="2">Đang giao hàng</option>
+                    <option value="3">Đã giao hàng</option>
+                    <option value="4">Đã hủy</option>
+                </select>
+            </div>
+            </div>
+
+            
+        </div>
+    </div>
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="js/notificationEffect.js"></script>
     <script src="js/helper.js"></script>
     <script src="js/importproduct.js"></script>
-    <script src="js/helper.js"></script>
+   
 
     <script>
     var addButtons = document.querySelectorAll('.add');

@@ -32,7 +32,7 @@ class NhanVienBUS extends DB_business {
         } else {
             return false;
         }
-    }
+    }   
 
     
     function deleteNhanVien($manv){
@@ -49,8 +49,8 @@ class NhanVienBUS extends DB_business {
         return mysqli_fetch_assoc($result);
     }
 
-    function updateNhanVien($manv,$ho,$ten,$email,$Diachi,$sodienthoai,$phanquyen){
-        $sql = "UPDATE nhanvien SET Ho='$ho',Ten='$ten',Email='$email',DiaChi='$Diachi',SDT='$sodienthoai',PhanQuyen=$phanquyen WHERE MaNV='$manv'";
+    function updateNhanVien($manv,$ho,$ten,$email,$Diachi,$sodienthoai){
+        $sql = "UPDATE nhanvien SET Ho='$ho',Ten='$ten',Email='$email',DiaChi='$Diachi',SDT='$sodienthoai' WHERE MaNV='$manv'";
         $sql2="UPDATE taikhoannhanvien SET TaiKhoan='$email' WHERE MaNV='$manv'";
         $result = mysqli_query($this->__conn, $sql);
         $result2 = mysqli_query($this->__conn, $sql2);
@@ -63,4 +63,25 @@ class NhanVienBUS extends DB_business {
         return $result;
 
     }
+    
+function getNVtheoMaNVienz() {
+    $manv = $_POST['manv'];
+    $sql = "SELECT * FROM taikhoannhanvien, nhanvien WHERE taikhoannhanvien.MaNV = nhanvien.MaNV AND taikhoannhanvien.MaNV = '$manv' and nhanvien.TrangThai = 1";
+    $data = $this->get_list($sql);
+    die(json_encode($data));
 }
+
+    function getDSNV() {
+        $sql = "SELECT * FROM nhanvien WHERE nhanvien.TrangThai = 1";
+        $data = $this->get_list($sql);
+        die(json_encode($data));
+    }
+
+    function getThongTinNhanViensql(){
+        $manv = $_POST['manv'];
+        $sql = "SELECT * FROM nhanvien WHERE MaNV = '$manv'";
+        $data = $this->get_list($sql);
+        die(json_encode($data));
+    }
+}
+

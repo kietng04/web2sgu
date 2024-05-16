@@ -1,4 +1,7 @@
 /*========= list bill =========*/
+*{
+  font-family: 'Roboto', sans-serif;
+}
 .wrapperMP{
     background-image: url("../images/background1.jpg");
     height: 200vh;
@@ -93,11 +96,11 @@
   }
   
   /*======= bill detail =======*/
-  .container-bill{
+  .container-bill {
     width: 700px;
-    left: 20%;
-    top: 2%;
-    transition: translate(-50%,-50%);
+    left: 50%;
+    top: 5%;
+    transform: translateX(-50%);
     background: white;
     padding: 20px 20px;
     border-radius: 25px;
@@ -155,19 +158,20 @@
   .container-bill main .infor{
     display: flex;
     justify-content: center;
-    gap: 40px;
+    gap: 150px;
   }
   
   .container-bill main section {
-    border: solid 1px rgb(234, 234, 234);
+    border: none;
     padding: 10px;
     margin-bottom: 10px;
     background: white;
   }
   
   .container-bill .danh-sach-san-pham{
-    height: 400px;
+    height: 220px;
     overflow-y: auto;
+    margin-top: 40px;
   }
 
   .thong-tin-don-hang, .thong-tin-khach-hang{
@@ -181,7 +185,14 @@
   }
   .container-bill main section h2 {
     font-size: 18px;
-    margin-bottom: 5px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  .container-bill main .danh-sach-san-pham h2{
+    font-size: 20px;
+    color: #c8102e;
+    font-weight: bold;
+    text-transform: uppercase;
   }
   
   .container-bill main section ul {
@@ -200,10 +211,11 @@
   .container-bill main section table{
     width: 100%;
     border-collapse: collapse;
+    margin-top: 10px;
+    border-radius: 15px;
   }
   
   .container-bill main section table th, .container-bill main section table td {
-    border: 1px solid #ccc;
     padding: 5px;
     text-align: center;
     vertical-align: middle;
@@ -212,6 +224,7 @@
   .container-bill main section table th {
     background-color: #c8102e;
     color: white;
+    text-transform: uppercase;
   }
   
   .container-bill main section table #tong-tien {

@@ -76,6 +76,7 @@
                             <th>Trạng thái</th>
                             <th>Tổng tiền</th>
                             <th>Chi tiết</th>
+                            <th>Hủy đơn</th>
                         </tr>
                     </thead>
                     <tbody class="rowtable">
@@ -142,7 +143,7 @@
         <div class="dark-overlay hide">
             <div class="container-bill hide">
                 <header>
-                    <img src="logo1.png" alt="">
+                    <img src="img/logo1.png" alt="">
                     <i class="fa-solid fa-xmark"></i>
                 </header>
                 <main>

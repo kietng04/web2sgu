@@ -58,7 +58,10 @@
                 </div>
                 <div class="header__action">
                     <div class="header__action-admin">
+                        <a href="index.php?controller=AdminIndexController&action=index">
                         <i class="fa fa-cog" aria-hidden="true"></i>
+                        </a>
+                        
                     </div>
                     <div class="header__action-location">
                         <i class="fa-solid fa-location-dot"></i>
@@ -75,12 +78,12 @@
                     </div>
                     <div class="header__action-member">
                         <div class="icon"><i class="fa-solid fa-circle-user"></i></div>
-                        <p>THÀNH VIÊN</p>
+                        <p class="thanhvien">THÀNH VIÊN</p>
                     </div>
                     <div class="hover-menu">
                         <ul>
-                            <li class="login">LOGIN</li>
-                            <li class="view_profile">VIEW PROFILE</li>
+                            <li class="login">Đăng nhập</li>
+                            <li class="view_profile">Thông tin cá nhân</li>
                         </ul>
                     </div>
                 </div>
@@ -180,7 +183,7 @@
                         <p>0 ₫</p>
                     </div>
                 </div>
-                <a class="payment__btn" href="index.php?controller=PaymentController&action=index">
+                <a class="payment__btn">
                     <button class="btn">
                         <p class="text">THANH TOÁN</p>
 
@@ -316,6 +319,24 @@
             var headerActionMember = document.querySelector(".login");
             headerActionMember.addEventListener("click", function() {
                 // Loại bỏ class --none từ phần tử .popupLogin
+                if (headerActionMember.innerHTML === 'Đăng xuất') {
+                    // ajax logout
+                    $.ajax({
+                    type: "POST",
+                    url: "controller/ProductsController.php",
+                    dataType: "json",
+                    timeout: 1500,
+                    data: {
+                        request: "logout",
+                    },
+                    success: (data) => {
+                        if (data) {
+                            // reload 
+                            location.reload();
+                        }
+                    },
+                    });
+                } 
                 popupLogin.classList.remove("--none");
                 hoverMenu.style.display = 'none';
             });
@@ -513,8 +534,11 @@
 
 
             if (checkForm) {
+
                 // alert("Đăng nhập thành công!" + email.value + " " + password.value);
                 logins(username.value, password.value);
+            alert('staff');
+
                 formError.style.display = "none";
                 // email.value = "";
                 // password.value = "";

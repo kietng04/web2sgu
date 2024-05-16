@@ -43,15 +43,8 @@ function loadTableOrdered() {
            })
 
            html += `<tr>
-           <td colspan="3" id="total">Tổng tiền:</td>
+           <td colspan="4" id="total">Tổng tiền:</td>
            <td id="total-price">${toVND(total)}</td>
-           <td>
-               <div class="close-bg">
-                   <button class="close">
-                       Đóng
-                   </button>
-               </div>
-           </td>
        </tr>`;
            document.querySelector('.ordertable').innerHTML = html;
            document.querySelector('.price').innerHTML = toVND(total);
@@ -76,8 +69,8 @@ function loadUserInfo() {
         success: function(data) {
             console.log(data);
             document.querySelector('.name').value = data['result'][0].Ho + ' ' + data['result'][0].Ten; 
-            document.querySelector('.email').value = data['result'][0].SDT;
-            document.querySelector('.sdt').value = data['result'][0].Email;
+            document.querySelector('.email').value = data['result'][0].Email;
+            document.querySelector('.sdt').value = data['result'][0].SDT;
             document.querySelector('.diachi').value = data['result'][0].DiaChi;
         }
     })

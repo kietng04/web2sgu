@@ -347,4 +347,8 @@ function get_list($query){
     return $data;
 }
 
+    function deleteBill($mahd) {
+        $sql = "UPDATE hoadon SET TrangThai = 4 WHERE MaHD = '$mahd'";
+        $result = $this->updatezzz($sql);
+    }
 }

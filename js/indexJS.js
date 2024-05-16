@@ -26,6 +26,7 @@ function addeventthanhtoan() {
         request: "getCurrentUser",
       },
       success: function (data) {
+        console.log(data);
         if (!data) {
           createToast("error", "Bạn cần đăng nhập để thực hiện thanh toán");  
           return;
@@ -36,6 +37,11 @@ function addeventthanhtoan() {
           return;
         }
         var listorder = data.cart;
+        // if current user contain NV then
+        if (!data['result'][0]['MaND']) {
+          createToast("error", "Nhân viên không được mua hàng");
+          return;
+        }
         // ajax check xem co san pham nao vuot qua so luong ton kho khong
         $.ajax({
           url: "./controller/ProductsController.php",
@@ -51,7 +57,7 @@ function addeventthanhtoan() {
               createToast("error", data.message);
               return;
             }
-   
+            console.log(data);
             window.location.href = "./index.php?controller=PaymentController&action=index";
           },
           error: function (httpRequest, textStatus, errorThrown) {
@@ -101,7 +107,7 @@ function loadDefaultProducts() {
 }
 
 function renderPag(totalPage) {
-  if (totalPage < 2) totalPage = 0;
+  if (totalPage < 1) totalPage = 0;
   var html = "";
   for (var i = 1; i <= totalPage; i++) {
     if (i == 1) {
@@ -182,6 +188,7 @@ function toggleActive(clickedBtn, category) {
       var totalPage = data.countrow / perPage;
       totalPage = Math.ceil(totalPage);
       showProducts();
+
       renderPag(totalPage);
     },
     //fail
@@ -483,7 +490,7 @@ function livesearch(input, category, min, max) {
 
   // Tạo câu truy vấn với biến input
   currentqueryz =
-    "SELECT sanpham.MaSP, TenSP, Mota, Img, Loai, MaSize, MaVien, GiaTien FROM `sanpham` left join `chitietsanpham` on `sanpham`.masp=`chitietsanpham`.masp left join `loaisanpham` on chitietsanpham.masp=loaisanpham.maloai WHERE sanpham.TenSP LIKE '%" +
+    "SELECT sanpham.MaSP, TenSP, Mota, Img, Loai, MaSize, MaVien, GiaTien FROM `sanpham` left join `chitietsanpham` on `sanpham`.masp=`chitietsanpham`.masp left join `loaisanpham` on sanpham.Loai=loaisanpham.TenLoai WHERE sanpham.TenSP LIKE '%" +
     input +
     "%' ";
   let category_id = 0;
@@ -491,8 +498,8 @@ function livesearch(input, category, min, max) {
   if (min + max != 0) {
     currentqueryz +=
       "and chitietsanpham.giatien between " + min + "000 and " + max + "000";
-  }
-
+  } 
+// CURRENTQUERY += groupby masp
   if (category != "Tất cả") {
     switch (category) {
       case "Pizza Bo":
@@ -512,6 +519,7 @@ function livesearch(input, category, min, max) {
         break;
     }
     currentqueryz += " and loaisanpham.maloai= " + category_id + "";
+    currentqueryz += " order by sanpham.MaSP";  
   }
   currentPagez = 1;
   console.log(currentPagez, currentqueryz);
@@ -530,6 +538,7 @@ function livesearch(input, category, min, max) {
       if (data && data.result && data.result.length > 0) {
         listProduct = data.result;
         var totalPage = data.countrow / perPage;
+        totalPage = Math.ceil(totalPage);
         showProducts();
         renderPag(totalPage);
       } else {

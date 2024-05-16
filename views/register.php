@@ -28,6 +28,8 @@
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/loader.css">
+    <link rel="stylesheet" href="css/notification.css">
 
 
 </head>
@@ -41,18 +43,7 @@
                 <img src="img/logo-pizza.png" alt="logo">
             </a>
         </div>
-        <div class="header__action">
-            <div class="header__action-location">
-                <i class="fa-solid fa-location-dot"></i>
-            </div>
-            <div class="header__action-bell">
-                <i class="fa-regular fa-bell"></i>
-            </div>
-            <div class="header__action-member">
-                <div class="icon"><i class="fa-solid fa-circle-user"></i></div>
-                <p>Thanh Vien</p>
-            </div>
-        </div>
+       
     </header>
 
    <main class="main">
@@ -145,88 +136,18 @@
                     <button class="btn dangkybtn" type="submit">ĐĂNG KÝ</button>
             </div>
         </div>
-        
     </div>
    
-    </div>
 
-    <div class="popupLogin --none">
-    <div class="popupLogin__container">
-        <div class="popupLogin__img">
-            <img src="../images/loginbackground.jpg" alt="">
-        </div>
-        <div class="popupLogin__form">
-            <h2 class="headingLogin">🍕🍕 WELCOME BACK!</h2>
-            <p class="heading__desc">NEU BẠN ĐÃ LÀ THÀNH VIÊN PIZZA HUT<br>HAY ĐĂNG NHẬP
-                TRƯỚC KHI THANH TOÁN PIZZA NHÉ!</p>
-                <div class="form-item --login --error">
-                    <label for="email">Email *</label>
-                    <input type="text" name="" id="abc">
-                    <p class="error">Sai dinh dang email</p>
-                </div>
-                <div class="form-item --login">
-                    <label for="email">Mật Khẩu *</label>
-                    <input type="Password" name="" id="aaa">
-                </div>
-               
-                <button class="btn">ĐĂNG NHẬP</button>
-
-                <div class="form-error">
-                <i class="fa-solid fa-circle-exclamation"></i>
-                <p>Email hoặc mật khẩu đăng nhập không hợp lệ. Vui lòng thử lại.</p>
-                </div>
-
-                <p class="register">Bạn chưa có tài khoản? <a href="">Đăng ký ngay</a> hoặc tìm hiểu thêm về <a href="">Điều khoản và Quyền lợi Thành viên</a></p>
-        </div>
-
-        <button class="btnX">
-                <img src="../images/iconClose.png" alt="">
-        </button>
-
-    </div>  
 </main>
-<script>
-
-document.addEventListener("DOMContentLoaded", function() {
-  // Lấy phần tử .popupLogin
-  var popupLogin = document.querySelector(".popupLogin");
-  var button = document.querySelector(".btn");
-  // Lấy phần tử .btnX
-  var closeButton = document.querySelector(".btnX");
-
-  // Thêm sự kiện click cho .header__action-member
-  var headerActionMember = document.querySelector(".header__action-member");
-  headerActionMember.addEventListener("click", function() {
-    // Loại bỏ class --none từ phần tử .popupLogin
-    popupLogin.classList.remove("--none");
-  });
-
-  // Thêm sự kiện click cho nút đóng
-  closeButton.addEventListener("click", function() {
-    // Thêm lại class --none cho .popupLogin
-    popupLogin.classList.add("--none");
-  });
-
-  // Thêm sự kiện click cho phần tử cha .popupLogin
-  popupLogin.addEventListener("click", function(event) {
-    // Kiểm tra xem phần tử được nhấp vào có phải là phần tử cha popupLogin không
-    if (event.target === popupLogin) {
-      // Thêm lại class --none cho .popupLogin
-      popupLogin.classList.add("--none");
-    }
-  });
-
-  button.addEventListener("click", function() {
-    // Thêm lại class --none cho .popupLogin
-    popupLogin.classList.add("--none");
-  });
-});
-
-</script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="js/register.js"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="js/notificationEffect.js"></script>
+        <script src="js/script.js"></script>
+        <script src="js/helper.js"></script>
+        <script src="js/indexJS.js"></script>
 </body>
 
 </html>

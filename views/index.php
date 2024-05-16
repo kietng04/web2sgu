@@ -60,12 +60,6 @@
                     <div class="header__action-admin">
                         <i class="fa fa-cog" aria-hidden="true"></i>
                     </div>
-                    <div class="header__action-location">
-                        <i class="fa-solid fa-location-dot"></i>
-                    </div>
-                    <div class="header__action-bell">
-                        <i class="fa-regular fa-bell"></i>
-                    </div>
                     <div class="header__action-bell">
                         <i class="fa-solid fa-cart-shopping"></i>
                     </div>
@@ -288,7 +282,7 @@
             </div>
         </div>
         <!-- <a href="index.php?controller=AdminIndexController&action=index">admin</a> -->
-
+    </div>
         <script>
 
         document.querySelector('.header__action-member').addEventListener('click', function() {

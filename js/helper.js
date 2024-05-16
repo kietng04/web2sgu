@@ -2,17 +2,13 @@ var categoryz = [];
 var currentPage = 1;
 var listProduct = null;
 var perPage = 8;
-<<<<<<< HEAD
-var currentID;
-var ma_quyen;
 
-
-=======
 var a;
 var b;
 var isNhanVien = false;
 var currentID;
->>>>>>> c43d8326f6c89b14150b0b595c5d80d8128c0d69
+var ma_quyen;
+
 function loginz() {
   a = document.querySelector("#taikhoan").value;
   b = document.querySelector("#matkhau").value;
@@ -34,11 +30,11 @@ function loginz() {
         document.querySelector(".popupLogin").classList.add("--none");
         // Update userModal with the result
         currentID = result[0].MaND;
-        document.querySelector('#display_firstname').value = result[0].Ho;
-        document.querySelector('#display_lastname').value = result[0].Ten;
-        document.querySelector('#display_email').value = result[0].Email;
-        document.querySelector('#display_sdt').value = result[0].SDT;
-        document.querySelector('#display_diachi').value = result[0].DiaChi;
+        document.querySelector("#display_firstname").value = result[0].Ho;
+        document.querySelector("#display_lastname").value = result[0].Ten;
+        document.querySelector("#display_email").value = result[0].Email;
+        document.querySelector("#display_sdt").value = result[0].SDT;
+        document.querySelector("#display_diachi").value = result[0].DiaChi;
         loadSessionCart();
       } else {
         alert("Tên đăng nhập hoặc mật khẩu không đúng!");
@@ -47,12 +43,11 @@ function loginz() {
   });
 }
 
-
 //vkiet
 function logins() {
-  var a = document.querySelector('#taikhoans').value;
-  var b = document.querySelector('#matkhaus').value;
-alert("a: " + a + " b: " + b);
+  var a = document.querySelector("#taikhoans").value;
+  var b = document.querySelector("#matkhaus").value;
+  alert("a: " + a + " b: " + b);
   $.ajax({
     url: "./controller/ProductsController.php",
     type: "post",
@@ -65,40 +60,29 @@ alert("a: " + a + " b: " + b);
     },
     success: function (result) {
       if (result != null) {
-       
         alert("Đăng nhập thành công!");
         isNhanVien = 1;
-        document.querySelector('.popupLogin').classList.add('--none');
+        document.querySelector(".popupLogin").classList.add("--none");
         // Update userModal with the result
         currentID = result[0].MaNV;
-        document.querySelector('#display_firstname').value = result[0].Ho;
-        document.querySelector('#display_lastname').value = result[0].Ten;
-        document.querySelector('#display_email').value = result[0].Email;
-        document.querySelector('#display_sdt').value = result[0].SDT;
-        document.querySelector('#display_diachi').value = result[0].DiaChi;
-<<<<<<< HEAD
-        alert("currentID Nhan vien: " + currentID);
-        getThongTinNhanVienByMANV()
-
-=======
+        document.querySelector("#display_firstname").value = result[0].Ho;
+        document.querySelector("#display_lastname").value = result[0].Ten;
+        document.querySelector("#display_email").value = result[0].Email;
+        document.querySelector("#display_sdt").value = result[0].SDT;
+        document.querySelector("#display_diachi").value = result[0].DiaChi;
         loadSessionCart();
->>>>>>> c43d8326f6c89b14150b0b595c5d80d8128c0d69
       } else {
         alert("Tên đăng nhập hoặc mật khẩu không đúng!");
       }
     },
-    error: function(jqXHR, textStatus, errorThrown) {
+    error: function (jqXHR, textStatus, errorThrown) {
       console.log("Error: ", jqXHR.responseText);
       console.log("Status: ", textStatus);
       console.log("Error: ", errorThrown);
       alert("code nhu cc");
-    }
+    },
   });
 }
-
-
-
-
 
 function login(
   e,
@@ -152,23 +136,14 @@ function updateInfo() {
     data: {
       request: "getCurrentUser",
     },
-<<<<<<< HEAD
-    success: function (result) {
-      if (result != null) {
-        console.log('currentID ND :>> ', currentID);
-        alert("Cập nhật thông tin thành công!");
-      } else {
-        alert("Cập nhật thông tin thất bại!");
-=======
     success: function (data) {
       if (!data) {
         createToast("error", "Vui lòng đăng nhập để cập nhật thông tin!");
         return;
->>>>>>> c43d8326f6c89b14150b0b595c5d80d8128c0d69
       }
-      console.log(data)
-      if (data['result'][0]['MaNV']) currentID = data['result'][0]['MaNV'];
-      else currentID =data['result'][0]['MaND'];
+      console.log(data);
+      if (data["result"][0]["MaNV"]) currentID = data["result"][0]["MaNV"];
+      else currentID = data["result"][0]["MaND"];
 
       $.ajax({
         url: "./controller/ProductsController.php",
@@ -203,8 +178,7 @@ function updateInfo() {
                   console.log(data);
                 },
               });
-            }
-            else {
+            } else {
               $.ajax({
                 type: "POST",
                 url: "controller/ProductsController.php",
@@ -220,54 +194,41 @@ function updateInfo() {
                 },
               });
             }
-      
           } else {
             alert("Cập nhật thông tin thất bại!");
           }
         },
-        error: function(jqXHR, textStatus, errorThrown) {
-          console.log("Error: ", jqXHR.responseText); 
+        error: function (jqXHR, textStatus, errorThrown) {
+          console.log("Error: ", jqXHR.responseText);
           console.log("Status: ", textStatus);
           console.log("Error: ", errorThrown);
           alert("code nhu cc");
-        }
+        },
       });
-    }
-  })
+    },
+  });
 }
 
-
 var btn_updateinfo = document.querySelector("#update-info");
-<<<<<<< HEAD
-console.log(btn_updateinfo);
-btn_updateinfo.addEventListener('click', function (e) {
-  e.preventDefault();
-  updateInfo();
-  alert("Cập nhật thông tin thành công!" + currentID);
-
-});
-
-=======
 if (btn_updateinfo != null) {
   btn_updateinfo.addEventListener("click", function (event) {
     // Ngăn chặn hành động mặc định của sự kiện
     event.preventDefault();
 
-    var phone = document.querySelector('#display_sdt').value;
-    var address = document.querySelector('#display_diachi').value;
+    var phone = document.querySelector("#display_sdt").value;
+    var address = document.querySelector("#display_diachi").value;
 
     var phoneRegex = /^0\d{9}$/;
     if (!phoneRegex.test(phone)) {
-      alert('Số điện thoại phải bắt đầu bằng 09 và có 10 chữ số.');
+      alert("Số điện thoại phải bắt đầu bằng 09 và có 10 chữ số.");
     } else if (address.length <= 6) {
-      alert('Địa chỉ phải có nhiều hơn 7 ký tự.');
+      alert("Địa chỉ phải có nhiều hơn 7 ký tự.");
     } else {
       // Nếu tất cả các điều kiện đều đúng, thực hiện cập nhật thông tin
       updateInfo();
     }
   });
 }
->>>>>>> c43d8326f6c89b14150b0b595c5d80d8128c0d69
 
 function updateUI() {
   getCurrentUser((data) => {
@@ -324,7 +285,6 @@ function initlize() {
       });
     });
 }
-
 
 function signup(e) {
   e.preventDefault();
@@ -605,7 +565,7 @@ function addeventbutbtn() {
               createToast("error", "Sản phẩm đã hết hàng!");
               return;
             }
-            var html = '';
+            var html = "";
             var cartdiv = document.querySelector(".list");
 
             if (data) {
@@ -631,15 +591,16 @@ function addeventbutbtn() {
                 <div class="content">
                     <p class="title">${item["Product"].TenSP}</p>
                     <p class="desc">Size: ${mapsize.get(
-                  item["Product"].MaSize
-                )} - Đế: ${mapde.get(item["Product"].MaVien)}</p>
+                      item["Product"].MaSize
+                    )} - Đế: ${mapde.get(item["Product"].MaVien)}</p>
                     <p class="price">${toVND(item["Product"].GiaTien)}</p>
                 </div>
                 
                 <div class="buttons_added">
                 <input class="minus is-form" type="button" value="-" onclick="decreasingNumber(this, ${index})">
-                <input class="input-qty" max="100" min="1" name="" type="number" value="${item["Quantity"]
-                  }" oninput="addeventinput()">
+                <input class="input-qty" max="100" min="1" name="" type="number" value="${
+                  item["Quantity"]
+                }" oninput="addeventinput()">
                 <input class="plus is-form" type="button" value="+" onclick="increasingNumber(this, ${index})">
                 </div>
                 <i class="fa-solid fa-xmark" data-index="${index}" onclick="removeItemFromCart(this.getAttribute('data-index'))"></i>
@@ -662,7 +623,6 @@ function addeventbutbtn() {
     });
     // show load icon
     // ajax get current product
-
   });
 }
 
@@ -695,25 +655,27 @@ function saveSessionCart(value) {
   });
 }
 
-if (document.querySelector('.btnCloseAllCart') != null) {
-  document.querySelector('.btnCloseAllCart').addEventListener('click', function () {
-    $.ajax({
-      type: "POST",
-      url: "controller/ProductsController.php",
-      dataType: "json",
-      timeout: 1500,
-      data: {
-        request: "getCurrentUser",
-      },
-      success: (data) => {
-        data['cart'] = [];
-        var cartdiv = document.querySelector(".list");
-        cartdiv.innerHTML = '';
-        document.querySelector('.totalPrice').innerHTML = '';
-        saveSessionCart(data['cart']);
-      },
+if (document.querySelector(".btnCloseAllCart") != null) {
+  document
+    .querySelector(".btnCloseAllCart")
+    .addEventListener("click", function () {
+      $.ajax({
+        type: "POST",
+        url: "controller/ProductsController.php",
+        dataType: "json",
+        timeout: 1500,
+        data: {
+          request: "getCurrentUser",
+        },
+        success: (data) => {
+          data["cart"] = [];
+          var cartdiv = document.querySelector(".list");
+          cartdiv.innerHTML = "";
+          document.querySelector(".totalPrice").innerHTML = "";
+          saveSessionCart(data["cart"]);
+        },
+      });
     });
-  });
 }
 
 function loadSessionCart() {
@@ -729,21 +691,19 @@ function loadSessionCart() {
       console.log(data);
       // hide load icon
 
-
       if (data && data["cart"] == null) {
         data["cart"] = [];
         document.querySelector(".totalPrice").innerHTML = "";
       } else {
-        
       }
       var cartdiv = document.querySelector(".list");
       var html = "";
 
       if (data) {
-        a = data['result'][0].TaiKhoan;
-        b = data['result'][0].MatKhau;
-        currentID = data['result'][0].MaND;
-        if(currentID == null) currentID = data['result'][0].MaNV;
+        a = data["result"][0].TaiKhoan;
+        b = data["result"][0].MatKhau;
+        currentID = data["result"][0].MaND;
+        if (currentID == null) currentID = data["result"][0].MaNV;
         alert(currentID);
         data["cart"].forEach(function (item, index) {
           html += `<div class="list__item data-index="${index}">
@@ -753,14 +713,15 @@ function loadSessionCart() {
             <div class="content">
                 <p class="title">${item["Product"].TenSP}</p>
                 <p class="desc">Đế: ${mapsize.get(
-            item["Product"].MaSize
-          )}, Size: ${mapde.get(item["Product"].MaVien)}</p>
+                  item["Product"].MaSize
+                )}, Size: ${mapde.get(item["Product"].MaVien)}</p>
                 <p class="price">${toVND(item["Product"].GiaTien)}</p>
             </div>
             <div class="buttons_added">
               <input class="minus is-form" type="button" value="-" onclick="decreasingNumber(this, ${index})">
-              <input class="input-qty" max="100" min="1" name="" type="number" value="${item["Quantity"]
-            }" oninput="addeventinput()">
+              <input class="input-qty" max="100" min="1" name="" type="number" value="${
+                item["Quantity"]
+              }" oninput="addeventinput()">
               <input class="plus is-form" type="button" value="+" onclick="increasingNumber(this,  ${index})">
               </div>
               <i class="fa-solid fa-xmark" data-index="${index}" onclick="removeItemFromCart(this.getAttribute('data-index'))"></i>
@@ -770,11 +731,14 @@ function loadSessionCart() {
         console.log(data);
       }
       if (data) {
-        document.querySelector(".thanhvien").innerHTML = (data["result"][0].Ho + " " + data["result"][0].Ten).toUpperCase();
+        document.querySelector(".thanhvien").innerHTML = (
+          data["result"][0].Ho +
+          " " +
+          data["result"][0].Ten
+        ).toUpperCase();
         document.querySelector(".login").innerHTML = "Đăng xuất";
         document.querySelector(".view_profile").style.display = "block";
-      }
-      else {
+      } else {
         document.querySelector(".thanhvien").innerHTML = "KHÁCH";
         document.querySelector(".login").innerHTML = "Đăng nhập";
         document.querySelector(".view_profile").style.display = "none";
@@ -797,7 +761,7 @@ function addeventinput() {
         if (!alertShownInvalid) {
           alert("Vui lòng nhập số nguyên dương lớn hơn 0!");
           alertShownInvalid = true;
-          return inputField.value = 1;
+          return (inputField.value = 1);
         }
         return;
       } else {
@@ -971,11 +935,11 @@ function removeloader(toast) {
 //     success: function (result) {
 //       if (result != null) {
 //         alert("Lấy thông tin nhân viên thành công!");
-//         console.log('result ND :>> ', result);       
+//         console.log('result ND :>> ', result);
 //         ma_quyen = result[0].PhanQuyen;
 //         console.log('ma_quyen :>> ', ma_quyen);
 //         getALLChucNangNhomQuyenByMaQuyen();
-      
+
 //       } else {
 //         alert("Lỗi khi lấy thông tin nhân viên!");
 //       }
@@ -988,7 +952,6 @@ function removeloader(toast) {
 //     }
 //   });
 // }
-
 
 // function getALLChucNangNhomQuyenByMaQuyen() {
 //   $.ajax({
@@ -1021,7 +984,7 @@ function removeloader(toast) {
 // }
 // function hienThiChucNangByMaQuyen() {
 //   alert("hien thi chuc nang by ma quyen");
-  
+
 //   var btn_add_product = document.getElementById('btn-add-product');
 //   var btn_edit_product = document.getElementById('btn-edit-product');
 //   var btn_delete_product = document.getElementById('btn-delete-product');
@@ -1039,33 +1002,39 @@ function removeloader(toast) {
 // //     // if (item.MaCN == 'sanpham' && item.hanhdong == 'delete') {
 // //     //   btn_delete_product.style.display = 'block';
 // //     // }
-  
+
 // //   }
 // // ,);
 // }
 
 function addeventclickxeminfo() {
   // get sesssion
-  document.querySelector(".view_profile").addEventListener("click", function () {
-  $.ajax({
-    type: "POST",
-    url: "controller/ProductsController.php",
-    dataType: "json",
-    timeout: 1500,
-    data: {
-      request: "getCurrentUser",
-    },
-    success: (data) => {
-      if (data) {
-        console.log(data);
-        currentID = data.result[0].MaND;
-        document.querySelector('#display_firstname').value = data.result[0].Ho;
-        document.querySelector('#display_lastname').value = data.result[0].Ten;
-        document.querySelector('#display_email').value = data.result[0].Email;
-        document.querySelector('#display_sdt').value =data.result[0].SDT;
-        document.querySelector('#display_diachi').value = data.result[0].DiaChi;
-      }
-    },
-  });
-}); 
+  document
+    .querySelector(".view_profile")
+    .addEventListener("click", function () {
+      $.ajax({
+        type: "POST",
+        url: "controller/ProductsController.php",
+        dataType: "json",
+        timeout: 1500,
+        data: {
+          request: "getCurrentUser",
+        },
+        success: (data) => {
+          if (data) {
+            console.log(data);
+            currentID = data.result[0].MaND;
+            document.querySelector("#display_firstname").value =
+              data.result[0].Ho;
+            document.querySelector("#display_lastname").value =
+              data.result[0].Ten;
+            document.querySelector("#display_email").value =
+              data.result[0].Email;
+            document.querySelector("#display_sdt").value = data.result[0].SDT;
+            document.querySelector("#display_diachi").value =
+              data.result[0].DiaChi;
+          }
+        },
+      });
+    });
 }

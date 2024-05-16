@@ -5,9 +5,9 @@ require_once(__DIR__ . '/../model/ThongTinNguoiDungBUS.php');
 session_start();
 
 global $bustk;
-$bustk = new NguoiDungBUS();
+$bustk = new ThongTinNguoiDungBUS();
 global $busttnd;
-$busttnd = new ThongTinNguoiDungBUS();
+$busttnd = new NguoiDungBUS();
 
 class SignUpController extends BaseController
 {
@@ -22,6 +22,27 @@ if (isset($_POST['request'])) {
         case 'dangky':
             if (isset($_POST['lastname']) && isset($_POST['firstname']) && isset($_POST['email']) && isset($_POST['gioitinh'])  && isset($_POST['sdt']) && isset($_POST['diachi']) && isset($_POST['username']) && isset($_POST['password'])) {
                 $result = signup($bustk, $busttnd);
+                die(json_encode($result));
+            }
+            break;
+        case 'checksdt':
+            if (isset($_POST['sdt'])) {
+                $sdt = $_POST['sdt'];
+                $result = checkSDT($busttnd, $sdt);
+                die(json_encode($result));
+            }
+            break;
+        case 'checkusername':
+            if (isset($_POST['username'])) {
+                $username = $_POST['username'];
+                $result = checkUsername($bustk, $username);
+                die(json_encode($result));
+            }
+            break;
+        case 'checkemail':
+            if (isset($_POST['email'])) {
+                $email = $_POST['email'];
+                $result = checkEmail($busttnd, $email);
                 die(json_encode($result));
             }
             break;
@@ -49,4 +70,24 @@ function signup($bustk, $busttnd) {
  
     return $resultTK;
 }
+
+function checkSDT($busttnd, $sdt) {
+    $sql = "SELECT * FROM NguoiDung WHERE SDT = '$sdt'";
+    $result = $busttnd->get_list($sql);
+    return $result;
+}
+
+function checkUsername($bustk, $username) {
+    $sql = "SELECT * FROM TaiKhoanNguoiDung WHERE TaiKhoan = '$username'";
+    $result = $bustk->get_list($sql);
+    return $result;
+}
+
+function checkEmail($busttnd, $email) {
+    $sql = "SELECT * FROM NguoiDung WHERE Email = '$email'";
+    $result = $busttnd->get_list($sql);
+    return $result;
+}
+
+
 ?>

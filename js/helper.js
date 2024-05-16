@@ -206,35 +206,35 @@ function initlize() {
 }
 
 
-function signup(e) {
-  e.preventDefault();
-  $.ajax({
-    url: "controller/ProductsController.php",
-    type: "post",
-    dataType: "json",
-    timeout: 1500,
-    data: {
-      request: "dangky",
-      data_ho: document.getElementById("lastName").value,
-      data_ten: document.getElementById("firstName").value,
-      data_sdt: document.getElementById("phone").value,
-      data_email: document.getElementById("email").value,
-      data_diachi: document.getElementById("address").value,
-      data_newUser: document.getElementById("name").value,
-      data_newPass: document.getElementById("pass").value,
-      data_gioitinh: document.getElementById("sexial").value,
-    },
-    success: function (kq) {
-      if (kq != null) {
-        login(
-          e,
-          document.getElementById("name").value,
-          document.getElementById("pass").value
-        );
-      }
-    },
-  });
-}
+// function signup(e) {
+//   e.preventDefault();
+//   $.ajax({
+//     url: "controller/ProductsController.php",
+//     type: "post",
+//     dataType: "json",
+//     timeout: 1500,
+//     data: {
+//       request: "dangky",
+//       data_ho: document.getElementById("lastName").value,
+//       data_ten: document.getElementById("firstName").value,
+//       data_sdt: document.getElementById("phone").value,
+//       data_email: document.getElementById("email").value,
+//       data_diachi: document.getElementById("address").value,
+//       data_newUser: document.getElementById("name").value,
+//       data_newPass: document.getElementById("pass").value,
+//       data_gioitinh: document.getElementById("sexial").value,
+//     },
+//     success: function (kq) {
+//       if (kq != null) {
+//         login(
+//           e,
+//           document.getElementById("name").value,
+//           document.getElementById("pass").value
+//         );
+//       }
+//     },
+//   });
+// }
 
 function FormValidate(e) {
   var name = document.getElementById("name").value;

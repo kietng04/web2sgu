@@ -165,7 +165,7 @@ function loadDataTOPproducts_category(isthang, top_choice,phanloai){
       console.log("Error: ", jqXHR.responseText);
       console.log("Status: ", textStatus);
       console.log("Error: ", errorThrown);
-      alert("code nhu cc");
+      // alert("code nhu cc");
     }
 })
 }
@@ -223,7 +223,7 @@ function loadDataTOPproducts(isthang, top_choice) {
       console.log("Error: ", jqXHR.responseText);
       console.log("Status: ", textStatus);
       console.log("Error: ", errorThrown);
-      alert("code nhu cc");
+      // alert("code nhu cc");
     }
   });
 }
@@ -260,7 +260,7 @@ function loadDATAtoChart_inMonth(year) {
       console.log("Error: ", jqXHR.responseText);
       console.log("Status: ", textStatus);
       console.log("Error: ", errorThrown);
-      alert("code nhu cc");
+      // alert("code nhu cc");
     }
   });
 }
@@ -296,7 +296,7 @@ function loadDATAtoChart_inDay(date_start, date_end) {
       console.log("Error: ", jqXHR.responseText);
       console.log("Status: ", textStatus);
       console.log("Error: ", errorThrown);
-      alert("code nhu cc");
+      // alert("code nhu cc");
     }
   });
 }
@@ -438,7 +438,7 @@ function loadDATAtoChart_inMonth_category(category, year) {
       console.log("Error: ", jqXHR.responseText);
       console.log("Status: ", textStatus);
       console.log("Error: ", errorThrown);
-      alert("code nhu cc");
+      // alert("code nhu cc");
     }
   });
 }
@@ -474,7 +474,7 @@ function loadDATAtoChart_inDay_category(category, start_date, end_date) {
       console.log("Error: ", jqXHR.responseText);
       console.log("Status: ", textStatus);
       console.log("Error: ", errorThrown);
-      alert("code nhu cc");
+      // alert("code nhu cc");
     }
   });
 }
@@ -524,7 +524,7 @@ function getNumber_of_Type_OF_Products(){
       console.log("Error: ", jqXHR.responseText);
       console.log("Status: ", textStatus);
       console.log("Error: ", errorThrown);
-      alert("code nhu cc");
+      // alert("code nhu cc");
     }
   });
 }

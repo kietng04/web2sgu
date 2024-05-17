@@ -30,7 +30,7 @@ function getAllThongTinNhanVienSS() {
       console.log("Error: ", jqXHR.responseText);
       console.log("Status: ", textStatus);
       console.log("Error: ", errorThrown);
-      alert("code nhu cc");
+      // alert("code nhu cc");
     },
   });
 }
@@ -59,7 +59,7 @@ function getAllChucNangNhomQuyenByMaPhanQuyen() {
       console.log("Error: ", jqXHR.responseText);
       console.log("Status: ", textStatus);
       console.log("Error: ", errorThrown);
-      alert("code nhu cc");
+      // alert("code nhu cc");
     },
   });
 }
@@ -262,7 +262,7 @@ function nhanSuaPhanQuyen() {
           console.log("Error: ", jqXHR.responseText);
           console.log("Status: ", textStatus);
           console.log("Error: ", errorThrown);
-          alert("code nhu cc");
+          // alert("code nhu cc");
         }
       });
     });
@@ -342,7 +342,7 @@ function xoaChucNangNhomQuyenByMaQuyen() {
       console.log("Error: ", jqXHR.responseText);
       console.log("Status: ", textStatus);
       console.log("Error: ", errorThrown);
-      alert("code nhu cc o xoa");
+      // alert("code nhu cc o xoa");
     },
   });
 

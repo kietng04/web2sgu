@@ -580,7 +580,7 @@ a {
   height: 49px;
   align-items: center;
 }
-
+#advanced-search-name-select,
 #advanced-search-category-select {
   height: 35px;
   outline: none;

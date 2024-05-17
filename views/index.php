@@ -71,9 +71,9 @@
                     <div class="header__action-bell">
                         <i class="fa-solid fa-cart-shopping"></i>
                     </div>
-                    <div class="header__action-bell">
-                        <a href="index.php?controller=HistoryBillController&action=index"><i
-                                class="fa-solid fa-file-invoice"></i></a>
+                    <div class="header__action-bell bill">
+                        <!-- <a href="index.php?controller=HistoryBillController&action=index"></a>--><i 
+                                class="fa-solid fa-file-invoice"></i>
                     </div>
                     <div class="header__action-member">
                         <div class="icon"><i class="fa-solid fa-circle-user"></i></div>
@@ -124,6 +124,13 @@
                             <i class="fa-light fa-xmark"></i>
                         </button>
                     </div> -->
+                    <div class="advanced-search-name">
+                        <span>Phân theo</span>
+                        <select name="" id="advanced-search-name-select">
+                            <option>A-Z</option>
+                            <option>Z-A</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
@@ -536,7 +543,7 @@
 
                 // alert("Đăng nhập thành công!" + email.value + " " + password.value);
                 logins(username.value, password.value);
-            alert('staff');
+            // alert('staff');
 
                 formError.style.display = "none";
                 // email.value = "";

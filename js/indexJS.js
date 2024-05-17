@@ -69,7 +69,7 @@ function addeventthanhtoan() {
         });
       },
       error: function () {
-        alert("2sad");
+        // alert("2sad");
       },
     });
     // check xem co san pham nao vuot qua so luong ton kho khong
@@ -101,7 +101,7 @@ function loadDefaultProducts() {
     },
     //fail
     error: function () {
-      alert("2sad");
+      // alert("2sad");
     },
   });
 }
@@ -193,7 +193,7 @@ function toggleActive(clickedBtn, category) {
     },
     //fail
     error: function () {
-      alert("2sad");
+      // alert("2sad");
     },
   });
 }
@@ -485,7 +485,7 @@ function addeventchuyensizevade(listDetail) {
 }
 
 ////TÌM KIẾM VÀ TÌM KIẾM NÂNG CAO (AUTHROR: TRUNG HƯNG)
-function livesearch(input, category, min, max) {
+function livesearch(input, category, min, max, name) {
   // userInput là giá trị được nhập vào từ người dùng
 
   // Tạo câu truy vấn với biến input
@@ -527,9 +527,9 @@ function livesearch(input, category, min, max) {
 
    
   }
-  currentqueryz += " and loaisanpham.maloai= " + category_id + "";
-}
-  currentqueryz += " group by sanpham.MaSP"; 
+
+  currentqueryz += " group by sanpham.TenSP";
+  currentqueryz += (name == "A-Z") ? " ASC" : " DESC";
 
   currentPagez = 1;
   console.log(currentPagez, currentqueryz);
@@ -570,6 +570,8 @@ document.querySelector(".search-btn").addEventListener("click", function () {
   var category = $("#advanced-search-category-select").val();
   var min = $("#min-price").val();
   var max = $("#max-price").val();
-  console.log(input, category, min, max);
-  livesearch(input, category, min, max);
+  var name = $("#advanced-search-name-select").val();
+  console.log(input, category, min, max, name);
+  livesearch(input, category, min, max, name);
+
 });

@@ -489,10 +489,16 @@ function livesearch(input, category, min, max, name) {
   // userInput là giá trị được nhập vào từ người dùng
 
   // Tạo câu truy vấn với biến input
+  let advance_search_form= document.querySelector('.advanced-search');
+  if(!advance_search_form.classList.contains('--down')){
   currentqueryz =
     "SELECT sanpham.MaSP, TenSP, Mota, Img, Loai, MaSize, MaVien, GiaTien FROM `sanpham` left join `chitietsanpham` on `sanpham`.masp=`chitietsanpham`.masp left join `loaisanpham` on sanpham.Loai=loaisanpham.TenLoai WHERE sanpham.TenSP LIKE '%" +
     input +
     "%' ";
+  }
+  else{
+    currentqueryz =
+    "SELECT sanpham.MaSP, TenSP, Mota, Img, Loai, MaSize, MaVien, GiaTien FROM `sanpham` left join `chitietsanpham` on `sanpham`.masp=`chitietsanpham`.masp left join `loaisanpham` on sanpham.Loai=loaisanpham.TenLoai WHERE sanpham.TenSP LIKE '%%' ";
   let category_id = 0;
 
   if (min + max != 0) {
@@ -521,8 +527,10 @@ function livesearch(input, category, min, max, name) {
 
    
   }
+
   currentqueryz += " group by sanpham.TenSP";
   currentqueryz += (name == "A-Z") ? " ASC" : " DESC";
+
   currentPagez = 1;
   console.log(currentPagez, currentqueryz);
   $.ajax({

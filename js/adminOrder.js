@@ -353,10 +353,11 @@ function show_bottom_detail(order_id,bottom_container){
             </div>
             <div class="modal-detail-bottom-right" >
                 <select id="statusSelect" style="appearance:none;text-align:center;border:1px;" onchange="showSelectedValue(this,${order_id})">
-                    <option value="1">Đã xác minh</option>
-                    <option value="2">Chưa xác minh</option>
-                    <option value="3">Bị hạn chế</option>
-                    <option value="4">Bị khóa</option>
+                    <option value="0">Đang chờ xác nhận</option>
+                    <option value="1">Đã xác nhận</option>
+                    <option value="2">Đang giao hàng</option>
+                    <option value="3">Đã giao hàng</option>
+                    <option value="4">Đã hủy</option>
                 </select>
             </div>
             `;
